@@ -11,44 +11,39 @@
 	<script src="https://use.typekit.net/gle1ucg.js"></script>
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>	
 
-	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen"/>
 	<link rel="stylesheet" href="css/jquery.fullPage.css" type="text/css" media="screen"/>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
-	<link rel="stylesheet" href="css/style.css">
     <link href="css/full-slider.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen"/>
 
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <!-- <link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
 	<script type="text/javascript" src="js/jquery.fullPage.js"></script>
-	
-	
-
 </head>
 <body ng-app="myApp">
-	<header>
-		<div id="searchbar">
-			<form>
-				<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'">
-			</form>
-		</div>
-		<!-- fixed menu -->
-		<a href="#genrepage"><img src="img/logosmall.svg"/></a>
-		<a href="#/input_song" style="color:white">test</a>
-		<div>
-			<button id="searchbutton"></button>
-			<button id="button-inbox"></button>
-			<button id="button-profile"></button>
-		</div>
-		<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
-		<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-		<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
-
-	</header>
-
-
-
+<header>
+	<div id="searchbar">
+		<form>
+			<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'">
+		</form>
+	</div>
+	<!-- fixed menu -->
+	<a href="#genrepage"><img src="img/logosmall.svg"/></a>
+	<a href="#/input_song" style="color:white">test</a>
+	<div>
+		<button id="searchbutton"></button>
+		<button id="button-inbox"></button>
+		<button id="button-profile"></button>
+	</div>
+	<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
+	<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+	<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
+</header>
 <div id="fullpage">
+		<div class="section" id="section0">
+			<h2>StageLight</h2>
+			<div ng-view>
+			</div>
+		</div>
 		<div class="section" id="section1">
 		<!-- genre selection & anchor select -->
 			<ul class="grid">
@@ -67,27 +62,24 @@
 				<li><a href="#firstgenre">genre</a></li>
 			</ul>
 		</div>
-
-		<div class="section" id="section2">
-			
-		</div>
-
-		<div class="section" id="section3">
-			<!-- CONTENT OF THE WEBSITE  -->
-			<div ng-view>
-
-
+		<div class = "section" id="section2" ng-controller = "mainController">
+		<div id="impossible">
+			<div class="clearfix">
+			  <form ng-Submit="post()" ng-show="authenticated">
+			    <h4>{{current_user}} </h4>
+			    <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+			    <input class="btn submit-btn pull-right" type="submit" value="Add" />
+			    
+			  </form>
 			</div>
-
 		</div>
-		<div class = "section" id="section4" ng-controller = "mainController">
-			 <div class="container"><br>
+
+			 <div class="container">
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						
-
 						<div class="item post " ng-repeat="post in posts | orderBy:'created_at':true"> 
 			        		<div class = "fill ">
 								<iframe width="420" height="315" ng-src="{{trustSrc(post.text)}}" frameborder="0" allowfullscreen></iframe>
@@ -95,8 +87,6 @@
 								<small class="pull-right">{{post.created_at | date:"h:mma 'on' MMM d, y"}}</small>
 							</div>
 						</div>
-
-
 					</div>
 
 					<!-- Left and right controls -->

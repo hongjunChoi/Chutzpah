@@ -49,7 +49,7 @@ a{
   //     	align-items:center; 
   //     	-webkit-justify-content:space-between;
   //     	justify-content:space-between;
-      	background-color: transparent;
+      	background-color: $c-darknavy;
       	@include transition(all, 500ms, ease-in);
       	// background-color: blue;
 
@@ -95,6 +95,10 @@ a{
 				float:right;
 				background-image: url(../img/icon-user.svg);
 			}
+		}
+
+		.navbar-right{
+			display: inline-block;
 		}
 	}
 
@@ -218,6 +222,7 @@ ul.grid{
 	background-image: url("../img/mock/mockbg2.jpg");
 	@include backgrounddefault;
 }
+
 
 
 
@@ -361,4 +366,80 @@ ul.grid{
 
 
 
+}
+
+#section0{
+	h2{
+		color: white;
+	}
+	input,
+	input:-webkit-autofill,
+	textarea:-webkit-autofill,
+	select:-webkit-autofill{
+		background-color: $c-light;
+
+	}
+	input.btn{
+				width: 300px;
+				height: 60px;
+				background-color: $c-mogo;
+				@include font-sans(500);
+				font-size: 20px;
+				color:white;
+
+	}
+}
+
+#section2{
+	div.ng-scope{
+		width: 100%;
+		height: 500px;
+	}
+
+	// form.ng-pristine{
+	// 	width: 100%;
+	// 	height: 200px;
+	// 	position: fixed;
+	// 	top:50px;
+	// 	background-color: red;
+	// 	border:1px solid green;
+	// }
+}
+#impossible{
+	position: fixed;
+	left: 500px;
+	z-index: 99999999;
+}
+
+//carousel
+.container{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+.carousel-control{
+	width: 24px;
+	height: 30px;
+	@include backgrounddefault;
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    cursor: pointer;
+    margin-top: -38px;
+    -webkit-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: .3;
+
+    &.left{
+
+    }
+    &.right{
+
+    }
 }
