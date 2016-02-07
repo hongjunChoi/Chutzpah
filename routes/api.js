@@ -40,30 +40,15 @@ function isAuthenticated (req, res, next) {
 //Register the authentication middleware
 router.use('/posts', isAuthenticated);
 
-//upload file (for user profile page )
-// router.route('/upload_file')
-// 	.post(function(req, res){
-// 		upload(req,res,function(err) {
-// 	        if(err) {
-// 	        	console.log("\n\nERROR \n\n");
-// 	            return res.end("Error uploading file.");
-// 	        }
-// 	        console.log("\n\n================ FILE UPLOADED SUCCESSFULLY ===================\n\n");
-// 	        res.end("File is uploaded");
-//     });
-// });
-
-
 router.route('/posts')
 	//creates a new post
 	.post(function(req, res){
 
 		var post = new Post();
 		var url = req.body.text.split("watch?v=")[1];
+		console.log("!!!!!!!!!!!!!!!!!!!!");
+		console.log("\n\n\n=======" + url + '============\n\n\n');
 		
-		if(!url || url === "undefined" || typeof url != String){
-			return res.send(500, err);
-		}
 
 		post.text = "https://youtube.com/embed/" + url;
 		post.created_by = req.body.created_by;
