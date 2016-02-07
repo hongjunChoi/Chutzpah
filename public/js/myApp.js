@@ -26,11 +26,15 @@ app.config(function($routeProvider){
 		// 	templateUrl: 'main.html',
 		// 	controller: 'mainController'
 		// })
+
+
 		//the login display
-		.when('/input_song', {
-			templateUrl: 'input_song.html',
-			controller: 'authController'
-		})
+		// .when('/input_song', {
+		// 	templateUrl: 'input_song.html',
+		// 	controller: 'authController'
+		// })
+
+
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
