@@ -90,8 +90,7 @@ module.exports = function(passport){
                             console.log('Error in Saving user: '+err);  
                             throw err;  
                         }
-                        console.log("\n\n\n\n=============" + newUser.username + ' Registration succesful  =================\n\n\n\n'); 
-                        console.log(req.body);
+
                         return done(null, newUser);
                     });
                 }
