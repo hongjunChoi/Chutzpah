@@ -26,7 +26,11 @@ app.config(function($routeProvider){
 		// 	templateUrl: 'main.html',
 		// 	controller: 'mainController'
 		// })
-
+		//the login display
+		.when('/input_song', {
+			templateUrl: 'input_song.html',
+			controller: 'authController'
+		})
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
@@ -52,7 +56,6 @@ app.factory('postService', function($resource){
 
 app.controller('mainController', function(postService, $scope, $rootScope, $sce){
 	$scope.posts = postService.query();
-	console.log($scope.posts);
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 
 	$scope.trustSrc = function(src) {
