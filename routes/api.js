@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
+
+// code setup to enable user file uploads 
+var multer  =   require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/public/assets');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
+})
+ 
+var upload = multer({ storage: storage });
+
+
+
+
 //Used for routes that must be authenticated.
 function isAuthenticated (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -22,6 +39,20 @@ function isAuthenticated (req, res, next) {
 
 //Register the authentication middleware
 router.use('/posts', isAuthenticated);
+
+//upload file (for user profile page )
+// router.route('/upload_file')
+// 	.post(function(req, res){
+// 		upload(req,res,function(err) {
+// 	        if(err) {
+// 	        	console.log("\n\nERROR \n\n");
+// 	            return res.end("Error uploading file.");
+// 	        }
+// 	        console.log("\n\n================ FILE UPLOADED SUCCESSFULLY ===================\n\n");
+// 	        res.end("File is uploaded");
+//     });
+// });
+
 
 router.route('/posts')
 	//creates a new post
