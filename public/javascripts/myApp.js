@@ -6,7 +6,6 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 	//TODO: need to check user authentication (using session stored in mongodb) and keep logged in
 	$http.get('/auth/session').success(function(data){
 		if(data && data !== "undefined" && data['user']){
-			alert('asdfasd');
 			$rootScope.authenticated = true;
 			$rootScope.current_user = data['user']['username'];
 		}
@@ -19,9 +18,6 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     	$rootScope.current_user = '';
 	};
 });
-
-//var app = angular.module('myApp', ['ngRoute', 'ngResource']);
-
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -48,10 +44,15 @@ app.factory('postService', function($resource){
 
 
 
-app.controller('mainController', function(postService, $scope, $rootScope){
+app.controller('mainController', function(postService, $scope, $rootScope, $sce){
 	$scope.posts = postService.query();
+	console.log($scope.posts);
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
-	
+
+	$scope.trustSrc = function(src) {
+    	return $sce.trustAsResourceUrl(src);
+  	}
+
 	$scope.post = function() {
 	  $scope.newPost.created_by = $rootScope.current_user;
 	  $scope.newPost.created_at = Date.now();

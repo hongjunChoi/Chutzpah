@@ -28,7 +28,13 @@ router.route('/posts')
 	.post(function(req, res){
 
 		var post = new Post();
-		post.text = req.body.text;
+		var url = req.body.text.split("watch?v=")[1];
+		
+		if(!url || url === "undefined" || typeof url != String){
+			return res.send(500, err);
+		}
+
+		post.text = "https://youtube.com/embed/" + url;
 		post.created_by = req.body.created_by;
 		post.save(function(err, post) {
 			if (err){
