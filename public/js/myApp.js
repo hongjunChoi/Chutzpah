@@ -21,11 +21,12 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 
 app.config(function($routeProvider){
 	$routeProvider
-		//the timeline display
-		.when('/', {
-			templateUrl: 'main.html',
-			controller: 'mainController'
-		})
+
+		// .when('/', {
+		// 	templateUrl: 'main.html',
+		// 	controller: 'mainController'
+		// })
+
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
@@ -88,10 +89,8 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
   $scope.register = function(){
   	
   	if($('#register_musician_tab').hasClass("active")){
-  		alert('musianc');
   		$scope.user.user_type = 'musician';
   	}else{
-  		alert('host');
   		$scope.user.user_type = 'host';
   	}
 
