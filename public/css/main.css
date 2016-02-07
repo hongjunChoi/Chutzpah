@@ -83,7 +83,7 @@ header {
   height: 60px;
   position: fixed;
   z-index: 100;
-  background-color: transparent;
+  background-color: #1c1f24;
   -webkit-transition: all 500ms ease-in;
   -moz-transition: all 500ms ease-in;
   -ms-transition: all 500ms ease-in;
@@ -120,6 +120,8 @@ header {
     header button:nth-child(3) {
       float: right;
       background-image: url(../img/icon-user.svg); }
+  header .navbar-right {
+    display: inline-block; }
 
 button {
   border: 0;
@@ -161,14 +163,14 @@ ul.grid {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding-top: 80px;
+  padding-top: 60px;
   color: white;
   text-transform: capitalize; }
-  ul.grid li {
+  ul.grid a {
     width: 25%;
     float: left;
     height: 100% / 3;
-    min-height: 220px;
+    min-height: 230px;
     -webkit-transition: all 500ms ease-in-out;
     -moz-transition: all 500ms ease-in-out;
     -ms-transition: all 500ms ease-in-out;
@@ -181,51 +183,53 @@ ul.grid {
     -webkit-justify-content: space-around;
     justify-content: space-around;
     -webkit-align-items: center;
-    align-items: center; }
-    ul.grid li:nth-child(4n + 1) {
+    align-items: center;
+    color: white;
+    text-decoration: none; }
+    ul.grid a:nth-child(4n + 1) {
       margin-left: 0;
       margin-right: -100%;
       clear: both;
       margin-left: 0; }
-    ul.grid li:nth-child(4n + 2) {
+    ul.grid a:nth-child(4n + 2) {
       margin-left: 25%;
       margin-right: -100%;
       clear: none; }
-    ul.grid li:nth-child(4n + 3) {
+    ul.grid a:nth-child(4n + 3) {
       margin-left: 50%;
       margin-right: -100%;
       clear: none; }
-    ul.grid li:nth-child(4n + 4) {
+    ul.grid a:nth-child(4n + 4) {
       margin-left: 75%;
       margin-right: -100%;
       clear: none; }
-    ul.grid li:hover {
+    ul.grid a:hover {
       background-color: transparent !important; }
-    ul.grid li:nth-child(1) {
+    ul.grid a:nth-child(1) {
       background-color: #a0b74e; }
-    ul.grid li:nth-child(2) {
+    ul.grid a:nth-child(2) {
       background-color: #ee4441; }
-    ul.grid li:nth-child(3) {
+    ul.grid a:nth-child(3) {
       background-color: #c4b397; }
-    ul.grid li:nth-child(4) {
+    ul.grid a:nth-child(4) {
       background-color: #538eca; }
-    ul.grid li:nth-child(5) {
+    ul.grid a:nth-child(5) {
       background-color: #252c3f; }
-    ul.grid li:nth-child(6) {
+    ul.grid a:nth-child(6) {
       background-color: #9fa0a2; }
-    ul.grid li:nth-child(7) {
+    ul.grid a:nth-child(7) {
       background-color: #44619d; }
-    ul.grid li:nth-child(8) {
+    ul.grid a:nth-child(8) {
       background-color: #4ecdc4; }
-    ul.grid li:nth-child(9) {
+    ul.grid a:nth-child(9) {
       background-color: #d2527f; }
-    ul.grid li:nth-child(10) {
+    ul.grid a:nth-child(10) {
       background-color: #bf55ec; }
-    ul.grid li:nth-child(11) {
+    ul.grid a:nth-child(11) {
       background-color: #fde3a7; }
-    ul.grid li:nth-child(12) {
+    ul.grid a:nth-child(12) {
       background-color: #26a65b; }
-    ul.grid li img {
+    ul.grid a img {
       width: 74px;
       height: 70px;
       margin: auto; }
@@ -242,53 +246,12 @@ ul.grid {
   background-repeat: none;
   background-size: cover; }
 
-.fp-controlArrow {
-  width: 24px;
-  height: 30px;
-  background-position: center center;
-  background-repeat: none;
-  background-size: cover;
-  -webkit-user-select: none;
-  /* webkit (safari, chrome) browsers */
-  -moz-user-select: none;
-  /* mozilla browsers */
-  -khtml-user-select: none;
-  /* webkit (konqueror) browsers */
-  -ms-user-select: none;
-  /* IE10+ */
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  cursor: pointer;
-  margin-top: -38px;
-  -webkit-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  opacity: .3; }
-
-.fp-prev,
-.fp-next {
-  -webkit-transition: all 200ms ease-in;
-  -moz-transition: all 200ms ease-in;
-  -ms-transition: all 200ms ease-in;
-  transition: all 200ms ease-in; }
-
-.fp-prev {
-  left: 30px;
-  background-image: url(../img/icon-arrow-prev.svg); }
-
-.fp-next {
-  right: 30px;
-  background-image: url(../img/icon-arrow-next.svg); }
-
-.fp-prev:hover,
-.fp-next:hover {
-  opacity: 1;
-  transform: scale(1.1); }
+#statusbar,
+#artistbar {
+  position: fixed;
+  width: 100%; }
 
 #statusbar {
-  position: fixed;
-  width: 100%;
   height: 60px;
   bottom: -82px;
   bottom: -460px;
@@ -372,3 +335,67 @@ ul.grid {
         stroke-miterlimit: 10; }
       #statusbar #control-wrapper svg polygon {
         fill: #DCD7CD; }
+
+#artistbar {
+  height: 360px;
+  background-color: #dcd7cd;
+  border-top: 24px;
+  border: solid #a0b74e 24px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between; }
+  #artistbar div {
+    width: 30%;
+    height: 220px; }
+
+.carousel-control {
+  width: 24px;
+  height: 30px;
+  background-position: center center;
+  background-repeat: none;
+  background-size: cover;
+  -webkit-user-select: none;
+  /* webkit (safari, chrome) browsers */
+  -moz-user-select: none;
+  /* mozilla browsers */
+  -khtml-user-select: none;
+  /* webkit (konqueror) browsers */
+  -ms-user-select: none;
+  /* IE10+ */
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  cursor: pointer;
+  margin-top: -38px;
+  opacity: .3;
+  -webkit-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  transition: all 200ms ease-in; }
+  .carousel-control span {
+    display: none; }
+  .carousel-control:after {
+    position: absolute;
+    margin-top: 40px;
+    color: transparent; }
+  .carousel-control.left {
+    left: 30px;
+    background-image: url(../img/icon-arrow-prev.svg); }
+    .carousel-control.left:after {
+      content: 'previous';
+      margin-left: -25px; }
+  .carousel-control.right {
+    right: 30px;
+    background-image: url(../img/icon-arrow-next.svg); }
+    .carousel-control.right:after {
+      content: 'next';
+      margin-left: -13px; }
+  .carousel-control:hover {
+    opacity: 1;
+    transform: scale(1.1); }
+    .carousel-control:hover:after {
+      color: #dcd7cd; }
