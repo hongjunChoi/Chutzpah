@@ -1,0 +1,283 @@
+
+
+
+
+////////////////////////////////
+// VARIABLES ///////////////////////
+
+//Font
+// $font-alt: 'Alternate-Gothic' , sans-serif;
+// $font-bold: 'Verlag-Bold', sans-serif;
+// $font-reg: 'Verlag-Book', sans-serif;
+// $font-reg-it: '', sans-serif;
+// $font-lt: 'Verlag-Light', sans-serif;
+// $font-blk: 'Verlag-Black', sans-serif;
+
+$base-font-size: 14px;
+
+//Color
+$c-default: #1e1e21;
+$c-white: #FFFFFF;
+$c-hover: #bada55;
+
+$c-gold: #c4b397;
+$c-cream: #fde3a7;
+
+$c-silver: #9fa0a2;
+$c-light: #dcd7cd;
+
+$c-mogo: #fc4e5e;
+$c-red: #ee4441;
+$c-pink: #d2527f;
+
+$c-lightblue: #4ecdc4;
+$c-blue: #538eca;
+$c-fb: #44619d;
+$c-darkblue: #44619d;
+$c-navy: #252c3f;
+$c-darknavy: #1c1f24;
+
+$c-violet: #bf55ec;
+
+$c-darkgreen: #26a65b;
+$c-green: #a0b74e;
+
+
+
+////////////////////////////////
+// FUNCTION ///////////////////////
+
+@function pxtoem($px, $base: $base-font-size) {
+  @return ($px / $base) + 0em;
+}
+
+
+
+//additional
+%fullsize{
+  width: 100%;
+  height: 100%;
+}
+
+%link-normal{
+  border-bottom: 1px solid transparent;
+  &:hover{
+    border-color:black;
+  }
+}
+
+
+////////////////////////////////
+// MIXIN ///////////////////////
+@mixin font-sans($weight){
+  // LT 300 / REG 400 / BOLD 700 / BLACK 900
+  font-family: "omnes-pro", sans-serif;
+  font-style: normal;
+  font-weight: $weight;
+}
+@mixin font-serif($weight){
+  font-family: serif;
+  font-style: normal;
+  font-weight: $weight;
+}
+
+
+@mixin generate-type-size($scale){
+  *{
+    font-size: (14 * $scale) + 0px;
+  }
+  h1{
+    @include font-sans(300);
+    font-size: (72 * $scale) + 0px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  h2{
+    font-size: (48 * $scale) + 0px;
+  }
+  h3{
+    font-size: (32 * $scale) + 0px;
+  }
+  h4{
+    font-size: (24 * $scale) + 0px;
+  }
+  h5
+  // ,main ul li
+  // ,main ul a
+  {
+    font-size: (18 * $scale) + 0px;
+  }
+  h6{
+    font-size: (16 * $scale) + 0px;
+  }
+  header a{
+    @include font-sans(400);
+    font-size: (14 * $scale) + 0px;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+  }
+  p{
+    @include font-sans(300);
+    font-size: (12 * $scale) + 0px;
+    line-height: 1.7em;
+  }
+
+  a{
+
+  }
+  footer p{
+    font-size: (10 * $scale) + 0px;
+  }
+}
+
+@mixin font-lnum{
+   -moz-font-feature-settings: "lnum";
+   -webkit-font-feature-settings: "lnum";
+   font-feature-settings: "lnum";
+}
+
+
+@mixin transition($duration, $range ,$ease) {
+  -webkit-transition: $duration $range $ease;
+   -moz-transition: $duration $range $ease;
+    -ms-transition: $duration $range $ease;
+      transition: $duration $range $ease;
+}
+
+@mixin backgrounddefault{
+  background-position: center center;
+  background-repeat: none;
+  background-size:cover;
+}
+
+//Flexbox
+//flex-wrap: nowrap, wrap, wrap-reverse;
+// (-webkit-)order: <int>; //defines the structure order like z-index
+// (-webkit-)grow: <int>; // default:0; if all 1, all have same size to fill the container size; if bigger, that one's bigger;
+// (-webkit-)shrink: <int>; //default:1 so that it shrinks; if 0, it doesn't shrink;
+@mixin flexbox($direction){ //row, column, row-reverse, column-reverse
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction:$direction;
+      flex-direction:$direction;
+}
+@mixin flexbox-justify($direction){ //flex-start/end, center, space-around/between
+  -webkit-justify-content:$direction;
+      justify-content:$direction;
+}
+@mixin flexbox-align-content($direction){ 
+      -webkit-align-content:$direction;
+      align-content:$direction;
+}
+@mixin flexbox-align-items($direction){ // Y-axis
+      -webkit-align-items:$direction;
+      align-items:$direction; //[stretch], flex-start/end, center, baseline
+}
+@mixin maintain-aspect-ratio($width, $height) {
+  // position: relative;
+  
+  &:before{
+    display: block;
+    content: " ";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+
+  > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
+
+
+////////////////////////////////
+// LAYOUT ///////////////////////
+
+//mobile
+$susy: (
+  columns: 12,
+  container: 100%,
+  gutters: 0,
+  global-box-sizing: border-box
+);
+
+// //800px
+// $map-800: (
+//   columns: 8,
+//   container: 100%,
+//   gutters: 1/4,
+//   global-box-sizing: border-box
+// );
+
+// //1024px
+// $map-1024: (
+//   columns: 10,
+//   container: 100%,
+//   gutters: 1/4,
+//   global-box-sizing: border-box,
+//   debug: (image: show)
+// );
+
+// //1280px
+// $map-1280: (
+//   columns: 10,
+//   container: 100%,
+//   gutters: 1/4,
+//   global-box-sizing: border-box,
+//   debug: (image: show)
+// );
+
+// //1440px
+// $map-1440: (
+//   columns: 12,
+//   container: 100%,
+//   gutters: 1/4,
+//   global-box-sizing: border-box
+// );
+
+// //1600px
+// $map-1600: (
+//   columns: 12,
+//   container: 100%,
+//   gutters: 1/4,
+//   global-box-sizing: border-box,
+//   debug: (image: show)
+// );
+
+
+
+$mobile: 14;
+$small: 8;
+$large: 12;
+
+
+////////////////////////////////
+// DEBUG ///////////////////////
+
+@mixin debug{
+  // background-color: none;
+  // background-color: rgba(242,109,105,0.1);
+  // border:1px solid black;
+}
+@mixin debug2{
+  background-color: rgba(2,86,156,0.5);
+}
+*{
+  @include debug;
+}
+// html, body, section, footer{
+//   background-color: transparent;
+// }
+// .wrap{
+//   position: fixed;
+//   @include span($mobile);
+//   height:100vh;
+//   @include container();
+// }
+
