@@ -2,7 +2,33 @@
 <form class="form-auth" ng-submit="register()">
 	<h2>Register</h2>
 	<p class="text-warning">{{error_message}}</p>
+
+	<ul class="nav nav-tabs" id="myTab">
+		<li class="active" id= "register_musician_tab" ><a data-target="#register_musician" data-toggle="tab">musicians</a></li>
+		<li id = "register_host_tab" ><a data-target="#register_host" data-toggle="tab">hosts</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="register_musician">
+			<input type="bandname" ng-model="user.bandname" placeholder="write your group's name" class="form-control"><br>
+			<input type="genre" ng-model="user.genre" placeholder="e.g. Rock" class="form-control"><br>
+			<input type="location" ng-model="user.location" placeholder="e.g. Providence " class="form-control"><br>
+		</div>
+		
+
+		<div class="tab-pane" id="register_host">
+			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control"><br>
+		</div>
+	</div>
+
 	<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
 	<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
+	
+
+
+
+
+
+
 	<input type="submit" value="Register" class="btn btn-primary" />
 </form>

@@ -6,6 +6,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 	//TODO: need to check user authentication (using session stored in mongodb) and keep logged in
 	$http.get('/auth/session').success(function(data){
 		if(data && data !== "undefined" && data['user']){
+			alert('asdfasd');
 			$rootScope.authenticated = true;
 			$rootScope.current_user = data['user']['username'];
 		}
@@ -67,7 +68,7 @@ app.controller('mainController', function(postService, $scope, $rootScope){
 });
 
 app.controller('authController', function($scope, $http, $rootScope, $location){
-  $scope.user = {username: '', password: ''};
+  $scope.user = {username: '', password: '', location: '', bandname: '' , genre : '', user_type : ''};
   $scope.error_message = '';
 
   $scope.login = function(){
@@ -84,6 +85,16 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
   };
 
   $scope.register = function(){
+  	
+  	if($('#register_musician_tab').hasClass("active")){
+  		alert('musianc');
+  		$scope.user.user_type = 'musician';
+  	}else{
+  		alert('host');
+  		$scope.user.user_type = 'host';
+  	}
+
+
     $http.post('/auth/signup', $scope.user).success(function(data){
       if(data.state == 'success'){
         $rootScope.authenticated = true;
