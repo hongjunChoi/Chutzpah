@@ -56,17 +56,22 @@ a{
 		&:hover{
 			// background-color: $c-darknavy;
 		}
+		a{
+			display: inline-block;
+		}
 
 		img, div{
 			margin: 20px 40px;
 			height: 24px;
 			@include debug;
-			// border:solid 1px white;
 			text-align: center;
 		}
 		img{
 			float: left;
 			width: 140px;
+			&:hover{
+				opacity: 1;
+			}
 		}
 		div{
 			float: right;
@@ -74,7 +79,6 @@ a{
 		}
 
 		button{
-			// border:solid 1px white;
 			width: 33px;
 			height: 22px;
 			@include backgrounddefault;
@@ -102,6 +106,9 @@ a{
 			display: inline-block;
 			color:$c-light !important;
 			opacity: .5;
+		}
+		p.navbar-right{
+			margin-top:20px;
 		}
 	}
 
@@ -225,114 +232,150 @@ ul.grid{
 
 
 // status bar
-#statusbar,
-#artistbar{
+#statusbar{
 	position: fixed;
 	width: 100%;
-	@include transition(all, 200ms, ease-in);
-}
+	height: 400px;
+	bottom:-400px;
+	@include transition(all, 400ms, ease-in);
 
+	#control{
+		height: 60px;
+		left: 0;
+		background-color: rgba(28,31,36,0.7);
+		border-top: 2px $c-green solid;
+		color:white;
+		opacity: .8;
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
+		@include flexbox-align-items(center);
 
-#statusbar{
-	height: 60px;
-	bottom: -82px;
-	bottom:-460px;
-	left: 0;
-	background-color: rgba(28,31,36,0.7);
-	border-top: 2px $c-green solid;
-	color:white;
-	opacity: .8;
-	@include flexbox(row);
-	@include flexbox-justify(space-between);
-	@include flexbox-align-items(center);
-
-	&:hover{
-	// background-color: rgba(28,31,36,1);
-	opacity: 1;
-	}
-
-	#artistinfo{
-		display: inline-block;
-		width: 100px;
-		margin-left:44px;
-		margin-top: -40px;
-		height: 120px;
-		text-align: center;
-
-		img{
-			width: 80px;
-			height: 80px;
-			border-radius: 50%;		
-			border: 2px solid $c-light;
-			@include transition(all, 200ms, ease-in-out);
-		}
 		&:hover{
-			cursor: pointer;
+		// background-color: rgba(28,31,36,1);
+		opacity: 1;
 		}
-		&:hover img{
-			transform:scale(1.1);
-			margin-top: -8px;
-			margin-bottom: 8px;
-		}
-		h6{
-			margin-top: -3px;
-		}
-	}
-	#control-wrapper{
-		// display: inline-block;
-		@include flexbox(row);
-		@include flexbox-justify(space-between);
-		width: 60%;
-		height: 40px;
-		min-width: 300px;
-		margin-right: 10%;
-		// border:white solid 1px;
 
-
-		button, svg{
+		#artistinfo{
 			display: inline-block;
-			@include backgrounddefault;
-			background-color: transparent;
-			cursor: pointer;
-		}
+			width: 100px;
+			margin-left:44px;
+			margin-top: -40px;
+			height: 120px;
+			text-align: center;
 
-		#button-control{
-			width: 40px;
+			img{
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;		
+				border: 2px solid $c-light;
+				@include transition(all, 200ms, ease-in-out);
+			}
+			&:hover{
+				cursor: pointer;
+			}
+			&:hover img{
+				transform:scale(1.1);
+				margin-top: -8px;
+				margin-bottom: 8px;
+			}
+			h6{
+				margin-top: 2px;
+			}
+		}
+		#control-wrapper{
+			// display: inline-block;
+			@include flexbox(row);
+			@include flexbox-justify(space-between);
+			width: 70%;
 			height: 40px;
-			background-image: url(../img/icon-pause.svg);
-			&.paused{
-				background-image: url(../img/icon-play.svg);
-			}
-		}
+			min-width: 300px;
+			margin-left: 40px;
+			margin-right: 80px;
+			// border:white solid 1px;
 
-		svg{
-			width: 44px;
-			height: 36px;
-			polygon, path{
-				stroke:#DCD7CD;
-				stroke-width:3;
-				stroke-linecap:round;
-				stroke-linejoin:round;
-				stroke-miterlimit:10;
+
+			button, svg, p{
+				display: inline-block;
+				@include backgrounddefault;
+				background-color: transparent;
+				cursor: pointer;
+				color:$c-light;
+				margin-left:10px;
+				margin-right: 10px;
 			}
-			polygon{
-				fill:#DCD7CD;
+
+			#button-control{
+				width: 40px;
+				height: 40px;
+				background-image: url(../img/icon-pause.svg);
+				&.paused{
+					background-image: url(../img/icon-play.svg);
+				}
+			}
+			p#progressbar-duration{
+				font-size: 16px;
+				opacity: .5;
+				margin-top: 5px;
+				&:hover{
+					opacity: 1;
+				}
+			}
+			svg polygon,
+			svg path{
+					stroke-linecap:round;
+					stroke-linejoin:round;
+					stroke-miterlimit:10;
+			}
+			svg#progressbarsvg{
+				width: 80%;
+				max-width: 600px;
+				margin-top:5px;
+				height: 30px;
+				opacity: .9;
+				@include transition(all, 300ms, ease-in);
+
+				&:hover circle.progress-filled{
+					opacity: 1;
+				}
+				.progress-empty{
+					opacity:0.6;fill:#252C3F;
+					stroke:#252C3F;stroke-width:2;
+
+				}
+				.progress-filled{
+					fill:#A0B74E;
+					stroke:#A0B74E;
+					stroke-width:2;
+				}
+				circle.progress-filled{
+				@include transition(all, 200ms, ease-in);
+				}
+				circle.progress-filled:hover{
+					r:11;
+				}
+			}
+
+			svg#volumesvg{
+				width: 44px;
+				height: 36px;
+				polygon, path{
+					stroke:#DCD7CD;
+					stroke-width:3;
+				}
+				polygon{
+					fill:#DCD7CD;
+				}
 			}
 		}
 	}
-}
-
-
-#artistbar{
-	height: 360px;
-	background-color: $c-light;
-	border-top: solid $c-green 8px;
-	bottom: -360px;
-
-	&>div{
+	#artistbar{
+		display: block;
+		height: 260px;
+		background-color: $c-light;
+		border-top: solid $c-green 8px;
+		padding-top: 20px;
 		@include flexbox(row);
 		@include flexbox-justify(space-between);
-		margin-top: 20px;
 
 		&>div:first-of-type{
 				width: 15%;
@@ -345,30 +388,54 @@ ul.grid{
 		div{
 			width: 25%;
 			height:220px;
-			// border:solid 1px black;
 
 			a, a div{
 				width: 100px;
 				height: 100px;
 				float: left;
+				background-color: $c-navy;
+				margin-right: 10px;
+				margin-bottom: 10px;
 			}
 		}
 	}
+	#contactbar{
+		margin: 0;
+		height: 80px;
+		padding-top: 20px;
+		background-color: $c-light;
+		text-align: center;
+		button{
+			width: 180px;
+			height: 40px;
+			background-color: $c-mogo;
+			@include font-sans(400);
+			font-size: 18px;
+			color:white;
+			opacity: .7;
 
-	button{
-		position: relative;
-		margin: 40px auto auto auto;
-		display: block;
-		width: 180px;
-		height: 40px;
-		background-color: $c-mogo;
-		@include font-sans(400);
-		font-size: 18px;
-		color:white;
-
+			&:hover{
+				opacity: 1;
+			}
+		}
 	}
+	.contactform{
+		height: 400px;
+		background-color: white;
+		@include transition(all, 800ms, ease-in-out);
+		form{
 
+			height: 200px;
+
+			input{
+				width: 50%;
+				height: 300px;
+				border: $c-light 2px solid;
+			}
+		}
+	}
 }
+
 div.container{
 	width: 100%;
     height: 100%;
@@ -399,6 +466,12 @@ div.container{
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+
+    h2{
+    	padding-top:300px;
+    	transform:translateY(-50%);
+    	color:white;
+    }
 }
 
 
@@ -438,6 +511,9 @@ div.container{
 			content: 'previous';
 			margin-left:-25px;
 		}
+		&.hidearrows{
+			left:-30px;
+		}
     }
     &.right{
 		right: 30px;
@@ -445,6 +521,9 @@ div.container{
 		&:after{
 			content: 'next';
 			margin-left: -13px;
+		}
+		&.hidearrows{
+			right:-30px;
 		}
     }
     &:hover{
@@ -456,7 +535,7 @@ div.container{
     }
 }
 
-
+//test searchbar
 #section4{
 	div.clearfix{
 		height: 40px;
@@ -464,7 +543,12 @@ div.container{
 		background-color: $c-navy;
 		form,
 		input,
-		button{
+		input:focus,
+		input:active,
+		button,
+		textarea,
+		textarea:focus,
+		textarea:active{
 			display: inline-block;
 			margin: 0;
 			float: left;
@@ -473,25 +557,25 @@ div.container{
 			background-color: $c-navy;
 			border:none;
 			outline:none;
-			height: 40px !important;
+			height: 40px;
+			resize:none;
+			box-shadow: none;
+
 		}
 		form{
-			width: 70% !important;
-			textarea,
-			input{
-				display: inline-block;
-				height: 40px !important;
-				border-radius: 0px;
-				resize:none;
-				background-color: $c-navy;
-			}
+			margin-left: 20px;
+			width: 60% !important;
+
 			textarea{
-				width: 80%;
+				width: 60%;
 			}
 			input{
 				width: 20%;
-				background-color: $c-light;
+				color: white;
 				opacity: .5;
+				height:40px !important;
+				padding-top:10px;
+				padding-bottom: 30px;
 			}
 		}
 		h4{
@@ -499,7 +583,16 @@ div.container{
 		}
 		input,
 		button{
+			margin-left:20px;
+			margin-right:20px;
 			width: 15% !important;
+			float:right;
+			background-color: $c-darknavy;
+		}
+		input{
+			padding-top:10px;
+			padding-bottom: 30px;
+			height: 20px;
 		}
 	}
 }

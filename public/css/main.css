@@ -88,6 +88,8 @@ header {
   -moz-transition: all 500ms ease-in;
   -ms-transition: all 500ms ease-in;
   transition: all 500ms ease-in; }
+  header a {
+    display: inline-block; }
   header img, header div {
     margin: 20px 40px;
     height: 24px;
@@ -95,6 +97,8 @@ header {
   header img {
     float: left;
     width: 140px; }
+    header img:hover {
+      opacity: 1; }
   header div {
     float: right;
     min-width: 140px; }
@@ -125,6 +129,8 @@ header {
     display: inline-block;
     color: #dcd7cd !important;
     opacity: .5; }
+  header p.navbar-right {
+    margin-top: 20px; }
 
 button {
   border: 0;
@@ -249,60 +255,22 @@ ul.grid {
   background-repeat: none;
   background-size: cover; }
 
-#statusbar,
-#artistbar {
+#statusbar {
   position: fixed;
   width: 100%;
-  -webkit-transition: all 200ms ease-in;
-  -moz-transition: all 200ms ease-in;
-  -ms-transition: all 200ms ease-in;
-  transition: all 200ms ease-in; }
-
-#statusbar {
-  height: 60px;
-  bottom: -82px;
-  bottom: -460px;
-  left: 0;
-  background-color: rgba(28, 31, 36, 0.7);
-  border-top: 2px #a0b74e solid;
-  color: white;
-  opacity: .8;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  align-items: center; }
-  #statusbar:hover {
-    opacity: 1; }
-  #statusbar #artistinfo {
-    display: inline-block;
-    width: 100px;
-    margin-left: 44px;
-    margin-top: -40px;
-    height: 120px;
-    text-align: center; }
-    #statusbar #artistinfo img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid #dcd7cd;
-      -webkit-transition: all 200ms ease-in-out;
-      -moz-transition: all 200ms ease-in-out;
-      -ms-transition: all 200ms ease-in-out;
-      transition: all 200ms ease-in-out; }
-    #statusbar #artistinfo:hover {
-      cursor: pointer; }
-    #statusbar #artistinfo:hover img {
-      transform: scale(1.1);
-      margin-top: -8px;
-      margin-bottom: 8px; }
-    #statusbar #artistinfo h6 {
-      margin-top: -3px; }
-  #statusbar #control-wrapper {
+  height: 400px;
+  bottom: -400px;
+  -webkit-transition: all 400ms ease-in;
+  -moz-transition: all 400ms ease-in;
+  -ms-transition: all 400ms ease-in;
+  transition: all 400ms ease-in; }
+  #statusbar #control {
+    height: 60px;
+    left: 0;
+    background-color: rgba(28, 31, 36, 0.7);
+    border-top: 2px #a0b74e solid;
+    color: white;
+    opacity: .8;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -310,73 +278,169 @@ ul.grid {
     flex-direction: row;
     -webkit-justify-content: space-between;
     justify-content: space-between;
-    width: 60%;
-    height: 40px;
-    min-width: 300px;
-    margin-right: 10%; }
-    #statusbar #control-wrapper button, #statusbar #control-wrapper svg {
+    -webkit-align-items: center;
+    align-items: center; }
+    #statusbar #control:hover {
+      opacity: 1; }
+    #statusbar #control #artistinfo {
       display: inline-block;
-      background-position: center center;
-      background-repeat: none;
-      background-size: cover;
-      background-color: transparent;
-      cursor: pointer; }
-    #statusbar #control-wrapper #button-control {
-      width: 40px;
+      width: 100px;
+      margin-left: 44px;
+      margin-top: -40px;
+      height: 120px;
+      text-align: center; }
+      #statusbar #control #artistinfo img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid #dcd7cd;
+        -webkit-transition: all 200ms ease-in-out;
+        -moz-transition: all 200ms ease-in-out;
+        -ms-transition: all 200ms ease-in-out;
+        transition: all 200ms ease-in-out; }
+      #statusbar #control #artistinfo:hover {
+        cursor: pointer; }
+      #statusbar #control #artistinfo:hover img {
+        transform: scale(1.1);
+        margin-top: -8px;
+        margin-bottom: 8px; }
+      #statusbar #control #artistinfo h6 {
+        margin-top: 2px; }
+    #statusbar #control #control-wrapper {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      width: 70%;
       height: 40px;
-      background-image: url(../img/icon-pause.svg); }
-      #statusbar #control-wrapper #button-control.paused {
-        background-image: url(../img/icon-play.svg); }
-    #statusbar #control-wrapper svg {
-      width: 44px;
-      height: 36px; }
-      #statusbar #control-wrapper svg polygon, #statusbar #control-wrapper svg path {
-        stroke: #DCD7CD;
-        stroke-width: 3;
+      min-width: 300px;
+      margin-left: 40px;
+      margin-right: 80px; }
+      #statusbar #control #control-wrapper button, #statusbar #control #control-wrapper svg, #statusbar #control #control-wrapper p {
+        display: inline-block;
+        background-position: center center;
+        background-repeat: none;
+        background-size: cover;
+        background-color: transparent;
+        cursor: pointer;
+        color: #dcd7cd;
+        margin-left: 10px;
+        margin-right: 10px; }
+      #statusbar #control #control-wrapper #button-control {
+        width: 40px;
+        height: 40px;
+        background-image: url(../img/icon-pause.svg); }
+        #statusbar #control #control-wrapper #button-control.paused {
+          background-image: url(../img/icon-play.svg); }
+      #statusbar #control #control-wrapper p#progressbar-duration {
+        font-size: 16px;
+        opacity: .5;
+        margin-top: 5px; }
+        #statusbar #control #control-wrapper p#progressbar-duration:hover {
+          opacity: 1; }
+      #statusbar #control #control-wrapper svg polygon,
+      #statusbar #control #control-wrapper svg path {
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-miterlimit: 10; }
-      #statusbar #control-wrapper svg polygon {
-        fill: #DCD7CD; }
-
-#artistbar {
-  height: 360px;
-  background-color: #dcd7cd;
-  border-top: solid #a0b74e 8px;
-  bottom: -360px; }
-  #artistbar > div {
+      #statusbar #control #control-wrapper svg#progressbarsvg {
+        width: 80%;
+        max-width: 600px;
+        margin-top: 5px;
+        height: 30px;
+        opacity: .9;
+        -webkit-transition: all 300ms ease-in;
+        -moz-transition: all 300ms ease-in;
+        -ms-transition: all 300ms ease-in;
+        transition: all 300ms ease-in; }
+        #statusbar #control #control-wrapper svg#progressbarsvg:hover circle.progress-filled {
+          opacity: 1; }
+        #statusbar #control #control-wrapper svg#progressbarsvg .progress-empty {
+          opacity: 0.6;
+          fill: #252C3F;
+          stroke: #252C3F;
+          stroke-width: 2; }
+        #statusbar #control #control-wrapper svg#progressbarsvg .progress-filled {
+          fill: #A0B74E;
+          stroke: #A0B74E;
+          stroke-width: 2; }
+        #statusbar #control #control-wrapper svg#progressbarsvg circle.progress-filled {
+          -webkit-transition: all 200ms ease-in;
+          -moz-transition: all 200ms ease-in;
+          -ms-transition: all 200ms ease-in;
+          transition: all 200ms ease-in; }
+        #statusbar #control #control-wrapper svg#progressbarsvg circle.progress-filled:hover {
+          r: 11; }
+      #statusbar #control #control-wrapper svg#volumesvg {
+        width: 44px;
+        height: 36px; }
+        #statusbar #control #control-wrapper svg#volumesvg polygon, #statusbar #control #control-wrapper svg#volumesvg path {
+          stroke: #DCD7CD;
+          stroke-width: 3; }
+        #statusbar #control #control-wrapper svg#volumesvg polygon {
+          fill: #DCD7CD; }
+  #statusbar #artistbar {
+    display: block;
+    height: 260px;
+    background-color: #dcd7cd;
+    border-top: solid #a0b74e 8px;
+    padding-top: 20px;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-flex-direction: row;
     flex-direction: row;
     -webkit-justify-content: space-between;
-    justify-content: space-between;
-    margin-top: 20px; }
-    #artistbar > div > div:first-of-type {
+    justify-content: space-between; }
+    #statusbar #artistbar > div:first-of-type {
       width: 15%;
       margin-left: 20%; }
-    #artistbar > div > div:last-of-type {
+    #statusbar #artistbar > div:last-of-type {
       margin-right: 40px; }
-    #artistbar > div div {
+    #statusbar #artistbar div {
       width: 25%;
       height: 220px; }
-      #artistbar > div div a, #artistbar > div div a div {
+      #statusbar #artistbar div a, #statusbar #artistbar div a div {
         width: 100px;
         height: 100px;
-        float: left; }
-  #artistbar button {
-    position: relative;
-    margin: 40px auto auto auto;
-    display: block;
-    width: 180px;
-    height: 40px;
-    background-color: #fc4e5e;
-    font-family: "omnes-pro", sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    color: white; }
+        float: left;
+        background-color: #252c3f;
+        margin-right: 10px;
+        margin-bottom: 10px; }
+  #statusbar #contactbar {
+    margin: 0;
+    height: 80px;
+    padding-top: 20px;
+    background-color: #dcd7cd;
+    text-align: center; }
+    #statusbar #contactbar button {
+      width: 180px;
+      height: 40px;
+      background-color: #fc4e5e;
+      font-family: "omnes-pro", sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      color: white;
+      opacity: .7; }
+      #statusbar #contactbar button:hover {
+        opacity: 1; }
+  #statusbar .contactform {
+    height: 400px;
+    background-color: white;
+    -webkit-transition: all 800ms ease-in-out;
+    -moz-transition: all 800ms ease-in-out;
+    -ms-transition: all 800ms ease-in-out;
+    transition: all 800ms ease-in-out; }
+    #statusbar .contactform form {
+      height: 200px; }
+      #statusbar .contactform form input {
+        width: 50%;
+        height: 300px;
+        border: #dcd7cd 2px solid; }
 
 div.container {
   width: 100%;
@@ -405,6 +469,10 @@ div.container {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover; }
+  .fill h2 {
+    padding-top: 300px;
+    transform: translateY(-50%);
+    color: white; }
 
 .carousel-control {
   width: 24px;
@@ -444,12 +512,16 @@ div.container {
     .carousel-control.left:after {
       content: 'previous';
       margin-left: -25px; }
+    .carousel-control.left.hidearrows {
+      left: -30px; }
   .carousel-control.right {
     right: 30px;
     background-image: url(../img/icon-arrow-next.svg); }
     .carousel-control.right:after {
       content: 'next';
       margin-left: -13px; }
+    .carousel-control.right.hidearrows {
+      right: -30px; }
   .carousel-control:hover {
     opacity: 1;
     transform: scale(1.1); }
@@ -462,7 +534,12 @@ div.container {
   background-color: #252c3f; }
   #section4 div.clearfix form,
   #section4 div.clearfix input,
-  #section4 div.clearfix button {
+  #section4 div.clearfix input:focus,
+  #section4 div.clearfix input:active,
+  #section4 div.clearfix button,
+  #section4 div.clearfix textarea,
+  #section4 div.clearfix textarea:focus,
+  #section4 div.clearfix textarea:active {
     display: inline-block;
     margin: 0;
     float: left;
@@ -471,24 +548,31 @@ div.container {
     background-color: #252c3f;
     border: none;
     outline: none;
-    height: 40px !important; }
+    height: 40px;
+    resize: none;
+    box-shadow: none; }
   #section4 div.clearfix form {
-    width: 70% !important; }
-    #section4 div.clearfix form textarea,
-    #section4 div.clearfix form input {
-      display: inline-block;
-      height: 40px !important;
-      border-radius: 0px;
-      resize: none;
-      background-color: #252c3f; }
+    margin-left: 20px;
+    width: 60% !important; }
     #section4 div.clearfix form textarea {
-      width: 80%; }
+      width: 60%; }
     #section4 div.clearfix form input {
       width: 20%;
-      background-color: #dcd7cd;
-      opacity: .5; }
+      color: white;
+      opacity: .5;
+      height: 40px !important;
+      padding-top: 10px;
+      padding-bottom: 30px; }
   #section4 div.clearfix h4 {
     display: none; }
   #section4 div.clearfix input,
   #section4 div.clearfix button {
-    width: 15% !important; }
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 15% !important;
+    float: right;
+    background-color: #1c1f24; }
+  #section4 div.clearfix input {
+    padding-top: 10px;
+    padding-bottom: 30px;
+    height: 20px; }

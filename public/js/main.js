@@ -5,7 +5,7 @@
 			// anchors: ['loginpage', 'genrepage', 'firstgenre'],
 			lockAnchors: false,
 			verticalCentered: true,
-			sectionsColor: ['#252c3f', '#4BBFC3', '#7BAABE'],
+			sectionsColor: ['#252c3f', '#4BBFC3', '#7BAABE', '#1c1f24'],
 			afterLoad: function(anchorlink, index){
 				// if (index === 1){
 				// 	$("header").css("top", "-80px");
@@ -15,13 +15,17 @@
 				// }
 
 				if (index === 4){
-					$("#statusbar").css("bottom", "0px");
+					$("#statusbar").css("bottom", "-340px");
 					// $("#statusbar").css("bottom", "380px");
 					$("#artistinfo").delay(300).fadeIn("fast");
+					$("#searchbar").fadeOut("fast");
+					$("#section4 div.clearfix").fadeIn("slow");
 				}
 				else{
-					$("#statusbar").css("bottom", "-82px");
+					$("#section4 div.clearfix").fadeOut("fast");
+					$("#statusbar").css("bottom", "-400px");
 					$("#artistinfo").fadeOut("fast");
+					$("#searchbar").fadeIn("fast");
 				}
 			},
 			afterRender: function(){
@@ -30,6 +34,11 @@
 		});
 	};
 
+	full_page_config();
+
+
+
+$(document).ready(function(){
 	//button input
 	$("#searchbutton").click(function(){
 		$("header").toggleClass("top40");
@@ -41,21 +50,49 @@
 		$(this).find("path").toggle("fast");
 	});
 
-
-	//artist page
-	var artistbaropen = false;
-	$("#artistinfo").click(function(){
-		if(artistbaropen){
-			$("#statusbar").css("bottom", "-82px");
-			$("#artistbar").css("bottom", "-360px");
-		}
-		else{
-			$("#statusbar").css("bottom", "360px");
-			$("#artistbar").css("bottom", "0px");
-		}
-		artistbaropen = !artistbaropen;
+	$("#button-control").click(function(){
+		$(this).toggleClass("paused");
 	});
 
-	full_page_config();
+
+	//artist page
+	var artistbaropened = false;
+	var contactopened = false;
+
+	$("#artistinfo").click(function(){
+		if(artistbaropened){
+			
+			$("#statusbar").css("bottom", "-340px");
+			$(this).delay(400).queue(function (next){
+				$(".carousel-control.left").removeClass("hidearrows");
+				$(".carousel-control.right").removeClass("hidearrows");
+				next();
+			});
+		}
+		else{
+			$(".carousel-control.left").addClass("hidearrows");
+			$(".carousel-control.right").addClass("hidearrows");
+			$(this).delay(400).queue(function (next){
+				$("#statusbar").css("bottom", "0px");
+				next();
+			});
+		}
+		artistbaropened = !artistbaropened;
+	});
+
+	//contact request
+	$("#contactbutton").click(function(){
+		var $contactForm = $("<div><form><input></input></form></div>");
+		$("#contactbar").prepend($contactForm);
+		$contactForm.addClass("contactform");
+		$("#statusbar").css("bottom", "400px");
+		$("#contactbar").css("height", "480px");
+
+		// $("#contactbar").fadeOut("slow", function(){
+		// 	$("#statusbar").css("bottom", "400px");
+		// });
+	});
+
+});
 
 // });
