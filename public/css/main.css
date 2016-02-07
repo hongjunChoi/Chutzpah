@@ -120,8 +120,11 @@ header {
     header button:nth-child(3) {
       float: right;
       background-image: url(../img/icon-user.svg); }
-  header .navbar-right {
-    display: inline-block; }
+  header p.navbar,
+  header a {
+    display: inline-block;
+    color: #dcd7cd !important;
+    opacity: .5; }
 
 button {
   border: 0;
@@ -144,16 +147,16 @@ div.login {
     position: relative;
     width: 300px;
     height: 60px;
-    clear: both;
-    margin: auto;
-    margin-bottom: 20px;
-    border-radius: 0;
     background-color: #fc4e5e;
     font-family: "omnes-pro", sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
-    color: white; }
+    color: white;
+    clear: both;
+    margin: auto;
+    margin-bottom: 20px;
+    border-radius: 0; }
     div.login button:nth-child(odd) {
       background-color: #44619d; }
 
@@ -249,7 +252,11 @@ ul.grid {
 #statusbar,
 #artistbar {
   position: fixed;
-  width: 100%; }
+  width: 100%;
+  -webkit-transition: all 200ms ease-in;
+  -moz-transition: all 200ms ease-in;
+  -ms-transition: all 200ms ease-in;
+  transition: all 200ms ease-in; }
 
 #statusbar {
   height: 60px;
@@ -258,10 +265,6 @@ ul.grid {
   left: 0;
   background-color: rgba(28, 31, 36, 0.7);
   border-top: 2px #a0b74e solid;
-  -webkit-transition: all 200ms ease-in;
-  -moz-transition: all 200ms ease-in;
-  -ms-transition: all 200ms ease-in;
-  transition: all 200ms ease-in;
   color: white;
   opacity: .8;
   display: -webkit-flex;
@@ -339,18 +342,69 @@ ul.grid {
 #artistbar {
   height: 360px;
   background-color: #dcd7cd;
-  border-top: 24px;
-  border: solid #a0b74e 24px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between; }
-  #artistbar div {
-    width: 30%;
-    height: 220px; }
+  border-top: solid #a0b74e 8px;
+  bottom: -360px; }
+  #artistbar > div {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-top: 20px; }
+    #artistbar > div > div:first-of-type {
+      width: 15%;
+      margin-left: 20%; }
+    #artistbar > div > div:last-of-type {
+      margin-right: 40px; }
+    #artistbar > div div {
+      width: 25%;
+      height: 220px; }
+      #artistbar > div div a, #artistbar > div div a div {
+        width: 100px;
+        height: 100px;
+        float: left; }
+  #artistbar button {
+    position: relative;
+    margin: 40px auto auto auto;
+    display: block;
+    width: 180px;
+    height: 40px;
+    background-color: #fc4e5e;
+    font-family: "omnes-pro", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    color: white; }
+
+div.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  padding: 40px 0 auto 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important; }
+
+.carousel,
+.item,
+.active {
+  width: 100%;
+  height: 100%; }
+
+.carousel-inner {
+  width: 100%;
+  height: 100%; }
+
+/* Background images are set within the HTML using inline CSS, not here */
+.fill {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover; }
 
 .carousel-control {
   width: 24px;
@@ -375,13 +429,15 @@ ul.grid {
   -webkit-transition: all 200ms ease-in;
   -moz-transition: all 200ms ease-in;
   -ms-transition: all 200ms ease-in;
-  transition: all 200ms ease-in; }
+  transition: all 200ms ease-in;
+  text-shadow: none !important; }
   .carousel-control span {
     display: none; }
   .carousel-control:after {
     position: absolute;
     margin-top: 40px;
-    color: transparent; }
+    color: transparent;
+    font-size: 14px; }
   .carousel-control.left {
     left: 30px;
     background-image: url(../img/icon-arrow-prev.svg); }
@@ -399,3 +455,40 @@ ul.grid {
     transform: scale(1.1); }
     .carousel-control:hover:after {
       color: #dcd7cd; }
+
+#section4 div.clearfix {
+  height: 40px;
+  width: 100%;
+  background-color: #252c3f; }
+  #section4 div.clearfix form,
+  #section4 div.clearfix input,
+  #section4 div.clearfix button {
+    display: inline-block;
+    margin: 0;
+    float: left;
+    border-radius: 0px !important;
+    color: white;
+    background-color: #252c3f;
+    border: none;
+    outline: none;
+    height: 40px !important; }
+  #section4 div.clearfix form {
+    width: 70% !important; }
+    #section4 div.clearfix form textarea,
+    #section4 div.clearfix form input {
+      display: inline-block;
+      height: 40px !important;
+      border-radius: 0px;
+      resize: none;
+      background-color: #252c3f; }
+    #section4 div.clearfix form textarea {
+      width: 80%; }
+    #section4 div.clearfix form input {
+      width: 20%;
+      background-color: #dcd7cd;
+      opacity: .5; }
+  #section4 div.clearfix h4 {
+    display: none; }
+  #section4 div.clearfix input,
+  #section4 div.clearfix button {
+    width: 15% !important; }

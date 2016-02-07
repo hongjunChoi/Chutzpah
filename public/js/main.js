@@ -41,6 +41,21 @@
 		$(this).find("path").toggle("fast");
 	});
 
+
+	//artist page
+	var artistbaropen = false;
+	$("#artistinfo").click(function(){
+		if(artistbaropen){
+			$("#statusbar").css("bottom", "-82px");
+			$("#artistbar").css("bottom", "-360px");
+		}
+		else{
+			$("#statusbar").css("bottom", "360px");
+			$("#artistbar").css("bottom", "0px");
+		}
+		artistbaropen = !artistbaropen;
+	});
+
 	full_page_config();
 
 // });
