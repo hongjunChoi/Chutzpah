@@ -30,8 +30,6 @@
 		});
 	}
 
-
-
 	//button input
 	$("#searchbutton").click(function(){
 		$("header").toggleClass("top40");
@@ -44,12 +42,4 @@
 	});
 
 	full_page_config();
-
-	$('.carousel-inner .item').first().addClass("active");
-	console.log($('.carousel-inner .item').first().attr('id'));
-    // $('.carousel').carousel({
-    //     interval: 5000 //changes the speed
-    // })
-
-
 // });

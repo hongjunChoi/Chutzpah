@@ -46,9 +46,6 @@ router.route('/posts')
 
 		var post = new Post();
 		var url = req.body.text.split("watch?v=")[1];
-		console.log("!!!!!!!!!!!!!!!!!!!!");
-		console.log("\n\n\n=======" + url + '============\n\n\n');
-		
 
 		post.text = "https://youtube.com/embed/" + url;
 		post.created_by = req.body.created_by;
