@@ -62,8 +62,21 @@
 				<li><a href="#firstgenre">genre</a></li>
 			</ul>
 		</div>
-		<div class = "section" id="section2" ng-controller = "mainController">
-		<div id="impossible">
+
+
+		<div class="section" id="section2">
+			<!-- CONTENT OF THE WEBSITE  -->
+			<div ng-view>
+
+
+			</div>
+		</div>
+
+		<div class="section" id="section3">
+			
+
+		</div>
+		<div class = "section" id="section4" ng-controller = "mainController">
 			<div class="clearfix">
 			  <form ng-Submit="post()" ng-show="authenticated">
 			    <h4>{{current_user}} </h4>
@@ -72,14 +85,21 @@
 			    
 			  </form>
 			</div>
-		</div>
 
-			 <div class="container">
+
+			 <div class="container"><br>
+
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						
+						<div class="item active"> 
+			        		<div class = "fill">
+								<h2>Discover your music </h2>
+							</div>
+						</div>
+
 						<div class="item post " ng-repeat="post in posts | orderBy:'created_at':true"> 
 			        		<div class = "fill ">
 								<iframe width="420" height="315" ng-src="{{trustSrc(post.text)}}" frameborder="0" allowfullscreen></iframe>

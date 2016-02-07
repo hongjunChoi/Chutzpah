@@ -22,12 +22,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 app.config(function($routeProvider){
 	$routeProvider
 
-		// .when('/', {
-		// 	templateUrl: 'main.html',
-		// 	controller: 'mainController'
-		// })
-		//the login display
-		
+
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
