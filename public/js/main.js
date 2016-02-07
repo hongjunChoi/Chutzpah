@@ -7,14 +7,14 @@
 			verticalCentered: true,
 			sectionsColor: ['#252c3f', '#4BBFC3', '#7BAABE'],
 			afterLoad: function(anchorlink, index){
-				// if (index == 1){
+				// if (index === 1){
 				// 	$("header").css("top", "-80px");
 				// }
 				// else{
 				// 	$("header").css("top", "0");
 				// }
 
-				if (index == 3){
+				if (index === 4){
 					$("#statusbar").css("bottom", "0px");
 					// $("#statusbar").css("bottom", "380px");
 					$("#artistinfo").delay(300).fadeIn("fast");
@@ -28,7 +28,7 @@
 
 			}
 		});
-	}
+	};
 
 
 
@@ -46,7 +46,6 @@
 	full_page_config();
 
 	$('.carousel-inner .item').first().addClass("active");
-	console.log($('.carousel-inner .item').first().attr('id'));
     // $('.carousel').carousel({
     //     interval: 5000 //changes the speed
     // })
