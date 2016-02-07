@@ -7,13 +7,13 @@ module.exports = function(passport){
 
     // Passport needs to be able to serialize and deserialize users to support persistent login sessions
     passport.serializeUser(function(user, done) {
-        console.log('serializing user:',user.username);
+        // console.log('serializing user:',user.username);
         done(null, user._id);
     });
 
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
-            console.log('deserializing user:',user.username);
+            // console.log('deserializing user:',user.username);
             done(err, user);
         });
     });
@@ -71,6 +71,18 @@ module.exports = function(passport){
                     // set the user's local credentials
                     newUser.username = username;
                     newUser.password = createHash(password);
+                    if(req.body.user_type =="host"){
+                        newUser.user_location = req.body.location;
+                        newUser.user_type = "host";
+
+                    }else{
+                        newUser.user_location = req.body.location;
+                        newUser.user_type = "musician";
+                        newUser.genre = req.body.genre;
+                        newUser.band_name = req.body.bandname;
+
+                    }
+
 
                     // save the user
                     newUser.save(function(err) {
@@ -78,8 +90,8 @@ module.exports = function(passport){
                             console.log('Error in Saving user: '+err);  
                             throw err;  
                         }
-                        console.log(newUser.username + ' Registration succesful'); 
-
+                        console.log("\n\n\n\n=============" + newUser.username + ' Registration succesful  =================\n\n\n\n'); 
+                        console.log(req.body);
                         return done(null, newUser);
                     });
                 }
