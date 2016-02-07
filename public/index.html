@@ -79,27 +79,22 @@
 			</div>
 
 		</div>
-		<div class = "section" id="section4"  >
+		<div class = "section" id="section4" ng-controller = "mainController">
 			 <div class="container"><br>
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							<img src="img_chania.jpg" alt="Chania" width="460" height="345">
+
+						<div class="item post " ng-repeat="post in posts | orderBy:'created_at':true"> 
+			        		<div class = "fill ">
+								<iframe width="420" height="315" ng-src="{{trustSrc(post.text)}}" frameborder="0" allowfullscreen></iframe>
+								<small>Posted by @{{post.created_by}}</small>
+								<small class="pull-right">{{post.created_at | date:"h:mma 'on' MMM d, y"}}</small>
+							</div>
 						</div>
 
-						<div class="item">
-							<img src="img_chania2.jpg" alt="Chania" width="460" height="345">
-						</div>
 
-						<div class="item">
-							<img src="img_flower.jpg" alt="Flower" width="460" height="345">
-						</div>
-
-						<div class="item">
-							<img src="img_flower2.jpg" alt="Flower" width="460" height="345">
-						</div>
 					</div>
 
 					<!-- Left and right controls -->
