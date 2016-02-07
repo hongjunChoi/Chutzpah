@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#searchbutton").click(function(){$("header").toggleClass("top40")}),$("#button-volume").click(function(){$(this).find("path").toggle("fast")})});

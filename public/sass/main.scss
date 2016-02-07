@@ -1,0 +1,364 @@
+@import "../susy/susy";
+@import "eugeneso";
+
+*{
+	@include font-sans(400);
+	list-style: none;
+	border:none;
+	outline: none;
+}
+a{
+	text-decoration: none;
+	color:inherit;
+}
+@include generate-type-size(1);
+
+.top40{
+	margin-top:40px !important;
+    @include transition(all, 200ms, ease-in);
+}
+	#searchbar{
+		height: 40px;
+		width: 100%;
+		background-color: $c-navy;
+		margin: -40px 0 0 0;
+
+		form input{
+			width: 80%;
+			min-width: 300px;
+			height: 30px;
+			background-color: transparent;
+			margin:auto;
+			margin-top: 5px;
+			text-align: center;
+			color: white;
+			padding: 0 20px;
+			font-size:16px;
+
+		}
+	}
+	header{
+		width: 100%;
+		height: 60px;
+		position: fixed;
+		z-index: 100;
+		// display: flex;
+		// -webkit-flex-direction:row;
+		// flex-direction:row;
+  //     	-webkit-align-items:center;
+  //     	align-items:center; 
+  //     	-webkit-justify-content:space-between;
+  //     	justify-content:space-between;
+      	background-color: transparent;
+      	@include transition(all, 500ms, ease-in);
+      	// background-color: blue;
+
+		&:hover{
+			// background-color: $c-darknavy;
+		}
+
+		img, div{
+			margin: 20px 40px;
+			height: 24px;
+			@include debug;
+			// border:solid 1px white;
+			text-align: center;
+		}
+		img{
+			float: left;
+			width: 140px;
+		}
+		div{
+			float: right;
+			min-width: 140px;
+		}
+
+		button{
+			// border:solid 1px white;
+			width: 33px;
+			height: 22px;
+			@include backgrounddefault;
+			background-color: transparent;
+			position: relative;
+      		@include transition(all, 200ms, ease-in);
+			&:hover{
+				transform: scale(1.05);
+			}
+			&:nth-child(1){
+				float:left;
+				background-image: url(../img/icon-search.svg);
+			}
+			&:nth-child(2){
+				background-image: url(../img/icon-inbox.svg);
+			}
+			&:nth-child(3){
+				float:right;
+				background-image: url(../img/icon-user.svg);
+			}
+		}
+	}
+
+	button{
+		border:0;
+		padding: 0;
+		margin: 0;	
+		min-width: 20px;
+		min-height: 20px;	
+		cursor:pointer;
+		opacity: .3;
+		
+		&:hover{
+			opacity: 1;
+		}
+		&:click{
+
+		}
+	}
+	div{
+		&.login{
+			@include flexbox(column);
+
+			button{
+				position: relative;
+				width: 300px;
+				height: 60px;
+				clear:both;
+				margin: auto;
+				margin-bottom: 20px;
+				border-radius: 0;
+				background-color: $c-mogo;
+				@include font-sans(500);
+				font-size: 20px;
+				color:white;
+
+				&:nth-child(odd){
+					background-color: $c-fb;
+				}
+			}
+		}
+	}
+
+ul.grid{
+	background-color: $c-navy;
+	padding-left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding-top: 80px;
+	color:white;
+	text-transform: capitalize;
+	li{
+		// padding: 0;
+		@include gallery(3);
+		height: 100% / 3;
+		// min-width: 320px;
+		min-height: 220px;
+		@include transition(all, 500ms, ease-in-out);
+		@include flexbox(column);
+		@include flexbox-justify(space-around);
+		// @include flexbox-align-content(center);
+		@include flexbox-align-items(center);
+		&:hover{
+			background-color: transparent !important;
+		}
+		// &:hover:after{
+		// 	opacity: 0;
+		// }
+		&:nth-child(1){
+		background-color: $c-green;
+		}
+		&:nth-child(2){
+		background-color: $c-red;
+		}
+		&:nth-child(3){
+		background-color: $c-gold;
+		}
+		&:nth-child(4){
+		background-color: $c-blue;
+		}
+		&:nth-child(5){
+		background-color: $c-navy;
+		}
+		&:nth-child(6){
+		background-color: $c-silver;
+		}
+		&:nth-child(7){
+		background-color: $c-darkblue;
+		}
+		&:nth-child(8){
+		background-color: $c-lightblue;
+		}
+		&:nth-child(9){
+		background-color: $c-pink;
+		}
+		&:nth-child(10){
+		background-color: $c-violet;
+		}
+		&:nth-child(11){
+		background-color: $c-cream;
+		}
+		&:nth-child(12){
+		background-color: $c-darkgreen;
+		}
+		img{
+			width: 74px;
+			height: 70px;
+			margin: auto;
+		}
+	}
+}
+
+
+// mock bg
+#slide1{
+	background-image: url("../img/mock/mockbg.jpg");
+	@include backgrounddefault;
+}
+#slide2{
+	background-image: url("../img/mock/mockbg2.jpg");
+	@include backgrounddefault;
+}
+
+
+
+// streaming page
+.fp-controlArrow{
+	width: 24px;
+	height: 30px;
+	@include backgrounddefault;
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    cursor: pointer;
+    margin-top: -38px;
+    -webkit-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    opacity: .3;
+}
+.fp-prev,
+.fp-next{
+	@include transition(all, 200ms, ease-in);
+}
+.fp-prev{    
+	left: 30px;
+	background-image: url(../img/icon-arrow-prev.svg);
+}
+.fp-next{
+	right: 30px;
+	background-image: url(../img/icon-arrow-next.svg);
+}
+.fp-prev:hover,
+.fp-next:hover{
+    opacity: 1;
+	transform: scale(1.1);
+}
+
+// status bar
+#statusbar{
+	position: fixed;
+	width: 100%;
+	height: 60px;
+	bottom: -82px;
+	bottom:-460px;
+	left: 0;
+	background-color: rgba(28,31,36,0.7);
+	border-top: 2px $c-green solid;
+	@include transition(all, 200ms, ease-in);
+	color:white;
+	opacity: .8;
+	@include flexbox(row);
+	@include flexbox-justify(space-between);
+	@include flexbox-align-items(center);
+
+	&:hover{
+	// background-color: rgba(28,31,36,1);
+	opacity: 1;
+	}
+
+	#artistinfo{
+		display: inline-block;
+		width: 100px;
+		margin-left:44px;
+		margin-top: -40px;
+		height: 120px;
+		text-align: center;
+
+		img{
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;		
+			border: 2px solid $c-light;
+			@include transition(all, 200ms, ease-in-out);
+		}
+		&:hover{
+			cursor: pointer;
+		}
+		&:hover img{
+			transform:scale(1.1);
+			margin-top: -8px;
+			margin-bottom: 8px;
+		}
+		h6{
+			margin-top: -3px;
+		}
+	}
+	#control-wrapper{
+		// display: inline-block;
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
+		width: 60%;
+		height: 40px;
+		min-width: 300px;
+		margin-right: 10%;
+		// border:white solid 1px;
+
+
+		button, svg{
+			display: inline-block;
+			@include backgrounddefault;
+			background-color: transparent;
+			cursor: pointer;
+		}
+
+		#button-control{
+			width: 40px;
+			height: 40px;
+			background-image: url(../img/icon-pause.svg);
+			&.paused{
+				background-image: url(../img/icon-play.svg);
+			}
+		}
+
+		svg{
+			width: 44px;
+			height: 36px;
+			polygon, path{
+				stroke:#DCD7CD;
+				stroke-width:3;
+				stroke-linecap:round;
+				stroke-linejoin:round;
+				stroke-miterlimit:10;
+			}
+			polygon{
+				fill:#DCD7CD;
+			}
+		}
+
+		// #button-volume object svg{
+		// 	cursor: pointer;
+		// 	// background-image: url(../img/icon-volume.svg);
+		// }
+
+
+
+	}
+
+
+
+
+}

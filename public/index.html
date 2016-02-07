@@ -1,42 +1,164 @@
+<!DOCTYPE html>
 <html>
-	<head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>MYAPP</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="stylesheets/jquery-ui.min.css">
-		<link rel="stylesheet" href="stylesheets/style.css">
-	</head>
-	<body ng-app="myApp">
-		<div id='main' class="container">
-			<nav class="navbar-fluid navbar-default navbar-fixed-top">
-				<div class="container">
-					<a class="navbar-brand" href="#">myApp </a>
-					<p class="navbar-text"> Connect with people and share your expertise</p>
-					<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
-					<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-					<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
-				</div>
-			</nav>
+	<meta name="author" content="" />
+	<meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
 
-			<div class="col-md-offset-2 col-md-8">
-				<div ng-view>
+    <!-- Typekit -->
+	<script src="https://use.typekit.net/gle1ucg.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>	
+
+	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="css/jquery.fullPage.css" type="text/css" media="screen"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+    <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+    <!-- <link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
+	<script type="text/javascript" src="js/jquery.fullPage.js"></script>
+	<script type="text/javascript">
+	// FullPage Config
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+				anchors: ['loginpage', 'genrepage', 'firstgenre'],
+				verticalCentered: true,
+				sectionsColor: ['#252c3f', '#4BBFC3', '#7BAABE'],
+				afterLoad: function(anchorlink, index){
+					if (index == 1){
+						$("header").css("top", "-80px");
+					}
+					else{
+						$("header").css("top", "0");
+					}
+
+					if (index == 3){
+						$("#statusbar").css("bottom", "0px");
+						// $("#statusbar").css("bottom", "380px");
+						$("#artistinfo").delay(300).fadeIn("fast");
+					}
+					else{
+						$("#statusbar").css("bottom", "-82px");
+						$("#artistinfo").fadeOut("fast");
+					}
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript" src="main.js"></script>
+</head>
+<body ng-app="myApp">
+	<header>
+		<div id="searchbar">
+			<form>
+				<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'">
+			</form>
+		</div>
+		<!-- fixed menu -->
+		<a href="#genrepage"><img src="img/logosmall.svg"/></a>
+		<div>
+			<button id="searchbutton"></button>
+			<button id="button-inbox"></button>
+			<button id="button-profile"></button>
+		</div>
+	</header>
+
+	<div id="fullpage">
+		<div class="section " id="section0">
+
+			<div id='main' class="container">
+				<nav class="navbar-fluid navbar-default navbar-fixed-top">
+					<div class="container">
+						<a class="navbar-brand" href="#">myApp </a>
+						<p class="navbar-text"> Connect with people and share your expertise</p>
+						<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
+						<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+						<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
+					</div>
+				</nav>
+
+				<div class="col-md-offset-2 col-md-8">
+					<div ng-view>
+					</div>
 				</div>
 			</div>
+		<!-- login -->
+	<!-- 		<h1>Stage Light</h1>
+			<div class="login">
+				<button>Log in with Facebook</button>
+				<button>Log in with Facebook</button>
+			</div> -->
 		</div>
+
+		<div class="section" id="section1">
+		<!-- genre selection & anchor select -->
+			<ul class="grid">
+				<a href="#firstgenre"><li><img src="img/star.svg" /><h4>genre</h4>
+				<p>450songs</p></li></a>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+				<li><a href="#firstgenre">genre</a></li>
+			</ul>
+		</div>
+
+		<div class="section" id="section2">
+			<!-- genre page -->
+		    <div class="slide" id="slide1">
+		    </div>
+		    <div class="slide" id="slide2">
+		    </div>
+		</div>
+
+		<div class="section" id="section3">
+		</div>
+	</div>
+
+
+	<!-- toolbar (play status) -->
+	<div id="statusbar">
+		<div id="artistinfo">
+			<img src="img/mock/artistprofile.jpg" />
+			<h6 id="artistname">Eugene So</h6>
+		</div>
+		<div id="control-wrapper">
+			<button id="button-control"></button>
+
+			<button id="button-volume">		
+				<svg version="1.1" x="0px" y="-10px" style="enable-background:new 0 0 44 40;" xml:space="preserve">
+					<g>
+						<polygon class="st0" points="14.3,15.5 3.5,15.5 3.5,27.5 14.3,27.5 21.5,32.2 21.5,8.2 	"/>
+						<path id="big" class="st1 st2" d="M35.9,33.5c3-3.6,4.7-8.2,4.7-13.3c0-5-1.8-9.7-4.7-13.3"/>
+						<path id="med" class="st1" d="M31.7,30.3c2.1-2.8,3.4-6.3,3.4-10.1s-1.3-7.3-3.4-10.1"/>
+						<path id="small" class="st1" d="M27.4,27.1c1.4-1.9,2.1-4.3,2.1-6.9c0-2.5-0.8-4.9-2.1-6.9"/>
+					</g>
+				</svg>
+			</button>
+		</div>
+	</div>
 
 	<!-- angular js files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
 
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  	<!-- custom js files  -->
+	<script src="js/myApp.js"></script>
+	<script src="js/login.js"></script>
+
 	<!-- Latest compiled JavaScript -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- jquery - ui js  -->
-  	<script src="javascripts/jquery-ui.min.js"></script>
-
-  	<!-- custom js files  -->
-	<script src="javascripts/myApp.js"></script>
-	<script src="javascripts/login.js"></script>
+  	<script src="js/jquery-ui.min.js"></script>
 	</body>
 </html>
