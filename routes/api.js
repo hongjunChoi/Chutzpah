@@ -40,6 +40,7 @@ function isAuthenticated (req, res, next) {
 //Register the authentication middleware
 router.use('/posts', isAuthenticated);
 
+
 router.route('/posts')
 	//creates a new post
 	.post(function(req, res){
@@ -69,6 +70,13 @@ router.route('/posts')
 			}
 			return res.send(200,posts);
 		});
+	});
+
+router.route('/upload')
+	.post(function(req, res){
+		console.log("DAFSDFAs");
+		console.log(req);
+		console.log("!!");
 	});
 
 //post-specific commands. likely won't be used

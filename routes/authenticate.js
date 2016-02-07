@@ -26,6 +26,7 @@ module.exports = function(passport){
         failureRedirect: '/auth/failure'
     }));
 
+
     //sends user session if there is one
     router.get('/session', function(req, res){
         res.send({state: 'success', user: req.user ? req.user : null});

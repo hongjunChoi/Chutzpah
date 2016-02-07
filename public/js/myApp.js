@@ -56,9 +56,39 @@ app.factory('postService', function($resource){
 	return $resource('/api/posts/:id');
 });
 
+//create directive for fileModel for uploading 
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
 
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+        })
+        .error(function(){
+        });
+    }
+}]);
 
-app.controller('mainController', function(postService, $scope, $rootScope, $sce){
+app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http){
 	$scope.posts = postService.query();
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 
@@ -73,6 +103,13 @@ app.controller('mainController', function(postService, $scope, $rootScope, $sce)
 	    $scope.posts = postService.query();
 	    $scope.newPost = {created_by: '', text: '', created_at: ''};
 	  });
+	};
+
+	$scope.upload = function(){
+		var file = $scope.myFile;
+		var uploadUrl = 'api/upload';
+		console.log(file);
+		fileUpload.uploadFileToUrl(file, uploadUrl);
 	};
 });
 
