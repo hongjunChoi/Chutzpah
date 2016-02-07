@@ -38,6 +38,11 @@ app.config(function($routeProvider){
 		.when('/signup', {
 			templateUrl: 'register.html',
 			controller: 'authController'
+		})
+
+		.when('/profile', {
+			templateUrl: 'profile.html',
+			controller: 'authController'
 		});
 });
 
@@ -70,7 +75,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
       if(data.state == 'success'){
         $rootScope.authenticated = true;
         $rootScope.current_user = data.user.username;
-        $location.path('/');
+        $location.path('/profile');
       }
       else{
         $scope.error_message = data.message;
