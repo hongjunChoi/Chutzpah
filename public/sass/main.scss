@@ -100,15 +100,107 @@ a{
 				background-image: url(../img/icon-user.svg);
 			}
 		}
-
-		p.navbar,
-		a{
+		div.menuwrapper{
+			margin: 0;
+			float: right;
 			display: inline-block;
-			color:$c-light !important;
-			opacity: .5;
 		}
-		p.navbar-right{
-			margin-top:20px;
+		.ui-menu{
+			// float: right;
+			min-width: 140px;
+			height: 40px;
+			list-style:none; 
+			padding: 2px; 
+			margin: 10px 40px 0 0; 
+			display:block; 
+			outline: none;
+			background-color: transparent;
+			border:none;
+			// border:1px solid white;
+			text-align: center;
+			@include flexbox(row);
+			@include flexbox-justify(space-between);
+			@include flexbox-align-content(center);
+
+			.ui-menu{
+				// margin-top: -3px; 
+				position: absolute;
+
+				.ui-menu-item{
+					display: block;
+					margin: 0;
+					background-color: $c-darknavy;
+					height: 60px;
+					width: 80px;
+					text-align: center;
+					p,
+					a{
+						color:$c-light;
+						margin: 0;
+						padding: 0;
+					}
+				}
+			}
+
+			.ui-menu-item {
+				width: 22px;
+				height: 26px;
+				@include backgrounddefault;
+			    display: inline-block;
+			    float: left;
+			    margin: 0;
+			    margin-top:7px;
+			    padding: 0;
+			    width: auto;
+				position: relative;
+	      		@include transition(all, 200ms, ease-in);
+	      		border:none !important;
+	      		&.menuicons{
+					opacity: .3;
+	      			color: transparent !important;
+			    	float: left;
+			    	text-indent: 99999;
+
+			    	&:hover{
+			    	background-color: transparent;
+			    	border:none;
+					opacity: 1;
+	      			color: transparent;
+			    	}
+
+			    	&:nth-child(1){
+						background-image: url(../img/icon-search.svg);
+			   		}
+			    	&:nth-child(2){
+						background-image: url(../img/icon-inbox.svg);
+			   		}
+			    	&:nth-child(3){
+						background-image: url(../img/icon-user.svg);	
+			   		}
+	      		}
+			}
+
+			.ui-menu-divider { 
+				margin: 5px -2px 5px -2px; 
+				height: 0; font-size: 0; 
+				line-height: 0; 
+				border-width: 1px 0 0 0; 
+			}
+		
+			.ui-menu-item a { text-decoration: none; display: block; padding: 2px .4em; line-height: 1.5; zoom: 1; font-weight: normal; }
+			.ui-menu-item a.ui-state-focus,
+			.ui-menu-item a.ui-state-active { font-weight: normal; margin: -1px; }
+
+			.ui-state-disabled { font-weight: normal; margin: .4em 0 .2em; line-height: 1.5; }
+			.ui-state-disabled a { cursor: default; }
+			&:after {
+			    content: ".";
+			    display: block;
+			    clear: both;
+			    visibility: hidden;
+			    line-height: 0;
+			    height: 0;
+			}
 		}
 	}
 
@@ -151,6 +243,44 @@ a{
 			}
 		}
 	}
+
+#section1{
+	img{
+		width: 400px;
+	}
+
+	.login{
+		margin-top: 40px;
+		h4{
+			color: $c-light;
+		}
+		input,
+		input:-webkit-autofill,
+		textarea:-webkit-autofill, 
+		select:-webkit-autofill{
+			background-color: $c-light;
+		}
+		input.btn{
+				// position: relative;
+				width: 240px;
+				height: 50px;
+				background-color: $c-mogo;
+				@include font-sans(500);
+				font-size: 20px;
+				color:white;
+				clear:both;
+				margin: auto;
+				margin-bottom: 20px;
+				border-radius: 0;
+				border:none;
+				outline: none;
+		}
+		input.form-control:focus{
+			outline: none;
+			border:none;
+		}
+	}
+}
 
 ul.grid{
 	background-color: $c-navy;
@@ -220,17 +350,6 @@ ul.grid{
 }
 
 
-// mock bg
-#slide1{
-	background-image: url("../img/mock/mockbg.jpg");
-	@include backgrounddefault;
-}
-#slide2{
-	background-image: url("../img/mock/mockbg2.jpg");
-	@include backgrounddefault;
-}
-
-
 // status bar
 #statusbar{
 	position: fixed;
@@ -245,10 +364,11 @@ ul.grid{
 		background-color: rgba(28,31,36,0.7);
 		border-top: 2px $c-green solid;
 		color:white;
-		opacity: .8;
+		opacity: .95;
 		@include flexbox(row);
 		@include flexbox-justify(space-between);
 		@include flexbox-align-items(center);
+		@include transition(all, 200ms, ease-in-out);
 
 		&:hover{
 		// background-color: rgba(28,31,36,1);
@@ -468,9 +588,14 @@ div.container{
     -o-background-size: cover;
 
     h2{
-    	padding-top:300px;
+    	padding-top:500px;
     	transform:translateY(-50%);
     	color:white;
+    }
+
+    &:first-of-type{
+		background-image: url("../img/mock/mockbg.jpg");
+		@include backgrounddefault;
     }
 }
 

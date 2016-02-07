@@ -34,29 +34,52 @@
 		</div>
 		<!-- fixed menu -->
 		<a href="#genrepage"><img src="img/logosmall.svg"/></a>
-		<a href="#/input_song" style="color:white">test</a>
-		<div>
-			<button id="searchbutton"></button>
-			<button id="button-inbox"></button>
-			<button id="button-profile"></button>
+		<!-- <a href="#/input_song" style="color:white">test</a> -->
+		<div class="menuwrapper">
+
+			<ul id="profile-menu">
+				<li id="searchbutton" class="menuicons">search</li>
+				<li id="button-inbox" class="menuicons"><a href="#/input_song">test</a></li>
+				<li id="button-profile" class="menuicons">profile
+					<ul>
+						<li>
+							<p ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>		
+						</li>
+						<li>
+							<p ng-show="authenticated">Signed in as {{current_user}}</p>					
+						</li>
+						<li>
+							<p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+						</li>
+					</ul>
+				</li>
+			</ul>
 		</div>
-		<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
+<!-- 		<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
 		<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
 		<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
-
+ -->
 	</header>
 
 
 
 <div id="fullpage">
 		<div class="section" id="section1">
+			<!-- CONTENT OF THE WEBSITE  -->
+			<img src="img/logosmall.svg"/>
+			<div ng-view>
+
+
+			</div>
+		</div>
+		<div class="section" id="section2">
 		<!-- genre selection & anchor select -->
 			<ul class="grid">
 				<a href=""><li><img src="img/star.svg" /><h4>Trending</h4>
 				<p>450songs</p></li></a>
-				<a href=""><li><img src="img/star.svg" /><h4>Folk</h4>
+				<a href=""><li><img src="img/genreicons/folk.svg" /><h4>Folk</h4>
 				<p>450songs</p></li></a>
-				<a href=""><li><img src="img/star.svg" /><h4>Band</h4>
+				<a href=""><li><img src="img/genreicons/band.svg" /><h4>Band</h4>
 				<p>450songs</p></li></a>
 				<a href=""><li><img src="img/star.svg" /><h4>Rock</h4>
 				<p>450songs</p></li></a>
@@ -74,18 +97,12 @@
 				<p>450songs</p></li></a>
 				<a href=""><li><img src="img/star.svg" /><h4>Reggae</h4>
 				<p>450songs</p></li></a>
-				<a href=""><li><img src="img/star.svg" /><h4>+ more genres</h4>
+				<a href=""><li><img src="img/icon-plus.svg" /><h4>Discover More</h4>
 				<p>450songs</p></li></a>
 			</ul>
 		</div>
 
-		<div class="section" id="section2">
-			<!-- CONTENT OF THE WEBSITE  -->
-			<div ng-view>
 
-
-			</div>
-		</div>
 
 		<div class="section" id="section3">
 			
@@ -173,6 +190,7 @@
 				<h3>Eugene So</h3>
 				<h5>Band & Rock</h5>
 				<h6>Providence, RI</h6>
+				<p>48 followers</p>
 			</div>
 			<div>
 				<h5>About</h5>

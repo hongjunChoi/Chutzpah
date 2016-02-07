@@ -39,9 +39,13 @@
 
 
 $(document).ready(function(){
-	//button input
-	$("#searchbutton").click(function(){
-		$("header").toggleClass("top40");
+	//dropdown menu init
+	$( "#profile-menu" ).menu({position: {at: "left bottom"}});
+
+	
+		//button input
+		$("#searchbutton").click(function(){
+			$("header").toggleClass("top40");
 
 	});
 
@@ -61,7 +65,7 @@ $(document).ready(function(){
 
 	$("#artistinfo").click(function(){
 		if(artistbaropened){
-			
+
 			$("#statusbar").css("bottom", "-340px");
 			$(this).delay(400).queue(function (next){
 				$(".carousel-control.left").removeClass("hidearrows");
