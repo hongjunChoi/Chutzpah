@@ -3,19 +3,6 @@ var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
 
-// code setup to enable user file uploads 
-var multer  =   require('multer');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/public/assets');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now());
-  }
-})
- 
-var upload = multer({ storage: storage });
-
 
 
 
@@ -59,9 +46,7 @@ router.route('/posts')
 	})
 	//gets all posts
 	.get(function(req, res){
-		console.log('debug1');
 		Post.find(function(err, posts){
-			console.log('debug2');
 			if(err){
 				return res.send(500, err);
 			}
@@ -69,12 +54,9 @@ router.route('/posts')
 		});
 	});
 
-router.route('/upload')
-	.post(function(req, res){
-		console.log("DAFSDFAs");
-		console.log(req);
-		console.log("!!");
-	});
+
+
+
 
 //post-specific commands. likely won't be used
 router.route('/posts/:id')
