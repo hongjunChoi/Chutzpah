@@ -27,13 +27,11 @@ app.config(function($routeProvider){
 		// 	controller: 'mainController'
 		// })
 
-
 		//the login display
-		.when('/input_song', {
-			templateUrl: 'input_song.html',
-			controller: 'authController'
-		})
-
+		// .when('/input_song', {
+		// 	templateUrl: 'input_song.html',
+		// 	controller: 'authController'
+		// })
 
 		//the login display
 		.when('/login', {
@@ -46,10 +44,10 @@ app.config(function($routeProvider){
 			controller: 'authController'
 		})
 
-		.when('/profile', {
-			templateUrl: 'profile.html',
-			controller: 'authController'
-		});
+		// .when('/profile', {
+		// 	templateUrl: 'profile.html',
+		// 	controller: 'authController'
+		// });
 });
 
 app.factory('postService', function($resource){
@@ -76,6 +74,21 @@ app.controller('mainController', function(postService, $scope, $rootScope, $sce,
 
 
 });
+
+app.controller('profileController', function($scope, $rootScope, $sce, $http){
+	$scope.upload = function(){
+	alert("adsfasfd");
+    $http.post('/api/file_upload'  ).success(function(data){
+      if(data.state == 'success'){
+
+
+      }else{
+        $scope.error_message = data.message;
+      }
+    });
+  };
+});
+
 
 app.controller('authController', function($scope, $http, $rootScope, $location){
   $scope.user = {username: '', password: '', location: '', bandname: '' , genre : '', user_type : ''};

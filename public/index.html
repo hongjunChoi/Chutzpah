@@ -113,10 +113,10 @@
 		</div>
  -->
 
- 
-		<!-- MAIN CONTROLLER WHERE SONGS LIST GOES  -->
-		<div class = "section" id="section4" ng-controller = "mainController">
+ 		<!-- SONG INPUTS AND POSTS / USER PROFILE  -->
+ 		<div class = "section" id="section3" ng-controller = "profileController">
 			<div class="clearfix">
+			<div ng-show = "authenticated">
 			  <form ng-Submit="post()" ng-show="authenticated">
 			    <h4>{{current_user}} </h4>
 			    <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
@@ -126,6 +126,22 @@
 				<input type="file" file-model="myFile"/>
 				<button ng-click="upload()">upload me</button>
 			</div>
+		</div>
+		</div>
+
+
+		<!-- MAIN CONTROLLER WHERE SONGS LIST GOES  -->
+		<div class = "section" id="section4" ng-controller = "mainController">
+<!-- 			<div class="clearfix">
+			  <form ng-Submit="post()" ng-show="authenticated">
+			    <h4>{{current_user}} </h4>
+			    <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+			    <input class="btn submit-btn pull-right" type="submit" value="Add" />
+			    
+			  </form>
+				<input type="file" file-model="myFile"/>
+				<button ng-click="upload()">upload me</button>
+			</div> -->
 
 
 			 <div class="container">
