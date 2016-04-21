@@ -2,6 +2,17 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
+//fileupload
+var multer = require('multer');
+var storage =   multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+var upload = multer({ storage : storage}).single('musicData');
 
 
 
@@ -54,7 +65,14 @@ router.route('/posts')
 		});
 	});
 
-
+router.route('/file_upload')
+	.post(function(req, res){
+		console.log("-----file upload requested --------");
+		upload(req, res, function(err) {
+			return res.end("Error upoading file");
+		})
+		res.end("File is uploaded");
+	});
 
 
 
