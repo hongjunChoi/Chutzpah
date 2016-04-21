@@ -31,7 +31,7 @@ router.use('/posts', isAuthenticated);
 router.route('/posts')
 	//creates a new post
 	.post(function(req, res){
-
+		console.log("\n\n\n\n============================\n\n\n")
 		var post = new Post();
 		var url = req.body.text.split("watch?v=")[1];
 

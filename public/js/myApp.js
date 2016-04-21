@@ -50,12 +50,47 @@ app.config(function($routeProvider){
 		// });
 });
 
+
 app.factory('postService', function($resource){
 	return $resource('/api/posts/:id');
 });
 
 
-app.controller('mainController', function(postService, $scope, $rootScope, $sce, $http){
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+ }]);
+      
+ app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+       var fd = new FormData();
+       fd.append('file', file);
+    
+       $http.post(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {'Content-Type': undefined}
+       })
+    
+       .success(function(){
+       })
+    
+       .error(function(){
+       });
+    }
+ }]);
+
+app.controller('mainController', function(postService, fileUpload,  $scope, $rootScope, $sce, $http){
 	$scope.posts = postService.query();
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 
@@ -73,21 +108,31 @@ app.controller('mainController', function(postService, $scope, $rootScope, $sce,
 	};
 
 
+	 $scope.upload = function(){
+       var file = $scope.myFile;
+       
+       console.log('file is ' );
+       console.dir(file);
+       
+       var uploadUrl = "/api/upload_file";
+       fileUpload.uploadFileToUrl(file, uploadUrl);
+       alert(uploadUrl);
+    };
 });
 
-app.controller('profileController', function($scope, $rootScope, $sce, $http){
-	$scope.upload = function(){
-	alert("adsfasfd");
-    $http.post('/api/file_upload'  ).success(function(data){
-      if(data.state == 'success'){
+// app.controller('profileController', function($scope, $rootScope, $sce, $http){
+// 	$scope.upload = function(){
+// 	alert("adsfasfd");
+//     $http.post('/api/file_upload'  ).success(function(data){
+//       if(data.state == 'success'){
 
 
-      }else{
-        $scope.error_message = data.message;
-      }
-    });
-  };
-});
+//       }else{
+//         $scope.error_message = data.message;
+//       }
+//     });
+//   };
+// });
 
 
 app.controller('authController', function($scope, $http, $rootScope, $location){
