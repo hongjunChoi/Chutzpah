@@ -3,19 +3,11 @@ var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
 //fileupload
-var multer = require('multer');
-var storage =   multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, './uploads');
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.fieldname + '-' + Date.now());
-  }
-});
-var upload = multer({ storage : storage}).single('musicData');
+var multer = require('multer'),
+	bodyParser = require('body-parser'),
+	path = require('path');
 
-
-
+var upload = multer({ dest: './uploads/'}).single('file');
 
 //Used for routes that must be authenticated.
 function isAuthenticated (req, res, next) {
@@ -67,7 +59,6 @@ router.route('/posts')
 router.route('/upload_file')
 	.post(function(req, res){
 		console.log("-----file upload requested --------");
-		console.log(req);
 		upload(req, res, function(err) {
 			return res.end("Error upoading file");
 		})
