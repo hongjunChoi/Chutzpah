@@ -76,7 +76,6 @@ app.directive('fileModel', ['$parse', function ($parse) {
     this.uploadFileToUrl = function(file, uploadUrl){
        var fd = new FormData();
        fd.append('file', file);
-    
        $http.post(uploadUrl, fd, {
           transformRequest: angular.identity,
           headers: {'Content-Type': undefined}
@@ -119,20 +118,6 @@ app.controller('mainController', function(postService, fileUpload,  $scope, $roo
        alert(uploadUrl);
     };
 });
-
-// app.controller('profileController', function($scope, $rootScope, $sce, $http){
-// 	$scope.upload = function(){
-// 	alert("adsfasfd");
-//     $http.post('/api/file_upload'  ).success(function(data){
-//       if(data.state == 'success'){
-
-
-//       }else{
-//         $scope.error_message = data.message;
-//       }
-//     });
-//   };
-// });
 
 
 app.controller('authController', function($scope, $http, $rootScope, $location){
