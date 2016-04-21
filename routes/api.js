@@ -65,9 +65,10 @@ router.route('/posts')
 		});
 	});
 
-router.route('/file_upload')
+router.route('/upload_file')
 	.post(function(req, res){
 		console.log("-----file upload requested --------");
+		console.log(req);
 		upload(req, res, function(err) {
 			return res.end("Error upoading file");
 		})
