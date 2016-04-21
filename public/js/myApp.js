@@ -80,7 +80,7 @@ app.controller('profileController', function($scope, $rootScope, $sce, $http){
 	alert("adsfasfd");
     $http.post('/api/file_upload'  ).success(function(data){
       if(data.state == 'success'){
-
+        
 
       }else{
         $scope.error_message = data.message;
