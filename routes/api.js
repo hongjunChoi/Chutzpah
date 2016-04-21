@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
+
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
+var File = mongoose.model('File');
+var User = mongoose.model('User');
+
 //fileupload
 var multer = require('multer'),
 	bodyParser = require('body-parser'),
 	path = require('path');
+	maxSize = 1 * 1000 * 1000;
 
-var upload = multer({ dest: './uploads/'}).single('file');
-
+var upload = multer({ dest: './uploads/', limits: {fileSize: maxSize } }).single('file');
 //Used for routes that must be authenticated.
 function isAuthenticated (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -60,10 +64,79 @@ router.route('/upload_file')
 	.post(function(req, res){
 		console.log("-----file upload requested --------");
 		upload(req, res, function(err) {
-			return res.end("Error upoading file");
+			if (err){
+				console.log("Error: ", err);
+				return res.end("Error upoading file");
+			}
+			console.log(res.req);
+			console.log("success!");
+			var file = new File();
+			file.created_by = res.req.user.username;
+			file.original_name = res.req.file.originalname;
+			file.path = res.req.file.path;
+
+			file.save(function(err, file){
+				if (err){
+					return res.send(500, err);
+				}
+				res.json(file);
+			})
+
+
 		})
-		res.end("File is uploaded");
+
+
 	});
+
+
+//post-specific commands. likely won't be used
+router.route('/search/:search_string')
+	//gets specified post
+	.get(function(req, res){
+		var search_string = req.params.search_string.trim();
+		console.log(search_string);
+		Post.find({
+			$or:[
+				{created_by: search_string},
+				{post_type: search_string},
+				{text: search_string}
+			]}, function(err, post){
+				if(err){
+					res.send(err);
+				}
+
+				User.find({
+					$or:[
+						{created_by: search_string},
+						{post_type: search_string},
+						{username: search_string},
+						{band_name: search_string},
+						{user_type: search_string}
+					]}, function(err, user){
+					if(err){
+						res.send(err);
+					}
+
+					File.find({
+						$or:[
+							{created_by: search_string},
+							{post_type: search_string},
+							{text: search_string},
+							{original_name: search_string}
+						]},search_string, function(err, file){
+						if(err){
+							res.send(err);
+						}
+
+					});
+			});
+
+			
+		});
+
+	console.log(" this should not happen ")
+	res.send("this should not happen") 	
+	}); 
 
 
 

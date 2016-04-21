@@ -88,7 +88,12 @@ app.directive('fileModel', ['$parse', function ($parse) {
        });
     }
  }]);
-
+app.controller('searchController', function($scope, $rootScope, $http){
+  $scope.search = function() {
+    alert($scope.search_string);
+    
+  };
+});
 app.controller('mainController', function(postService, fileUpload,  $scope, $rootScope, $sce, $http){
 	$scope.posts = postService.query();
 	$scope.newPost = {created_by: '', text: '', created_at: ''};

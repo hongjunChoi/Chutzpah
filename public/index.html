@@ -26,9 +26,11 @@
 
 <body ng-app="myApp">
 	<header>
-		<div id="searchbar">
+		<div id="searchbar" ng-controller="searchController">
 			<form>
-				<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'">
+				<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string' >
+				<input type="submit" ng-click="search()" >
+
 			</form>
 		</div>
 		<!-- fixed menu -->
