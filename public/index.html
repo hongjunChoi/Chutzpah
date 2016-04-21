@@ -21,10 +21,9 @@
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <!-- <link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
 	<script type="text/javascript" src="js/jquery.fullPage.js"></script>
-	
-	
-
 </head>
+
+
 <body ng-app="myApp">
 	<header>
 		<div id="searchbar">
@@ -67,11 +66,15 @@
 		<div class="section" id="section1">
 			<!-- CONTENT OF THE WEBSITE  -->
 			<img src="img/logosmall.svg"/>
+			<!-- THIS IS WHERE LOGIN / REGISTER / USER PROFILE GOES !  -->
 			<div ng-view>
 
 
 			</div>
 		</div>
+
+
+		<!-- USER FILTERING SECTION  -->
 		<div class="section" id="section2">
 		<!-- genre selection & anchor select -->
 			<ul class="grid">
@@ -103,11 +106,15 @@
 		</div>
 
 
-
-		<div class="section" id="section3">
+		<!-- ????? -->
+<!-- 		<div class="section" id="section3">
 			
 
 		</div>
+ -->
+
+ 
+		<!-- MAIN CONTROLLER WHERE SONGS LIST GOES  -->
 		<div class = "section" id="section4" ng-controller = "mainController">
 			<div class="clearfix">
 			  <form ng-Submit="post()" ng-show="authenticated">

@@ -29,10 +29,10 @@ app.config(function($routeProvider){
 
 
 		//the login display
-		// .when('/input_song', {
-		// 	templateUrl: 'input_song.html',
-		// 	controller: 'authController'
-		// })
+		.when('/input_song', {
+			templateUrl: 'input_song.html',
+			controller: 'authController'
+		})
 
 
 		//the login display
@@ -57,7 +57,7 @@ app.factory('postService', function($resource){
 });
 
 
-app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http){
+app.controller('mainController', function(postService, $scope, $rootScope, $sce, $http){
 	$scope.posts = postService.query();
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 
