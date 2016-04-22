@@ -94,8 +94,14 @@ router.route('/upload_file')
 router.route('/comment')
 	//make comments on post
 	.get(function(req, res){
-
-	})
+		var post_id = req.body.post_id;
+		Comment.find(function(err, comments){
+			if (err){
+				return res.send(500,err);
+			}
+			return res.send(200, comments);
+		});
+	});
 
 	.post(function(req, res){
 		console.log("------adding comment ");
