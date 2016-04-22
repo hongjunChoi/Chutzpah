@@ -95,16 +95,21 @@ router.route('/search/:search_string')
 	.get(function(req, res){
 		var search_string = req.params.search_string.trim();
 		console.log(search_string);
+		var result = {
+			musician : [],
+			music: []
+		};
 		Post.find({
 			$or:[
 				{created_by: search_string},
 				{post_type: search_string},
 				{text: search_string}
-			]}, function(err, post){
+			]}).toArray(function(err, results){
 				if(err){
 					res.send(err);
 				}
-
+				console.log(results)
+				
 				User.find({
 					$or:[
 						{created_by: search_string},
@@ -112,10 +117,12 @@ router.route('/search/:search_string')
 						{username: search_string},
 						{band_name: search_string},
 						{user_type: search_string}
-					]}, function(err, user){
+					]}).toArray(function(err, user){
 					if(err){
 						res.send(err);
 					}
+					console.log(user)
+
 
 					File.find({
 						$or:[
@@ -123,20 +130,20 @@ router.route('/search/:search_string')
 							{post_type: search_string},
 							{text: search_string},
 							{original_name: search_string}
-						]},search_string, function(err, file){
+						]}).toArray(function(err, file){
 						if(err){
 							res.send(err);
 						}
-
+						console.log(file);
+						alert("YAY");
 					});
+				});
+
 			});
 
 			
 		});
 
-	console.log(" this should not happen ")
-	res.send("this should not happen") 	
-	}); 
 
 
 
