@@ -18,22 +18,25 @@ var postSchema = new mongoose.Schema({
 	original_name: String,
 	url: String,
 	text: String,
-	is_file: Boolean
+	is_file: Boolean,
+	num_likes: Number
 });
 
-
-var fileSchema = new mongoose.Schema({
-	created_by: String,		//should be changed to ObjectId, ref "User"
+var commentSchema = new mongoose.Schema({
+	created_by: String,
 	created_at: {type: Date, default: Date.now},
-	post_type : String,
-	original_name: String,
-	path: String,
-	text: String
+	post_id: String, 
+	text: String,
+});
+
+var likeSchema = new mongoose.Schema({
+
 });
 
 
+ 
 //declaring model name POST with defined schema
-mongoose.model('File', fileSchema);
+mongoose.model('Comment', commentSchema);
 //declaring model name POST with defined schema
 mongoose.model('Post', postSchema);
 //declaring a model with name "User" with schema user schema defined above
