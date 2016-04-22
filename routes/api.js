@@ -90,15 +90,17 @@ router.route('/upload_file')
 
 
 //post-specific commands. likely won't be used
-router.route('/search/:search_string')
+router.route('/search')
 	//gets specified post
 	.get(function(req, res){
-		var search_string = req.params.search_string.trim();
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		var search_string = req.query.search_string.trim();
 		console.log(search_string);
 		var result = {
 			musician : [],
 			music: []
 		};
+
 		Post.find({
 			$or:[
 				{created_by: search_string},
@@ -106,7 +108,7 @@ router.route('/search/:search_string')
 				{text: search_string}
 			]}).toArray(function(err, results){
 				if(err){
-					res.send(err);
+					return res.send(err);
 				}
 				console.log(results)
 				
@@ -119,7 +121,7 @@ router.route('/search/:search_string')
 						{user_type: search_string}
 					]}).toArray(function(err, user){
 					if(err){
-						res.send(err);
+						return res.send(err);
 					}
 					console.log(user)
 
@@ -132,7 +134,7 @@ router.route('/search/:search_string')
 							{original_name: search_string}
 						]}).toArray(function(err, file){
 						if(err){
-							res.send(err);
+							return res.send(err);
 						}
 						console.log(file);
 						alert("YAY");

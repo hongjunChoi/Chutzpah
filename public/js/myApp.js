@@ -91,6 +91,13 @@ app.directive('fileModel', ['$parse', function ($parse) {
 app.controller('searchController', function($scope, $rootScope, $http){
   $scope.search = function() {
     alert($scope.search_string);
+    $http.get('/api/search', {
+	    params: { search_string : $scope.search_string}
+	}).success(function(data){
+		console.log(data);
+	});
+
+ 
     
   };
 });
