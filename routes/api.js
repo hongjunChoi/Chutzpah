@@ -78,11 +78,11 @@ router.route('/upload_file')
 			post.original_name = res.req.file.originalname;
 			post.url = res.req.file.path;
 
-			post.save(function(err, file){
+			post.save(function(err, p){
 				if (err){
 					return res.send(500, err);
 				}
-				res.json(file);
+				res.json(p);
 			})
 
 
@@ -100,7 +100,18 @@ router.route('/comment')
 	.post(function(req, res){
 		console.log("------adding comment ");
 		var comment = new Comment();
-		console.log(req.comment);
+		comment.created_by = req.body.comment.created_by;
+		comment.text = req.body.comment.text;
+		comment.post_id = req.body.comment.post_id;
+
+		comment.save(function(err, p){
+			if (err){
+				return res.send(500, err);
+			}	
+			console.log("comment saved");
+			res.json(p);
+		})
+
 		
 	});
 
