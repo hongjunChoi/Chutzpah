@@ -22,18 +22,8 @@ var postSchema = new mongoose.Schema({
 });
 
 
-var fileSchema = new mongoose.Schema({
-	created_by: String,		//should be changed to ObjectId, ref "User"
-	created_at: {type: Date, default: Date.now},
-	post_type : String,
-	original_name: String,
-	path: String,
-	text: String
-});
 
 
-//declaring model name POST with defined schema
-mongoose.model('File', fileSchema);
 //declaring model name POST with defined schema
 mongoose.model('Post', postSchema);
 //declaring a model with name "User" with schema user schema defined above

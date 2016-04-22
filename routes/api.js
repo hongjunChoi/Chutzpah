@@ -43,6 +43,7 @@ router.route('/posts')
 		post.text = "https://youtube.com/embed/" + url;
 		post.created_by = req.body.created_by;
 		post.is_file = false;
+
 		post.save(function(err, post) {
 			if (err){
 				return res.send(500, err);
@@ -71,6 +72,7 @@ router.route('/upload_file')
 			console.log(res.req);
 			console.log("success!");
 			var post = new Post();
+			post.is_file = true;
 			post.created_by = res.req.user.username;
 			post.original_name = res.req.file.originalname;
 			post.url = res.req.file.path;
@@ -135,10 +137,22 @@ router.route('/search')
 
 router.route("/profile")
 	.get(function(req, res){
-		var user_id  = req.query.user_id;
+		var username  = req.query.username;
 		result = {posts : [], info : {}}
-		
-
+		User.find({username: username}, function(err, user){
+				if(err){
+					return res.send(err);
+				}
+				result.info = user;
+				
+				Post.find({created_by: username}, function(err, post){
+					if(err){
+						return res.send(err);
+					}
+					result.posts = post;
+					console.log(result);
+				});
+			});
 	});
 
 	
@@ -152,6 +166,7 @@ router.route('/posts/:id')
 			res.json(post);
 		});
 	}) 
+
 	//updates specified post
 	.put(function(req, res){
 		Post.findById(req.params.id, function(err, post){

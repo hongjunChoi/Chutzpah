@@ -113,6 +113,21 @@ app.controller('mainController', function(postService, fileUpload,  $scope, $roo
        fileUpload.uploadFileToUrl(file, uploadUrl);
        alert(uploadUrl);
     };
+
+    $scope.upload_comment = function(){     
+       var url = "/api/comment";
+       $scope.comment.created_by = $rootScope.current_user;
+       $http.post(url, {comment: $scope.comment}).success(function(data){
+        if(data.state == 'success'){
+        
+        }
+      else{
+        $scope.error_message = data.message;
+      }
+    });
+       
+    };
+
 });
 
 

@@ -113,13 +113,17 @@
  		<div class = "section" id="section3" ng-controller = "mainController">
 			<div class="clearfix">
 			<div ng-show = "authenticated">
-			  <form ng-Submit="post()" ng-show="authenticated">
+				<form ng-Submit="post()" ng-show="authenticated">
+					<textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+					<input class="btn submit-btn pull-right" type="submit" value="Add" />
+				</form>
 
-			    <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
-			    <input class="btn submit-btn pull-right" type="submit" value="Add" />
+				<form ng-Submit="upload_comment()" ng-show="authenticated">
+					<textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+					<input class="btn submit-btn pull-right" type="submit" value="Add" />
+				</form>
 
 
-			  </form>
 			  	<input type = "file" name="myFile" file-model = "myFile"/>
    				<input type="submit" ng-click="upload()" >
 			</div>
