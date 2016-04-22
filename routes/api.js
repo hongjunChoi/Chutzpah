@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
 var User = mongoose.model('User');
+var Comment = mongoose.model('Comment')
 
 //fileupload
 var multer = require('multer'),
@@ -90,6 +91,18 @@ router.route('/upload_file')
 
 	});
 
+router.route('/comment')
+	//make comments on post
+	.get(function(req, res){
+
+	})
+
+	.post(function(req, res){
+		console.log("------adding comment ");
+		var comment = new Comment();
+		console.log(req.comment);
+		
+	});
 
 //post-specific commands. likely won't be used
 router.route('/search')
