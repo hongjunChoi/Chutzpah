@@ -140,13 +140,19 @@ router.route('/search')
 				});
 
 			});
-
-			
 		});
 
 
 
+router.route("/profile")
+	.get(function(req, res){
+		var user_id  = req.query.user_id;
+		result = {posts : [], info : {}}
+		
 
+	});
+
+	
 //post-specific commands. likely won't be used
 router.route('/posts/:id')
 	//gets specified post

@@ -22,17 +22,6 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 app.config(function($routeProvider){
 	$routeProvider
 
-		// .when('/', {
-		// 	templateUrl: 'main.html',
-		// 	controller: 'mainController'
-		// })
-
-		//the login display
-		// .when('/input_song', {
-		// 	templateUrl: 'input_song.html',
-		// 	controller: 'authController'
-		// })
-
 		//the login display
 		.when('/login', {
 			templateUrl: 'login.html',
@@ -43,11 +32,6 @@ app.config(function($routeProvider){
 			templateUrl: 'register.html',
 			controller: 'authController'
 		})
-
-		// .when('/profile', {
-		// 	templateUrl: 'profile.html',
-		// 	controller: 'authController'
-		// });
 });
 
 
