@@ -32,10 +32,6 @@ var commentSchema = new mongoose.Schema({
 var likeSchema = new mongoose.Schema({
 
 });
-
-
- 
-//declaring model name POST with defined schema
 mongoose.model('Comment', commentSchema);
 //declaring model name POST with defined schema
 mongoose.model('Post', postSchema);
