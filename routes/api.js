@@ -101,30 +101,28 @@ router.route('/search')
 			music: []
 		};
 
-		Post.find({
-			$or:[
-				{created_by: search_string},
-				{post_type: search_string},
-				{text: search_string}
-			]}).toArray(function(err, results){
+		User.find({
+				$or:[
+					{created_by: search_string},
+					{post_type: search_string},
+					{username: search_string},
+					{band_name: search_string},
+					{user_type: search_string}
+				]}, function(err, user){
 				if(err){
 					return res.send(err);
 				}
-				console.log(results)
+				result.musician = user;
 				
-				User.find({
+				Post.find({
 					$or:[
 						{created_by: search_string},
 						{post_type: search_string},
-						{username: search_string},
-						{band_name: search_string},
-						{user_type: search_string}
-					]}).toArray(function(err, user){
+						{text: search_string}
+					]}, function(err, post){
 					if(err){
 						return res.send(err);
 					}
-					console.log(user)
-
 
 					File.find({
 						$or:[
@@ -132,12 +130,12 @@ router.route('/search')
 							{post_type: search_string},
 							{text: search_string},
 							{original_name: search_string}
-						]}).toArray(function(err, file){
+						]}, function(err, file){
 						if(err){
 							return res.send(err);
 						}
-						console.log(file);
-						alert("YAY");
+						result.music = post.concat(file);
+						console.log(result);
 					});
 				});
 
