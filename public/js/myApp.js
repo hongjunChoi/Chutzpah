@@ -10,13 +10,13 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 			$rootScope.current_user = data['user']['username'];
 		}
 		
-   	});
+    });
 	
 	$rootScope.signout = function(){
-    	$http.get('auth/signout');
-    	$rootScope.authenticated = false;
-    	$rootScope.current_user = '';
-	};
+        $http.get('auth/signout');
+        $rootScope.authenticated = false;
+        $rootScope.current_user = '';
+    };
 });
 
 app.config(function($routeProvider){
@@ -32,7 +32,7 @@ app.config(function($routeProvider){
 			templateUrl: 'register.html',
 			controller: 'authController'
 		})
-});
+  });
 
 
 app.factory('postService', function($resource){
@@ -41,93 +41,90 @@ app.factory('postService', function($resource){
 
 
 app.directive('fileModel', ['$parse', function ($parse) {
-    return {
-       restrict: 'A',
-       link: function(scope, element, attrs) {
-          var model = $parse(attrs.fileModel);
-          var modelSetter = model.assign;
-          
-          element.bind('change', function(){
-             scope.$apply(function(){
-                modelSetter(scope, element[0].files[0]);
-             });
+  return {
+     restrict: 'A',
+     link: function(scope, element, attrs) {
+        var model = $parse(attrs.fileModel);
+        var modelSetter = model.assign;
+
+        element.bind('change', function(){
+           scope.$apply(function(){
+              modelSetter(scope, element[0].files[0]);
           });
-       }
-    };
- }]);
-      
- app.service('fileUpload', ['$http', function ($http) {
-    this.uploadFileToUrl = function(file, uploadUrl){
-       var fd = new FormData();
-       fd.append('file', file);
-       $http.post(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {'Content-Type': undefined}
-       })
-    
-       .success(function(){
-       })
-    
-       .error(function(){
        });
     }
- }]);
-app.controller('searchController', function($scope, $rootScope, $http){
-  $scope.search = function() {
-    alert($scope.search_string);
-    $http.get('/api/search', {
-	    params: { search_string : $scope.search_string}
-	}).success(function(data){
-		console.log(data);
-	});
+};
+}]);
 
- 
-    
-  };
+app.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function(){
+
+        }).error(function(){
+
+        });
+    }
+}]);
+
+
+app.controller('searchController', function($scope, $rootScope, $http){
+    $scope.search = function() {
+        alert($scope.search_string);
+        $http.get('/api/search', {
+            params: { search_string : $scope.search_string}
+        }).success(function(data){
+            console.log(data);
+        });
+    };
 });
+
+
 app.controller('mainController', function(postService, fileUpload,  $scope, $rootScope, $sce, $http){
 	$scope.posts = postService.query();
 	$scope.newPost = {created_by: '', text: '', created_at: ''};
 
 	$scope.trustSrc = function(src) {
-    	return $sce.trustAsResourceUrl(src);
-  	}
+        return $sce.trustAsResourceUrl(src);
+    }
 
-	$scope.post = function() {
-	  $scope.newPost.created_by = $rootScope.current_user;
-	  $scope.newPost.created_at = Date.now();
-	  postService.save($scope.newPost, function(){
-	    $scope.posts = postService.query();
-	    $scope.newPost = {created_by: '', text: '', created_at: ''};
-	  });
-	};
+    $scope.post = function() {
+        $scope.newPost.created_by = $rootScope.current_user;
+        $scope.newPost.created_at = Date.now();
+        postService.save($scope.newPost, function(){
+            $scope.posts = postService.query();
+            $scope.newPost = {created_by: '', text: '', created_at: ''};
+        });
+    };
 
 
-	 $scope.upload = function(){
-       var file = $scope.myFile;
-       
-       console.log('file is ' );
-       console.dir(file);
-       
-       var uploadUrl = "/api/upload_file";
-       fileUpload.uploadFileToUrl(file, uploadUrl);
-       alert(uploadUrl);
+    $scope.upload = function(){
+        var file = $scope.myFile;
+
+        console.log('file is ' );
+        console.dir(file);
+
+        var uploadUrl = "/api/upload_file";
+        fileUpload.uploadFileToUrl(file, uploadUrl);
+        alert(uploadUrl);
     };
 
     $scope.upload_comment = function(){     
-       var url = "/api/comment";
-       $scope.comment.created_by = $rootScope.current_user;
-       $http.post(url, {comment: $scope.comment}).success(function(data){
-        if(data.state == 'success'){
-        
-        }
-      else{
-        $scope.error_message = data.message;
-      }
-    });
-       
-    };
+        var url = "/api/comment";
+        $scope.comment.created_by = $rootScope.current_user;
+        $scope.comment.post_id = 1;
+        $http.post(url, {comment: $scope.comment}).success(function(data){
+            if(data.state == 'success'){
 
+            }else{
+                $scope.error_message = data.message;
+            }
+        });
+    };
 });
 
 
@@ -141,32 +138,32 @@ app.controller('authController', function($scope, $http, $rootScope, $location){
         $rootScope.authenticated = true;
         $rootScope.current_user = data.user.username;
         $location.path('/profile');
-      }
-      else{
+    }
+    else{
         $scope.error_message = data.message;
-      }
-    });
-  };
+    }
+});
+};
 
-  $scope.register = function(){
-  	
-  	if($('#register_musician_tab').hasClass("active")){
-  		$scope.user.user_type = 'musician';
-  	}else{
-  		$scope.user.user_type = 'host';
-  	}
+$scope.register = function(){
+
+ if($('#register_musician_tab').hasClass("active")){
+    $scope.user.user_type = 'musician';
+}else{
+    $scope.user.user_type = 'host';
+}
 
 
-    $http.post('/auth/signup', $scope.user).success(function(data){
-      if(data.state == 'success'){
-        $rootScope.authenticated = true;
-        $rootScope.current_user = data.user.username;
-        $location.path('/');
+$http.post('/auth/signup', $scope.user).success(function(data){
+  if(data.state == 'success'){
+    $rootScope.authenticated = true;
+    $rootScope.current_user = data.user.username;
+    $location.path('/');
 
-      }	
-      else{
-        $scope.error_message = data.message;
-      }
-    });
-  };
+}	
+else{
+    $scope.error_message = data.message;
+}
+});
+};
 });
