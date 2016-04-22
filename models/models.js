@@ -9,15 +9,16 @@ var userSchema = new mongoose.Schema({
 	band_name : String,
 	user_location : String
 });
-	
 
 var postSchema = new mongoose.Schema({
 	created_by: String,		//should be changed to ObjectId, ref "User"
 	created_at: {type: Date, default: Date.now},
 	post_location : String, 
 	post_type : String,
+	original_name: String,
 	url: String,
-	text: String
+	text: String,
+	is_file: Boolean
 });
 
 

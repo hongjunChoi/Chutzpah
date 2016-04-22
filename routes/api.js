@@ -3,7 +3,6 @@ var router = express.Router();
 
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
-var File = mongoose.model('File');
 var User = mongoose.model('User');
 
 //fileupload
@@ -43,6 +42,7 @@ router.route('/posts')
 
 		post.text = "https://youtube.com/embed/" + url;
 		post.created_by = req.body.created_by;
+		post.is_file = false;
 		post.save(function(err, post) {
 			if (err){
 				return res.send(500, err);
@@ -70,12 +70,12 @@ router.route('/upload_file')
 			}
 			console.log(res.req);
 			console.log("success!");
-			var file = new File();
-			file.created_by = res.req.user.username;
-			file.original_name = res.req.file.originalname;
-			file.path = res.req.file.path;
+			var post = new Post();
+			post.created_by = res.req.user.username;
+			post.original_name = res.req.file.originalname;
+			post.url = res.req.file.path;
 
-			file.save(function(err, file){
+			post.save(function(err, file){
 				if (err){
 					return res.send(500, err);
 				}
@@ -118,25 +118,14 @@ router.route('/search')
 					$or:[
 						{created_by: search_string},
 						{post_type: search_string},
-						{text: search_string}
+						{text: search_string},
+						{original_name: search_string}
 					]}, function(err, post){
 					if(err){
 						return res.send(err);
 					}
-
-					File.find({
-						$or:[
-							{created_by: search_string},
-							{post_type: search_string},
-							{text: search_string},
-							{original_name: search_string}
-						]}, function(err, file){
-						if(err){
-							return res.send(err);
-						}
-						result.music = post.concat(file);
-						console.log(result);
-					});
+					result.music = post;
+					console.log(result);
 				});
 
 			});
