@@ -3,8 +3,13 @@ $(document).ready(function(){
 	var menuopened = false;
 
 	$("nav ul li h4").click(function(){
-		$("nav ul li.active").removeClass('active');
-		$(this).parent().addClass('active');
+		if($(this).parent().hasClass('active')){
+			$(this).parent().removeClass('active');
+		}
+		else{
+			$("nav ul li.active").removeClass('active');
+			$(this).parent().addClass('active');
+		}
 	});
 
 	$("#btn_menu").click(function(){

@@ -173,15 +173,6 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/index.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/index.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
 	"\/public\/input_song.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -208,6 +199,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/js\/jquery.fullPage.js",
 		"outputAbbreviatedPath": "\/public\/js\/min\/jquery.fullPage-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/jquery.jplayer.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/jquery.jplayer.min.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/jquery.jplayer.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -374,6 +376,176 @@
 		"shouldRunAutoprefixer": 0,
 		"shouldRunBless": 0,
 		"useLibsass": 0
+		},
+	"\/public\/skin\/blue.monday\/css\/jplayer.blue.monday.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/css\/jplayer.blue.monday.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/css\/jplayer.blue.monday.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/css\/jplayer.blue.monday.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 23189,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.jpg",
+		"outputAbbreviatedPath": "\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.video.play.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 17692,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.video.play.png",
+		"outputAbbreviatedPath": "\/public\/skin\/blue.monday\/image\/jplayer.blue.monday.video.play.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.playlist.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.playlist.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.single.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.single.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.stream.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.audio.stream.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.video.playlist.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.video.playlist.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.video.single.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/blue.monday\/mustache\/jplayer.blue.monday.video.single.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/css\/jplayer.pink.flag.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/css\/jplayer.pink.flag.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/css\/jplayer.pink.flag.min.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/css\/jplayer.pink.flag.min.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 18426,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.jpg",
+		"outputAbbreviatedPath": "\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.video.play.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 17692,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.video.play.png",
+		"outputAbbreviatedPath": "\/public\/skin\/pink.flag\/image\/jplayer.pink.flag.video.play.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.playlist.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.playlist.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.single.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.single.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.stream.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.audio.stream.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.video.playlist.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.video.playlist.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.video.single.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/skin\/pink.flag\/mustache\/jplayer.pink.flag.video.single.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/public\/susy\/_su.scss": {
 		"createSourceMap": 0,
