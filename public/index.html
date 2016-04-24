@@ -67,8 +67,13 @@
         <!-- Main screen -->
         <div id="mainscreen">
             <div ng-view></div>
-            <div>
+            <div ng-controller="mainController">
                 <!-- content lists -->
+                <ul>
+                    <li ng-repeat="post in posts">
+                        {{ post }}
+                    </li>
+                </ul>
             </div>
         </div>
         <div id="controller">
