@@ -2,18 +2,26 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>StageLight</title>
-	<meta name="author" content="" />
-	<meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>StageLight</title>
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Typekit -->
-	<script src="https://use.typekit.net/yzo6awb.js"></script>
-	<script>try{Typekit.load({ async: true });}catch(e){}</script>
-
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
-	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen"/>
+    <script src="https://use.typekit.net/yzo6awb.js"></script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+
+    <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
+	<link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" />
 </head>
 
 <body ng-app="myApp">
@@ -44,14 +52,14 @@
         <div id="profilewrapper">
             <button id="profileclose">close</button>
             <div id="profile">
-            	<!-- contents should be dynamically appended -->
-                <img src="img/sample.jpg" /> 
+                <!-- contents should be dynamically appended -->
+                <img src="img/sample.jpg" />
                 <h3>{Eugene So}</h3>
                 <p>{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.}</p>
                 <button>Contact {Eugene So}</button>
             </div>
             <div id="related">
-            	<h6>More songs by {Eugene So}</h6>
+                <h6>More songs by {Eugene So}</h6>
                 <ul>
                     <li><a href=""><h5>{title}</h5></a></li>
                 </ul>
@@ -69,13 +77,56 @@
                 </ul>
             </div>
         </div>
-        <div id="controller">
+        <div id="controller" ng-controller="mainController">
             <div id="thumbwrapper">
-                <img id="userthumb" src="img/sample.jpg" />
+                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
                 <span>{Eugene So}</span>
             </div>
             <div>
                 <!-- jQuery Player needed -->
+                <div id="jp_container_1" class="jp-video " role="application" aria-label="media player">
+				  <div class="jp-type-single">
+				    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+				    <div class="jp-gui">
+				      <div class="jp-video-play">
+				        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+				      </div>
+				      <div class="jp-interface">
+				        <div class="jp-progress">
+				          <div class="jp-seek-bar">
+				            <div class="jp-play-bar"></div>
+				          </div>
+				        </div>
+				        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+				        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+				        <div class="jp-details">
+				          <div class="jp-title" aria-label="title">&nbsp;</div>
+				        </div>
+				        <div class="jp-controls-holder">
+				          <div class="jp-volume-controls">
+				            <button class="jp-mute" role="button" tabindex="0">mute</button>
+				            <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+				            <div class="jp-volume-bar">
+				              <div class="jp-volume-bar-value"></div>
+				            </div>
+				          </div>
+				          <div class="jp-controls">
+				            <button class="jp-play" role="button" tabindex="0">play</button>
+				            <button class="jp-stop" role="button" tabindex="0">stop</button>
+				          </div>
+				          <div class="jp-toggles">
+				            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+				            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="jp-no-solution">
+				      <span>Update Required</span>
+				      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				    </div>
+				  </div>
+				</div>
             </div>
         </div>
     </main>
@@ -130,6 +181,27 @@
     <!-- jquery - ui js  -->
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#jquery_jplayer_1").jPlayer({
+	        ready: function () {
+	          $(this).jPlayer("setMedia", {
+	            title: "Big Buck Bunny Trailer",
+	            m4v: "uploads/sample1.m4v"
+	          });
+	        },
+	        cssSelectorAncestor: "#jp_container_1",
+	        swfPath: "/js",
+	        supplied: "m4v, ogv",
+	        useStateClassSkin: true,
+	        autoBlur: false,
+	        smoothPlayBar: true,
+	        keyEnabled: true,
+	        remainingDuration: true,
+	        toggleDuration: true
+	      });
+		});
+	</script>
 </body>
 
 </html>

@@ -166,6 +166,28 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             }
         });
     };
+
+    $scope.get_profile_info = function() {
+
+        var url = "/api/profile";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var user_name = "scottljy";
+
+        $http.get(url, {
+            username: user_name
+        }).success(function(data) {
+            console.log(data);
+            console.log('asdfas')
+            if (data.state == 'success') {
+                console.log(data);
+                $("body").addClass("profileopened");
+            } else {
+                $scope.error_message = data.message;
+            }
+        });
+    };
+
+
 });
 
 
