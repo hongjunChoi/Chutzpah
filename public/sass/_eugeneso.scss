@@ -5,10 +5,6 @@ $base-font-size: 14px;
 //Color
 $c-default: #1e1e21;
 $c-white: #FFFFFF;
-$c-hover: #bada55;
-
-$c-gold: #c9a779;
-$c-cream: #e4d3bc;
 
 $c-silver: #9fa0a2;
 $c-gray: #b3b3b3;
@@ -18,34 +14,7 @@ $c-lightgray: #dedede;
 $c-xlightgray: #efefef;
 
 $c-mogo: #fc4e5e;
-$c-red: #ee4441;
 $c-pink: #d2527f;
-
-$c-lightblue: #4ecdc4;
-$c-blue: #538eca;
-$c-fb: #44619d;
-$c-darkblue: #44619d;
-$c-navy: #252c3f;
-
-$c-violet: #bf55ec;
-
-$c-darkgreen: #26a65b;
-$c-green: #a0b74e;
-
-$c-lightondark: rgba(255,255,255,0.12);
-$c-darknavy: #1c1f24; //28-31-36
-$c-darktext: rgba(0,0,0,0.8);
-$c-gray: #b3b3b3;
-
-//work specific
-$c-haeinsa: #cfbaa6;
-$c-forest: #5e8f56;
-$c-smile: #fed33b; //254,211,59
-$c-saville: #f6c216;
-$c-darwin: #00a98f;
-$c-newrivers: #d08517;
-
-
 
 ////////////////////////////////
 // FUNCTION ///////////////////////
@@ -75,31 +44,24 @@ $c-newrivers: #d08517;
   font-style: normal;
   font-weight: $weight;
 }
-// @mixin font-serif($weight){
-//   // LT 300 / REG 400 / 400 + italic font-style
-//   font-family:  "garamond-premier-pro-display";
-//   font-style: normal;
-//   font-weight: $weight;
-// }
-
 
 @mixin generate-type-size($scale){
   *{
     font-size: (14 * $scale) + 0px;
   }
   h1{
-    @include font-sans(300);
+    @include font-sans(400);
     font-size: (72 * $scale) + 0px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
   h2{
-    @include font-sans(700);
+    @include font-sans(400);
     font-size: (48 * $scale) + 0px;
     padding-bottom: 14px;
   }
   h3{
-    @include font-sans(700);
+    @include font-sans(400);
     font-size: (32 * $scale) + 0px;
     line-height: (44 * $scale) + 0px;
     padding-bottom: 10px;
@@ -118,56 +80,13 @@ $c-newrivers: #d08517;
     line-height: (28 * $scale) + 0px;
     padding-bottom: 12px;
   }
-  p.heading{
-    @include font-sans(400);
-    font-size: (14 * $scale) + 0px;
-    line-height: (26 * $scale) + 0px;
-    color: $c-gray;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding-bottom: 12px;
-  }
   p, p a{
     @include font-sans(300);
     font-size: (18 * $scale) + 0px;
     line-height: (26 * $scale) + 0px;
-    color: $c-darktext;
     padding-bottom: 12px;
   }
-  p.small{
-    @include font-sans(300);
-    font-size: (14 * $scale) + 0px;
-    line-height: (18 * $scale) + 0px;
-  }
-  p.captionheader{
-    text-align: center;
-    @include font-sans(400);
-    font-size: (14 * $scale) + 0px;
-    padding-top: 4px;
-    padding-bottom: 0;
-  }
-  p.caption, p.caption a,
-  p.captionB, p.captionB a,
-  p.captionnp, p.captionnp a{
-    @include font-sans(300);
-    font-size: (14 * $scale) + 0px;
-    line-height: (18 * $scale) + 0px;
-    text-align: center;
-    clear:both;
-    padding-top: 8px;
-    padding-bottom: 0;
-  }
-  p.captionnp{
-    padding-top: 0;
-  }
 }
-
-@mixin font-lnum{
-   -moz-font-feature-settings: "lnum";
-   -webkit-font-feature-settings: "lnum";
-   font-feature-settings: "lnum";
-}
-
 
 @mixin transition($duration, $range ,$ease) { //$delay can be added
   -webkit-transition: $duration $range $ease;
