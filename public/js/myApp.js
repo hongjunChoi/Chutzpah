@@ -78,6 +78,7 @@ app.service('fileUpload', ['$http',
 
 
 app.controller('searchController', function($scope, $rootScope, $http) {
+    $scope.search_results = {};
     $scope.search = function() {
         alert($scope.search_string);
         $http.get('/api/search', {
@@ -85,7 +86,9 @@ app.controller('searchController', function($scope, $rootScope, $http) {
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            console.log(data);
+            $scope.search_results = data;
+            console.log("==========")
+            console.log($scope.search_results);
         });
     };
 });
@@ -98,7 +101,6 @@ app.factory('postService', function($resource) {
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
     $scope.posts = postService.query();
-    console.log($scope.posts);
     $scope.newPost = {
         created_by: '',
         text: '',
