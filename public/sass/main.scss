@@ -22,8 +22,9 @@ a{
 	color:inherit;
 }
 button{
-	border:none;
+	background-color: transparent;
 	box-shadow: none;
+	cursor: pointer;
 }
 
 @include generate-type-size(1);
@@ -92,21 +93,27 @@ nav{
 	        transform: translateX(100%);
 
 	ul{
-		margin-top: 160px;
+		margin-top: 100px;
 		// background-color: red;
 		li{
 			padding-left: 40px;
-			padding-top: 30px;
-			padding-bottom: 30px;
+			padding-top: 20px;
+			padding-bottom: 20px;
 			text-transform: uppercase;
 			cursor: pointer;
 			color:black;
-			opacity: 0.7;
+			opacity: 0.6;
+
+			font-size: 1.5em;
+			font-weight: 700;
+			letter-spacing: 0.01em;
 			-webkit-transform: translateX(250px);
 			        transform: translateX(250px);
 			@include transition(300ms, all, ease-in-out);
 
 			&:hover{
+				@include transition(100ms, all, linear);
+				opacity: 1;
 				color: $c-pink;
 			}
 			&:nth-child(1){ @include transitiondelay(30ms); }
@@ -140,7 +147,6 @@ body.menuopened{
 	        transform: translateX(0);
 	    ul{
 	    	li{
-	    		opacity: 1;
 			-webkit-transform: translateX(0);
 			        transform: translateX(0);
 	    	}
@@ -165,12 +171,14 @@ body.profileopened{
 	}
 }
 
-
+///////////////////////
 //MAIN
 main{
 	width: 100%;
 	background-color: white;
 }
+
+//profile
 #profilewrapper{
 	position: fixed;
 	left: 0;
@@ -202,17 +210,27 @@ main{
 		margin-top: 100px;
 		text-align: center;
 		img{
+			border-radius: 50%;
 			position: relative;
 			width: 100px;
 			height:100px;
 			margin:auto;
+			margin-bottom: 20px;
 			clear: both;
 		}
 		h3{
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			font-weight: 700;
 			margin-bottom: 20px;
+
 		}
 		p{
 			text-align: left;
+		}
+		button{
+			color: $c-pink;
+			float: left;
 		}
 	}
 	#related{
@@ -235,13 +253,43 @@ main{
 		}
 	}
 }
+
+//main
 #mainscreen{
 	position: absolute;
 	width:100%;
 	height: 100vh;
 	margin:0;
-	background-color: rgba(0,0,0,0.8);
+	background-color: $c-darkgray;
+
+	& > div{
+		width: 90%;
+		margin: auto;
+		margin-top: 100px;
+
+		// main post lists
+		ul{
+			border:1px solid black;
+			padding-bottom:10px;
+			li{
+				color:white;
+				border-bottom:1px solid black;
+				padding-top:5px;
+				padding-bottom: 5px;
+				opacity: 0.8;
+				cursor: pointer;
+				@include transition(all, 200ms, linear);
+
+				&:hover{
+					background-color: black;
+					opacity: 1;
+				}
+			}
+		}
+	}
 }
+
+//controller
 #controller{
 	background-color: $c-pink;
 	position: fixed;
@@ -266,8 +314,11 @@ main{
 		display: block;
 		width: 80px;
 		height:80px;
-		border-radius: 50%;
 		margin-bottom: 10px;
+		border-radius: 50%;
+		background-color: black;
+		box-shadow: none;
+		outline: none;
 	}
 	span{
 		color:white;

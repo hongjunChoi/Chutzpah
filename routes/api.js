@@ -149,6 +149,7 @@ router.route('/search')
 			}
 			result.music = post;
 			console.log(result);
+			res.send(result)
 		});
 
 	});
@@ -178,7 +179,7 @@ router.route("/profile")
 					return res.send(err);
 				}
 				result.posts = post;
-				console.log(result);
+				res.send(result)
 			});
 		});
 	});

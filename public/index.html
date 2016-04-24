@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>StageLight</title>
@@ -13,124 +14,114 @@
 	<link rel="stylesheet" href="css/jquery-ui.min.css">
 	<link rel="stylesheet" href="css/main.css" type="text/css" media="screen"/>
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
-    <!-- <link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
 </head>
 
 <body ng-app="myApp">
-	<!-- LOGO -->
-	<img id="logo" src="img/logo.svg" />
-
-	<!-- HEADER -->
-	<header>
-		<ul>			
-			<li>
-				<p ng-hide="authenticated">
-					<a href="#/login">Login</a>or<a href="#/signup">Register</a>
-				</p>
-			</li>
-			<li>
-				<p ng-show="authenticated">Signed in as {{current_user}}</p>					
-			</li>
-			<li>
-				<p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-			</li>
-
-			<!-- Buttons -->
-			<li id="btn_search">search</li>
-			<li id="btn_menu">menu</li>
-		</ul>
-	</header>
-
-	<!-- MAIN -->
-	<main>
-		<!-- Left Profile -->
-		<div id="profilewrapper">
-			<button id="profileclose">close</button>
-			<div id="profile">
-				<img src="" />
-				<h3>name name</h3>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.</p>
-				<button>contact</button>
-			</div>
-			<div id="related">
-				<ul>
-					<li><a href=""><h5>song name</h5></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<!-- Main screen -->
-		<div id="mainscreen">
-			<div ng-view></div>
-
-			
-			<div>
-				<!-- content lists -->
-			</div>
-		</div>
-
-		
-		<div id="controller">
-			<div id="thumbwrapper">
-				<img id="userthumb" src="">
-				<span>sample name</span>
-			</div>
-			
-			<div>
-				<!-- jQuery Player needed -->
-			</div>
-		</div>
-
-	</main>
-
-	<!-- RIGHT NAVIGATION MENU -->
-	<nav>
-		<ul>
-			<li>now playing</li>
-			<li id="navsearch">search</li>
-			<div id="searchbar" ng-controller="searchController">
-				<form>
-					<input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string' >
-					<input type="submit" ng-click="search()" >
-				</form>
-			</div>
-			<li>trending</li>
-			<li>saved</li>
-			<li>notification</li>
-		</ul>
-
-		<!-- Upload -->
-		<div id="uploadwrapper" ng-controller = "mainController">
-			<div class="clearfix">
-				<div ng-show = "authenticated">
-					<form ng-Submit="post()" ng-show="authenticated">
-						<textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
-						<input class="btn submit-btn pull-right" type="submit" value="Add" />
-					</form>
-
-					<form ng-Submit="upload_comment()" ng-show="authenticated">
-						<textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-						<input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
-					</form>
-
-				  	<input type = "file" name="myFile" file-model = "myFile"/>
-	   				<input type="submit" ng-click="upload()" >
-				</div>
-			</div>
-		</div>
-	</nav>
-
-	<!-- angular js files   -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
-
-  	<!-- custom js files  -->
-	<script src="js/myApp.js"></script>
-	<script src="js/login.js"></script>
-
-	<!-- jquery - ui js  -->
-  	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/main.js"></script>
+    <!-- LOGO -->
+    <img id="logo" src="img/logo.svg" />
+    <!-- HEADER -->
+    <header>
+        <ul>
+            <li>
+                <p ng-hide="authenticated">
+                    <a href="#/login">Login</a>or<a href="#/signup">Register</a>
+                </p>
+            </li>
+            <li>
+                <p ng-show="authenticated">Signed in as {{current_user}}</p>
+            </li>
+            <li>
+                <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+            </li>
+            <!-- Buttons -->
+            <li id="btn_search">search</li>
+            <li id="btn_menu">menu</li>
+        </ul>
+    </header>
+    <!-- MAIN -->
+    <main>
+        <!-- Left Profile -->
+        <div id="profilewrapper">
+            <button id="profileclose">close</button>
+            <div id="profile">
+            	<!-- contents should be dynamically appended -->
+                <img src="img/sample.jpg" /> 
+                <h3>{Eugene So}</h3>
+                <p>{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.}</p>
+                <button>Contact {Eugene So}</button>
+            </div>
+            <div id="related">
+            	<h6>More songs by {Eugene So}</h6>
+                <ul>
+                    <li><a href=""><h5>{title}</h5></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Main screen -->
+        <div id="mainscreen">
+            <div ng-view></div>
+            <div ng-controller="mainController">
+                <!-- content lists -->
+                <ul>
+                    <li ng-repeat="post in posts">
+                        {{ post }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="controller">
+            <div id="thumbwrapper">
+                <img id="userthumb" src="img/sample.jpg" />
+                <span>{Eugene So}</span>
+            </div>
+            <div>
+                <!-- jQuery Player needed -->
+            </div>
+        </div>
+    </main>
+    <!-- RIGHT NAVIGATION MENU -->
+    <nav>
+        <ul>
+            <li>now playing</li>
+            <li id="navsearch">search</li>
+            <div id="searchbar" ng-controller="searchController">
+                <form>
+                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+                    <input type="submit" ng-click="search()">
+                </form>
+            </div>
+            <li>trending</li>
+            <li>saved</li>
+            <li>notification</li>
+        </ul>
+        <!-- Upload -->
+        <div id="uploadwrapper" ng-controller="mainController">
+            <div class="clearfix">
+                <div ng-show="authenticated">
+                    <form ng-Submit="post()" ng-show="authenticated">
+                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+                        <input class="btn submit-btn pull-right" type="submit" value="Add" />
+                    </form>
+                    <form ng-Submit="upload_comment()" ng-show="authenticated">
+                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+                        <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
+                    </form>
+                    <input type="file" name="myFile" file-model="myFile" />
+                    <input type="submit" ng-click="upload()">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- angular js files   -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+    <!-- custom js files  -->
+    <script src="js/myApp.js"></script>
+    <script src="js/login.js"></script>
+    <!-- jquery - ui js  -->
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
