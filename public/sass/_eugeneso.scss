@@ -1,18 +1,5 @@
-
-
-
-
 ////////////////////////////////
 // VARIABLES ///////////////////////
-
-//Font
-// $font-alt: 'Alternate-Gothic' , sans-serif;
-// $font-bold: 'Verlag-Bold', sans-serif;
-// $font-reg: 'Verlag-Book', sans-serif;
-// $font-reg-it: '', sans-serif;
-// $font-lt: 'Verlag-Light', sans-serif;
-// $font-blk: 'Verlag-Black', sans-serif;
-
 $base-font-size: 14px;
 
 //Color
@@ -20,11 +7,15 @@ $c-default: #1e1e21;
 $c-white: #FFFFFF;
 $c-hover: #bada55;
 
-$c-gold: #c4b397;
-$c-cream: #fde3a7;
+$c-gold: #c9a779;
+$c-cream: #e4d3bc;
 
 $c-silver: #9fa0a2;
+$c-gray: #b3b3b3;
 $c-light: #dcd7cd;
+
+$c-lightgray: #dedede;
+$c-xlightgray: #efefef;
 
 $c-mogo: #fc4e5e;
 $c-red: #ee4441;
@@ -35,12 +26,24 @@ $c-blue: #538eca;
 $c-fb: #44619d;
 $c-darkblue: #44619d;
 $c-navy: #252c3f;
-$c-darknavy: #1c1f24;
 
 $c-violet: #bf55ec;
 
 $c-darkgreen: #26a65b;
 $c-green: #a0b74e;
+
+$c-lightondark: rgba(255,255,255,0.12);
+$c-darknavy: #1c1f24; //28-31-36
+$c-darktext: rgba(0,0,0,0.8);
+$c-gray: #b3b3b3;
+
+//work specific
+$c-haeinsa: #cfbaa6;
+$c-forest: #5e8f56;
+$c-smile: #fed33b; //254,211,59
+$c-saville: #f6c216;
+$c-darwin: #00a98f;
+$c-newrivers: #d08517;
 
 
 
@@ -50,8 +53,6 @@ $c-green: #a0b74e;
 @function pxtoem($px, $base: $base-font-size) {
   @return ($px / $base) + 0em;
 }
-
-
 
 //additional
 %fullsize{
@@ -66,20 +67,20 @@ $c-green: #a0b74e;
   }
 }
 
-
 ////////////////////////////////
 // MIXIN ///////////////////////
 @mixin font-sans($weight){
   // LT 300 / REG 400 / BOLD 700 / BLACK 900
-  font-family: "omnes-pro", sans-serif;
+  font-family: "neuzeit-grotesk", sans-serif;
   font-style: normal;
   font-weight: $weight;
 }
-@mixin font-serif($weight){
-  font-family: serif;
-  font-style: normal;
-  font-weight: $weight;
-}
+// @mixin font-serif($weight){
+//   // LT 300 / REG 400 / 400 + italic font-style
+//   font-family:  "garamond-premier-pro-display";
+//   font-style: normal;
+//   font-weight: $weight;
+// }
 
 
 @mixin generate-type-size($scale){
@@ -93,40 +94,71 @@ $c-green: #a0b74e;
     text-transform: uppercase;
   }
   h2{
+    @include font-sans(700);
     font-size: (48 * $scale) + 0px;
+    padding-bottom: 14px;
   }
   h3{
+    @include font-sans(700);
     font-size: (32 * $scale) + 0px;
+    line-height: (44 * $scale) + 0px;
+    padding-bottom: 10px;
   }
   h4{
-    font-size: (24 * $scale) + 0px;
+    font-size: (28 * $scale) + 0px;
+    line-height: (36 * $scale) + 0px;
   }
   h5
-  // ,main ul li
-  // ,main ul a
   {
-    font-size: (18 * $scale) + 0px;
+    font-size: (24 * $scale) + 0px;
+    line-height: (30 * $scale) + 0px;
   }
   h6{
-    font-size: (16 * $scale) + 0px;
+    font-size: (20 * $scale) + 0px;
+    line-height: (28 * $scale) + 0px;
+    padding-bottom: 12px;
   }
-  header a{
+  p.heading{
     @include font-sans(400);
     font-size: (14 * $scale) + 0px;
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
+    line-height: (26 * $scale) + 0px;
+    color: $c-gray;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 12px;
   }
-  p{
+  p, p a{
     @include font-sans(300);
-    font-size: (12 * $scale) + 0px;
-    line-height: 1.7em;
+    font-size: (18 * $scale) + 0px;
+    line-height: (26 * $scale) + 0px;
+    color: $c-darktext;
+    padding-bottom: 12px;
   }
-
-  a{
-
+  p.small{
+    @include font-sans(300);
+    font-size: (14 * $scale) + 0px;
+    line-height: (18 * $scale) + 0px;
   }
-  footer p{
-    font-size: (10 * $scale) + 0px;
+  p.captionheader{
+    text-align: center;
+    @include font-sans(400);
+    font-size: (14 * $scale) + 0px;
+    padding-top: 4px;
+    padding-bottom: 0;
+  }
+  p.caption, p.caption a,
+  p.captionB, p.captionB a,
+  p.captionnp, p.captionnp a{
+    @include font-sans(300);
+    font-size: (14 * $scale) + 0px;
+    line-height: (18 * $scale) + 0px;
+    text-align: center;
+    clear:both;
+    padding-top: 8px;
+    padding-bottom: 0;
+  }
+  p.captionnp{
+    padding-top: 0;
   }
 }
 
@@ -137,16 +169,59 @@ $c-green: #a0b74e;
 }
 
 
-@mixin transition($duration, $range ,$ease) {
+@mixin transition($duration, $range ,$ease) { //$delay can be added
   -webkit-transition: $duration $range $ease;
    -moz-transition: $duration $range $ease;
+   -o-transition: $duration $range $ease;
     -ms-transition: $duration $range $ease;
       transition: $duration $range $ease;
+}
+@mixin transitiondelay($delay){
+  -webkit-transition-delay: $delay;
+  -moz-transition-delay: $delay;
+  -o-transition-delay: $delay;
+  transition-delay: $delay;
+}
+
+@mixin scale($size){
+  -webkit-transform: scale($size);
+  -moz-transform: scale($size);
+  -o-transform: scale($size);
+  -ms-transform: scale($size);
+  transform: scale($size);
+}
+
+@mixin rotate($deg){
+  -webkit-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -o-transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  transform: rotate($deg);
+}
+
+@mixin translateY($val){
+  -webkit-transform: translateY($val);
+  -moz-transform: translateY($val);
+  -o-transform: translateY($val);
+  -ms-transform: translateY($val);
+  transform: translateY($val);
+}
+
+@mixin translateX($val){
+  -webkit-transform: translateX($val);
+  -moz-transform: translateX($val);
+  -o-transform: translateX($val);
+  -ms-transform: translateX($val);
+  transform: translateX($val);
 }
 
 @mixin backgrounddefault{
   background-position: center center;
   background-repeat: none;
+  -webkit-background-size:cover;
+  -moz-background-size:cover;
+  -ms-background-size:cover;
+  -o-background-size:cover;
   background-size:cover;
 }
 
@@ -174,6 +249,10 @@ $c-green: #a0b74e;
       -webkit-align-items:$direction;
       align-items:$direction; //[stretch], flex-start/end, center, baseline
 }
+@mixin flexbox-grow($size){ // Y-axis
+      -webkit-flexbox-grow:$size;
+      flexbox-grow:$size; //[stretch], flex-start/end, center, baseline
+}
 @mixin maintain-aspect-ratio($width, $height) {
   // position: relative;
   
@@ -194,8 +273,6 @@ $c-green: #a0b74e;
 }
 
 
-
-
 ////////////////////////////////
 // LAYOUT ///////////////////////
 
@@ -203,58 +280,9 @@ $c-green: #a0b74e;
 $susy: (
   columns: 12,
   container: 100%,
-  gutters: 0,
+  gutters: 1/4,
   global-box-sizing: border-box
 );
-
-// //800px
-// $map-800: (
-//   columns: 8,
-//   container: 100%,
-//   gutters: 1/4,
-//   global-box-sizing: border-box
-// );
-
-// //1024px
-// $map-1024: (
-//   columns: 10,
-//   container: 100%,
-//   gutters: 1/4,
-//   global-box-sizing: border-box,
-//   debug: (image: show)
-// );
-
-// //1280px
-// $map-1280: (
-//   columns: 10,
-//   container: 100%,
-//   gutters: 1/4,
-//   global-box-sizing: border-box,
-//   debug: (image: show)
-// );
-
-// //1440px
-// $map-1440: (
-//   columns: 12,
-//   container: 100%,
-//   gutters: 1/4,
-//   global-box-sizing: border-box
-// );
-
-// //1600px
-// $map-1600: (
-//   columns: 12,
-//   container: 100%,
-//   gutters: 1/4,
-//   global-box-sizing: border-box,
-//   debug: (image: show)
-// );
-
-
-
-$mobile: 14;
-$small: 8;
-$large: 12;
 
 
 ////////////////////////////////
@@ -262,22 +290,9 @@ $large: 12;
 
 @mixin debug{
   // background-color: none;
-  // background-color: rgba(242,109,105,0.1);
+  background-color: rgba(242,109,105,0.2);
   // border:1px solid black;
 }
-@mixin debug2{
-  background-color: rgba(2,86,156,0.5);
-}
 *{
-  @include debug;
+  // @include debug;
 }
-// html, body, section, footer{
-//   background-color: transparent;
-// }
-// .wrap{
-//   position: fixed;
-//   @include span($mobile);
-//   height:100vh;
-//   @include container();
-// }
-
