@@ -71,6 +71,13 @@ p, p a {
   line-height: 26px;
   padding-bottom: 12px; }
 
+#logo,
+header {
+  z-index: 200; }
+
+#profilewrapper {
+  z-index: 100; }
+
 header {
   position: fixed;
   top: 0;
@@ -94,10 +101,16 @@ header {
       transition: 300ms all ease-in-out; }
       header ul li:hover {
         opacity: 0.6; }
+    header ul li,
+    header ul li p,
+    header ul li p a {
+      font-family: "neuzeit-grotesk", sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 1em; }
 
 #logo {
   position: fixed;
-  z-index: 100;
   display: block;
   width: 160px;
   top: 20px;
@@ -134,16 +147,12 @@ nav {
   nav ul {
     margin-top: 100px; }
     nav ul li {
-      padding-left: 40px;
+      margin-left: 40px;
       padding-top: 20px;
       padding-bottom: 20px;
-      text-transform: uppercase;
       cursor: pointer;
       color: black;
       opacity: 0.6;
-      font-size: 1.5em;
-      font-weight: 700;
-      letter-spacing: 0.01em;
       -webkit-transform: translateX(250px);
       transform: translateX(250px);
       -webkit-transition: 300ms all ease-in-out;
@@ -157,8 +166,7 @@ nav {
         -o-transition: 100ms all linear;
         -ms-transition: 100ms all linear;
         transition: 100ms all linear;
-        opacity: 1;
-        color: #fa4e5e; }
+        opacity: 1; }
       nav ul li:nth-child(1) {
         -webkit-transition-delay: 30ms;
         -moz-transition-delay: 30ms;
@@ -189,14 +197,58 @@ nav {
         -moz-transition-delay: 180ms;
         -o-transition-delay: 180ms;
         transition-delay: 180ms; }
+      nav ul li:nth-child(7) {
+        -webkit-transition-delay: 210ms;
+        -moz-transition-delay: 210ms;
+        -o-transition-delay: 210ms;
+        transition-delay: 210ms; }
+      nav ul li h4 {
+        text-transform: uppercase;
+        font-size: 1.5em;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        padding: 0; }
+      nav ul li > div {
+        display: none; }
+      nav ul li.active {
+        opacity: 1; }
+        nav ul li.active h4 {
+          color: #fa4e5e; }
+      nav ul li.active > div {
+        display: block; }
 
 #uploadwrapper {
   margin-top: 40px;
-  border: 1px solid black; }
+  background-color: rgba(0, 0, 0, 0.05); }
 
 #searchbar {
-  border: 1px solid black;
-  display: none; }
+  margin-top: 20px;
+  margin-left: -20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fa4e5e;
+  border-radius: 25px;
+  width: 200px;
+  padding: 11px 20px;
+  opacity: 1;
+  overflow: hidden;
+  -webkit-transition: 200ms all linear;
+  -moz-transition: 200ms all linear;
+  -o-transition: 200ms all linear;
+  -ms-transition: 200ms all linear;
+  transition: 200ms all linear; }
+  #searchbar input {
+    height: 28px; }
+    #searchbar input:last-of-type {
+      cursor: pointer;
+      background-color: transparent;
+      color: transparent;
+      background-image: url(../img/ui-icons/search-01.svg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 28px;
+      height: 28px;
+      float: right; }
 
 body.menuopened header ul li {
   color: black; }
@@ -211,8 +263,6 @@ body.menuopened nav {
     transform: translateX(0); }
 body.menuopened #btn_search {
   display: none; }
-body.menuopened.searchopened #searchbar {
-  display: block; }
 
 body.profileopened #profilewrapper {
   -webkit-transform: translateX(0);
@@ -241,8 +291,7 @@ main {
   -moz-transform: translateX(-100%);
   -o-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
-  transform: translateX(-100%);
-  z-index: 10; }
+  transform: translateX(-100%); }
   #profilewrapper #profileclose {
     float: right;
     margin-right: 40px;
@@ -269,17 +318,24 @@ main {
       font-weight: 700;
       margin-bottom: 20px; }
     #profilewrapper #profile p {
+      font-size: 1.1em;
+      line-height: 1.5em;
       text-align: left; }
     #profilewrapper #profile button {
       color: #fa4e5e;
       float: left; }
   #profilewrapper #related {
-    background-color: rgba(0, 0, 0, 0.05);
     position: absolute;
     width: 100%;
     bottom: 0;
     left: 0;
     margin: 0; }
+    #profilewrapper #related h6 {
+      color: #b1b1b1;
+      font-weight: 300;
+      padding-bottom: 8px;
+      margin-left: 30px;
+      font-size: 1em; }
     #profilewrapper #related ul {
       background-color: rgba(0, 0, 0, 0.05);
       width: 100%;
@@ -290,8 +346,10 @@ main {
       -webkit-flex-direction: row;
       flex-direction: row; }
       #profilewrapper #related ul li {
+        width: 25%;
         background-color: rgba(0, 0, 0, 0.3);
-        color: white; }
+        color: white;
+        text-align: center; }
 
 #mainscreen {
   position: absolute;

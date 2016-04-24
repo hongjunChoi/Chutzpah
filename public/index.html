@@ -34,8 +34,8 @@
                 <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
             </li>
             <!-- Buttons -->
-            <li id="btn_search">search</li>
-            <li id="btn_menu">menu</li>
+            <li id="btn_search">Search</li>
+            <li id="btn_menu">Menu</li>
         </ul>
     </header>
     <!-- MAIN -->
@@ -82,40 +82,43 @@
     <!-- RIGHT NAVIGATION MENU -->
     <nav>
         <ul>
-            <li>now playing</li>
-            <li id="navsearch">search</li>
-            <div id="searchbar" ng-controller="searchController">
-                <form>
-                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                    <input type="submit" ng-click="search()">
-                </form>
-                <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
-                <div>
-                    <div ng-repeat="result in search_results">{{result}} </div>
-                </div>
-            </div>
-            </div>
-            <li>trending</li>
-            <li>saved</li>
-            <li>notification</li>
+            <li><h4>now playing</h4></li>
+            <li id="navsearch"><h4>search</h4>
+	            <div id="searchbar" ng-controller="searchController">
+	                <form>
+	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+	                    <input type="submit" ng-click="search()">
+	                </form>
+	                <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
+	                <div>
+	                    <div ng-repeat="result in search_results">{{result}} </div>
+	                </div>
+	            </div>
+            </li>
+            <li><h4>trending</h4></li>
+            <li><h4>saved</h4></li>
+            <li><h4>notification</h4></li>
+            <li><h4>upload</h4>
+		        <div id="uploadwrapper" ng-controller="mainController">
+		            <div class="clearfix">
+		                <div ng-show="authenticated">
+		                    <form ng-Submit="post()" ng-show="authenticated">
+		                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+		                        <input class="btn submit-btn pull-right" type="submit" value="Add" />
+		                    </form>
+		                    <form ng-Submit="upload_comment()" ng-show="authenticated">
+		                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+		                        <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
+		                    </form>
+		                    <input type="file" name="myFile" file-model="myFile" />
+		                    <input type="submit" ng-click="upload()">
+		                </div>
+		            </div>
+		        </div>
+            </li>
         </ul>
         <!-- Upload -->
-        <div id="uploadwrapper" ng-controller="mainController">
-            <div class="clearfix">
-                <div ng-show="authenticated">
-                    <form ng-Submit="post()" ng-show="authenticated">
-                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
-                        <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                    </form>
-                    <form ng-Submit="upload_comment()" ng-show="authenticated">
-                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                        <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
-                    </form>
-                    <input type="file" name="myFile" file-model="myFile" />
-                    <input type="submit" ng-click="upload()">
-                </div>
-            </div>
-        </div>
+
     </nav>
     <!-- angular js files   -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
