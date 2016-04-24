@@ -20,15 +20,33 @@
 </head>
 
 <body ng-app="myApp">
+	<!-- LOGO -->
 	<img id="logo" src="img/logo.svg" />
+
+	<!-- HEADER -->
 	<header>
-		<ul>
+		<ul>			
+			<li>
+				<p ng-hide="authenticated">
+					<a href="#/login">Login</a>or<a href="#/signup">Register</a>
+				</p>
+			</li>
+			<li>
+				<p ng-show="authenticated">Signed in as {{current_user}}</p>					
+			</li>
+			<li>
+				<p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+			</li>
+
+			<!-- Buttons -->
 			<li id="btn_search">search</li>
 			<li id="btn_menu">menu</li>
 		</ul>
 	</header>
 
+	<!-- MAIN -->
 	<main>
+		<!-- Left Profile -->
 		<div id="profilewrapper">
 			<button id="profileclose">close</button>
 			<div id="profile">
@@ -43,31 +61,32 @@
 				</ul>
 			</div>
 		</div>
+
+		<!-- Main screen -->
 		<div id="mainscreen">
+			<div ng-view></div>
+
 			
-			<!-- MAIN CONTROLLER WHERE SONGS LIST GOES  -->
-<!-- 			<div class = "section" id="section4" ng-controller = "mainController">
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
-					<div class="carousel-inner" role="listbox">	
-						<div class="item post " ng-repeat="post in posts | orderBy:'created_at':true"> 
-			        		<div class = "fill ">
-								<iframe width="420" height="315" ng-src="{{trustSrc(post.text)}}"></iframe>
-								<small>Posted by @{{post.created_by}}</small>
-								<small class="pull-right">{{post.created_at | date:"h:mma 'on' MMM d, y"}}</small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
+			<div>
+				<!-- content lists -->
+			</div>
 		</div>
+
+		
 		<div id="controller">
 			<div id="thumbwrapper">
 				<img id="userthumb" src="">
 				<span>sample name</span>
 			</div>
+			
+			<div>
+				<!-- jQuery Player needed -->
+			</div>
 		</div>
+
 	</main>
 
+	<!-- RIGHT NAVIGATION MENU -->
 	<nav>
 		<ul>
 			<li>now playing</li>
@@ -82,103 +101,27 @@
 			<li>saved</li>
 			<li>notification</li>
 		</ul>
+
+		<!-- Upload -->
 		<div id="uploadwrapper" ng-controller = "mainController">
 			<div class="clearfix">
 				<div ng-show = "authenticated">
-				  <form ng-Submit="post()" ng-show="authenticated">
-				    <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
-				    <input class="btn submit-btn pull-right" type="submit" value="Add" />
-				  </form>
+					<form ng-Submit="post()" ng-show="authenticated">
+						<textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+						<input class="btn submit-btn pull-right" type="submit" value="Add" />
+					</form>
+
+					<form ng-Submit="upload_comment()" ng-show="authenticated">
+						<textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+						<input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
+					</form>
+
 				  	<input type = "file" name="myFile" file-model = "myFile"/>
 	   				<input type="submit" ng-click="upload()" >
 				</div>
 			</div>
 		</div>
 	</nav>
-	<!-- until here // NEW FRONT END -->
-		
-		<!-- fixed menu -->
-		<!-- <a href="#genrepage"><img src="img/logosmall.svg"/></a> -->
-		<!-- <a href="#/input_song" style="color:white">test</a> -->
-		<!-- <div class="menuwrapper"> -->
-			<ul id="profile-menu">
-				<!-- <li id="button-inbox" class="menuicons"><a href="#/input_song">test</a></li> -->
-				<!-- <li id="button-profile" class="menuicons">profile -->
-					<ul>
-						<li>
-							<p ng-hide="authenticated">
-								<a href="#/login">Login</a>or<a href="#/signup">Register</a>
-							</p>
-						</li>
-						<li>
-							<p ng-show="authenticated">Signed in as {{current_user}}</p>					
-						</li>
-						<li>
-							<p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-						</li>
-					</ul>
-				<!-- </li> -->
-			</ul>
-		<!-- </div> -->
-<!-- 		<p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/signup">Register</a></p>
-		<p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-		<p class="navbar-right navbar-text" ng-show="authenticated">Signed in as {{current_user}}</p>
- -->
-
-<!-- <div id="fullpage"> -->
-		<div class="section" id="section1">
-			<!-- CONTENT OF THE WEBSITE  -->
-			<!-- THIS IS WHERE LOGIN / REGISTER / USER PROFILE GOES !  -->
-			<div ng-view>
-			</div>
-		</div>
-
-		<!-- USER FILTERING SECTION  -->
-		<!-- <div class="section" id="section2"> -->
-		<!-- genre selection & anchor select -->
-<!-- 			<ul class="grid">
-				<a href=""><li><img src="img/star.svg" /><h4>Trending</h4>
-				<p>450songs</p></li></a>
-			</ul>
-		</div> -->
-
- 		<!-- SONG INPUTS AND POSTS / USER PROFILE  -->
-
-
-
-	<!-- </div> -->
-
-	<!-- toolbar (play status) -->
-<!-- 	<div id="statusbar">
-		<div id="control">
-			<div id="artistinfo">
-				<img src="img/mock/artistprofile.jpg" />
-				<h6 id="artistname">Eugene So</h6>
-			</div>
-		</div> -->
-<!-- 		<div id="artistbar">
-			<div>
-				<h3>Eugene So</h3>
-				<h5>Band & Rock</h5>
-				<h6>Providence, RI</h6>
-				<p>48 followers</p>
-			</div>
-			<div>
-				<h5>About</h5>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisc.</p>
-			</div>
-			<div>
-				<h5>More tracks of this artist</h5>
-				<a href=“”><div></div></a>
-				<a href=“”><div></div></a>
-				<a href=“”><div></div></a>
-			</div>
-		</div>
-		<div id="contactbar">
-			<button id="contactbutton">Contact Request</button>
-		</div> -->
-	<!-- </div> -->
-	<!-- </div> -->
 
 	<!-- angular js files   -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
@@ -189,8 +132,6 @@
 	<script src="js/myApp.js"></script>
 	<script src="js/login.js"></script>
 
-	<!-- Latest compiled JavaScript -->
-<!-- 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
 	<!-- jquery - ui js  -->
   	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>

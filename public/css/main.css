@@ -257,7 +257,8 @@ body.profileopened #profilewrapper {
   transform: translateX(0); }
 
 main {
-  width: 100%; }
+  width: 100%;
+  background-color: white; }
 
 #profilewrapper {
   position: fixed;
@@ -319,6 +320,13 @@ main {
       #profilewrapper #related ul li {
         background-color: rgba(0, 0, 0, 0.5);
         color: white; }
+
+#mainscreen {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.8); }
 
 #controller {
   background-color: #fa4e5e;

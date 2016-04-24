@@ -1,6 +1,13 @@
+
 $(document).ready(function(){
 
 	var menuopened = false;
+
+
+	//button input
+	$("#searchbutton").click(function() {
+		$("header").toggleClass("top40");
+	});
 
 	$("#btn_menu").click(function(){
 		menuopen();
@@ -13,6 +20,14 @@ $(document).ready(function(){
 
 	$("#navsearch").click(function(){
 		$("body").toggleClass("searchopened");
+	});
+	//controller
+	$("#button-volume").click(function() {
+		$(this).find("path").toggle("fast");
+	});
+
+	$("#button-control").click(function() {
+		$(this).toggleClass("paused");
 	});
 
 	$("#logo").click(function(){
