@@ -89,6 +89,11 @@
                     <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                     <input type="submit" ng-click="search()">
                 </form>
+                <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
+                <div>
+                    <div ng-repeat="result in search_results">{{result}} </div>
+                </div>
+            </div>
             </div>
             <li>trending</li>
             <li>saved</li>
