@@ -16,7 +16,7 @@ var authenticate = require('./routes/authenticate')(passport);
 var app = express();
 var mongoose = require('mongoose');
 //connect to database && set up express 
-var db = require('./db'); 
+var db = require('./db');
 var User = mongoose.model('User');
 
 
@@ -31,19 +31,17 @@ app.use(logger('dev'));
 
 //session store variable for user sessions
 var MongoDBStore = require('connect-mongodb-session')(session);
-var store = new MongoDBStore(
-    { 
-        mongooseConnection  : mongoose.connection
-    }
-);
+var store = new MongoDBStore({
+    mongooseConnection: mongoose.connection
+});
 
 
 // // Catch errors
 store.on('error', function(error) {
-//TODO : ERROR HANDLING ON MONGODB SESSIONS
-    console.log('\n\n\n\nerror found on mongo db session store : ' + error + '\n\n\n\n');  
-//     assert.ifError(error);
-//     assert.ok(false);
+    //TODO : ERROR HANDLING ON MONGODB SESSIONS
+    console.log('\n\n\n\nerror found on mongo db session store : ' + error + '\n\n\n\n');
+    //     assert.ifError(error);
+    //     assert.ok(false);
 });
 
 
@@ -54,14 +52,16 @@ app.use(require('express-session')({
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 weeks max session time 
     },
     store: store,
-    resave : false,
-    saveUninitialized : false
+    resave: false,
+    saveUninitialized: false
 }));
 
 
 //middleware 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
