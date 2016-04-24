@@ -160,6 +160,10 @@ router.route('/search')
 router.route("/profile")
 	.get(function(req, res) {
 		var username = req.query.username;
+		console.log("========")
+		console.log(req.query)
+		console.log(req.body);
+		console.log("========")
 		result = {
 			posts: [],
 			info: {}
