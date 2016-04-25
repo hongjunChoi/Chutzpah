@@ -171,9 +171,9 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
 
 app.controller('profileController', function($scope, $rootScope, $http) {
-    $scope.user_posts = {};
-    $scope.get_profile_info = function() {
+    $scope.user_posts = [];
 
+    $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var user_name = "scottljy";
@@ -183,15 +183,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 username: user_name
             }
         }).success(function(data) {
-
             var user_info = data['info'];
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
             $scope.user_posts = profile_posts;
             $("body").addClass("profileopened");
             console.log($scope.user_posts);
+            profile_posts.forEach(function(entry) {
+                $("#user_post_wrapper").append("<li>" + entry + "</li>");
+            });
+
         });
-    };
+    }
 });
 
 
