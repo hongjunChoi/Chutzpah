@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+
+    <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
+	<link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" />
 </head>
 
 <body ng-app="myApp">
@@ -39,8 +42,8 @@
                 <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
             </li>
             <!-- Buttons -->
-            <li id="btn_search">search</li>
-            <li id="btn_menu">menu</li>
+            <li id="btn_search">Search</li>
+            <li id="btn_menu">Menu</li>
         </ul>
     </header>
     <!-- MAIN -->
@@ -81,46 +84,92 @@
             </div>
             <div>
                 <!-- jQuery Player needed -->
+                <div id="jp_container_1" class="jp-video " role="application" aria-label="media player">
+				  <div class="jp-type-single">
+				    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+				    <div class="jp-gui">
+				      <div class="jp-video-play">
+				        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+				      </div>
+				      <div class="jp-interface">
+				        <div class="jp-progress">
+				          <div class="jp-seek-bar">
+				            <div class="jp-play-bar"></div>
+				          </div>
+				        </div>
+				        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+				        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+				        <div class="jp-details">
+				          <div class="jp-title" aria-label="title">&nbsp;</div>
+				        </div>
+				        <div class="jp-controls-holder">
+				          <div class="jp-volume-controls">
+				            <button class="jp-mute" role="button" tabindex="0">mute</button>
+				            <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+				            <div class="jp-volume-bar">
+				              <div class="jp-volume-bar-value"></div>
+				            </div>
+				          </div>
+				          <div class="jp-controls">
+				            <button class="jp-play" role="button" tabindex="0">play</button>
+				            <button class="jp-stop" role="button" tabindex="0">stop</button>
+				          </div>
+				          <div class="jp-toggles">
+				            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+				            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="jp-no-solution">
+				      <span>Update Required</span>
+				      To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+				    </div>
+				  </div>
+				</div>
             </div>
         </div>
     </main>
     <!-- RIGHT NAVIGATION MENU -->
     <nav>
         <ul>
-            <li>now playing</li>
-            <li id="navsearch">search</li>
-            <div id="searchbar" ng-controller="searchController">
-                <form>
-                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                    <input type="submit" ng-click="search()">
-                </form>
-                <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
-                <div>
-                    <div ng-repeat="result in search_results">{{result}} </div>
-                </div>
-            </div>
-            </div>
-            <li>trending</li>
-            <li>saved</li>
-            <li>notification</li>
+            <li><h4>now playing</h4></li>
+            <li id="navsearch"><h4>search</h4>
+	            <div id="searchbar" ng-controller="searchController">
+	                <form>
+	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+	                    <input type="submit" ng-click="search()">
+	                </form>
+	                <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
+	                <div>
+	                    <div ng-repeat="result in search_results">{{result}} </div>
+	                </div>
+	            </div>
+            </li>
+            <li><h4>trending</h4></li>
+            <li><h4>saved</h4></li>
+            <li><h4>notification</h4></li>
+            <li><h4>upload</h4>
+		        <div id="uploadwrapper" ng-controller="mainController">
+		            <div class="clearfix">
+		                <div ng-show="authenticated">
+		                    <form ng-Submit="post()" ng-show="authenticated">
+		                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+		                        <input class="btn submit-btn pull-right" type="submit" value="Add" />
+		                    </form>
+		                    <form ng-Submit="upload_comment()" ng-show="authenticated">
+		                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+		                        <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
+		                    </form>
+		                    <input type="file" name="myFile" file-model="myFile" />
+		                    <input type="submit" ng-click="upload()">
+		                </div>
+		            </div>
+		        </div>
+            </li>
         </ul>
         <!-- Upload -->
-        <div id="uploadwrapper" ng-controller="mainController">
-            <div class="clearfix">
-                <div ng-show="authenticated">
-                    <form ng-Submit="post()" ng-show="authenticated">
-                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
-                        <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                    </form>
-                    <form ng-Submit="upload_comment()" ng-show="authenticated">
-                        <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                        <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
-                    </form>
-                    <input type="file" name="myFile" file-model="myFile" />
-                    <input type="submit" ng-click="upload()">
-                </div>
-            </div>
-        </div>
+
     </nav>
     <!-- angular js files   -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
@@ -132,6 +181,27 @@
     <!-- jquery - ui js  -->
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#jquery_jplayer_1").jPlayer({
+	        ready: function () {
+	          $(this).jPlayer("setMedia", {
+	            title: "Big Buck Bunny Trailer",
+	            m4v: "uploads/sample1.m4v"
+	          });
+	        },
+	        cssSelectorAncestor: "#jp_container_1",
+	        swfPath: "/js",
+	        supplied: "m4v, ogv",
+	        useStateClassSkin: true,
+	        autoBlur: false,
+	        smoothPlayBar: true,
+	        keyEnabled: true,
+	        remainingDuration: true,
+	        toggleDuration: true
+	      });
+		});
+	</script>
 </body>
 
 </html>

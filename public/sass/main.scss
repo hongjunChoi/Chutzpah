@@ -29,7 +29,13 @@ button{
 
 @include generate-type-size(1);
 
-
+#logo,
+header{
+	z-index: 200;
+}
+#profilewrapper{
+	z-index: 100;
+}
 
 header{
 	position: fixed;
@@ -56,11 +62,16 @@ header{
 				opacity: 0.6;
 			}
 		}
+		li, 
+		li p,
+		li p a{	
+		    @include font-sans(300);
+		    font-size: 1em;
+		}
 	}
 }
 #logo{
 	position: fixed;
-	z-index: 100;
 	display: block;
 	width: 160px;
 	top:20px;
@@ -96,17 +107,13 @@ nav{
 		margin-top: 100px;
 		// background-color: red;
 		li{
-			padding-left: 40px;
+			margin-left: 40px;
 			padding-top: 20px;
 			padding-bottom: 20px;
-			text-transform: uppercase;
 			cursor: pointer;
 			color:black;
 			opacity: 0.6;
 
-			font-size: 1.5em;
-			font-weight: 700;
-			letter-spacing: 0.01em;
 			-webkit-transform: translateX(250px);
 			        transform: translateX(250px);
 			@include transition(300ms, all, ease-in-out);
@@ -114,7 +121,6 @@ nav{
 			&:hover{
 				@include transition(100ms, all, linear);
 				opacity: 1;
-				color: $c-pink;
 			}
 			&:nth-child(1){ @include transitiondelay(30ms); }
 			&:nth-child(2){ @include transitiondelay(60ms); }
@@ -122,16 +128,62 @@ nav{
 			&:nth-child(4){ @include transitiondelay(120ms); }
 			&:nth-child(5){ @include transitiondelay(150ms); }
 			&:nth-child(6){ @include transitiondelay(180ms); }
+			&:nth-child(7){ @include transitiondelay(210ms); }
+
+
+			h4{
+				text-transform: uppercase;
+				font-size: 1.5em;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+				padding: 0;
+			}
+			& > div{
+				display: none;
+			}
+			&.active{
+				opacity: 1;
+				h4{
+					color: $c-pink;
+				}
+			}
+			&.active > div{
+				display: block;
+			}
 		}
 	}
 }
 #uploadwrapper{
 	margin-top: 40px;
-	border:1px solid black;
+	background-color: rgba(0,0,0,0.05);
 }
 #searchbar{
-	border:1px solid black;
-	display: none;
+	margin-top: 20px;
+	margin-left:-20px;
+	border-width: 1px;
+	border-style: solid;
+	border-color:$c-pink;
+	border-radius: 25px;
+	width: 200px;
+	padding:11px 20px;
+	opacity: 1;
+	overflow: hidden;
+	@include transition(200ms, all, linear);
+
+	input{
+		height:28px;
+		&:last-of-type{
+			cursor: pointer;
+			background-color: transparent;
+			color:transparent;
+			background-image:url(../img/ui-icons/search-01.svg);
+			background-size: cover;
+			background-repeat: no-repeat;
+			width:28px;
+			height:28px;
+			float: right;
+		}
+	}
 }
 body.menuopened{
 	header{
@@ -154,11 +206,6 @@ body.menuopened{
 	}
 	#btn_search{
 		display: none;
-	}
-	&.searchopened{
-		#searchbar{
-			display: block;
-		}
 	}
 }
 body.profileopened{
@@ -192,7 +239,6 @@ main{
 	     -o-transform: translateX(-100%);
 	    -ms-transform: translateX(-100%);
 	        transform: translateX(-100%);
-	z-index: 10;
 
 	#profileclose{
 		float: right;
@@ -226,6 +272,8 @@ main{
 
 		}
 		p{
+			font-size: 1.1em;
+			line-height: 1.5em;
 			text-align: left;
 		}
 		button{
@@ -234,21 +282,29 @@ main{
 		}
 	}
 	#related{
-		background-color: rgba(0,0,0,0.05);
 		position: absolute;
 		width: 100%;
 		bottom: 0;
 		left: 0;
 		margin: 0;
+		h6{
+			color: #b1b1b1;
+			font-weight: 300;
+			padding-bottom: 8px;
+			margin-left: 30px;
+			font-size: 1em;
+		}
 		ul{
-		background-color: rgba(0,0,0,0.05);
+			background-color: rgba(0,0,0,0.05);
 			width: 100%;
 			height: 80px;
 			@include flexbox(row);
 
 			li{
+				width:25%;
 				background-color: rgba(0,0,0,0.3);
 				color: white;
+				text-align: center;
 			}
 		}
 	}
