@@ -46,7 +46,7 @@
     <!-- MAIN -->
     <main>
         <!-- Left Profile -->
-        <div id="profilewrapper">
+        <div id="profilewrapper" ng-controller="profileController">
             <button id="profileclose">close</button>
             <div id="profile">
                 <!-- contents should be dynamically appended -->
@@ -58,7 +58,7 @@
             <div id="related">
                 <h6>More songs by {Eugene So}</h6>
                 <ul>
-                    <li><a href=""><h5>{title}</h5></a></li>
+                    <li ng-repeat="p in user_posts"><a href=""><h5>{{p}}</h5></a></li>
                 </ul>
             </div>
         </div>
