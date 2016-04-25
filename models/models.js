@@ -34,13 +34,19 @@ var commentSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	post_id: String,
+	post_id: {
+		type: String,
+		index: true
+	},
 	text: String,
 });
 
 var likeSchema = new mongoose.Schema({
 	created_by: String,
-	post_id: String,
+	post_id: {
+		type: String,
+		index: true
+	},
 	created_at: {
 		type: Date,
 		default: Date.now
