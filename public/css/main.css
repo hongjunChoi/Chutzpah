@@ -108,6 +108,22 @@ header {
       font-style: normal;
       font-weight: 300;
       font-size: 1em; }
+  header #btn_menu {
+    background-color: white;
+    width: 30px;
+    height: 16px; }
+    header #btn_menu span {
+      background-color: #fa4e5e;
+      width: 30px;
+      height: 2px;
+      border-radius: 1px;
+      display: block;
+      position: absolute;
+      top: 28px; }
+      header #btn_menu span:first-of-type {
+        top: 20px; }
+      header #btn_menu span:last-of-type {
+        top: 36px; }
 
 #logo {
   position: fixed;
@@ -148,8 +164,8 @@ nav {
     margin-top: 100px; }
     nav ul li {
       margin-left: 40px;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
       cursor: pointer;
       color: black;
       opacity: 0.6;
@@ -209,7 +225,8 @@ nav {
         letter-spacing: 0.01em;
         padding: 0; }
       nav ul li > div {
-        display: none; }
+        display: none;
+        margin-top: 20px; }
       nav ul li.active {
         opacity: 1; }
         nav ul li.active h4 {
@@ -218,11 +235,9 @@ nav {
         display: block; }
 
 #uploadwrapper {
-  margin-top: 40px;
   background-color: rgba(0, 0, 0, 0.05); }
 
 #searchbar {
-  margin-top: 20px;
   margin-left: -20px;
   border-width: 1px;
   border-style: solid;
@@ -349,7 +364,11 @@ main {
         width: 25%;
         background-color: rgba(0, 0, 0, 0.3);
         color: white;
-        text-align: center; }
+        text-align: center;
+        opacity: 0.8;
+        cursor: pointer; }
+        #profilewrapper #related ul li:hover {
+          opacity: 1; }
 
 #mainscreen {
   position: absolute;
