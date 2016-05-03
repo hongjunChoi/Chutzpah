@@ -26,10 +26,9 @@ $(document).ready(function(){
 		}
 	});	
 
-	$("#userthumb").click(function(){
-		$("body").addClass("profileopened");
-	});
-
+	// $("#userthumb").click(function(){
+	// 	$("body").addClass("profileopened");
+	// });
 	$("#profileclose").click(function(){
 		$("body").removeClass("profileopened");
 	});

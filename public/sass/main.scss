@@ -92,6 +92,7 @@ header{
 		}
 	}
 }
+
 #logo{
 	position: fixed;
 	display: block;
@@ -210,6 +211,20 @@ body.menuopened{
 	header{
 		ul li{
 			color:black;
+		}
+		#btn_menu{
+			span{
+				opacity: 0;
+				&:first-of-type{
+					-webkit-transform: rotate(45deg);
+				}
+				&:last-of-type{
+
+					-webkit-transform: rotate(-45deg);
+
+				}
+			}
+
 		}
 	}
 	nav{
