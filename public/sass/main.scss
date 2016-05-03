@@ -70,25 +70,23 @@ header{
 		}
 	}
 	#btn_menu{
-		background-color: white;
 		width:30px;
 		height:16px;
 		span{
-			background-color: $c-pink;
-			width:30px;
-			height:2px;
+			background-color: white;
+			display: block;
+			position: absolute;
+			width: 30px;
+			height: 3px;
+
 			border-radius: 1px;
 			display: block;
 			position: absolute;
 			top: 28px;
-
-			&:first-of-type{
-				top:20px;
-			}
-
-			&:last-of-type{
-				top:36px;
-			}
+			@include transition(300ms, all, ease-in-out);
+			&:nth-child(1){ @include translateY(-9px); }		
+			&:nth-child(2){ opacity: 1; }		
+			&:nth-child(3){ @include translateY(9px); }
 		}
 	}
 }
@@ -214,15 +212,11 @@ body.menuopened{
 		}
 		#btn_menu{
 			span{
-				opacity: 0;
-				&:first-of-type{
-					-webkit-transform: rotate(45deg);
-				}
-				&:last-of-type{
+				opacity: 0;	
 
-					-webkit-transform: rotate(-45deg);
-
-				}
+				&:nth-child(1){ @include rotate(405deg); }
+				&:nth-child(2){ opacity: 0; }
+				&:nth-child(3){ @include rotate(315deg); }
 			}
 
 		}
