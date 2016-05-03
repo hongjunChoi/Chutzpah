@@ -1,6 +1,7 @@
 //necessary imports
 var express = require('express');
 var path = require('path');
+var http = require('http');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -14,11 +15,13 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 var app = express();
-var mongoose = require('mongoose');
+
 //connect to database && set up express 
 var db = require('./db');
+var mongoose = require('mongoose');
+var Chat = mongoose.model('Chat');
 var User = mongoose.model('User');
-
+var Notification = mongoose.model('Notification');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -74,12 +77,122 @@ app.use('/auth', authenticate); //login related
 app.use('/api', api); //other apis
 
 
+// port needs to change in production environment
+var port = 3000;
+var server = http.createServer(app);
+server.listen(port);
+
+//chat room socket io environment 
+var io = require('socket.io')(server);
+
+io.sockets.on('connection', function(socket) {
+    socket.on('join', function(data) {
+        console.log("\n\n\n\n\ " + data.username);
+        socket.join(data.username); // We are using room of socket io
+    });
+
+    // the client disconnected/closed their browser window
+    socket.on('disconnect', function() {
+        // Leave the room!
+        console.log("reset notification time ");
+        Notification.remove({}, function() {
+            console.log("client disconnected and removed notificationtime and resetting.");
+        })
+        notification = new Notification();
+        notification.time = Date.now();
+        notification.save(function(err, notification) {
+            if (err) {
+                console.log("========= ERROR WHEN SAVE NOTIFIACATION TIME ===========");
+            }
+            console.log("successfully saved! notification")
+        });
+    });
+});
+
+
+
+//API CALLS FOR CHATTING
+//get room html 
+app.get('/get_chat', function(req, res) {
+    console.log("in get chat...");
+    console.log("======================");
+    console.log(req.query);
+    console.log("=======================");
+    user = req.query.username;
+    Chat.find({
+        sent_to: user
+    }, function(err, all_chats) {
+        if (err) {
+            return res.send(500, err);
+        }
+
+        Notification.find(function(err, time) {
+            if (err) {
+                return res.send(500, err);
+            }
+            console.log('====fount last time ===');
+            Chat.find({
+                time: {
+                    $gte: time
+                }
+            }, function(err, new_chats) {
+                if (err) {
+                    res.send(500, err);
+                }
+                data = {
+                    "all_chat": all_chats,
+                    "new_chat": new_chats
+                }
+                return res.send(200, data);
+            })
+
+        });
+
+
+    });
+});
+
+
+app.post('/send_chat', function(req, res) {
+    console.log("send chat backend  ")
+    console.log("======================");
+    console.log(req.body);
+    console.log("=======================");
+    var sent_from = req.body.sent_from;
+    var sent_to = req.body.sent_to;
+    var text = req.body.text;
+
+    var chat = new Chat();
+    chat.sent_to = sent_to;
+    chat.sent_from = sent_from;
+    chat.text = text;
+
+    chat.save(function(err, p) {
+        if (err) {
+            return res.send(500, err);
+        }
+        //now sent to socket io before returning response
+
+        io.sockets.in(sent_to).emit('new_msg', {
+            msg: text,
+            from: sent_from
+        });
+
+
+        res.json(p);
+    });
+
+});
+
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
 
 
 //// Initialize Passport
@@ -112,4 +225,4 @@ app.use(function(err, req, res, next) {
 
 
 
-module.exports = app;
+// module.exports = app;

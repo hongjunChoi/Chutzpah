@@ -176,11 +176,12 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = "scottljy";
+        var user_name = $rootScope.current_user;
 
         $http.get(url, {
             params: {
                 username: user_name
+<<<<<<< HEAD
             }
         }).success(function(data) {
             var user_info = data['info'];
@@ -195,6 +196,54 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
         });
     }
+=======
+            }
+        }).success(function(data) {
+            var user_info = data['info'];
+            var profile_posts = data["posts"];
+            //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
+            $scope.user_posts = profile_posts;
+            $("body").addClass("profileopened");
+            console.log($scope.user_posts);
+            profile_posts.forEach(function(entry) {
+                $("#user_post_wrapper").append("<li>" + entry + "</li>");
+            });
+
+        });
+    }
+
+
+    $scope.get_chat = function() {
+        $http.get('/get_chat', {
+            params: {
+                user_name: $rootScope.current_user
+            }
+        }).success(function(data) {
+            alert("get chat success");
+            console.log("get chat results")
+            console.log(data);
+        });
+    };
+
+
+    $scope.send_chat = function() {
+        var url = "/send_chat";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var sent_to = "scottljy";
+        alert("sent chat front end");
+        $http.post(url, {
+            sent_from: $rootScope.current_user,
+            text: "abcd",
+            sent_to: sent_to
+        }).success(function(data) {
+            alert("send chat success");
+            console.log('send chat result ');
+            console.log(data);
+
+        });
+    }
+
+>>>>>>> 6e100d5a668fa1df5b29d2633d72b141a1cd5d2a
 });
 
 

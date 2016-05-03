@@ -267,6 +267,12 @@ nav {
 
 body.menuopened header ul li {
   color: black; }
+body.menuopened header #btn_menu span {
+  opacity: 0; }
+  body.menuopened header #btn_menu span:first-of-type {
+    -webkit-transform: rotate(45deg); }
+  body.menuopened header #btn_menu span:last-of-type {
+    -webkit-transform: rotate(-45deg); }
 body.menuopened nav {
   -webkit-transform: translateX(0);
   -moz-transform: translateX(0);
