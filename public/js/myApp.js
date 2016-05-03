@@ -176,7 +176,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = "scottljy";
+        var user_name = $rootScope.current_user;
 
         $http.get(url, {
             params: {
@@ -195,6 +195,38 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
         });
     }
+
+
+    $scope.get_chat = function() {
+        $http.get('/get_chat', {
+            params: {
+                user_name: $rootScope.current_user
+            }
+        }).success(function(data) {
+            alert("get chat success");
+            console.log("get chat results")
+            console.log(data);
+        });
+    };
+
+
+    $scope.send_chat = function() {
+        var url = "/send_chat";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var sent_to = "scottljy";
+        alert("sent chat front end");
+        $http.post(url, {
+            sent_from: $rootScope.current_user,
+            text: "abcd",
+            sent_to: sent_to
+        }).success(function(data) {
+            alert("send chat success");
+            console.log('send chat result ');
+            console.log(data);
+
+        });
+    }
+
 });
 
 

@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var User = mongoose.model('User');
-var Comment = mongoose.model('Comment')
+var Comment = mongoose.model('Comment');
 
 //fileupload
 var multer = require('multer'),
