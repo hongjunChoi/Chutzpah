@@ -445,7 +445,7 @@ main{
 		& > div{
 			vertical-align: middle;
 			background-color: transparent;
-			border:1px solid white;
+			// border:1px solid white;
 			// margin: 0;
 			&:nth-child(0){
 				width: 10%;
@@ -503,3 +503,17 @@ main{
 		.jp-play-bar{
 			background-color: gray;
 		}
+		.ctrlbtn{
+			opacity: 0.6;
+			width: 50px;
+			height:50px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			@include transition(all, 300ms, linear);
+			cursor: pointer;
+			&:hover{
+				opacity: 1;
+			}
+		}
+		.jp-play{ background-image: url(../img/ui-icons/play.svg); }
+		.jp-stop{ background-image: url(../img/ui-icons/play.svg); }
