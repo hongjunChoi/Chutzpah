@@ -69,9 +69,17 @@ header{
 		    font-size: 1em;
 		}
 	}
+	#btn_search{
+		margin-top: -2px;
+		width:26px;
+		height:26px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-image: url(../img/ui-icons/search.svg);
+	}
 	#btn_menu{
 		width:30px;
-		height:16px;
+		height:24px;
 		span{
 			background-color: white;
 			display: block;
@@ -275,6 +283,25 @@ main{
 		margin-right: 40px;
 		margin-top: 20px;
 		cursor: pointer;
+
+		width:30px;
+		height:16px;
+		// background-color: black;
+		span{
+			background-color: $c-pink;
+			display: block;
+			position: absolute;
+			width: 28px;
+			height: 2px;
+			border-radius: 1px;
+			display: block;
+			position: absolute;
+			top: 28px;
+			@include transition(300ms, all, ease-in-out);
+
+			&:first-of-type{ @include rotate(405deg); }
+			&:last-of-type{ @include rotate(315deg); }
+		}
 	}
 
 	div{
@@ -386,7 +413,7 @@ main{
 	background-color: $c-pink;
 	position: fixed;
 	bottom: 0;
-	height: 80px;
+	height: 60px;
 	width: 100%;
 	display: block;
 
@@ -398,7 +425,7 @@ main{
 
 #thumbwrapper{
 	margin: 0;
-	margin-top: -40px;
+	margin-top: -60px;
 	min-width: 160px;
 	width: 10%;
 	height: 160px;
@@ -418,14 +445,20 @@ main{
 		background-color: black;
 		box-shadow: none;
 		outline: none;
+		opacity: 1;
+		@include transition(all,300ms,linear);
+		&:hover{ opacity: .8;}
 	}
 	span{
 		color:white;
 	}
 }
 #playerwrapper{
-	margin-top: 14px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 	width: 100%;
+	margin: 0;
 }
 .jp-video{
 	color: white;
@@ -445,15 +478,18 @@ main{
 		& > div{
 			vertical-align: middle;
 			background-color: transparent;
-			// border:1px solid white;
-			// margin: 0;
 			&:nth-child(0){
 				width: 10%;
 			}
 		}
 		.jp-details{
+			&:first-of-type{
+			vertical-align: bottom;
+			}
 			.titlewrapper{ 
 				color: white;
+			min-width: 160px;
+			width: 10%;
 				& > div{
 					text-align: center;
 					clear: both;
@@ -478,30 +514,37 @@ main{
 	}
 	.progresswrapper{
 		float: right;
+		div{
+			vertical-align: middle;
+		}
 	}
 }
 	.jp-progress{
 		min-width: 300px;
 		width: auto;
 		max-width: 500px;
-		height: 15px;
+		height: 16px;
 		margin: auto 5px;
 		position: relative;
+		border-radius: 8px;
+		overflow: hidden;
 	}
 		.jp-seek-bar,
 		.jp-play-bar{
-			border-radius: 8px;
 			vertical-align: middle;
 			position: absolute;
 			left: 0;
 			top: 0;
 			height: 16px;
+			cursor: pointer;
 		}
 		.jp-seek-bar{
 			background-color: rgba(0,0,0,0.5);
 		}
 		.jp-play-bar{
-			background-color: gray;
+			background-color: white;
+			border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
 		}
 		.ctrlbtn{
 			opacity: 0.6;
@@ -516,4 +559,10 @@ main{
 			}
 		}
 		.jp-play{ background-image: url(../img/ui-icons/play.svg); }
-		.jp-stop{ background-image: url(../img/ui-icons/play.svg); }
+		.jp-play:focus{ background-image: url(../img/ui-icons/pause.svg);}
+		// .jp-play{ background-image: url(../img/ui-icons/play.svg); }
+		// .jp-play:focus{ background-image: url(../img/ui-icons/pause.svg); }	
+		.jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
+		// .jp-stop{ display: none;}
+		.jp-mute{ background-image: url(../img/ui-icons/volume_3.svg);}
+		.jp-volume-max{ background-image: url(../img/ui-icons/volume_mute.svg);}
