@@ -115,8 +115,8 @@ header {
       background-color: white;
       display: block;
       position: absolute;
-      width: 30px;
-      height: 3px;
+      width: 28px;
+      height: 2px;
       border-radius: 1px;
       display: block;
       position: absolute;
@@ -127,19 +127,19 @@ header {
       -ms-transition: 300ms all ease-in-out;
       transition: 300ms all ease-in-out; }
       header #btn_menu span:nth-child(1) {
-        -webkit-transform: translateY(-9px);
-        -moz-transform: translateY(-9px);
-        -o-transform: translateY(-9px);
-        -ms-transform: translateY(-9px);
-        transform: translateY(-9px); }
+        -webkit-transform: translateY(-8px);
+        -moz-transform: translateY(-8px);
+        -o-transform: translateY(-8px);
+        -ms-transform: translateY(-8px);
+        transform: translateY(-8px); }
       header #btn_menu span:nth-child(2) {
         opacity: 1; }
       header #btn_menu span:nth-child(3) {
-        -webkit-transform: translateY(9px);
-        -moz-transform: translateY(9px);
-        -o-transform: translateY(9px);
-        -ms-transform: translateY(9px);
-        transform: translateY(9px); }
+        -webkit-transform: translateY(8px);
+        -moz-transform: translateY(8px);
+        -o-transform: translateY(8px);
+        -ms-transform: translateY(8px);
+        transform: translateY(8px); }
 
 #logo {
   position: fixed;
@@ -284,7 +284,7 @@ nav {
 body.menuopened header ul li {
   color: black; }
 body.menuopened header #btn_menu span {
-  opacity: 0; }
+  background-color: #fa4e5e; }
   body.menuopened header #btn_menu span:nth-child(1) {
     -webkit-transform: rotate(405deg);
     -moz-transform: rotate(405deg);
@@ -438,10 +438,14 @@ main {
   height: 80px;
   width: 100%;
   display: block; }
+  #controller > div {
+    position: absolute; }
 
 #thumbwrapper {
+  margin: 0;
   margin-top: -40px;
-  width: 160px;
+  min-width: 160px;
+  width: 10%;
   height: 160px;
   text-align: center; }
   #thumbwrapper img, #thumbwrapper span {
@@ -459,3 +463,72 @@ main {
     outline: none; }
   #thumbwrapper span {
     color: white; }
+
+#playerwrapper {
+  margin-top: 14px;
+  width: 100%; }
+
+.jp-video {
+  color: white; }
+
+.jp-jplayer,
+.jp-video-play {
+  display: none !important;
+  background-color: transparent; }
+
+.jp-gui div {
+  display: inline-block; }
+
+.jp-interface {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between; }
+  .jp-interface > div {
+    vertical-align: middle;
+    background-color: transparent;
+    border: 1px solid white; }
+    .jp-interface > div:nth-child(0) {
+      width: 10%; }
+  .jp-interface .jp-details .titlewrapper {
+    color: white; }
+    .jp-interface .jp-details .titlewrapper > div {
+      text-align: center;
+      clear: both;
+      margin: auto;
+      position: relative;
+      width: 100%; }
+
+.jp-details > div {
+  position: relative; }
+.jp-details .titlewrapper {
+  float: left; }
+.jp-details .progresswrapper {
+  float: right; }
+
+.jp-progress {
+  min-width: 300px;
+  width: auto;
+  max-width: 500px;
+  height: 15px;
+  margin: auto 5px;
+  position: relative; }
+
+.jp-seek-bar,
+.jp-play-bar {
+  border-radius: 8px;
+  vertical-align: middle;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 16px; }
+
+.jp-seek-bar {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.jp-play-bar {
+  background-color: gray; }

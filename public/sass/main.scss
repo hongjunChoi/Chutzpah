@@ -76,17 +76,17 @@ header{
 			background-color: white;
 			display: block;
 			position: absolute;
-			width: 30px;
-			height: 3px;
-
+			width: 28px;
+			height: 2px;
 			border-radius: 1px;
 			display: block;
 			position: absolute;
 			top: 28px;
 			@include transition(300ms, all, ease-in-out);
-			&:nth-child(1){ @include translateY(-9px); }		
+
+			&:nth-child(1){ @include translateY(-8px); }		
 			&:nth-child(2){ opacity: 1; }		
-			&:nth-child(3){ @include translateY(9px); }
+			&:nth-child(3){ @include translateY(8px); }
 		}
 	}
 }
@@ -212,7 +212,7 @@ body.menuopened{
 		}
 		#btn_menu{
 			span{
-				opacity: 0;	
+				background-color: $c-pink;	
 
 				&:nth-child(1){ @include rotate(405deg); }
 				&:nth-child(2){ opacity: 0; }
@@ -389,11 +389,18 @@ main{
 	height: 80px;
 	width: 100%;
 	display: block;
+
+	& > div{
+		position: absolute;
+		// float: left;
+	}
 }
 
 #thumbwrapper{
+	margin: 0;
 	margin-top: -40px;
-	width: 160px;
+	min-width: 160px;
+	width: 10%;
 	height: 160px;
 	text-align: center;
 
@@ -416,3 +423,83 @@ main{
 		color:white;
 	}
 }
+#playerwrapper{
+	margin-top: 14px;
+	width: 100%;
+}
+.jp-video{
+	color: white;
+}
+	.jp-jplayer,
+	.jp-video-play{
+		display: none !important;
+		background-color: transparent;
+	}
+	.jp-gui div{
+		display: inline-block;
+	}
+	.jp-interface{
+		width: 100%;
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
+		& > div{
+			vertical-align: middle;
+			background-color: transparent;
+			border:1px solid white;
+			// margin: 0;
+			&:nth-child(0){
+				width: 10%;
+			}
+		}
+		.jp-details{
+			.titlewrapper{ 
+				color: white;
+				& > div{
+					text-align: center;
+					clear: both;
+					margin:auto;
+					position: relative;
+					width: 100%;
+				}
+			}
+		}
+		.jp-controls-holder{
+		}
+	}
+
+//progressbar
+.jp-details{
+
+	& > div{
+		position: relative;
+	}
+	.titlewrapper{
+		float: left;
+	}
+	.progresswrapper{
+		float: right;
+	}
+}
+	.jp-progress{
+		min-width: 300px;
+		width: auto;
+		max-width: 500px;
+		height: 15px;
+		margin: auto 5px;
+		position: relative;
+	}
+		.jp-seek-bar,
+		.jp-play-bar{
+			border-radius: 8px;
+			vertical-align: middle;
+			position: absolute;
+			left: 0;
+			top: 0;
+			height: 16px;
+		}
+		.jp-seek-bar{
+			background-color: rgba(0,0,0,0.5);
+		}
+		.jp-play-bar{
+			background-color: gray;
+		}

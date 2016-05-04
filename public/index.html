@@ -17,10 +17,10 @@
     } catch (e) {}
     </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
-    <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" />
 </head>
 
 <body ng-app="myApp">
@@ -81,27 +81,39 @@
         <div id="controller" ng-controller="profileController">
             <div id="thumbwrapper">
                 <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-                <span>{Eugene So}</span>
             </div>
-            <div>
+            <div id="playerwrapper">
                 <!-- jQuery Player needed -->
                 <div id="jp_container_1" class="jp-video " role="application" aria-label="media player">
                     <div class="jp-type-single">
                         <div id="jquery_jplayer_1" class="jp-jplayer"></div>
                         <div class="jp-gui">
-                            <div class="jp-video-play">
+<!--                             <div class="jp-video-play">
                                 <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-                            </div>
+                            </div> -->
                             <div class="jp-interface">
-                                <div class="jp-progress">
-                                    <div class="jp-seek-bar">
-                                        <div class="jp-play-bar"></div>
+                                <div class="jp-details">
+                                	<div class="titlewrapper">
+						                <div class="artistname">{Eugene So}</div>
+		                                <div class="jp-title" aria-label="title">&nbsp;</div>
+                                	</div>
+                                </div>
+                                <div class="jp-controls-holder">
+                                    <div class="jp-controls">
+                                        <button class="jp-play" role="button" tabindex="0">play</button>
+                                        <button class="jp-stop" role="button" tabindex="0">stop</button>
                                     </div>
                                 </div>
-                                <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                                <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
                                 <div class="jp-details">
-                                    <div class="jp-title" aria-label="title">&nbsp;</div>
+                                	<div class="progresswrapper">
+		                                <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+		                                <div class="jp-progress">
+		                                    <div class="jp-seek-bar">
+		                                        <div class="jp-play-bar"></div>
+		                                    </div>
+		                                </div>
+		                                <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                                	</div>
                                 </div>
                                 <div class="jp-controls-holder">
                                     <div class="jp-volume-controls">
@@ -111,14 +123,10 @@
                                             <div class="jp-volume-bar-value"></div>
                                         </div>
                                     </div>
-                                    <div class="jp-controls">
-                                        <button class="jp-play" role="button" tabindex="0">play</button>
-                                        <button class="jp-stop" role="button" tabindex="0">stop</button>
-                                    </div>
-                                    <div class="jp-toggles">
+<!--                                     <div class="jp-toggles">
                                         <button class="jp-repeat" role="button" tabindex="0">repeat</button>
                                         <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -133,8 +141,7 @@
     <!-- RIGHT NAVIGATION MENU -->
     <nav>
         <ul>
-            <li>
-                <h4>now playing</h4></li>
+            <li><h4>now playing</h4></li>
             <li id="navsearch">
                 <h4>search</h4>
                 <div id="searchbar" ng-controller="searchController">

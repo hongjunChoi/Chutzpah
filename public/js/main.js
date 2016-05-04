@@ -32,20 +32,13 @@ $(document).ready(function() {
 		if (menuopened) {
 			menuopened = false;
 		}
-<<<<<<< HEAD
-	});	
-=======
+
 	});
->>>>>>> 6e100d5a668fa1df5b29d2633d72b141a1cd5d2a
 
 	// $("#userthumb").click(function(){
 	// 	$("body").addClass("profileopened");
 	// });
-<<<<<<< HEAD
-	$("#profileclose").click(function(){
-=======
 	$("#profileclose").click(function() {
->>>>>>> 6e100d5a668fa1df5b29d2633d72b141a1cd5d2a
 		$("body").removeClass("profileopened");
 	});
 

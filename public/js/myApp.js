@@ -181,22 +181,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         $http.get(url, {
             params: {
                 username: user_name
-<<<<<<< HEAD
-            }
-        }).success(function(data) {
-            var user_info = data['info'];
-            var profile_posts = data["posts"];
-            //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
-            $scope.user_posts = profile_posts;
-            $("body").addClass("profileopened");
-            console.log($scope.user_posts);
-            profile_posts.forEach(function(entry) {
-                $("#user_post_wrapper").append("<li>" + entry + "</li>");
-            });
-
-        });
-    }
-=======
             }
         }).success(function(data) {
             var user_info = data['info'];
@@ -243,7 +227,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
->>>>>>> 6e100d5a668fa1df5b29d2633d72b141a1cd5d2a
 });
 
 
