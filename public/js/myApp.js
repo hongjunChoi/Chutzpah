@@ -198,19 +198,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             }
         }).success(function(data) {
             console.log(data);
-<<<<<<< HEAD
+
             $(".commentlist").empty();
             data.forEach(function(c){
                 $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
             });
             $(".commentField").show();
-=======
-            $(".commentlist").empty()
-            data.forEach(function(c) {
-                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
-            })
-            $(".commentField").show()
->>>>>>> acec9b1e9631374dd8a648d5dc4ea13de5a95cd0
 
             return data;
         });
@@ -223,23 +216,18 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             mp3: post.url.substring(post.url.indexOf("/") + 1)
         });
 
-<<<<<<< HEAD
         $scope.post_id = post._id;
         data = $scope.load_comments(post._id);
-=======
+        
         $rootScope.now_playing = post
         console.log("==========")
         console.log($rootScope.now_playing);
         data = $scope.load_comments(post._id)
-<<<<<<< HEAD
->>>>>>> dcab93b20ce3d8956ff08abf13760eb6feba6924
+
         data.forEach(function(c){
             console.log(c);
         });
         console.log(data);
-=======
-
->>>>>>> acec9b1e9631374dd8a648d5dc4ea13de5a95cd0
     }
 });
 

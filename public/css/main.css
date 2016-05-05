@@ -390,21 +390,29 @@ main {
 #listmenu {
   position: fixed;
   width: 90%;
-  background-color: black;
+  background-color: #1e1e1e;
   opacity: 1;
   border: none;
   margin: 0;
   border-top: 200px solid #1e1e1e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 2px;
   margin-top: -200px; }
+  #listmenu h6, #listmenu p {
+    opacity: .7;
+    letter-spacing: .05em; }
 
-.mainlist {
+.mainlist,
+.commentlist {
   width: 90%;
   margin: auto;
   margin-top: 60px;
-  padding-top: 40px;
   padding-bottom: 100px; }
+
+.mainlist {
+  padding-top: 40px; }
   .mainlist ul {
-    margin-top: 27px;
+    margin-top: 46px;
     padding-bottom: 10px;
     opacity: 1;
     padding-top: 0;
@@ -417,11 +425,13 @@ main {
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-justify-content: center;
-      justify-content: center; }
+      justify-content: center;
+      padding-top: 5px;
+      padding-bottom: 5px; }
     .mainlist ul h6,
     .mainlist ul p {
       display: inline-block;
-      font-size: 1em;
+      font-size: 1.2em;
       padding-bottom: 0;
       font-weight: 500; }
     .mainlist ul h6 {
@@ -434,6 +444,7 @@ main {
       width: 15%;
       margin: 0; }
 
+#commentmain li,
 .postlist li,
 .filelist li {
   cursor: pointer;
@@ -444,20 +455,71 @@ main {
   transition: all 100ms linear;
   border-top: 1px solid #292929;
   border-bottom: 1px solid #292929; }
+  #commentmain li:nth-child(even),
   .postlist li:nth-child(even),
   .filelist li:nth-child(even) {
     border-top: #292929;
     border-bottom: #292929; }
+  #commentmain li:hover,
   .postlist li:hover,
   .filelist li:hover {
     background-color: #292929;
     border-top-color: #292929;
     border-bottom-color: #292929; }
+  #commentmain li h6,
+  #commentmain li p,
   .postlist li h6,
   .postlist li p,
   .filelist li h6,
   .filelist li p {
-    font-weight: 300; }
+    font-weight: 300;
+    font-size: 1em; }
+
+#commentmain {
+  margin: auto;
+  background-color: #292929;
+  min-height: 100px;
+  height: 50px;
+  width: 90%;
+  padding: 12px 10px; }
+
+.commentlist {
+  background-color: #1e1e1e;
+  margin-bottom: 100px; }
+  .commentlist form {
+    margin: auto;
+    width: 90%;
+    padding: 12px 10px;
+    height: 26px;
+    background-color: #292929;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row; }
+    .commentlist form textarea {
+      min-width: 200px;
+      padding: 4px 4px;
+      resize: none;
+      background-color: white;
+      margin: 0;
+      border-radius: 2px;
+      flex-grow: 2;
+      margin-right: 10px; }
+    .commentlist form input {
+      float: right;
+      margin: 0;
+      padding: 4px 6px;
+      cursor: pointer;
+      border-radius: 2px;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear; }
+      .commentlist form input:hover {
+        background-color: #fa4e5e;
+        color: white; }
 
 #profilewrapper {
   position: fixed;

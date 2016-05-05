@@ -102,13 +102,12 @@
                 </ul>
             </div>
             <div class="commentlist">
-                <ul style="color: white">
+                <ul id="commentmain">
                 </ul>
-                <br>
-                <div class="commentField" style="display: none">
+                <div class="commentField">
                     <form ng-Submit="upload_comment()" ng-show="authenticated">
-                        <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                        <input type="submit" value="Add COMMENT" />
+                        <textarea required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
+                        <input type="submit" value="Add comment" />
                     </form>
                 </div>
             </div>
@@ -214,7 +213,7 @@
                     <div class="clearfix">
                         <div ng-show="authenticated">
                             <form ng-Submit="post()" ng-show="authenticated">
-                                <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
+                                <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
                                 <input class="btn submit-btn pull-right" type="submit" value="Add" />
                             </form>
                             <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />

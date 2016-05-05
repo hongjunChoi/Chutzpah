@@ -328,34 +328,44 @@ main{
 #listmenu{
 	position: fixed;
 	width: 90%;
-	background-color: black;
+	background-color: $c-darkgray;
 	opacity: 1;
 	border:none;
 	margin:0;
 	border-top: 200px solid $c-darkgray;
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+	padding-bottom: 2px;
 	margin-top:-200px;
+	h6,p{ opacity: .7;
+		letter-spacing: .05em; 
+	}
 }
-.mainlist{
+.mainlist,
+.commentlist{
 	width: 90%;
 	margin: auto;
 	margin-top: 60px;
-	padding-top: 40px;
 	padding-bottom: 100px;
+}
+.mainlist{
+	padding-top: 40px;
 	ul{
-		margin-top: 27px;
+		margin-top: 46px;
 		padding-bottom:10px;
 		opacity: 1;
 		padding-top: 0;
 		padding-bottom: 0;
-		color:white;;
+		color:white;
 		li{
 			@include flexbox(row);
 			@include flexbox-justify(center);
+			padding-top: 5px;
+			padding-bottom: 5px;
 		}
 		h6,
 		p{
 			display: inline-block;
-			font-size: 1em;
+			font-size: 1.2em;
 			padding-bottom: 0;
 			font-weight: 500;
 		}
@@ -370,6 +380,7 @@ main{
 		}
 	}
 }
+#commentmain li,
 .postlist li,
 .filelist li{
 	// opacity: 0.8;
@@ -387,9 +398,54 @@ main{
 		border-bottom-color: $c-gray;
 	}
 	h6,
-	p{ font-weight: 300; }
+	p{
+		font-weight: 300;
+		font-size: 1em;
+	 }
 }
+#commentmain{
+	margin:auto;
+	background-color: $c-gray;
+	min-height: 100px;
+	height: 50px;
+	width: 90%;
+	padding: 12px 10px;
+}
+.commentlist{
+	background-color: $c-darkgray;
+	margin-bottom: 100px;
 
+	form{
+		margin:auto;
+		width: 90%;
+		padding: 12px 10px;
+		height: 26px;
+		background-color: $c-gray;
+		@include flexbox(row);
+		textarea{
+			min-width: 200px;
+			padding: 4px 4px;
+			resize:none;
+			background-color: white;
+			margin: 0;
+			border-radius: 2px;
+			flex-grow:2;
+			margin-right: 10px;
+		}
+		input{
+			float: right;
+			margin: 0;
+			padding: 4px 6px;
+			cursor: pointer;
+			border-radius: 2px;
+			@include transition(all,100ms,linear);
+			&:hover{ 
+				background-color: $c-pink;
+				color: white;
+			}
+		}
+	}
+}
 //profile
 #profilewrapper{
 	position: fixed;
