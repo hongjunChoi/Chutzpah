@@ -262,7 +262,35 @@ nav {
         display: block; }
 
 #uploadwrapper {
-  background-color: rgba(0, 0, 0, 0.05); }
+  margin-right: 40px; }
+  #uploadwrapper form {
+    position: relative;
+    border-bottom: 1px solid #fa4e5e;
+    margin-bottom: 10px;
+    height: 24px;
+    padding-bottom: 5px; }
+  #uploadwrapper input[type="submit"] {
+    background-color: gray;
+    color: white;
+    float: right;
+    border-radius: 5px;
+    padding: 3px 6px;
+    cursor: pointer; }
+    #uploadwrapper input[type="submit"]:hover {
+      background-color: #fa4e5e; }
+  #uploadwrapper input.uploadfilebtn {
+    margin-top: 10px;
+    width: 210px;
+    display: inline-block; }
+  #uploadwrapper input.uploadbtn {
+    display: inline-block;
+    background-color: #fa4e5e; }
+  #uploadwrapper textarea {
+    display: inline-block;
+    overflow: auto;
+    height: 100%;
+    width: 210px;
+    vertical-align: bottom; }
 
 #searchbar {
   margin-left: -20px;
@@ -486,7 +514,8 @@ main {
     width: 100%;
     bottom: 0;
     left: 0;
-    margin: 0; }
+    margin: 0;
+    overflow: hidden; }
     #profilewrapper #related h6 {
       color: #b1b1b1;
       font-weight: 300;
@@ -511,6 +540,69 @@ main {
         cursor: pointer; }
         #profilewrapper #related ul li:hover {
           opacity: 1; }
+
+#profilewrapper > div:last-of-type {
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+#chatwrapper {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  right: -300px;
+  bottom: 120px;
+  background-color: white;
+  border: 1px solid #fa4e5e;
+  z-index: 0;
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  transition: all 300ms ease-out;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  transform: translateX(-100%); }
+  #chatwrapper > div {
+    width: 100%;
+    position: relative;
+    clear: both; }
+  #chatwrapper .chatheader {
+    height: 20px;
+    background-color: #fa4e5e; }
+  #chatwrapper .chatmain {
+    height: 340px;
+    overflow-y: scroll;
+    background-color: white; }
+    #chatwrapper .chatmain p {
+      clear: both;
+      background-color: #fa4e5e;
+      color: white;
+      padding: 4px;
+      margin: 2px 8px; }
+    #chatwrapper .chatmain p.received {
+      float: left; }
+    #chatwrapper .chatmain p.sent {
+      float: right; }
+  #chatwrapper .chatcontrol {
+    height: 40px;
+    background-color: #fa4e5e; }
+    #chatwrapper .chatcontrol > div {
+      display: inline-block;
+      color: white; }
+
+body.chatopened #chatwrapper {
+  -webkit-transform: translateX(10%);
+  -moz-transform: translateX(10%);
+  -o-transform: translateX(10%);
+  -ms-transform: translateX(10%);
+  transform: translateX(10%); }
 
 #controller {
   background-color: #fa4e5e;

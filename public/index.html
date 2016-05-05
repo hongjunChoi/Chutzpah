@@ -50,23 +50,32 @@
     <main>
         <!-- Left Profile -->
         <div id="profilewrapper" ng-controller="profileController">
-            <button id="profileclose"><span></span><span></span></button>
-            <div id="profile">
-                <!-- contents should be dynamically appended -->
-                <img src="img/sample.jpg" />
-                <h3>{Eugene So}</h3>
-                <p>{description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.</p>
-                <button>Contact Eugene So</button>
+            <!-- Chatting -->
+            <div id="chatwrapper">
+            	<div class="chatheader"><button alt="close chat"></button></div>
+            	<div class="chatmain"></div>
+            	<div class="chatcontrol">
+		            <div ng-click="get_chat()"> GET CHAT </div>
+		            <div ng-click="send_chat()"> SEND CHAT </div>
+		            <div ng-click="confirm_request()"> CONFIRM </div>
+            	</div>
             </div>
-            <div style="margin-left:50px" ng-click="get_chat()"> GET CHAT </div>
-            <div style="margin-left:50px" ng-click="send_chat()"> SEND CHAT </div>
-            <div style="margin-left:50px" ng-click="confirm_request()"> CONFIRM </div>
-            <div id="related">
-                <h6>More songs by Eugene So</h6>
-                <ul id="user_post_wrapper">
-                    <!-- <li ></li> -->
-                </ul>
-            </div>
+        	<div>
+	            <button id="profileclose"><span></span><span></span></button>
+	            <div id="profile">
+	                <!-- contents should be dynamically appended -->
+	                <img src="img/sample.jpg" />
+	                <h3>{Eugene So}</h3>
+	                <p>{description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.</p>
+	                <button id="openchat">Contact Eugene So</button>
+	            </div>
+	            <div id="related">
+	                <h6>More songs by Eugene So</h6>
+	                <ul id="user_post_wrapper">
+	                    <!-- <li ></li> -->
+	                </ul>
+	            </div>
+        	</div>
         </div>
         <!-- Main screen -->
         <div id="mainscreen">
@@ -191,10 +200,10 @@
                             </form>
                             <form ng-Submit="upload_comment()" ng-show="authenticated">
                                 <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                                <input class="btn submit-btn pull-right" type="submit" value="Add COMMENT" />
+                                <input class="btn submit-btn pull-right" type="submit" value="Enter" />
                             </form>
-                            <input type="file" name="myFile" file-model="myFile" />
-                            <input type="submit" ng-click="upload()">
+                            <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()">
                         </div>
                     </div>
                 </div>
