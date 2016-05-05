@@ -15,6 +15,9 @@ body {
   overflow: none;
   background-color: black; }
 
+body {
+  overflow: scroll; }
+
 a {
   text-decoration: none;
   color: inherit; }
@@ -327,7 +330,78 @@ body.profileopened #profilewrapper {
 
 main {
   width: 100%;
-  background-color: white; }
+  background-color: white;
+  overflow: scroll; }
+
+#mainscreen {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background-color: #1e1e1e; }
+  #mainscreen > div {
+    width: 90%;
+    margin: auto;
+    margin-top: 100px; }
+
+.mainlist {
+  overflow: scroll; }
+  .mainlist ul {
+    border: 1px solid black;
+    padding-bottom: 10px;
+    opacity: 1;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: white; }
+    .mainlist ul li {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+      -webkit-justify-content: center;
+      justify-content: center;
+      border-top: 1px solid white;
+      border-bottom: 1px solid white; }
+    .mainlist ul h6,
+    .mainlist ul p {
+      display: inline-block;
+      font-size: 1em;
+      padding-bottom: 0;
+      font-weight: 500; }
+    .mainlist ul h6 {
+      margin-right: 1%; }
+      .mainlist ul h6:first-of-type {
+        width: 45%; }
+      .mainlist ul h6:last-of-type {
+        width: 20%; }
+    .mainlist ul p {
+      width: 15%;
+      margin: 0; }
+
+.postlist li,
+.filelist li {
+  opacity: 0.8;
+  cursor: pointer;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  transition: all 200ms linear; }
+  .postlist li:nth-child(even),
+  .filelist li:nth-child(even) {
+    border-top: none;
+    border-bottom: none; }
+  .postlist li:hover,
+  .filelist li:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+    border-bottom-color: transparent; }
+  .postlist li h6,
+  .postlist li p,
+  .filelist li h6,
+  .filelist li p {
+    font-weight: 400; }
 
 #profilewrapper {
   position: fixed;
@@ -436,35 +510,6 @@ main {
         opacity: 0.8;
         cursor: pointer; }
         #profilewrapper #related ul li:hover {
-          opacity: 1; }
-
-#mainscreen {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  background-color: #1e1e1e; }
-  #mainscreen > div {
-    width: 90%;
-    margin: auto;
-    margin-top: 100px; }
-    #mainscreen > div ul {
-      border: 1px solid black;
-      padding-bottom: 10px; }
-      #mainscreen > div ul li {
-        color: white;
-        border-bottom: 1px solid black;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        opacity: 0.8;
-        cursor: pointer;
-        -webkit-transition: all 200ms linear;
-        -moz-transition: all 200ms linear;
-        -o-transition: all 200ms linear;
-        -ms-transition: all 200ms linear;
-        transition: all 200ms linear; }
-        #mainscreen > div ul li:hover {
-          background-color: black;
           opacity: 1; }
 
 #controller {

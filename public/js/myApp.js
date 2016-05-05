@@ -106,20 +106,20 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     temp.$promise.then(function(data) {
         for (var i = 0; i < data.length; i++) {
+
             var item = data[i];
-            console.log(item["is_file"]);
+            console.log(item);
             if (item["is_file"] == true || item["is_file"] == "true") {
-                files.push(item)
+                files.push(item);
             } else {
-                text_posts.push(item)
+                text_posts.push(item);
             }
         }
+        
         $scope.posts = text_posts;
         $scope.files = files;
     });
 
-    console.log($scope.posts);
-    console.log($scope.files)
 
 
     $scope.newPost = {
