@@ -119,7 +119,7 @@
 	                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
 	                <input type="submit" value="Add COMMENT" />
 	                </form>
-	            <div>
+	            </div>
             </div>
         </div>
         <div id="controller" ng-controller="profileController">
@@ -184,8 +184,9 @@
     <!-- RIGHT NAVIGATION MENU -->
     <nav id="navwrapper">
         <ul>
-            <li>
-                <h4>now playing</h4></li>
+            <li id="now_playing" ng-controller="mainController">
+                <h4 ng-click="get_now_playing()">Now Playing</h4>
+            </li>
             <li id="navsearch">
                 <h4>search</h4>
                 <div id="searchbar" ng-controller="searchController">
