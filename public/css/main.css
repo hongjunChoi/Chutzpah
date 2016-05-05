@@ -345,7 +345,8 @@ main {
     margin-top: 100px; }
 
 .mainlist {
-  overflow: scroll; }
+  overflow: scroll;
+  padding-bottom: 100px; }
   .mainlist ul {
     border: 1px solid black;
     padding-bottom: 10px;

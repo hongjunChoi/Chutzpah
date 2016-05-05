@@ -278,16 +278,11 @@ main{
 		width: 90%;
 		margin: auto;
 		margin-top: 100px;
-
-		// main post lists
-		ul{
-			li{
-			}
-		}
 	}
 }
 .mainlist{
 	overflow: scroll;
+	padding-bottom: 100px;
 	ul{
 		border:1px solid black;
 		padding-bottom:10px;
@@ -301,10 +296,6 @@ main{
 			border-top:1px solid white;
 			border-bottom:1px solid white;
 		}
-		&:first-of-type{
-			h6,p{
-			}
-		}
 		h6,
 		p{
 			display: inline-block;
@@ -314,12 +305,8 @@ main{
 		}
 		h6{
 			margin-right:1%;
-			&:first-of-type{
-				width: 45%;
-			}
-			&:last-of-type{
-				width: 20%;
-			}
+			&:first-of-type{ width: 45%; }
+			&:last-of-type{ width: 20%; }
 		}
 		p{
 			width: 15%;
@@ -342,9 +329,7 @@ main{
 		border-bottom-color: transparent;
 	}
 	h6,
-	p{
-		font-weight: 400;
-	}
+	p{ font-weight: 400; }
 }
 
 //profile
