@@ -14,7 +14,7 @@ var multer = require('multer'),
 
 
 var upload = multer({
-	dest: './uploads/',
+	dest: './public/uploads/',
 	limits: {
 		fileSize: maxSize
 	}

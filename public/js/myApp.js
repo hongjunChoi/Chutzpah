@@ -167,6 +167,29 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+    $scope.start_music = function(post) {
+        
+        console.log("starting music")
+        console.info(post.url.substring(post.url.indexOf("/")+1))
+              $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+          $(this).jPlayer("setMedia", {
+            title: "Bubble",
+            m4a: post.url.substring(post.url.indexOf("/")+1)
+          });
+        },
+        cssSelectorAncestor: "#jp_container_1",
+        swfPath: "/js",
+        supplied: "m4a, oga",
+        useStateClassSkin: true,
+        autoBlur: false,
+        smoothPlayBar: true,
+        keyEnabled: true,
+        remainingDuration: true,
+        toggleDuration: true
+      });
+    }
+
     $scope.get_profile_info = function() {
 
         var url = "/api/profile";
