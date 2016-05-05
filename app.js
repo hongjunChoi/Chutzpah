@@ -104,7 +104,7 @@ io.sockets.on('connection', function(socket) {
             if (time.length == 0) {
                 var notification = new Notification();
                 notification.username = data.username;
-                notification.time = Data.now();
+                notification.time = Date.now();
                 notification.save(function(err, notification) {
                     if (err) {
                         console.log("ERROR IN SAVE NOTI");
@@ -130,7 +130,6 @@ io.sockets.on('connection', function(socket) {
 });
 
 
-
 //API CALLS FOR CHATTING
 //get room html 
 app.get('/get_chat', function(req, res) {
@@ -139,39 +138,45 @@ app.get('/get_chat', function(req, res) {
     console.log(req.query);
     console.log("=======================");
     user = req.query.username;
-    Chat.find({
-        sent_to: user
-    }, function(err, all_chats) {
+
+    Notification.find({
+        username: user
+    }, function(err, time) {
         if (err) {
             return res.send(500, err);
         }
-
-        Notification.find(function(err, time) {
-            if (err) {
-                return res.send(500, err);
+        console.log('====fount last time ===');
+        Chat.find({
+            send_to: user,
+            time: {
+                $gte: time
             }
-            console.log('====fount last time ===');
+        }, function(err, new_chats) {
+            if (err) {
+                res.send(500, err);
+            }
             Chat.find({
+                sent_to: user,
                 time: {
-                    $gte: time
+                    $lt: time
                 }
-            }, function(err, new_chats) {
+            }, function(err, old_chat) {
                 if (err) {
-                    res.send(500, err);
+                    return res.send(500, err);
                 }
                 data = {
-                    "all_chat": all_chats,
-                    "new_chat": new_chats
+                    "newchat": new_chats,
+                    "oldchat": old_chat
                 }
                 return res.send(200, data);
-            })
-
-        });
-
+            });
+        })
 
     });
-});
 
+
+
+});
 
 app.post('/send_chat', function(req, res) {
     console.log("send chat backend  ")

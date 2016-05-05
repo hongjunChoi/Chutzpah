@@ -190,26 +190,15 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.start_music = function(post) {
-        
+        alert("starting music")
         console.log("starting music")
-        console.info(post.url.substring(post.url.indexOf("/")+1))
-              $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            title: "Bubble",
-            m4a: post.url.substring(post.url.indexOf("/")+1)
-          });
-        },
-        cssSelectorAncestor: "#jp_container_1",
-        swfPath: "/js",
-        supplied: "m4a, oga",
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
-      });
+     //   $("#jquery_jplayer_1").jPlayer("clearMedia");
+        alert(post.url.substring(post.url.indexOf("/")+1))
+          $("#jquery_jplayer_1").jPlayer("setMedia", {
+                title: post.original_name,
+                mp3:post.url.substring(post.url.indexOf("/")+1)
+              });
+
     }
 
     $scope.get_profile_info = function() {
