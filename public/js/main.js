@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var socket = io.connect();
 	//todo : programmically get the username
 	socket.emit('join', {
-		username: "scottljy"
+		username: "scd"
 	});
 
 	socket.on("new_msg", function(data) {
