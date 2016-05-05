@@ -96,8 +96,10 @@ header {
       display: inline-block;
       cursor: pointer;
       margin-right: 30px;
+      vertical-align: middle;
       color: white;
       z-index: 100;
+      height: 26px;
       -webkit-transition: 300ms all ease-in-out;
       -moz-transition: 300ms all ease-in-out;
       -o-transition: 300ms all ease-in-out;
@@ -112,10 +114,26 @@ header {
       font-style: normal;
       font-weight: 300;
       font-size: 1em; }
+  header #logininfo {
+    opacity: 0.6; }
+    header #logininfo p {
+      padding-left: 4px;
+      padding-right: 4px;
+      padding-bottom: 0; }
+    header #logininfo > p:last-of-type {
+      border-top: #292929 1px solid;
+      visibility: hidden;
+      margin-top: 0; }
+    header #logininfo:hover {
+      opacity: 1;
+      background-color: black; }
+      header #logininfo:hover > p:last-of-type {
+        visibility: visible;
+        background-color: black;
+        padding-bottom: 0; }
   header #btn_search {
     margin-top: -2px;
     width: 26px;
-    height: 26px;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(../img/ui-icons/search.svg); }

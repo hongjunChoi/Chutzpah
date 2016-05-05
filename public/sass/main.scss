@@ -58,8 +58,10 @@ header{
 			display: inline-block;
 			cursor: pointer;
 			margin-right: 30px;
+			vertical-align: middle;
 			color:white;
 			z-index: 100;
+			height:26px;
 			@include transition(300ms, all, ease-in-out);
 
 			&:hover{
@@ -73,10 +75,33 @@ header{
 		    font-size: 1em;
 		}
 	}
+	#logininfo{
+		opacity: 0.6;
+		// margin-bottom: 0;
+		p{
+		padding-left: 4px;
+		padding-right: 4px;
+		padding-bottom: 0;
+		}
+		& > p:last-of-type{ 
+			border-top:$c-gray 1px solid;
+			visibility: hidden;
+			margin-top: 0;
+		}
+
+		&:hover{
+			opacity: 1;
+			background-color: black;
+			& > p:last-of-type{ 
+				visibility: visible;
+				background-color: black;
+				padding-bottom: 0;
+			}
+		}
+	}
 	#btn_search{
 		margin-top: -2px;
 		width:26px;
-		height:26px;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-image: url(../img/ui-icons/search.svg);

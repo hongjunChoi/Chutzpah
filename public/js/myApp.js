@@ -190,13 +190,13 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             }
         }).success(function(data) {
             console.log(data);
-            $(".commentlist").empty()
+            $(".commentlist").empty();
             data.forEach(function(c){
                 $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
-            })
-            $(".commentField").show()
+            });
+            $(".commentField").show();
 
-            return data
+            return data;
         });
     };
 
@@ -207,12 +207,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             mp3:post.url.substring(post.url.indexOf("/")+1)
         });
 
-        $scope.post_id = post._id
-        data = $scope.load_comments(post._id)
+        $scope.post_id = post._id;
+        data = $scope.load_comments(post._id);
         data.forEach(function(c){
-            console.log(c)
-        })
-        console.log(data)
+            console.log(c);
+        });
+        console.log(data);
     }
 });
 
@@ -220,7 +220,7 @@ function set_user_profile(info) {
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
-    var genre = info.genre
+    var genre = info.genre;
     $("#user_profile_username").html(username);
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
