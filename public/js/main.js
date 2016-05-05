@@ -2,7 +2,7 @@ $(document).ready(function() {
 	var socket = io.connect();
 	//todo : programmically get the username
 	socket.emit('join', {
-		username: "scd"
+		username: "scottljy"
 	});
 
 	socket.on("new_msg", function(data) {
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		if (menuopened) {  menuopened = false;  }
 	});
 
-	$("#btn_search").click(function(){
+	$("#btn_search").click(function() {
 		menuopen();
 		$("body").addClass("searchopened");
 	});
