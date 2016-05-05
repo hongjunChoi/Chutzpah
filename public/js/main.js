@@ -28,10 +28,16 @@ $(document).ready(function() {
 	$("#logo").click(function() {
 		$("body").removeClass("menuopened");
 		$("body").removeClass("profileopened");
+		$("body").removeClass("searchopened");
 
 		if (menuopened) {
 			menuopened = false;
 		}
+	});
+
+	$("#btn_search").click(function(){
+		menuopen();
+		$("body").addClass("searchopened");
 	});
 
 	// $("#userthumb").click(function(){
@@ -46,6 +52,7 @@ $(document).ready(function() {
 			$("body").addClass("menuopened");
 		} else {
 			$("body").removeClass("menuopened");
+			$("body").removeClass("searchopened");
 		}
 		menuopened = !menuopened;
 	}

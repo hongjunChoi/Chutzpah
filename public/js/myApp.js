@@ -97,6 +97,7 @@ app.factory('postService', function($resource) {
 
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
+
     $scope.posts = [];
     $scope.files = [];
     var temp = postService.query();
@@ -119,6 +120,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     console.log($scope.posts);
     console.log($scope.files)
+
 
     $scope.newPost = {
         created_by: '',
