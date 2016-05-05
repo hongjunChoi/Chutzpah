@@ -293,8 +293,6 @@ main{
 		li{
 			@include flexbox(row);
 			@include flexbox-justify(center);
-			border-top:1px solid white;
-			border-bottom:1px solid white;
 		}
 		h6,
 		p{
@@ -318,15 +316,17 @@ main{
 .filelist li{
 	opacity: 0.8;
 	cursor: pointer;
-	@include transition(all, 200ms, linear);
+	@include transition(all, 100ms, linear);
+	border-top:1px solid white;
+	border-bottom:1px solid white;
 	&:nth-child(even){
-		border-top:none;
-		border-bottom:none;
+		border-top:#292929;
+		border-bottom:#292929;
 	}
 	&:hover{
-		background-color: rgba(255,255,255,0.05);
-		opacity: 1;
-		border-bottom-color: transparent;
+		background-color: #292929;
+		border-top-color: #292929;
+		border-bottom-color: #292929;
 	}
 	h6,
 	p{ font-weight: 400; }

@@ -361,9 +361,7 @@ main {
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-justify-content: center;
-      justify-content: center;
-      border-top: 1px solid white;
-      border-bottom: 1px solid white; }
+      justify-content: center; }
     .mainlist ul h6,
     .mainlist ul p {
       display: inline-block;
@@ -384,20 +382,22 @@ main {
 .filelist li {
   opacity: 0.8;
   cursor: pointer;
-  -webkit-transition: all 200ms linear;
-  -moz-transition: all 200ms linear;
-  -o-transition: all 200ms linear;
-  -ms-transition: all 200ms linear;
-  transition: all 200ms linear; }
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  transition: all 100ms linear;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white; }
   .postlist li:nth-child(even),
   .filelist li:nth-child(even) {
-    border-top: none;
-    border-bottom: none; }
+    border-top: #292929;
+    border-bottom: #292929; }
   .postlist li:hover,
   .filelist li:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    opacity: 1;
-    border-bottom-color: transparent; }
+    background-color: #292929;
+    border-top-color: #292929;
+    border-bottom-color: #292929; }
   .postlist li h6,
   .postlist li p,
   .filelist li h6,
