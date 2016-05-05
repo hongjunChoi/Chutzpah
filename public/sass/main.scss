@@ -19,6 +19,7 @@ body{
 }
 body{
 	overflow: scroll;	
+	overflow-x:hidden;
 }
 a{
 	text-decoration: none;
@@ -264,7 +265,6 @@ body.profileopened{
 main{
 	width: 100%;
 	background-color: white;
-	overflow: scroll;	
 }
 //main
 #mainscreen{
@@ -281,7 +281,6 @@ main{
 	}
 }
 .mainlist{
-	overflow: scroll;
 	padding-bottom: 100px;
 	ul{
 		border:1px solid black;
@@ -614,7 +613,6 @@ main{
 			height: 4px;
 			position: relative;
 			cursor: pointer;
-			// overflow: hidden;
 			border-radius: 2px;
 
 		}
@@ -638,8 +636,6 @@ main{
 		}
 		.jp-play{ background-image: url(../img/ui-icons/play.svg); }
 		.jp-play:focus{ background-image: url(../img/ui-icons/pause.svg);}
-		// .jp-play{ background-image: url(../img/ui-icons/play.svg); }
-		// .jp-play:focus{ background-image: url(../img/ui-icons/pause.svg); }	
 		.jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
 		// .jp-stop{ display: none;}
 		// .jp-volume-max{ background-image: url(../img/ui-icons/volume_3.svg);}
