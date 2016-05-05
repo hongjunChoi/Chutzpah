@@ -17,7 +17,8 @@ body {
 
 body {
   overflow: scroll;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  background-color: #1e1e1e; }
 
 a {
   text-decoration: none;
@@ -377,7 +378,7 @@ body.profileopened #profilewrapper {
 
 main {
   width: 100%;
-  background-color: white; }
+  background-color: #1e1e1e; }
 
 #mainscreen {
   position: absolute;

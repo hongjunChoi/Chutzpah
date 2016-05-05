@@ -20,6 +20,7 @@ body{
 body{
 	overflow: scroll;	
 	overflow-x:hidden;
+	background-color: $c-darkgray;
 }
 a{
 	text-decoration: none;
@@ -311,7 +312,7 @@ body.profileopened{
 //MAIN
 main{
 	width: 100%;
-	background-color: white;
+	background-color: $c-darkgray;
 }
 //main
 #mainscreen{

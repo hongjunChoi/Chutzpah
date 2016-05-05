@@ -9,25 +9,19 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Typekit -->
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>
-    try {
-        Typekit.load({
-            async: true
-        });
-    } catch (e) {}
-    </script>
+    <script> try { Typekit.load({ async: true }); } catch (e) {} </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
+    <link rel="shortcut icon" href="img/favicon.ico">
     <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
 </head>
 
 <body ng-app="myApp">
-    <!-- LOGO -->
     <img id="logo" src="img/logo.svg" />
-    <!-- HEADER -->
+
+<!-- HEADER -->
     <header>
         <ul>
             <li id="loginregister">
@@ -44,15 +38,15 @@
             <li id="btn_menu"><span></span><span></span><span></span></li>
         </ul>
     </header>
-    <!-- MAIN -->
+
+<!-- MAIN -->
     <main>
         <!-- Left Profile -->
         <div id="profilewrapper" ng-controller="profileController">
             <!-- Chatting -->
             <div id="chatwrapper">
             	<div class="chatheader"><button alt="close chat"></button></div>
-            	<div class="chatmain">
-            	</div>
+            	<div class="chatmain"></div>
             	<div class="chatcontrol">
             		<input type="text" placeholder="Type a message"></input>
 		            <div ng-click="get_chat()"> GET CHAT </div>
@@ -64,7 +58,6 @@
             <div>
 	            <button id="profileclose"><span></span><span></span></button>
 	            <div id="profile">
-	                <!-- contents should be dynamically appended -->
 	                <img src="img/sample.jpg" />
 	                <h3 id="user_profile_username"></h3>
 	                <p id="user_profile_location"></p>
@@ -75,11 +68,12 @@
 	            <div id="related">
 	                <h6>More songs by Eugene So</h6>
 	                <ul id="user_post_wrapper">
-	                    <!-- <li ></li> -->
+	                    <!--related posts-->
 	                </ul>
 	            </div>
             </div>
         </div>
+
         <!-- Main screen -->
         <div id="mainscreen" ng-controller="mainController">
             <div ng-view></div>
@@ -104,7 +98,6 @@
                         <h6>{{ file.original_name }}</h6>
                         <h6>{{ file.created_by }}</h6>
                         <p>{{ file.created_at }}</p>
-                        <!-- {{ file }} -->
                     </li>
                 </ul>
             </div>
@@ -117,9 +110,11 @@
 	                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
 	                <input type="submit" value="Add COMMENT" />
 	                </form>
-	            <div>
+	            </div>
             </div>
         </div>
+
+        <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
             <div id="thumbwrapper">
                 <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
@@ -179,11 +174,15 @@
             </div>
         </div>
     </main>
-    <!-- RIGHT NAVIGATION MENU -->
+
+<!-- RIGHT NAVIGATION MENU -->
     <nav id="navwrapper">
         <ul>
-            <li>
-                <h4>now playing</h4></li>
+            <li id="now_playing" ng-controller="mainController">
+                <h4 ng-click="get_now_playing()">Now Playing</h4>
+            </li>
+
+            <!-- Search -->
             <li id="navsearch">
                 <h4>search</h4>
                 <div id="searchbar" ng-controller="searchController">
@@ -207,9 +206,10 @@
                 <h4 ng-click="get_chat()">notification</h4>
                 <ul id="chat_list"></ul>
             </li>
+
+            <!-- Upload -->
             <li>
-                <h4>upload
-                </h4>
+                <h4>upload</h4>
                 <div id="uploadwrapper" ng-controller="mainController">
                     <div class="clearfix">
                         <div ng-show="authenticated">
@@ -224,40 +224,39 @@
                 </div>
             </li>
         </ul>
-        <!-- Upload -->
     </nav>
-    <!-- angular js files   -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
-    <!-- custom js files  -->
-    <script src="js/myApp.js"></script>
-    <script src="js/login.js"></script>
-    <!-- jquery - ui js  -->
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/main.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-        $("#jquery_jplayer_1").jPlayer({
-            ready: function() {
-                $(this).jPlayer("setMedia", {
-                    title: "Big Buck Bunny Trailer",
-                    mp3: "/uploads/sample.mp3"
-                });
-            },
-            cssSelectorAncestor: "#jp_container_1",
-            swfPath: "/js",
-            supplied: "mp3",
-            useStateClassSkin: true,
-            autoBlur: false,
-            smoothPlayBar: true,
-            keyEnabled: true,
-            remainingDuration: true,
-            toggleDuration: true
-        });
-    });
-    </script>
-</body>
 
+<!-- angular js files   -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+<!-- custom js files  -->
+<script src="js/myApp.js"></script>
+<script src="js/login.js"></script>
+<!-- jquery - ui js  -->
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#jquery_jplayer_1").jPlayer({
+        ready: function() {
+            $(this).jPlayer("setMedia", {
+                title: "Big Buck Bunny Trailer",
+                mp3: "/uploads/sample.mp3"
+            });
+        },
+        cssSelectorAncestor: "#jp_container_1",
+        swfPath: "/js",
+        supplied: "mp3",
+        useStateClassSkin: true,
+        autoBlur: false,
+        smoothPlayBar: true,
+        keyEnabled: true,
+        remainingDuration: true,
+        toggleDuration: true
+    });
+});
+</script>
+</body>
 </html>
