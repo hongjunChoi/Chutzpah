@@ -69,7 +69,7 @@ var likeSchema = new mongoose.Schema({
 
 
 var chatSchema = new mongoose.Schema({
-	sent_by: String,
+	sent_to: String,
 	sent_from: String,
 	sent_at: {
 		type: Date,

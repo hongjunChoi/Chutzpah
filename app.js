@@ -152,6 +152,7 @@ app.get('/get_chat', function(req, res) {
             }
             console.log('====fount last time ===');
             Chat.find({
+                sent_to: user,
                 time: {
                     $gte: time
                 }

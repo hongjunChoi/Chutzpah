@@ -115,7 +115,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
                 text_posts.push(item);
             }
         }
-        
+
         $scope.posts = text_posts;
         $scope.files = files;
     });
@@ -134,6 +134,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.post = function() {
+        alert("post")
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.created_at = Date.now();
         postService.save($scope.newPost, function() {
@@ -148,6 +149,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
 
     $scope.upload = function() {
+        alert("upload file");
         var file = $scope.myFile;
 
         console.log('file is ');
@@ -159,6 +161,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.upload_comment = function() {
+        alert("comment")
         var url = "/api/comment";
         $scope.comment.created_by = $rootScope.current_user;
         $scope.comment.post_id = 1;
@@ -190,26 +193,26 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.start_music = function(post) {
-        
+
         console.log("starting music")
-        console.info(post.url.substring(post.url.indexOf("/")+1))
-              $("#jquery_jplayer_1").jPlayer({
-        ready: function () {
-          $(this).jPlayer("setMedia", {
-            title: "Bubble",
-            m4a: post.url.substring(post.url.indexOf("/")+1)
-          });
-        },
-        cssSelectorAncestor: "#jp_container_1",
-        swfPath: "/js",
-        supplied: "m4a, oga",
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
-      });
+        console.info(post.url.substring(post.url.indexOf("/") + 1))
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function() {
+                $(this).jPlayer("setMedia", {
+                    title: "Bubble",
+                    m4a: post.url.substring(post.url.indexOf("/") + 1)
+                });
+            },
+            cssSelectorAncestor: "#jp_container_1",
+            swfPath: "/js",
+            supplied: "m4a, oga",
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true,
+            remainingDuration: true,
+            toggleDuration: true
+        });
     }
 
     $scope.get_profile_info = function() {
@@ -245,13 +248,13 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
-    $scope.confirm_request = function(req){
+    $scope.confirm_request = function(req) {
         console.log("confirming & posting request")
         var url = "/api/event"
         $http.post(url, {
             artist: "ARTIST",
             venue: "VENUE"
-        }).success(function(data){
+        }).success(function(data) {
             alert("success" + data)
         })
     }
