@@ -106,11 +106,11 @@
                 </ul>
                 <br>
                 <div class="commentField" style="display: none">
-	                <form ng-Submit="upload_comment()" ng-show="authenticated">
-	                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-	                <input type="submit" value="Add COMMENT" />
-	                </form>
-	            </div>
+                    <form ng-Submit="upload_comment()" ng-show="authenticated">
+                        <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+                        <input type="submit" value="Add COMMENT" />
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -130,7 +130,7 @@
                             <div class="jp-interface">
                                 <div class="jp-details">
                                     <div class="titlewrapper">
-                                        <div class="artistname">{Eugene So}</div>
+                                        <div class="artistname">{{current_user}}</div>
                                         <div class="jp-title" aria-label="title">&nbsp;</div>
                                     </div>
                                 </div>

@@ -2,14 +2,20 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
+    $rootScope.now_playing = "";
 
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
         if (data && data !== "undefined" && data['user']) {
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
+            $rootScope.now_playing = {
+                "created_by": $rootScope.current_user
+            };
+
         }
     });
+
 
     $rootScope.signout = function() {
         $http.get('auth/signout');
@@ -109,7 +115,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         for (var i = 0; i < data.length; i++) {
 
             var item = data[i];
-            console.log(item);
+
             if (item["is_file"] == true || item["is_file"] == "true") {
                 files.push(item);
             } else {
@@ -148,7 +154,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
-    $scope.get_now_playing = function(){
+    $scope.get_now_playing = function() {
         alert($rootScope.now_playing)
     }
 
@@ -192,11 +198,19 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             }
         }).success(function(data) {
             console.log(data);
+<<<<<<< HEAD
             $(".commentlist").empty();
             data.forEach(function(c){
                 $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
             });
             $(".commentField").show();
+=======
+            $(".commentlist").empty()
+            data.forEach(function(c) {
+                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
+            })
+            $(".commentField").show()
+>>>>>>> acec9b1e9631374dd8a648d5dc4ea13de5a95cd0
 
             return data;
         });
@@ -206,7 +220,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         console.log("starting music")
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
-            mp3:post.url.substring(post.url.indexOf("/")+1)
+            mp3: post.url.substring(post.url.indexOf("/") + 1)
         });
 
 <<<<<<< HEAD
@@ -214,12 +228,18 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         data = $scope.load_comments(post._id);
 =======
         $rootScope.now_playing = post
+        console.log("==========")
+        console.log($rootScope.now_playing);
         data = $scope.load_comments(post._id)
+<<<<<<< HEAD
 >>>>>>> dcab93b20ce3d8956ff08abf13760eb6feba6924
         data.forEach(function(c){
             console.log(c);
         });
         console.log(data);
+=======
+
+>>>>>>> acec9b1e9631374dd8a648d5dc4ea13de5a95cd0
     }
 });
 
@@ -232,6 +252,7 @@ function set_user_profile(info) {
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
     $("#user_profile_genre").html(genre);
+    $("#contact_to").html(username);
 }
 
 app.controller('profileController', function($scope, $rootScope, $http) {
@@ -241,7 +262,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = $rootScope.current_user;
+        var user_name = $rootScope.now_playing.created_by;
 
         $http.get(url, {
             params: {
