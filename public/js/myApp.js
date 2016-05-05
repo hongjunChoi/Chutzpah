@@ -97,7 +97,29 @@ app.factory('postService', function($resource) {
 
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
-    $scope.posts = postService.query();
+    $scope.posts = [];
+    $scope.files = [];
+    var temp = postService.query();
+    var files = [];
+    var text_posts = [];
+
+    temp.$promise.then(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            console.log(item["is_file"]);
+            if (item["is_file"] == true || item["is_file"] == "true") {
+                files.push(item)
+            } else {
+                text_posts.push(item)
+            }
+        }
+        $scope.posts = text_posts;
+        $scope.files = files;
+    });
+
+    console.log($scope.posts);
+    console.log($scope.files)
+
     $scope.newPost = {
         created_by: '',
         text: '',

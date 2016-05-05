@@ -92,20 +92,40 @@ io.sockets.on('connection', function(socket) {
     });
 
     // the client disconnected/closed their browser window
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function(data) {
         // Leave the room!
         console.log("reset notification time ");
-        Notification.remove({}, function() {
-            console.log("client disconnected and removed notificationtime and resetting.");
-        })
-        notification = new Notification();
-        notification.time = Date.now();
-        notification.save(function(err, notification) {
+        Notification.find({
+            username: data.username
+        }, function(err, time) {
             if (err) {
-                console.log("========= ERROR WHEN SAVE NOTIFIACATION TIME ===========");
+                console.log("ERROR IN FUCKIN FIND NOTIF");
             }
-            console.log("successfully saved! notification")
-        });
+            if (time.length == 0) {
+                var notification = new Notification();
+                notification.username = data.username;
+                notification.time = Data.now();
+                notification.save(function(err, notification) {
+                    if (err) {
+                        console.log("ERROR IN SAVE NOTI");
+                    }
+                    console.log("SUCCESSFULLY SAVED CREATED NOTI");
+                });
+            } else {
+                Notification.update({
+                    username: data.username
+                }, {
+                    time: Date.now()
+                }, function(err, new_time) {
+                    if (err) {
+                        console.log("ERROR IN UPDATE NOTI");
+                    }
+                    console.log("SUCCESSFULLY UPDATED NOTIFICATION TIME");
+                });
+
+            }
+        })
+
     });
 });
 
