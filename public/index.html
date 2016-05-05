@@ -185,8 +185,9 @@
     <!-- RIGHT NAVIGATION MENU -->
     <nav>
         <ul>
-            <li>
-                <h4>now playing</h4></li>
+            <li id="now_playing" ng-controller="mainController">
+                <h4 ng-click="get_now_playing()">Now Playing</h4>
+            </li>
             <li id="navsearch">
                 <h4>search</h4>
                 <div id="searchbar" ng-controller="searchController">

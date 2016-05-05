@@ -100,7 +100,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.posts = [];
     $scope.files = [];
-    $scope.post_id = 0;
 
     var temp = postService.query();
     var files = [];
@@ -149,6 +148,9 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+    $scope.get_now_playing = function(){
+        alert($rootScope.now_playing)
+    }
 
     $scope.upload = function() {
         alert("upload file");
@@ -207,7 +209,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             mp3:post.url.substring(post.url.indexOf("/")+1)
         });
 
-        $scope.post_id = post._id
+        $rootScope.now_playing = post
         data = $scope.load_comments(post._id)
         data.forEach(function(c){
             console.log(c)
