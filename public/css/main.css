@@ -364,17 +364,29 @@ main {
 #mainscreen {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: auto;
   margin: 0;
   background-color: #1e1e1e; }
   #mainscreen > div {
     width: 90%;
     margin: auto;
-    margin-top: 100px; }
+    margin-top: 60px; }
+
+#listmenu {
+  position: fixed;
+  width: 90%;
+  background-color: black;
+  opacity: 1;
+  border: none;
+  margin: 0;
+  border-top: 200px solid #1e1e1e;
+  margin-top: -200px; }
 
 .mainlist {
+  padding-top: 40px;
   padding-bottom: 100px; }
   .mainlist ul {
+    margin-top: 28px;
     border: 1px solid black;
     padding-bottom: 10px;
     opacity: 1;
@@ -407,15 +419,14 @@ main {
 
 .postlist li,
 .filelist li {
-  opacity: 0.8;
   cursor: pointer;
   -webkit-transition: all 100ms linear;
   -moz-transition: all 100ms linear;
   -o-transition: all 100ms linear;
   -ms-transition: all 100ms linear;
   transition: all 100ms linear;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white; }
+  border-top: 1px solid #292929;
+  border-bottom: 1px solid #292929; }
   .postlist li:nth-child(even),
   .filelist li:nth-child(even) {
     border-top: #292929;
@@ -429,7 +440,7 @@ main {
   .postlist li p,
   .filelist li h6,
   .filelist li p {
-    font-weight: 400; }
+    font-weight: 300; }
 
 #profilewrapper {
   position: fixed;
@@ -713,10 +724,10 @@ body.chatopened #chatwrapper {
   min-width: 300px;
   width: auto;
   max-width: 500px;
-  height: 16px;
-  margin: auto 5px;
+  height: 8px;
+  margin: auto 6px;
   position: relative;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden; }
 
 .jp-seek-bar,
@@ -725,7 +736,7 @@ body.chatopened #chatwrapper {
   position: absolute;
   left: 0;
   top: 0;
-  height: 16px;
+  height: 8px;
   cursor: pointer; }
 
 .jp-seek-bar {
@@ -733,8 +744,12 @@ body.chatopened #chatwrapper {
 
 .jp-play-bar {
   background-color: white;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px; }
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+
+.jp-duration,
+.jp-current-time {
+  font-size: 0.9em; }
 
 .ctrlbtn {
   opacity: 0.6;
@@ -755,6 +770,7 @@ body.chatopened #chatwrapper {
     height: 30px; }
 
 .jp-volume-controls {
+  margin-left: 50px;
   opacity: .5;
   -webkit-transition: all 200ms linear;
   -moz-transition: all 200ms linear;
@@ -763,6 +779,8 @@ body.chatopened #chatwrapper {
   transition: all 200ms linear; }
   .jp-volume-controls:hover {
     opacity: 1; }
+    .jp-volume-controls:hover .jp-volume-bar-value span {
+      opacity: 1; }
   .jp-volume-controls > button, .jp-volume-controls > div {
     vertical-align: middle;
     display: inline-block; }
@@ -776,7 +794,7 @@ body.chatopened #chatwrapper {
   border-radius: 2px; }
 
 .jp-volume-bar-value {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -790,7 +808,8 @@ body.chatopened #chatwrapper {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background-color: white; }
+    background-color: white;
+    opacity: 0; }
 
 .jp-play {
   background-image: url(../img/ui-icons/play.svg); }
