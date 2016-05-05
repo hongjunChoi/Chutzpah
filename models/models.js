@@ -34,13 +34,20 @@ var commentSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	post_id: String,
+	post_id: {
+		type: String,
+		index: true
+	},
 	text: String,
 });
 
+
 var likeSchema = new mongoose.Schema({
 	created_by: String,
-	post_id: String,
+	post_id: {
+		type: String,
+		index: true
+	},
 	created_at: {
 		type: Date,
 		default: Date.now
@@ -48,8 +55,27 @@ var likeSchema = new mongoose.Schema({
 });
 
 
+var chatSchema = new mongoose.Schema({
+	sent_by: String,
+	sent_from: String,
+	sent_at: {
+		type: Date,
+		default: Date.now
+	}
+});
+
+var notificationSchema = new mongoose.Schema({
+	username: String,
+	time: {
+		type: Date,
+		default: Date.now
+	}
+})
+
 //declaring a model with name with schema user schema defined above
 mongoose.model("Like", likeSchema);
+mongoose.model("Chat", chatSchema);
+mongoose.model("Notification", notificationSchema);
 mongoose.model('Comment', commentSchema);
 mongoose.model('Post', postSchema);
 mongoose.model("User", userSchema);

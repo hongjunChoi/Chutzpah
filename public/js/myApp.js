@@ -80,15 +80,12 @@ app.service('fileUpload', ['$http',
 app.controller('searchController', function($scope, $rootScope, $http) {
     $scope.search_results = {};
     $scope.search = function() {
-        alert($scope.search_string);
         $http.get('/api/search', {
             params: {
                 search_string: $scope.search_string
             }
         }).success(function(data) {
             $scope.search_results = data;
-            console.log("==========")
-            console.log($scope.search_results);
         });
     };
 });
@@ -100,12 +97,37 @@ app.factory('postService', function($resource) {
 
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
-    $scope.posts = postService.query();
+
+    $scope.posts = [];
+    $scope.files = [];
+    var temp = postService.query();
+    var files = [];
+    var text_posts = [];
+
+    temp.$promise.then(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            console.log(item["is_file"]);
+            if (item["is_file"] == true || item["is_file"] == "true") {
+                files.push(item)
+            } else {
+                text_posts.push(item)
+            }
+        }
+        $scope.posts = text_posts;
+        $scope.files = files;
+    });
+
+    console.log($scope.posts);
+    console.log($scope.files)
+
+
     $scope.newPost = {
         created_by: '',
         text: '',
         created_at: ''
     };
+    $scope.user_posts = {};
 
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
@@ -167,6 +189,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+<<<<<<< HEAD
     $scope.start_music = function(post) {
         
         console.log("starting music")
@@ -191,27 +214,72 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.get_profile_info = function() {
+=======
+>>>>>>> 730cd1834bf7f8aa500bf8d33558020611f06f60
 
+
+});
+
+
+app.controller('profileController', function($scope, $rootScope, $http) {
+    $scope.user_posts = [];
+
+    $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = "scottljy";
+        var user_name = $rootScope.current_user;
 
         $http.get(url, {
-            username: user_name
-        }).success(function(data) {
-            console.log(data);
-            console.log('asdfas')
-            if (data.state == 'success') {
-                console.log(data);
-                $("body").addClass("profileopened");
-            } else {
-                $scope.error_message = data.message;
+            params: {
+                username: user_name
             }
+        }).success(function(data) {
+            var user_info = data['info'];
+            var profile_posts = data["posts"];
+            //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
+            $scope.user_posts = profile_posts;
+            $("body").addClass("profileopened");
+            console.log($scope.user_posts);
+            profile_posts.forEach(function(entry) {
+                $("#user_post_wrapper").append("<li>" + entry + "</li>");
+            });
+
+        });
+    }
+
+
+    $scope.get_chat = function() {
+        $http.get('/get_chat', {
+            params: {
+                user_name: $rootScope.current_user
+            }
+        }).success(function(data) {
+            alert("get chat success");
+            console.log("get chat results")
+            console.log(data);
         });
     };
 
 
+    $scope.send_chat = function() {
+        var url = "/send_chat";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var sent_to = "scottljy";
+        alert("sent chat front end");
+        $http.post(url, {
+            sent_from: $rootScope.current_user,
+            text: "abcd",
+            sent_to: sent_to
+        }).success(function(data) {
+            alert("send chat success");
+            console.log('send chat result ');
+            console.log(data);
+
+        });
+    }
+
 });
+
 
 
 app.controller('authController', function($scope, $http, $rootScope, $location) {
