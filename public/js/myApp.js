@@ -2,14 +2,20 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
+    $rootScope.now_playing = "";
 
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
         if (data && data !== "undefined" && data['user']) {
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
+            $rootScope.now_playing = {
+                "created_by": $rootScope.current_user
+            };
+
         }
     });
+
 
     $rootScope.signout = function() {
         $http.get('auth/signout');
@@ -109,7 +115,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         for (var i = 0; i < data.length; i++) {
 
             var item = data[i];
-            console.log(item);
+
             if (item["is_file"] == true || item["is_file"] == "true") {
                 files.push(item);
             } else {
@@ -148,7 +154,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
-    $scope.get_now_playing = function(){
+    $scope.get_now_playing = function() {
         alert($rootScope.now_playing)
     }
 
@@ -210,11 +216,10 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
 
         $rootScope.now_playing = post
+        console.log("==========")
+        console.log($rootScope.now_playing);
         data = $scope.load_comments(post._id)
-        data.forEach(function(c) {
-            console.log(c)
-        })
-        console.log(data)
+
     }
 });
 
@@ -227,16 +232,17 @@ function set_user_profile(info) {
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
     $("#user_profile_genre").html(genre);
+    $("#contact_to").html(username);
 }
 
 app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.user_posts = [];
     $scope.user_info = {};
-    $scope.current_user = $rootScope.now_playing
+
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = $rootScope.current_user;
+        var user_name = $rootScope.now_playing.created_by;
 
         $http.get(url, {
             params: {
