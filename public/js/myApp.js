@@ -191,8 +191,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         }).success(function(data) {
             console.log(data);
             $(".commentlist").empty()
-            data.forEach(function(c){
-                $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
+            data.forEach(function(c) {
+                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
             })
             $(".commentField").show()
 
@@ -204,12 +204,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         console.log("starting music")
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
-            mp3:post.url.substring(post.url.indexOf("/")+1)
+            mp3: post.url.substring(post.url.indexOf("/") + 1)
         });
 
         $scope.post_id = post._id
         data = $scope.load_comments(post._id)
-        data.forEach(function(c){
+        data.forEach(function(c) {
             console.log(c)
         })
         console.log(data)
@@ -230,7 +230,7 @@ function set_user_profile(info) {
 app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.user_posts = [];
     $scope.user_info = {};
-
+    $scope.current_user = $rootScope.now_playing
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
