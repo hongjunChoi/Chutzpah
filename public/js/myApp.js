@@ -98,6 +98,7 @@ app.factory('postService', function($resource) {
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
     $scope.posts = postService.query();
+    console.log(postService.query());
     $scope.newPost = {
         created_by: '',
         text: '',

@@ -603,6 +603,47 @@ main {
   cursor: pointer; }
   .ctrlbtn:hover {
     opacity: 1; }
+  .ctrlbtn.jp-mute {
+    width: 30px;
+    height: 30px; }
+
+.jp-volume-controls {
+  opacity: .5;
+  -webkit-transition: all 200ms linear;
+  -moz-transition: all 200ms linear;
+  -o-transition: all 200ms linear;
+  -ms-transition: all 200ms linear;
+  transition: all 200ms linear; }
+  .jp-volume-controls:hover {
+    opacity: 1; }
+  .jp-volume-controls > button, .jp-volume-controls > div {
+    vertical-align: middle;
+    display: inline-block; }
+
+.jp-volume-bar {
+  width: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 4px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 2px; }
+
+.jp-volume-bar-value {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+  cursor: pointer; }
+  .jp-volume-bar-value span {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: white; }
 
 .jp-play {
   background-image: url(../img/ui-icons/play.svg); }
@@ -616,5 +657,5 @@ main {
 .jp-mute {
   background-image: url(../img/ui-icons/volume_3.svg); }
 
-.jp-volume-max {
+.jp-mute:focus {
   background-image: url(../img/ui-icons/volume_mute.svg); }
