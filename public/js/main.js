@@ -2,11 +2,12 @@ $(document).ready(function() {
 	var socket = io.connect();
 	//todo : programmically get the username
 	socket.emit('join', {
-		username: "scd"
+		username: "scottljy"
 	});
 
 	socket.on("new_msg", function(data) {
-		alert(data.msg + "  received from " + data.from);
+		// alert(data.msg + "  received from " + data.from);
+		$(".chatmain").append( $("<p class='received'>") + data.msg + $("</p>") );
 	});
 
 	var menuopened = false;
@@ -26,16 +27,14 @@ $(document).ready(function() {
 
 
 	$("#logo").click(function() {
-		$("body").removeClass("menuopened");
-		$("body").removeClass("profileopened");
-		$("body").removeClass("searchopened");
+		closeAll();
 
 		if (menuopened) {
 			menuopened = false;
 		}
 	});
 
-	$("#btn_search").click(function(){
+	$("#btn_search").click(function() {
 		menuopen();
 		$("body").addClass("searchopened");
 	});
@@ -44,16 +43,24 @@ $(document).ready(function() {
 	// 	$("body").addClass("profileopened");
 	// });
 	$("#profileclose").click(function() {
-		$("body").removeClass("profileopened");
+		closeAll();
 	});
 
 	function menuopen() {
-		if (!menuopened) {
-			$("body").addClass("menuopened");
-		} else {
-			$("body").removeClass("menuopened");
-			$("body").removeClass("searchopened");
-		}
+		if (!menuopened) { $("body").addClass("menuopened"); } 
+		else { closeAll(); }
 		menuopened = !menuopened;
+	}
+
+	//chat
+	$("#openchat").click(function(){
+		$("body").addClass("chatopened");
+	});
+
+	function closeAll(){
+		$("body").removeClass("menuopened");
+		$("body").removeClass("profileopened");
+		$("body").removeClass("searchopened");
+		$("body").removeClass("chatopened");
 	}
 });

@@ -117,7 +117,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
                 text_posts.push(item);
             }
         }
-        
+
         $scope.posts = text_posts;
         $scope.files = files;
     });
@@ -136,6 +136,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.post = function() {
+        alert("post")
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.created_at = Date.now();
         postService.save($scope.newPost, function() {
@@ -150,6 +151,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
 
     $scope.upload = function() {
+        alert("upload file");
         var file = $scope.myFile;
 
         console.log('file is ');
@@ -161,6 +163,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.upload_comment = function() {
+        alert("comment")
         var url = "/api/comment";
         alert("uploading")
 
@@ -199,8 +202,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.start_music = function(post) {
         console.log("starting music")
-
-     //   $("#jquery_jplayer_1").jPlayer("clearMedia");
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
             mp3:post.url.substring(post.url.indexOf("/")+1)
@@ -208,28 +209,27 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
         $scope.post_id = post._id
         data = $scope.load_comments(post._id)
-       // $(".commentlist").clear();
         data.forEach(function(c){
             console.log(c)
         })
         console.log(data)
-
-
-
-     //   $(".commentlist").
-
-
     }
-
-    $scope.get_profile_info = function() {
-
-    }
-
 });
 
+function set_user_profile(info) {
+    var username = info["username"];
+    var location = info.user_location;
+    var description = info.user_description;
+    var genre = info.genre
+    $("#user_profile_username").html(username);
+    $("#user_profile_location").html(location);
+    $("#user_profile_description").html(description);
+    $("#user_profile_genre").html(genre);
+}
 
 app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.user_posts = [];
+    $scope.user_info = {};
 
     $scope.get_profile_info = function() {
         var url = "/api/profile";
@@ -242,25 +242,30 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             }
         }).success(function(data) {
             var user_info = data['info'];
+            console.log("==========user INFO=======");
+            console.log(user_info);
+            set_user_profile(user_info[0]);
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
+            $scope.user_info = user_info;
             $scope.user_posts = profile_posts;
             $("body").addClass("profileopened");
             console.log($scope.user_posts);
             profile_posts.forEach(function(entry) {
-                $("#user_post_wrapper").append("<li>" + entry + "</li>");
+                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + entry.created_at + "</p> <p>" + entry.created_by + "</p></li>"
+                $("#user_post_wrapper").append(item);
             });
 
         });
     }
 
-    $scope.confirm_request = function(req){
+    $scope.confirm_request = function(req) {
         console.log("confirming & posting request")
         var url = "/api/event"
         $http.post(url, {
             artist: "ARTIST",
             venue: "VENUE"
-        }).success(function(data){
+        }).success(function(data) {
             alert("success" + data)
         })
     }
@@ -275,6 +280,26 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             alert("get chat success");
             console.log("get chat results")
             console.log(data);
+            var chats = {};
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                var from = item.sent_from;
+                if (from in chats) {
+                    chats[from].push(item);
+                } else {
+                    var list = [];
+                    list.push(item)
+                    chats[from] = list
+                }
+            }
+            var keys = Object.keys(chats);
+            for (var i = 0; i < keys.length; i++) {
+                var sent_from = keys[i];
+                var id = "chat_" + sent_from;
+                var item = "<li id = " + id + ">" + sent_from + "</li>"
+                $("#chat_list").append(item);
+                $("#" + id).data("chats", chats[sent_from]);
+            }
         });
     };
 
