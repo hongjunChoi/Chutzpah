@@ -189,7 +189,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
-<<<<<<< HEAD
     $scope.start_music = function(post) {
         
         console.log("starting music")
@@ -214,9 +213,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.get_profile_info = function() {
-=======
->>>>>>> 730cd1834bf7f8aa500bf8d33558020611f06f60
 
+    }
 
 });
 
