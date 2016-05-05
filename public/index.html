@@ -53,11 +53,14 @@
             <!-- Chatting -->
             <div id="chatwrapper">
             	<div class="chatheader"><button alt="close chat"></button></div>
-            	<div class="chatmain"></div>
+            	<div class="chatmain">
+            	</div>
             	<div class="chatcontrol">
+            		<input type="text" placeholder="Type a message"></input>
 		            <div ng-click="get_chat()"> GET CHAT </div>
 		            <div ng-click="send_chat()"> SEND CHAT </div>
 		            <div ng-click="confirm_request()"> CONFIRM </div>
+            		<!-- <input type="submit" value="send"></input> -->
             	</div>
             </div>
         	<div>
@@ -166,7 +169,7 @@
         </div>
     </main>
     <!-- RIGHT NAVIGATION MENU -->
-    <nav>
+    <nav id="navwrapper">
         <ul>
             <li>
                 <h4>now playing</h4></li>
@@ -203,7 +206,7 @@
                                 <input class="btn submit-btn pull-right" type="submit" value="Enter" />
                             </form>
                             <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()">
+                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
                         </div>
                     </div>
                 </div>

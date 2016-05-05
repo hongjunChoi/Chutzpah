@@ -570,7 +570,9 @@ main {
   -ms-transform: translateX(-100%);
   transform: translateX(-100%); }
   #chatwrapper > div {
-    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 280px;
     position: relative;
     clear: both; }
   #chatwrapper .chatheader {
@@ -592,10 +594,18 @@ main {
       float: right; }
   #chatwrapper .chatcontrol {
     height: 40px;
-    background-color: #fa4e5e; }
+    background-color: white;
+    border-top: 1px solid #fa4e5e;
+    padding-top: 10px; }
     #chatwrapper .chatcontrol > div {
       display: inline-block;
-      color: white; }
+      color: white;
+      background-color: #292929;
+      cursor: pointer;
+      margin-bottom: -5px; }
+    #chatwrapper .chatcontrol input[type="text"] {
+      color: black;
+      width: 100%; }
 
 body.chatopened #chatwrapper {
   -webkit-transform: translateX(10%);
