@@ -21,17 +21,13 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#btn_menu").click(function() {
-		menuopen();
-	});
+	$("#btn_menu").click(function() {  menuopen();  });
 
 
 	$("#logo").click(function() {
 		closeAll();
 
-		if (menuopened) {
-			menuopened = false;
-		}
+		if (menuopened) {  menuopened = false;  }
 	});
 
 	$("#btn_search").click(function() {
@@ -39,23 +35,18 @@ $(document).ready(function() {
 		$("body").addClass("searchopened");
 	});
 
-	// $("#userthumb").click(function(){
-	// 	$("body").addClass("profileopened");
-	// });
-	$("#profileclose").click(function() {
-		closeAll();
-	});
+	$("#profileclose").click(function() {  closeAll(); });
 
 	function menuopen() {
-		if (!menuopened) { $("body").addClass("menuopened"); } 
+		if (!menuopened) { 
+			$("body").addClass("menuopened"); 
+		} 
 		else { closeAll(); }
 		menuopened = !menuopened;
 	}
 
 	//chat
-	$("#openchat").click(function(){
-		$("body").addClass("chatopened");
-	});
+	$("#openchat").click(function(){  $("body").addClass("chatopened"); });
 
 	function closeAll(){
 		$("body").removeClass("menuopened");

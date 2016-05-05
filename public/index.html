@@ -50,35 +50,36 @@
     <main>
         <!-- Left Profile -->
         <div id="profilewrapper" ng-controller="profileController">
-            <button id="profileclose"><span></span><span></span></button>
-            <div id="profile">
-                <!-- contents should be dynamically appended -->
-                <img src="img/sample.jpg" />
-                <h3 id="user_profile_username"></h3>
-                <h3 id="user_profile_location"></h3>
-                <h3 id="user_profile_genre"></h3>
-                <p id="user_profile_description"></p>
-                <button>Contact Eugene So</button>
-            </div>
-            <div style="margin-left:50px" ng-click="send_chat()"> SEND CHAT </div>
-            <div style="margin-left:50px" ng-click="confirm_request()"> CONFIRM </div>
-            <div id="related">
-                <h6>More songs by Eugene So</h6>
-                <ul id="user_post_wrapper">
-                    <!-- <li ></li> -->
-                </ul>
-            </div>
             <!-- Chatting -->
             <div id="chatwrapper">
-                <div class="chatheader">
-                    <button alt="close chat"></button>
-                </div>
-                <div class="chatmain"></div>
-                <div class="chatcontrol">
-                    <div ng-click="get_chat()"> GET CHAT </div>
-                    <div ng-click="send_chat()"> SEND CHAT </div>
-                    <div ng-click="confirm_request()"> CONFIRM </div>
-                </div>
+            	<div class="chatheader"><button alt="close chat"></button></div>
+            	<div class="chatmain">
+            	</div>
+            	<div class="chatcontrol">
+            		<input type="text" placeholder="Type a message"></input>
+		            <div ng-click="get_chat()"> GET CHAT </div>
+		            <div ng-click="send_chat()"> SEND CHAT </div>
+		            <div ng-click="confirm_request()"> CONFIRM </div>
+            		<!-- <input type="submit" value="send"></input> -->
+            	</div>
+            </div>
+            <div>
+	            <button id="profileclose"><span></span><span></span></button>
+	            <div id="profile">
+	                <!-- contents should be dynamically appended -->
+	                <img src="img/sample.jpg" />
+	                <h3 id="user_profile_username"></h3>
+	                <p id="user_profile_location"></p>
+	                <p id="user_profile_genre"></p>
+	                <p id="user_profile_description"></p>
+	                <button id="openchat">Contact Eugene So</button>
+	            </div>
+	            <div id="related">
+	                <h6>More songs by Eugene So</h6>
+	                <ul id="user_post_wrapper">
+	                    <!-- <li ></li> -->
+	                </ul>
+	            </div>
             </div>
         </div>
         <!-- Main screen -->
@@ -86,7 +87,7 @@
             <div ng-view></div>
             <div class="mainlist">
                 <!-- content lists -->
-                <ul>
+                <ul id="listmenu">
                     <li>
                         <h6>Song</h6>
                         <h6>Artist</h6>
@@ -108,19 +109,17 @@
                         <!-- {{ file }} -->
                     </li>
                 </ul>
-
-                </div>
-                <div>
-                <ul class="commentlist" style="color: white">
+            </div>
+            <div class="commentlist">
+                <ul style="color: white">
                 </ul>
                 <br>
                 <div class="commentField" style="display: none">
-                <form ng-Submit="upload_comment()" ng-show="authenticated">
-                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                <input type="submit" value="Add COMMENT" />
-                </form>
-                <div>
-
+	                <form ng-Submit="upload_comment()" ng-show="authenticated">
+	                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+	                <input type="submit" value="Add COMMENT" />
+	                </form>
+	            <div>
             </div>
         </div>
         <div id="controller" ng-controller="profileController">
@@ -183,7 +182,7 @@
         </div>
     </main>
     <!-- RIGHT NAVIGATION MENU -->
-    <nav>
+    <nav id="navwrapper">
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
@@ -222,8 +221,7 @@
                                 <input class="btn submit-btn pull-right" type="submit" value="Add" />
                             </form>
                             <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()">
-
+                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
                         </div>
                     </div>
                 </div>
