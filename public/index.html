@@ -54,11 +54,12 @@
             <div id="profile">
                 <!-- contents should be dynamically appended -->
                 <img src="img/sample.jpg" />
-                <h3>{Eugene So}</h3>
-                <p>{description}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie tempor mi, vitae malesuada neque semper id. Suspendisse bibendum enim ac quam rutrum, sed sollicitudin eros iaculis. Donec euismod erat vitae lectus scelerisque, et tempor leo vulputate. Sed risus dolor, dapibus nec eros quis, laoreet aliquam nisl. Donec eu turpis id metus blandit dapibus a eget neque. Aenean eu interdum dolor. Nunc quis ex nibh. Praesent vulputate est lobortis tortor molestie venenatis.</p>
+                <h3 id="user_profile_username"></h3>
+                <h3 id="user_profile_location"></h3>
+                <h3 id="user_profile_genre"></h3>
+                <p id="user_profile_description"></p>
                 <button>Contact Eugene So</button>
             </div>
-            <div style="margin-left:50px" ng-click="get_chat()"> GET CHAT </div>
             <div style="margin-left:50px" ng-click="send_chat()"> SEND CHAT </div>
             <div style="margin-left:50px" ng-click="confirm_request()"> CONFIRM </div>
             <div id="related">
@@ -175,13 +176,18 @@
                 </div>
             </li>
             <li>
-                <h4>trending</h4></li>
+                <h4>trending</h4>
+            </li>
             <li>
-                <h4>saved</h4></li>
+                <h4>saved</h4>
+            </li>
+            <li id="user_notification" ng-controller="profileController">
+                <h4 ng-click="get_chat()">notification</h4>
+                <ul id="chat_list"></ul>
+            </li>
             <li>
-                <h4>notification</h4></li>
-            <li>
-                <h4>upload</h4>
+                <h4>upload
+                </h4>
                 <div id="uploadwrapper" ng-controller="mainController">
                     <div class="clearfix">
                         <div ng-show="authenticated">

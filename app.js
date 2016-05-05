@@ -94,26 +94,27 @@ io.sockets.on('connection', function(socket) {
     // the client disconnected/closed their browser window
     socket.on('disconnect', function(data) {
         // Leave the room!
-        console.log("reset notification time ");
+
         Notification.find({
-            username: data.username
+            username: "scottljy"
         }, function(err, time) {
             if (err) {
                 console.log("ERROR IN FUCKIN FIND NOTIF");
             }
             if (time.length == 0) {
                 var notification = new Notification();
-                notification.username = data.username;
+                notification.username = "scottljy";
                 notification.time = Date.now();
                 notification.save(function(err, notification) {
                     if (err) {
                         console.log("ERROR IN SAVE NOTI");
                     }
                     console.log("SUCCESSFULLY SAVED CREATED NOTI");
+                    console.log(notification);
                 });
             } else {
                 Notification.update({
-                    username: data.username
+                    username: "scottljy"
                 }, {
                     time: Date.now()
                 }, function(err, new_time) {
@@ -121,6 +122,7 @@ io.sockets.on('connection', function(socket) {
                         console.log("ERROR IN UPDATE NOTI");
                     }
                     console.log("SUCCESSFULLY UPDATED NOTIFICATION TIME");
+                    console.log(new_time);
                 });
 
             }
@@ -134,45 +136,60 @@ io.sockets.on('connection', function(socket) {
 //get room html 
 app.get('/get_chat', function(req, res) {
     console.log("in get chat...");
-    console.log("======================");
-    console.log(req.query);
-    console.log("=======================");
-    user = req.query.username;
 
-    Notification.find({
-        username: user
-    }, function(err, time) {
+    user = req.query.user_name;
+    console.log("======================");
+    console.log(user);
+    console.log("=======================");
+
+    Chat.find({
+        sent_to: user,
+    }, function(err, chats) {
         if (err) {
             return res.send(500, err);
         }
-        console.log('====fount last time ===');
-        Chat.find({
-            send_to: user,
-            time: {
-                $gte: time
-            }
-        }, function(err, new_chats) {
-            if (err) {
-                res.send(500, err);
-            }
-            Chat.find({
-                sent_to: user,
-                time: {
-                    $lt: time
-                }
-            }, function(err, old_chat) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                data = {
-                    "newchat": new_chats,
-                    "oldchat": old_chat
-                }
-                return res.send(200, data);
-            });
-        })
-
+        return res.send(200, chats);
     });
+
+    // Notification.find({
+    //     username: user
+    // }, function(err, notification) {
+    //     var time = notification.time;
+    //     console.log(notification[0]);
+    //     console.log(user);
+    //     if (err) {
+    //         return res.send(500, err);
+    //     }
+    //     console.log('====fount last time ===');
+    //     console.log(time);
+
+    //     Chat.find({
+    //         send_to: user,
+    //         sent_at: {
+    //             $gte: time
+    //         }
+    //     }, function(err, new_chats) {
+    //         if (err) {
+    //             res.send(500, err);
+    //         }
+    //         Chat.find({
+    //             sent_to: user,
+    //             sent_at: {
+    //                 $lt: time
+    //             }
+    //         }, function(err, old_chat) {
+    //             if (err) {
+    //                 return res.send(500, err);
+    //             }
+    //             data = {
+    //                 "newchat": new_chats,
+    //                 "oldchat": old_chat
+    //             }
+    //             return res.send(200, data);
+    //         });
+    //     })
+
+    // });
 
 
 
@@ -190,7 +207,8 @@ app.post('/send_chat', function(req, res) {
     var chat = new Chat();
     chat.sent_to = sent_to;
     chat.sent_from = sent_from;
-    chat.text = text;
+    chat.chat_text = text;
+    chat.sent_at = Date.now();
 
     chat.save(function(err, p) {
         if (err) {

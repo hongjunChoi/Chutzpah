@@ -10,7 +10,8 @@ var userSchema = new mongoose.Schema({
 	user_type: String,
 	genre: String,
 	band_name: String,
-	user_location: String
+	user_location: String,
+	user_description: String
 });
 
 var postSchema = new mongoose.Schema({
@@ -69,6 +70,7 @@ var likeSchema = new mongoose.Schema({
 
 
 var chatSchema = new mongoose.Schema({
+	chat_text: String,
 	sent_to: String,
 	sent_from: String,
 	sent_at: {
