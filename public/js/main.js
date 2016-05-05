@@ -6,7 +6,8 @@ $(document).ready(function() {
 	});
 
 	socket.on("new_msg", function(data) {
-		alert(data.msg + "  received from " + data.from);
+		// alert(data.msg + "  received from " + data.from);
+		$(".chatmain").append( $("<p class='received'>") + data.msg + $("</p>") );
 	});
 
 	var menuopened = false;
@@ -26,9 +27,7 @@ $(document).ready(function() {
 
 
 	$("#logo").click(function() {
-		$("body").removeClass("menuopened");
-		$("body").removeClass("profileopened");
-		$("body").removeClass("searchopened");
+		closeAll();
 
 		if (menuopened) {
 			menuopened = false;
@@ -44,16 +43,24 @@ $(document).ready(function() {
 	// 	$("body").addClass("profileopened");
 	// });
 	$("#profileclose").click(function() {
-		$("body").removeClass("profileopened");
+		closeAll();
 	});
 
 	function menuopen() {
-		if (!menuopened) {
-			$("body").addClass("menuopened");
-		} else {
-			$("body").removeClass("menuopened");
-			$("body").removeClass("searchopened");
-		}
+		if (!menuopened) { $("body").addClass("menuopened"); } 
+		else { closeAll(); }
 		menuopened = !menuopened;
+	}
+
+	//chat
+	$("#openchat").click(function(){
+		$("body").addClass("chatopened");
+	});
+
+	function closeAll(){
+		$("body").removeClass("menuopened");
+		$("body").removeClass("profileopened");
+		$("body").removeClass("searchopened");
+		$("body").removeClass("chatopened");
 	}
 });
