@@ -100,6 +100,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.posts = [];
     $scope.files = [];
+    $scope.post_id = 0;
+
     var temp = postService.query();
     var files = [];
     var text_posts = [];
@@ -160,8 +162,10 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.upload_comment = function() {
         var url = "/api/comment";
+        alert("uploading")
+
         $scope.comment.created_by = $rootScope.current_user;
-        $scope.comment.post_id = 1;
+        $scope.comment.post_id = $scope.post_id;
         $http.post(url, {
             comment: $scope.comment
         }).success(function(data) {
@@ -173,31 +177,47 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
-    $scope.load_comments = function() {
+    $scope.load_comments = function(id) {
         var url = "/api/comment";
         //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
-        $scope.post_id = 1;
+        $scope.post_id = id;
         $http.get(url, {
-            post_id: $scope.post_id
-        }).success(function(data) {
-            if (data.state == 'success') {
-
-            } else {
-                $scope.error_message = data.message;
-
+            params: {
+                post_id: id
             }
+        }).success(function(data) {
+            console.log(data);
+            $(".commentlist").empty()
+            data.forEach(function(c){
+                $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
+            })
+            $(".commentField").show()
+
+            return data
         });
     };
 
     $scope.start_music = function(post) {
-        alert("starting music")
         console.log("starting music")
+
      //   $("#jquery_jplayer_1").jPlayer("clearMedia");
-        alert(post.url.substring(post.url.indexOf("/")+1))
-          $("#jquery_jplayer_1").jPlayer("setMedia", {
-                title: post.original_name,
-                mp3:post.url.substring(post.url.indexOf("/")+1)
-              });
+        $("#jquery_jplayer_1").jPlayer("setMedia", {
+            title: post.original_name,
+            mp3:post.url.substring(post.url.indexOf("/")+1)
+        });
+
+        $scope.post_id = post._id
+        data = $scope.load_comments(post._id)
+       // $(".commentlist").clear();
+        data.forEach(function(c){
+            console.log(c)
+        })
+        console.log(data)
+
+
+
+     //   $(".commentlist").
+
 
     }
 

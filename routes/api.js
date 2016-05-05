@@ -73,10 +73,9 @@ router.route('/upload_file')
 router.route('/comment')
 //make comments on post
 .get(function(req, res) {
-
+	console.log("---------api")
 	var post_id = req.query.post_id;
-	post_id = post_id.toString().trim();
-
+	console.log(post_id)
 	Comment.find({
 		post_id: post_id
 	}, function(err, comments) {
