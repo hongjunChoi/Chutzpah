@@ -50,7 +50,6 @@
     <main>
         <!-- Left Profile -->
         <div id="profilewrapper" ng-controller="profileController">
-            <button id="profileclose"><span></span><span></span></button>
             <!-- Chatting -->
             <div id="chatwrapper">
             	<div class="chatheader"><button alt="close chat"></button></div>
@@ -65,27 +64,28 @@
             	</div>
             </div>
             <div>
-            <div id="profile">
-                <!-- contents should be dynamically appended -->
-                <img src="img/sample.jpg" />
-                <h3 id="user_profile_username"></h3>
-                <p id="user_profile_location"></p>
-                <p id="user_profile_genre"></p>
-                <p id="user_profile_description"></p>
-                <button id="openchat">Contact Eugene So</button>
-            </div>
-            <div id="related">
-                <h6>More songs by Eugene So</h6>
-                <ul id="user_post_wrapper">
-                    <!-- <li ></li> -->
-                </ul>
-            </div>
+	            <button id="profileclose"><span></span><span></span></button>
+	            <div id="profile">
+	                <!-- contents should be dynamically appended -->
+	                <img src="img/sample.jpg" />
+	                <h3 id="user_profile_username"></h3>
+	                <p id="user_profile_location"></p>
+	                <p id="user_profile_genre"></p>
+	                <p id="user_profile_description"></p>
+	                <button id="openchat">Contact Eugene So</button>
+	            </div>
+	            <div id="related">
+	                <h6>More songs by Eugene So</h6>
+	                <ul id="user_post_wrapper">
+	                    <!-- <li ></li> -->
+	                </ul>
+	            </div>
             </div>
         </div>
         <!-- Main screen -->
-        <div id="mainscreen">
+        <div id="mainscreen" ng-controller="mainController">
             <div ng-view></div>
-            <div class="mainlist" ng-controller="mainController">
+            <div class="mainlist">
                 <!-- content lists -->
                 <ul id="listmenu">
                     <li>
@@ -109,6 +109,17 @@
                         <!-- {{ file }} -->
                     </li>
                 </ul>
+            </div>
+            <div class="commentlist">
+                <ul style="color: white">
+                </ul>
+                <br>
+                <div class="commentField" style="display: none">
+	                <form ng-Submit="upload_comment()" ng-show="authenticated">
+	                <textarea style="width: 1000px" required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
+	                <input type="submit" value="Add COMMENT" />
+	                </form>
+	            <div>
             </div>
         </div>
         <div id="controller" ng-controller="profileController">
@@ -207,10 +218,6 @@
                             <form ng-Submit="post()" ng-show="authenticated">
                                 <textarea required class="form-control" maxlength="200" rows="3" placeholder="copy link to your video!" ng-model="newPost.text"></textarea>
                                 <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                            </form>
-                            <form ng-Submit="upload_comment()" ng-show="authenticated">
-                                <textarea required class="form-control" maxlength="200" rows="3" placeholder="COMMENTS!" ng-model="comment.text"></textarea>
-                                <input class="btn submit-btn pull-right" type="submit" value="Enter" />
                             </form>
                             <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
                             <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />

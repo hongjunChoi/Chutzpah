@@ -367,10 +367,6 @@ main {
   height: auto;
   margin: 0;
   background-color: #1e1e1e; }
-  #mainscreen > div {
-    width: 90%;
-    margin: auto;
-    margin-top: 60px; }
 
 #listmenu {
   position: fixed;
@@ -383,11 +379,13 @@ main {
   margin-top: -200px; }
 
 .mainlist {
+  width: 90%;
+  margin: auto;
+  margin-top: 60px;
   padding-top: 40px;
   padding-bottom: 100px; }
   .mainlist ul {
-    margin-top: 28px;
-    border: 1px solid black;
+    margin-top: 27px;
     padding-bottom: 10px;
     opacity: 1;
     padding-top: 0;
@@ -517,9 +515,6 @@ main {
       font-size: 1.1em;
       line-height: 1.5em;
       text-align: left; }
-    #profilewrapper #profile button {
-      color: #fa4e5e;
-      float: left; }
   #profilewrapper #related {
     position: absolute;
     width: 100%;
@@ -551,6 +546,22 @@ main {
         cursor: pointer; }
         #profilewrapper #related ul li:hover {
           opacity: 1; }
+
+#openchat {
+  background-color: white;
+  color: #fa4e5e;
+  float: left;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-left: -4px;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  transition: all 100ms linear; }
+  #openchat:hover {
+    background-color: #fa4e5e;
+    color: white; }
 
 #profilewrapper > div:last-of-type {
   z-index: 1;

@@ -297,9 +297,6 @@ main{
 	background-color: $c-darkgray;
 
 	& > div{
-		width: 90%;
-		margin: auto;
-		margin-top: 60px;
 	}
 }
 #listmenu{
@@ -313,11 +310,13 @@ main{
 	margin-top:-200px;
 }
 .mainlist{
+	width: 90%;
+	margin: auto;
+	margin-top: 60px;
 	padding-top: 40px;
 	padding-bottom: 100px;
 	ul{
-		margin-top: 28px;
-		border:1px solid black;
+		margin-top: 27px;
 		padding-bottom:10px;
 		opacity: 1;
 		padding-top: 0;
@@ -434,10 +433,6 @@ main{
 			line-height: 1.5em;
 			text-align: left;
 		}
-		button{
-			color: $c-pink;
-			float: left;
-		}
 	}
 	#related{
 		position: absolute;
@@ -470,6 +465,20 @@ main{
 				&:hover{ opacity: 1; }
 			}
 		}
+	}
+}
+
+#openchat{
+	background-color: white;
+	color: $c-pink;
+	float: left;
+	padding: 2px 4px;
+	border-radius: 4px;
+	margin-left: -4px;
+	@include transition(all,100ms,linear);
+	&:hover{
+		background-color: $c-pink;
+		color: white;
 	}
 }
 
