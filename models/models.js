@@ -28,6 +28,19 @@ var postSchema = new mongoose.Schema({
 	num_likes: Number
 });
 
+var eventSchema = new mongoose.Schema({
+	artist: String, //should be changed to ObjectId, ref "User"
+	venue: String,
+	created_at: {
+		type: Date,
+		default: Date.now
+	},
+	time: Date,
+	location: String,
+	genre: String,
+	num_likes: Number
+});
+
 var commentSchema = new mongoose.Schema({
 	created_by: String,
 	created_at: {
@@ -79,3 +92,4 @@ mongoose.model("Notification", notificationSchema);
 mongoose.model('Comment', commentSchema);
 mongoose.model('Post', postSchema);
 mongoose.model("User", userSchema);
+mongoose.model("Event", eventSchema)

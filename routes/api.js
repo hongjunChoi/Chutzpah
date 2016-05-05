@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
+var Event = mongoose.model('Event');
 
 //fileupload
 var multer = require('multer'),
@@ -184,7 +185,28 @@ router.route("/profile")
 		});
 	});
 
+router.route("/event")
+//create a new event
+.post(function(req, res){
+	var e = new Event();
+	e.artist = req.body.artist
+	e.venue = req.body.venue
+	e.save(function(err, e) {
+		if (err){
+			return res.send(500, err);
+		}
+		return res.json(e)
+	})
+})
 
+.get(function(req, res){
+	Event.find(function(err, events) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, events);
+	});
+})
 
 router.route('/posts')
 //creates a new post

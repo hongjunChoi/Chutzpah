@@ -245,8 +245,19 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
+    $scope.confirm_request = function(req){
+        console.log("confirming & posting request")
+        var url = "/api/event"
+        $http.post(url, {
+            artist: "ARTIST",
+            venue: "VENUE"
+        }).success(function(data){
+            alert("success" + data)
+        })
+    }
 
     $scope.get_chat = function() {
+        alert("get chat request")
         $http.get('/get_chat', {
             params: {
                 user_name: $rootScope.current_user
