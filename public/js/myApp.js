@@ -258,7 +258,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             $scope.user_info = user_info;
             $scope.user_posts = profile_posts;
             $("body").addClass("profileopened");
-            console.log($scope.user_posts);
             profile_posts.forEach(function(entry) {
                 var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + entry.created_at + "</p> <p>" + entry.created_by + "</p></li>"
                 $("#user_post_wrapper").append(item);
@@ -279,7 +278,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     }
 
     $scope.get_chat = function() {
-        alert("get chat request")
         $http.get('/get_chat', {
             params: {
                 user_name: $rootScope.current_user
@@ -308,6 +306,22 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 $("#chat_list").append(item);
                 $("#" + id).data("chats", chats[sent_from]);
             }
+        });
+    };
+
+    $scope.get_chat_from = function() {
+        alert("get_chat_from");
+        $http.get('api/get_chat_from', {
+            params: {
+                sent_from: $rootScope.now_playing.created_by,
+                sent_to: $rootScope.current_user
+            }
+        }).success(function(data) {
+            alert("get chat success");
+            console.log("get chat results");
+            console.log(data);
+            $("body").addClass("chatopened");
+
         });
     };
 
