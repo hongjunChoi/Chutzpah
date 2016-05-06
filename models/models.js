@@ -45,6 +45,7 @@ var postSchema = new mongoose.Schema({
     url: String,
     text: String,
     is_file: Boolean,
+    is_request: Boolean,
     num_likes: Number
 });
 

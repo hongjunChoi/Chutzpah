@@ -28,17 +28,17 @@
         <ul>
             <li><img id="logo" src="img/logo.svg" /></li>
             <li id="searchwrapper">
-                <div id="searchbar" ng-controller="searchController">
+                <div id="searchbar" ng-controller="mainController">
                     <form>
                         <span></span>
                         <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                         <input type="submit" ng-click="search()">
                     </form>
-                    <div id="searchresult">
+<!--                     <div id="searchresult">
                         <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
                         <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                         <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
-                    </div>
+                    </div> -->
                 </div>
             </li>
             <li id="loginregister">
@@ -113,11 +113,13 @@
                 <!-- content lists -->
                 <div style="color: white; position:fixed; z-index:9">
                     <form>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(1)" value="1" checked/>
-                        <label>Artist</label>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(2)" value="2" />
-                        <label>Venue</label>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(3)" value="3" />
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="1" checked/>
+                        <label>Songs</label>
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="2"/>
+                        <label>Artists</label>
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="3" />
+                        <label>Venues</label>
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="4" />
                         <label>Events</label>
                     </form>
                 </div>
@@ -129,7 +131,7 @@
                     </li>
                 </ul>
                 <ul id="artist_postlist">
-                    <li ng-repeat="post in posts">
+                    <li ng-repeat="post in artist_posts">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
                         <p>{{ post.created_at }}</p>
@@ -153,14 +155,14 @@
                     <li ng-repeat="request in requests" ng-click="">
                         <h6>{{ request.name }}</h6>
                         <h6>{{ request.genre }}</h6>
-                        <p>{{ request.location }}</p>
+                        <p>{{ request.created_at }}</p>
                     </li>
                 </ul>
                 <ul id="eventlist" class="maincontent">
                     <li ng-repeat="event in events" ng-click="">
                         <h6>{{ event.venue }}</h6>
                         <h6>{{ event.artist }}</h6>
-                        <p>{{ event.location }}</p>
+                        <p>{{ event.time }}</p>
                     </li>
                 </ul>
             </div>
