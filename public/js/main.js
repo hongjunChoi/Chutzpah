@@ -25,10 +25,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#openchat").click(function(){
-		$("body").addClass("chatopened");
-	});
-	$("#closechat").click(function(){
+
+	$("#closechat").click(function() {
 		$("body").removeClass("chatopened");
 	});
 
