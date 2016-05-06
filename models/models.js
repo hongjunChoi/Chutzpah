@@ -86,13 +86,20 @@ var likeSchema = new mongoose.Schema({
 
 
 var chatSchema = new mongoose.Schema({
+	chat_type: String,
 	chat_text: String,
 	sent_to: String,
 	sent_from: String,
 	sent_at: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	request_time: {
+		type: Date,
+		default: Date.now
+	},
+	request_location: String,
+	request_music_type: String
 });
 
 var notificationSchema = new mongoose.Schema({

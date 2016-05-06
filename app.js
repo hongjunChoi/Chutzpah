@@ -184,13 +184,14 @@ app.get('/get_chat', function(req, res) {
 
 
 app.post('/send_chat', function(req, res) {
-    console.log("send chat backend  ")
-    console.log("======================");
-    console.log(req.body);
-    console.log("=======================");
+    console.log("===========  send chat ==============  ");
     var sent_from = req.body.sent_from;
     var sent_to = req.body.sent_to;
     var text = req.body.text;
+    var type = req.body.chat_type;
+    var request_music_type = req.body.request_music_type;
+    var request_time = req.body.request_time;
+    var request_location = req.body.request_location;
 
 
     var chat = new Chat();
@@ -198,19 +199,40 @@ app.post('/send_chat', function(req, res) {
     chat.sent_from = sent_from;
     chat.chat_text = text;
     chat.sent_at = Date.now();
+    chat.chat_type = type;
+
+    if (type == "request") {
+        console.log("@!@@#@@#$#@#@")
+        chat.request_location = request_location;
+        chat.request_time = request_time;
+        chat.request_music_type = request_music_type;
+    }
 
     chat.save(function(err, p) {
         if (err) {
             return res.send(500, err);
         }
         //now sent to socket io before returning response
+        var id = p["_id"];
+        if (type == "request") {
+            io.sockets.in(sent_to).emit('new_msg', {
+                id: id,
+                msg: text,
+                from: sent_from,
+                type: type,
+                time: request_time,
+                location: request_location,
+                music_type: request_music_type
+            });
 
-        io.sockets.in(sent_to).emit('new_msg', {
-            msg: text,
-            from: sent_from
-        });
-
-
+        } else {
+            io.sockets.in(sent_to).emit('new_msg', {
+                id: id,
+                msg: text,
+                from: sent_from,
+                type: type
+            });
+        }
         res.json(p);
     });
 

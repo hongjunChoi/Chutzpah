@@ -26,8 +26,25 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
             if ($("body").hasClass("chatopened") && $rootScope.now_playing.created_by == data.from) {
                 var time = new Date().toString();
                 time = time.split(":")[0] + ":" + time.split(":")[1];
-                var dom = " <div class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
-                $(".chatmain").append(dom);
+                var music_type = data.music_type;
+                var request_location = data.location;
+                var request_time = data.time;
+                var id = data.id;
+                if (data.type == "request") {
+                    var dom = " <div id = '" + id + "'class = 'chat_msg gig_request'> " +
+                        data.msg + "      by  " + data.from + "      at  " + time +
+                        "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p>" +
+                        "</div> <div id = 'confirm_button' ng-click = 'confirm_request()'> CONFIRM </div> ";
+
+                    $(".chatmain").append(dom);
+                } else {
+                    var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
+                    $(".chatmain").append(dom);
+                }
+
+
             } else {
                 alert(data.msg + "  received from " + data.from);
             }
@@ -161,7 +178,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.post = function() {
-        alert("post")
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.created_at = Date.now();
         postService.save($scope.newPost, function() {
@@ -244,7 +260,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 });
 
-function set_user_profile(info) {
+function set_user_profile(info, user) {
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
@@ -254,6 +270,11 @@ function set_user_profile(info) {
     $("#user_profile_description").html(description);
     $("#user_profile_genre").html(genre);
     $(".current_user_profile").html(username);
+    if (username == user) {
+        $('#openchat').hide();
+    } else {
+        $('#openchat').show();
+    }
 }
 
 app.controller('profileController', function($scope, $rootScope, $http) {
@@ -271,7 +292,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             }
         }).success(function(data) {
             var user_info = data['info'];
-            set_user_profile(user_info[0]);
+            set_user_profile(user_info[0], $rootScope.current_user);
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
             $scope.user_info = user_info;
@@ -287,8 +308,8 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
-    $scope.confirm_request = function(req) {
-        console.log("confirming & posting request")
+    $scope.confirm_request = function() {
+        alert("confirming & posting request")
         var url = "/api/event"
         $http.post(url, {
             artist: "ARTIST",
@@ -298,9 +319,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         })
     }
 
-    $scope.get_chat_from = function() {
-
-    }
 
     $scope.get_chat = function() {
         $http.get('/get_chat', {
@@ -308,8 +326,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 user_name: $rootScope.current_user
             }
         }).success(function(obj) {
-            console.log("========== GET CHAT RESULTS ==============");
-
 
             var old_chat = obj["newchat"];
             var new_chat = obj["oldchat"];
@@ -344,6 +360,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                     };
                 }
             }
+            console.log("====== this data is saved as data attribute on notification chats for toggle ======");
             console.log(chats);
             var keys = Object.keys(chats);
             $("#chat_list").empty();
@@ -365,12 +382,35 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 sent_to: $rootScope.current_user
             }
         }).success(function(data) {
+
             add_chat(data);
             $("body").addClass("chatopened");
 
         });
     };
 
+    $scope.send_request = function() {
+        alert("send request");
+        var url = "/send_chat";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var sent_to = $rootScope.now_playing.created_by;
+        var text = $("#chat_input").val();
+        var sent_from = $rootScope.current_user;
+
+        $http.post(url, {
+            chat_type: "request",
+            sent_from: sent_from,
+            text: text,
+            sent_to: sent_to,
+            request_music_type: "sample genre",
+            request_location: "providence mall",
+            request_time: Date.now()
+
+        }).success(function(data) {
+            alert("successfully saved request");
+            $("#chat_input").val("");
+        });
+    }
 
     $scope.send_chat = function() {
         var url = "/send_chat";
@@ -381,7 +421,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
 
         $http.post(url, {
-
+            chat_type: "msg",
             sent_from: sent_from,
             text: text,
             sent_to: sent_to
@@ -395,11 +435,28 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
 
 function add_chat(info) {
+    $(".chatmain").empty();
     for (var i = 0; i < info.length; i++) {
-        var item = info[i];
-        var time = convert_time(item.sent_at);
-        var dom = " <div class = 'chat_msg'> " + item.chat_text + "      by  " + item.sent_from + "      at  " + time + "</div> ";
-        $(".chatmain").append(dom);
+        var data = info[i];
+        var time = convert_time(data.sent_at);
+        var music_type = data.music_type;
+        var request_location = data.location;
+        var request_time = data.time;
+        var id = data['_id'];
+
+        if (data.type == "request") {
+            var dom = " <div id = '" + id + "'  class = 'chat_msg gig_request'> " +
+                data.chat_text + "      by  " + data.sent_from + "      at  " + time +
+                "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                " <p>requested gig time :" + request_time + "</p>" +
+                " <p>requested location :" + request_location + "</p>" +
+                "</div> <div id = 'confirm_button' ng-click = 'confirm_request()'> CONFIRM </div> ";
+
+            $(".chatmain").append(dom);
+        } else {
+            var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.chat_text + "      by  " + data.sent_from + "      at  " + time + "</div> ";
+            $(".chatmain").append(dom);
+        }
     }
 
 }

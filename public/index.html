@@ -69,7 +69,7 @@
                 <div class="chatcontrol">
                     <input id="chat_input" type="text" placeholder="Type a message"></input>
                     <div ng-click="send_chat()"> SEND CHAT </div>
-                    <div ng-click="confirm_request()"> CONFIRM </div>
+                    <div ng-click="send_request()"> REQUEST A GIG! </div>
                     <!-- <input type="submit" value="send"></input> -->
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     <span id="user_profile_location"></span>
                     <span id="user_profile_genre"></span>
                     <p id="user_profile_description"></p>
-                    <button id="openchat">Contact <span class="current_user_profile"> </span></button>
+                    <button id="openchat" ng-click="get_chat_from()">Contact <span class="current_user_profile"> </span></button>
                 </div>
                 <div id="related">
                     <h6>More songs by <span class = "current_user_profile"></span></h6>
