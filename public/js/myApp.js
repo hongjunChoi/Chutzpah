@@ -302,27 +302,51 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             params: {
                 user_name: $rootScope.current_user
             }
-        }).success(function(data) {
-            alert("get chat success");
-            console.log("get chat results")
-            console.log(data);
+        }).success(function(obj) {
+            console.log("========== GET CHAT RESULTS ==============");
+
+
+            var old_chat = obj["newchat"];
+            var new_chat = obj["oldchat"];
             var chats = {};
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
+            for (var i = 0; i < old_chat.length; i++) {
+                var item = old_chat[i];
                 var from = item.sent_from;
                 if (from in chats) {
-                    chats[from].push(item);
+                    chats[from]["chats"].push(item);
                 } else {
                     var list = [];
                     list.push(item)
-                    chats[from] = list
+                    chats[from] = {
+                        "chats": list,
+                        "count": 0
+                    };
                 }
             }
+
+            for (var i = 0; i < new_chat.length; i++) {
+                var item = new_chat[i];
+                var from = item.sent_from;
+                if (from in chats) {
+                    chats[from]["chats"].push(item);
+                    chats[from]["count"] = chats[from]["count"] + 1
+                } else {
+                    var list = [];
+                    list.push(item)
+                    chats[from] = {
+                        "chats": list,
+                        "count": 1
+                    };
+                }
+            }
+            console.log(chats);
             var keys = Object.keys(chats);
+            $("#chat_list").empty();
             for (var i = 0; i < keys.length; i++) {
                 var sent_from = keys[i];
+                var new_chat_number = chats[sent_from]["count"];
                 var id = "chat_" + sent_from;
-                var item = "<li id = " + id + ">" + sent_from + "</li>"
+                var item = "<li id = " + id + ">" + sent_from + "   <span id = 'new_chat_count'> " + new_chat_number + "</span> </li>"
                 $("#chat_list").append(item);
                 $("#" + id).data("chats", chats[sent_from]);
             }
@@ -358,8 +382,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             sent_to: sent_to
 
         }).success(function(data) {
-            console.log('send chat result ');
-            console.log(data);
+            $("#chat_input").val("");
         });
     }
 
