@@ -118,7 +118,8 @@
                         <p id="col3">Date</p>
                     </li>
                 </ul>
-                <ul class="postlist">
+
+                <ul id="artist_postlist">
                     <li ng-repeat="post in posts">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
@@ -126,13 +127,38 @@
                     </li>
                 </ul>
 
-                <ul class="filelist">
+                <ul id="filelist">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
                         <h6>{{ file.created_by }}</h6>
                         <p>{{ file.created_at }}</p>
                     </li>
                 </ul>
+
+                <ul id="artistlist">
+                    <li ng-repeat="artist in artists" ng-click="">
+                        <h6>{{ artist.name }}</h6>
+                        <h6>{{ artist.genre }}</h6>
+                        <p>{{ artist.location }}</p>
+                    </li>
+                </ul>
+
+                <ul id="request_list">
+                    <li ng-repeat="request in requests" ng-click="">
+                        <h6>{{ request.name }}</h6>
+                        <h6>{{ request.genre }}</h6>
+                        <p>{{ request.location }}</p>
+                    </li>
+                </ul>
+
+                <ul id="eventlist">
+                    <li ng-repeat="event in events" ng-click="">
+                        <h6>{{ event.venue }}</h6>
+                        <h6>{{ event.artist }}</h6>
+                        <p>{{ event.location }}</p>
+                    </li>
+                </ul>
+
             </div>
             <div class="commentlist">
                 <ul id="commentmain" style="color: white">
