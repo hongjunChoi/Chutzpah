@@ -175,7 +175,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 files.push(item);
             } else {
                 item['created_at'] = convert_time(item['created_at']);
-                console.log(item);
                 text_posts.push(item);
             }
         });
@@ -186,6 +185,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#requestlist").hide()
         $("#eventlist").hide()
     });
+
 
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
@@ -284,6 +284,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             set_columns("Venue", "Artist", "Date")
             if ($rootScope.search_string == "") {
                 $scope.load_gigs();
+                console.log($rootScope.events);
             }
             $("#eventlist").show()
         }
@@ -396,7 +397,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/events";
 
         $http.get(url, {}).success(function(data) {
-            console.log(data);
             for (var i = 0; i < data.length; i++) {
                 data[i]['time'] = convert_time(data[i]['time']);
             }

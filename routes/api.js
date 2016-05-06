@@ -10,42 +10,42 @@ var Chat = mongoose.model('Chat');
 
 //fileupload
 var multer = require('multer'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    maxSize = 10 * 1000 * 1000;
+	bodyParser = require('body-parser'),
+	path = require('path'),
+	maxSize = 10 * 1000 * 1000;
 
 
 var upload_file = multer({
-    dest: './public/uploads/',
-    limits: {
-        fileSize: maxSize
-    }
+	dest: './public/uploads/',
+	limits: {
+		fileSize: maxSize
+	}
 }).single('file');
 
 var upload_img = multer({
-    dest: './public/uploads/img/',
-    limits: {
-        fileSize: maxSize
-    }
+	dest: './public/uploads/img/',
+	limits: {
+		fileSize: maxSize
+	}
 }).single('file');
 
 
 //Used for routes that must be authenticated.
 function isAuthenticated(req, res, next) {
-    // if user is authenticated in the session, call the next() to call the next request handler 
-    // Passport adds this method to request object. A middleware is allowed to add properties to
-    // request and response objects
+	// if user is authenticated in the session, call the next() to call the next request handler 
+	// Passport adds this method to request object. A middleware is allowed to add properties to
+	// request and response objects
 
-    //allow all get request methods
-    if (req.method === "GET") {
-        return next();
-    }
-    if (req.isAuthenticated()) {
-        return next();
-    }
+	//allow all get request methods
+	if (req.method === "GET") {
+		return next();
+	}
+	if (req.isAuthenticated()) {
+		return next();
+	}
 
-    // if the user is not authenticated then redirect him to the login page
-    return res.redirect('/#login');
+	// if the user is not authenticated then redirect him to the login page
+	return res.redirect('/#login');
 };
 
 //Register the authentication middleware
@@ -54,83 +54,83 @@ router.use('/posts', isAuthenticated);
 
 
 router.route('/upload_file')
-    .post(function(req, res) {
-        console.log("-----file upload requested --------");
-        upload_file(req, res, function(err) {
-            if (err) {
-                console.log("Error: ", err);
-                return res.end("Error upoading file");
-            }
+	.post(function(req, res) {
+		console.log("-----file upload requested --------");
+		upload_file(req, res, function(err) {
+			if (err) {
+				console.log("Error: ", err);
+				return res.end("Error upoading file");
+			}
 
-            var post = new Post();
-            post.is_file = true;
-            post.created_by = res.req.user.username;
-            post.original_name = res.req.file.originalname;
-            post.user_type = res.req.user.user_type;
-            post.url = res.req.file.path;
+			var post = new Post();
+			post.is_file = true;
+			post.created_by = res.req.user.username;
+			post.original_name = res.req.file.originalname;
+			post.user_type = res.req.user.user_type;
+			post.url = res.req.file.path;
 
-            post.save(function(err, p) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                res.json(p);
-            })
-        })
-    });
+			post.save(function(err, p) {
+				if (err) {
+					return res.send(500, err);
+				}
+				res.json(p);
+			})
+		})
+	});
 
 router.route('/upload_img')
-    .post(function(req, res) {
-        console.log("-----img upload requested --------");
-        upload_img(req, res, function(err) {
-            if (err) {
-                console.log("Error: ", err);
-                return res.end("Error upoading image");
-            }
-            User.updateOne({
-                "username": res.req.user.username
-            }, {
-                $set: {
-                    "img_url": res.req.file.path
-                }
-            }, function(err, result) {
-                console.log(result)
-                if (err) {
-                    return res.end(err)
-                }
-                res.json(result)
-            });
-        })
-    });
+	.post(function(req, res) {
+		console.log("-----img upload requested --------");
+		upload_img(req, res, function(err) {
+			if (err) {
+				console.log("Error: ", err);
+				return res.end("Error upoading image");
+			}
+			User.updateOne({
+				"username": res.req.user.username
+			}, {
+				$set: {
+					"img_url": res.req.file.path
+				}
+			}, function(err, result) {
+				console.log(result)
+				if (err) {
+					return res.end(err)
+				}
+				res.json(result)
+			});
+		})
+	});
 
 
 //api for getting chat from specific user
 router.route('/get_chat_from')
 //make comments on post
 .get(function(req, res) {
-    console.log("--------get chat from -------")
-    var sent_to = req.query.sent_to;
-    var sent_from = req.query.sent_from;
+	console.log("--------get chat from -------")
+	var sent_to = req.query.sent_to;
+	var sent_from = req.query.sent_from;
 
 
-    Chat.find({
+	Chat.find({
 
-        $or: [{
-            sent_to: sent_to,
-            sent_from: sent_from
-        }, {
-            sent_to: sent_from,
-            sent_from: sent_to
-        }]
+		$or: [{
+			sent_to: sent_to,
+			sent_from: sent_from
+		}, {
+			sent_to: sent_from,
+			sent_from: sent_to
+		}]
 
-    }).sort({
-        sent_at: 1
-    }).exec(function(err, chats) {
+	}).sort({
+		sent_at: 1
+	}).exec(function(err, chats) {
 
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.send(200, chats);
-    });
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, chats);
+	});
 
 })
 
@@ -138,33 +138,33 @@ router.route('/get_chat_from')
 router.route('/comment')
 //make comments on post
 .get(function(req, res) {
-    console.log("---------api")
-    var post_id = req.query.post_id;
-    console.log(post_id)
-    Comment.find({
-        post_id: post_id
-    }, function(err, comments) {
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.send(200, comments);
-    });
+	console.log("---------api")
+	var post_id = req.query.post_id;
+	console.log(post_id)
+	Comment.find({
+		post_id: post_id
+	}, function(err, comments) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, comments);
+	});
 })
 
 .post(function(req, res) {
-    console.log("------adding comment ");
-    var comment = new Comment();
-    comment.created_by = req.body.comment.created_by;
-    comment.text = req.body.comment.text;
-    comment.post_id = req.body.comment.post_id;
+	console.log("------adding comment ");
+	var comment = new Comment();
+	comment.created_by = req.body.comment.created_by;
+	comment.text = req.body.comment.text;
+	comment.post_id = req.body.comment.post_id;
 
-    comment.save(function(err, p) {
-        if (err) {
-            return res.send(500, err);
-        }
-        console.log("comment saved");
-        res.json(p);
-    })
+	comment.save(function(err, p) {
+		if (err) {
+			return res.send(500, err);
+		}
+		console.log("comment saved");
+		res.json(p);
+	})
 });
 
 
@@ -173,125 +173,125 @@ router.route('/comment')
 router.route('/search')
 //gets specified post
 .get(function(req, res) {
-    var search_string = req.query.search_string.trim();
-    console.log(search_string);
-    var result = {
-        artist_posts: [],
-        files: [],
-        artists: [],
-        requests: [],
-        events: []
-    };
+	var search_string = req.query.search_string.trim();
+	console.log(search_string);
+	var result = {
+		artist_posts: [],
+		files: [],
+		artists: [],
+		requests: [],
+		events: []
+	};
 
-    User.find({
-        $or: [{
-            created_by: search_string
-        }, {
-            post_type: search_string
-        }, {
-            username: search_string
-        }, {
-            name: search_string
-        }]
-    }, function(err, users) {
-        if (err) {
-            return res.send(err);
-        }
-        var artists = [];
-        users.forEach(function(user) {
-            if (user.user_type == "artist") {
-                artists.push(user)
-            }
-        })
-        result.artists = artists;
+	User.find({
+		$or: [{
+			created_by: search_string
+		}, {
+			post_type: search_string
+		}, {
+			username: search_string
+		}, {
+			name: search_string
+		}]
+	}, function(err, users) {
+		if (err) {
+			return res.send(err);
+		}
+		var artists = [];
+		users.forEach(function(user) {
+			if (user.user_type == "artist") {
+				artists.push(user)
+			}
+		})
+		result.artists = artists;
 
-        Post.find({
-            $or: [{
-                created_by: search_string
-            }, {
-                post_type: search_string
-            }, {
-                text: search_string
-            }, {
-                original_name: search_string
-            }, ]
-        }, function(err, posts) {
-            if (err) {
-                return res.send(err);
-            }
-            console.log("------")
-            console.log(posts)
-            var files = [];
-            var artist_posts = [];
-            var requests = [];
+		Post.find({
+			$or: [{
+				created_by: search_string
+			}, {
+				post_type: search_string
+			}, {
+				text: search_string
+			}, {
+				original_name: search_string
+			}, ]
+		}, function(err, posts) {
+			if (err) {
+				return res.send(err);
+			}
+			console.log("------")
+			console.log(posts)
+			var files = [];
+			var artist_posts = [];
+			var requests = [];
 
-            posts.forEach(function(p) {
-                console.log(p)
-                if (p.user_type == "artist") {
-                    if (p.is_file) {
-                        files.push(p)
-                    } else {
-                        artist_posts.push(p)
-                    }
-                } else if (p.is_request) {
-                    requests.push(p)
-                }
-            })
-            result.artist_posts = artist_posts;
-            result.files = files;
-            result.requests = requests;
+			posts.forEach(function(p) {
+				console.log(p)
+				if (p.user_type == "artist") {
+					if (p.is_file) {
+						files.push(p)
+					} else {
+						artist_posts.push(p)
+					}
+				} else if (p.is_request) {
+					requests.push(p)
+				}
+			})
+			result.artist_posts = artist_posts;
+			result.files = files;
+			result.requests = requests;
 
-            Event.find({
-                $or: [{
-                    artist: search_string
-                }, {
-                    venue: search_string
-                }, {
-                    location: search_string
-                }, {
-                    genre: search_string
-                }]
-            }, function(err, events) {
-                if (err) {
-                    return res.send(err);
-                }
-                result.events = events;
-                res.send(result)
-            })
-        });
+			Event.find({
+				$or: [{
+					artist: search_string
+				}, {
+					venue: search_string
+				}, {
+					location: search_string
+				}, {
+					genre: search_string
+				}]
+			}, function(err, events) {
+				if (err) {
+					return res.send(err);
+				}
+				result.events = events;
+				res.send(result)
+			})
+		});
 
-    });
+	});
 
 });
 
 
 //api for getting info needed for user profile
 router.route("/profile")
-    .get(function(req, res) {
-        var username = req.query.username;
-        result = {
-            posts: [],
-            info: {}
-        }
-        User.find({
-            username: username
-        }, function(err, user) {
-            if (err) {
-                return res.send(err);
-            }
-            result.info = user;
+	.get(function(req, res) {
+		var username = req.query.username;
+		result = {
+			posts: [],
+			info: {}
+		}
+		User.find({
+			username: username
+		}, function(err, user) {
+			if (err) {
+				return res.send(err);
+			}
+			result.info = user;
 
-            Post.find({
-                created_by: username
-            }, function(err, post) {
-                if (err) {
-                    return res.send(err);
-                }
-                result.posts = post;
-                res.send(result)
-            });
-        });
-    });
+			Post.find({
+				created_by: username
+			}, function(err, post) {
+				if (err) {
+					return res.send(err);
+				}
+				result.posts = post;
+				res.send(result)
+			});
+		});
+	});
 
 
 router.route("/gig_requests")
@@ -309,75 +309,77 @@ router.route("/gig_requests")
 router.route("/artists")
 
 .get(function(req, res) {
-    User.find({
-            user_type: "artist"
-        },
-        function(err, users) {
-            if (err) {
-                return res.send(500, err);
-            }
-            console.log(users)
-            return res.send(200, users)
-        });
+	User.find({
+			user_type: "artist"
+		},
+		function(err, users) {
+			if (err) {
+				return res.send(500, err);
+			}
+			console.log(users)
+			return res.send(200, users)
+		});
 })
 
 router.route("/events")
 //create a new event
 .post(function(req, res) {
-    var e = new Event();
-    e.artist = req.body.artist
-    e.venue = req.body.venue
-    e.time = req.body.time
-    e.genre = req.body.genre
-    e.location = req.body.location
-    e.num_likes = 0
+	var e = new Event();
+	console.log(" ==== in creaing evtnt ======");
+	e.artist = req.body.artist
+	e.venue = req.body.venue
+	e.time = req.body.time
+	e.genre = req.body.genre
+	e.location = req.body.location
+	console.log(e.time);
+	e.num_likes = 0
 
-    e.save(function(err, e) {
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.json(e)
-    })
+	e.save(function(err, e) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.json(e)
+	})
 })
 
 .get(function(req, res) {
-    Event.find(function(err, events) {
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.send(200, events);
-    });
+	Event.find(function(err, events) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, events);
+	});
 })
 
 router.route('/posts')
 //creates a new post
 .post(function(req, res) {
-    console.log("------post requested")
-    var post = new Post();
-    var text = req.body.newPost.text;
+	console.log("------post requested")
+	var post = new Post();
+	var text = req.body.newPost.text;
 
-    post.text = text;
-    post.created_by = req.body.newPost.created_by;
-    post.user_type = req.body.newPost.user_type;
-    post.created_at = Date.now();
-    post.is_file = false;
+	post.text = text;
+	post.created_by = req.body.newPost.created_by;
+	post.user_type = req.body.newPost.user_type;
+	post.created_at = Date.now();
+	post.is_file = false;
 
-    post.save(function(err, post) {
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.json(post);
-    });
+	post.save(function(err, post) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.json(post);
+	});
 })
 
 //gets all posts
 .get(function(req, res) {
-    Post.find(function(err, posts) {
-        if (err) {
-            return res.send(500, err);
-        }
-        return res.send(200, posts);
-    });
+	Post.find(function(err, posts) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, posts);
+	});
 });
 
 
@@ -386,40 +388,40 @@ router.route('/posts')
 router.route('/posts/:id')
 //gets specified post
 .get(function(req, res) {
-    Post.findById(req.params.id, function(err, post) {
-        if (err)
-            res.send(err);
-        res.json(post);
-    });
+	Post.findById(req.params.id, function(err, post) {
+		if (err)
+			res.send(err);
+		res.json(post);
+	});
 })
 
 //updates specified post
 .put(function(req, res) {
-    Post.findById(req.params.id, function(err, post) {
-        if (err)
-            res.send(err);
+	Post.findById(req.params.id, function(err, post) {
+		if (err)
+			res.send(err);
 
-        post.created_by = req.body.created_by;
-        post.text = req.body.text;
+		post.created_by = req.body.created_by;
+		post.text = req.body.text;
 
-        post.save(function(err, post) {
-            if (err)
-                res.send(err);
+		post.save(function(err, post) {
+			if (err)
+				res.send(err);
 
-            res.json(post);
-        });
-    });
+			res.json(post);
+		});
+	});
 })
 //deletes the post
 .delete(function(req, res) {
-    Post.remove({
-        _id: req.params.id
-    }, function(err) {
-        if (err)
-            res.send(err);
-        res.json("deleted :(");
+	Post.remove({
+		_id: req.params.id
+	}, function(err) {
+		if (err)
+			res.send(err);
+		res.json("deleted :(");
 
-    });
+	});
 });
 
 module.exports = router;

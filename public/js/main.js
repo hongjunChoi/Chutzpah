@@ -44,6 +44,8 @@ $(document).ready(function() {
 
 	$(document).on('click', '.confirm_button', function() {
 		var request_data = $(this).closest('.chat_msg').data("request_info");
+		alert(JSON.stringify(request_data));
+
 		var url = "/api/events";
 		var location = request_data.request_location;
 		var time = request_data.request_time;
@@ -93,6 +95,8 @@ $(document).ready(function() {
 			}).done(function(data) {
 				console.log(data);
 				// $("#commentmain").empty();
+
+
 				// data.forEach(function(c) {
 				// 	$("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
 				// });
@@ -139,10 +143,11 @@ $(document).ready(function() {
 		$(".chatmain").empty();
 		for (var i = 0; i < info.length; i++) {
 			var data = info[i];
+
 			var time = convert_time(data.sent_at);
-			var music_type = data.music_type;
-			var request_location = data.location;
-			var request_time = data.time;
+			var music_type = data.request_music_type;
+			var request_location = data.request_location;
+			var request_time = convert_time(data.request_time);
 			var id = data['_id'];
 
 			if (data.chat_type == "request") {
