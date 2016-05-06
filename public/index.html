@@ -52,8 +52,8 @@
             </li>
             <!-- Buttons -->
             <li id="btn_upload" alt="upload">
-            	<span></span>
-            	<div></div>
+                <span></span>
+                <div></div>
             </li>
             <li id="btn_menu"><span></span><span></span><span></span></li>
         </ul>
@@ -64,7 +64,6 @@
         <div id="profilewrapper" ng-controller="profileController">
             <!-- Chatting -->
             <div id="chatwrapper">
-
                 <div class="chatheader">
                     <button id="closechat" alt="close chat">close</button>
                 </div>
@@ -77,24 +76,24 @@
                 </div>
             </div>
             <div class="profileinnerwrapper">
-            	<div id="profileheader" style="background-image:url(img/samplecover.jpg)">
-		            <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
-		            <button id="profileclose"><span></span><span></span></button>
-            	</div>
-	            <div id="profile">
-	                <img src="img/sample.jpg" />
-	                <h3 id="user_profile_username"></h3>
-	                <span id="user_profile_location"></span>
-	                <span id="user_profile_genre"></span>
-	                <p id="user_profile_description"></p>
-	                <button id="openchat">Contact Eugene So</button>
-	            </div>
-	            <div id="related">
-	                <h6>More songs by Eugene So</h6>
-	                <ul id="user_post_wrapper">
-	                    <!--related posts-->
-	                </ul>
-	            </div>
+                <div id="profileheader" style="background-image:url(img/samplecover.jpg)">
+                    <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
+                    <button id="profileclose"><span></span><span></span></button>
+                </div>
+                <div id="profile">
+                    <img src="img/sample.jpg" />
+                    <h3 id="user_profile_username"></h3>
+                    <span id="user_profile_location"></span>
+                    <span id="user_profile_genre"></span>
+                    <p id="user_profile_description"></p>
+                    <button id="openchat">Contact <span class="current_user_profile"> </span></button>
+                </div>
+                <div id="related">
+                    <h6>More songs by <span class = "current_user_profile"></span></h6>
+                    <ul id="user_post_wrapper">
+                        <!--related posts-->
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- Main screen -->
@@ -136,7 +135,6 @@
             </div>
             <div class="commentlist">
                 <ul id="commentmain" style="color: white">
-
                 </ul>
                 <div class="commentField">
                     <form ng-Submit="upload_comment()" ng-show="authenticated">
@@ -148,10 +146,8 @@
         </div>
         <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
-
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
-
                     <div class="jp-type-single">
                         <div id="jquery_jplayer_1" class="jp-jplayer"></div>
                         <div class="jp-gui">
@@ -159,25 +155,25 @@
                                 <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
                             </div>
                             <div class="jp-interface">
-			                    <div class="jp-progress">
-					                <div class="jp-seek-bar">
-					                    <div class="jp-play-bar"></div>
-					                </div>
-					            </div>
-								<div id="thumbwrapper">
-					                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-					            </div>
+                                <div class="jp-progress">
+                                    <div class="jp-seek-bar">
+                                        <div class="jp-play-bar"></div>
+                                    </div>
+                                </div>
+                                <div id="thumbwrapper">
+                                    <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
+                                </div>
                                 <div class="jp-details">
                                     <div class="titlewrapper">
-                                        <div class="artistname">{{current_user}}</div>
+                                        <div class="artistname">{{now_playing.created_by}}</div>
                                         <div class="jp-title" aria-label="title">&nbsp;</div>
                                     </div>
                                 </div>
                                 <div id="jp-playwrapper" class="jp-controls-holder">
                                     <div class="jp-controls">
-                                    	<button class="jp-previous"></button>
+                                        <button class="jp-previous"></button>
                                         <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
-                                    	<button class="jp-next"></button>
+                                        <button class="jp-next"></button>
                                         <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
                                     </div>
                                 </div>
@@ -189,12 +185,12 @@
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
                                     </div>
-	                                    <!--                                     <div class="jp-toggles">
-	                                        <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-	                                        <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-	                                    </div> -->
-                                </div> 
-<!--                                 <div class="jp-details">
+                                    <!--                                     <div class="jp-toggles">
+                                            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+                                            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+                                        </div> -->
+                                </div>
+                                <!--                                 <div class="jp-details">
                                     <div class="progresswrapper">
                                         <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
                                         <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>

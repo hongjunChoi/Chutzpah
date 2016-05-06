@@ -86,25 +86,28 @@ server.listen(port);
 var io = require('socket.io')(server);
 
 io.sockets.on('connection', function(socket) {
+    var current_chat_user = "";
     socket.on('join', function(data) {
-        console.log("\n\n\n\n\ " + data.username);
         socket.join(data.username); // We are using room of socket io
+        current_chat_user = data.username;
     });
 
     // the client disconnected/closed their browser window
     socket.on('disconnect', function(data) {
         // Leave the room!
+        console.log("==== fuck yeah======")
+        console.log(current_chat_user);
 
         Notification.find({
-            username: "scottljy"
+            username: current_chat_user
         }, function(err, time) {
             if (err) {
-                console.log("ERROR IN FUCKIN FIND NOTIF");
+                console.log("ERROR IN FINDING NOTIFICAtiON ON disconnect");
             }
             if (time.length == 0) {
                 var notification = new Notification();
-                notification.username = "scottljy";
-                notification.time = Date.now();
+                notification.username = current_chat_user;
+                notification.notification_time = Date.now();
                 notification.save(function(err, notification) {
                     if (err) {
                         console.log("ERROR IN SAVE NOTI");
@@ -114,9 +117,9 @@ io.sockets.on('connection', function(socket) {
                 });
             } else {
                 Notification.update({
-                    username: "scottljy"
+                    username: current_chat_user
                 }, {
-                    time: Date.now()
+                    notification_time: Date.now()
                 }, function(err, new_time) {
                     if (err) {
                         console.log("ERROR IN UPDATE NOTI");
@@ -135,57 +138,47 @@ io.sockets.on('connection', function(socket) {
 //API CALLS FOR CHATTING
 //get room html 
 app.get('/get_chat', function(req, res) {
-    console.log("in get chat...");
-    user = req.query.user_name;
-
-    Chat.find({
-        sent_to: user
-    }, function(err, chats) {
+    var user = req.query.user_name;
+    Notification.find({
+        username: user
+    }, function(err, notification) {
         if (err) {
             return res.send(500, err);
         }
-        return res.send(200, chats);
+        console.log("fuck")
+        var last_date = notification[0].notification_time;
+
+        Chat.find({
+            sent_to: user,
+            sent_at: {
+                $lt: last_date
+            }
+        }, function(err, new_chats) {
+            if (err) {
+                res.send(500, err);
+            }
+            Chat.find({
+                sent_to: user,
+                sent_at: {
+                    $gte: last_date
+                }
+            }, function(err, old_chat) {
+                if (err) {
+                    return res.send(500, err);
+                }
+                data = {
+                    "newchat": new_chats,
+                    "oldchat": old_chat
+                }
+
+                return res.send(200, data);
+            });
+        })
     });
 
-    // Notification.find({
-    //     username: user
-    // }, function(err, notification) {
-    //     var time = notification.time;
-    //     console.log(notification[0]);
-    //     console.log(user);
-    //     if (err) {
-    //         return res.send(500, err);
-    //     }
-    //     console.log('====fount last time ===');
-    //     console.log(time);
 
-    //     Chat.find({
-    //         send_to: user,
-    //         sent_at: {
-    //             $gte: time
-    //         }
-    //     }, function(err, new_chats) {
-    //         if (err) {
-    //             res.send(500, err);
-    //         }
-    //         Chat.find({
-    //             sent_to: user,
-    //             sent_at: {
-    //                 $lt: time
-    //             }
-    //         }, function(err, old_chat) {
-    //             if (err) {
-    //                 return res.send(500, err);
-    //             }
-    //             data = {
-    //                 "newchat": new_chats,
-    //                 "oldchat": old_chat
-    //             }
-    //             return res.send(200, data);
-    //         });
-    //     })
+    console.log("==== end of get chat =====")
 
-    // });
 
 });
 

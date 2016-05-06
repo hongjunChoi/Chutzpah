@@ -97,7 +97,7 @@ var chatSchema = new mongoose.Schema({
 
 var notificationSchema = new mongoose.Schema({
     username: String,
-    time: {
+    notification_time: {
         type: Date,
         default: Date.now
     }
