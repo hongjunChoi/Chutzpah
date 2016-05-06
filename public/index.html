@@ -26,19 +26,21 @@
 <body ng-app="myApp">
     <header>
         <ul>
-            <li><img id="logo" src="img/logo.svg" /></li>
-            <li id="searchwrapper">
-                <div id="searchbar" ng-controller="searchController">
-                    <form>
-                        <span></span>
-                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                        <input type="submit" ng-click="search()">
-                    </form>
-                    <div id="searchresult">
-                        <div ng-repeat="result in search_results">{{result}} </div>
-                    </div>
-                </div>
-            </li>
+        	<li><img id="logo" src="img/logo.svg" /></li>
+        	<li id="searchwrapper">
+	        	<div id="searchbar" ng-controller="searchController">
+	                <form>
+	                	<span></span>
+	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+	                    <input type="submit" ng-click="search()">
+	                </form>
+	                <div id="searchresult">
+	                    <div ng-repeat="music in music_result" ng-click="view_item(result)">{{music}} </div>
+                        <div ng-repeat="user in user_result" ng-click="view_item(result)">{{user}} </div>          
+                        <div ng-repeat="event in event_result" ng-click="view_item(result)">{{event}} </div>
+	                </div>
+	            </div>
+        	</li>
             <li id="loginregister">
                 <p ng-hide="authenticated">
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
@@ -99,11 +101,21 @@
             <div ng-view></div>
             <div class="mainlist">
                 <!-- content lists -->
+                <div style="color: white; position:fixed; z-index:9">
+                    <form>
+                        <input type="radio" name="post_type" ng-click="change_post_type(1)" value="1" checked/>
+                        <label>Artist</label>
+                        <input type="radio" name="post_type" ng-click="change_post_type(2)" value="2" />
+                        <label>Venue</label>
+                        <input type="radio" name="post_type" ng-click="change_post_type(3)" value="3" />
+                        <label>Events</label>
+                    </form>
+                </div>
                 <ul id="listmenu">
                     <li>
-                        <h6>Song</h6>
-                        <h6>Artist</h6>
-                        <p>Date</p>
+                        <h6 id="col1">Song</h6>
+                        <h6 id="col2">Artist</h6>
+                        <p id="col3">Date</p>
                     </li>
                 </ul>
                 <ul class="postlist">

@@ -8,7 +8,7 @@ var userSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now()
 	}, //default will be time when user is created
-	user_type: String,
+	user_type: String, //artist/ venue/ none
 	genre: String,
 	band_name: String,
 	user_location: String,
@@ -100,6 +100,7 @@ var chatSchema = new mongoose.Schema({
 	},
 	request_location: String,
 	request_music_type: String
+
 });
 
 var notificationSchema = new mongoose.Schema({
