@@ -31,10 +31,6 @@ $(document).ready(function() {
 	$("#closechat").click(function(){
 		$("body").removeClass("chatopened");
 	});
-	// $("#btn_search").click(function() {
-	// 	menuopen();
-	// 	$("body").addClass("searchopened");
-	// });
 
 	$("#profileclose").click(function() {
 		closeAll();

@@ -7,7 +7,7 @@ $c-gray1: #29292c;
 $c-gray2: #29292c;
 $borderA: 2px;
 $borderB: 5px;
-$controller:60px;
+$controller:64px;
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -589,11 +589,14 @@ main{
 		width: 100%;
 		margin: 0;
 		overflow: hidden;
-		h6{
+		margin-bottom: $controller;
+		& > h6{
 			color: #b1b1b1;
-			font-weight: 300;
 			padding-bottom: 8px;
 			margin-left: 30px;
+		}
+		h6{
+			font-weight: 300;
 			font-size: 1em;
 		}
 		ul{
@@ -603,12 +606,22 @@ main{
 			@include flexbox(row);
 
 			li{
-				width:25%;
+				width:140px;
 				background-color: rgba(0,0,0,0.3);
 				color: white;
 				text-align: center;
 				opacity: 0.8;
 				cursor: pointer;
+				height: 60px;
+				padding: 10px 10px;
+				// overflow: hidden;
+				h6{
+					padding-bottom: 0;
+				}
+				p{
+					padding-bottom: 0;
+					font-size: .8em;
+				}
 
 				&:hover{ opacity: 1; }
 			}
@@ -707,7 +720,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	@include transition(all,100ms,linear);
 
 	&:hover{
-		background-color: $c-pink;
+		background-color: $c-darkdarkgray;
 		opacity: 1;
 	}
 
@@ -718,10 +731,9 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	margin: 0;
 	min-width: 160px;
 	width: 10%;
-	height: 160px;
+	height: auto;
 	text-align: center;
-	position: absolute;
-	left: 0;
+	display: inline-block;
 	z-index: 50;
 	img, span{
 		clear: both;
@@ -732,7 +744,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		display: block;
 		width: 50px;
 		height:50px;
-		margin-top: 5px;
+		margin-bottom: 5px;
 		background-color: black;
 		box-shadow: none;
 		outline: none;
@@ -760,12 +772,11 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	.jp-interface{
 		width: 100%;
 		& > div{ 
-			position: relative;
 			vertical-align: middle; 
 		}
-		& > .jp-details{ margin-left: 160px;}
 	}
 	.jp-details{
+		&:first-of-type{ margin-left: 160px;}
 		.titlewrapper{ 
 			color: white;
 			min-width: 160px;
@@ -785,17 +796,42 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			}
 		}
 	}
-	.jp-controls-wrapper{
-		min-width: 630px;
-		position: relative;
-		margin: auto;
-		margin-left: 30px;
-		& > div{
-			vertical-align: middle;
-			background-color: transparent;
-			&:nth-child(0){ width: 10%; }
-		}
+	// .jp-controls-wrapper{
+	// 	min-width: 630px;
+	// 	position: relative;
+	// 	margin: auto;
+	// 	margin-left: 30px;
+	// 	& > div{
+	// 		vertical-align: middle;
+	// 		background-color: transparent;
+	// 		&:nth-child(0){ width: 10%; }
+	// 	}
+	// }
+#jp-playwrapper,
+#jp-volumewrapper{
+	position: absolute;
+}
+#jp-playwrapper{
+	// width: 100px;
+	left: 50%;
+	@include translateX(-50%);
+	button{
+		display: inline-block;
+		vertical-align: middle;
 	}
+	.jp-play{
+		margin:0 10px;
+	}
+	.jp-previous,
+	.jp-next{
+		width: 30px;
+		height: 30px;
+	}
+}
+#jp-volumewrapper{
+	right: 80px;
+	top:24px;
+}
 
 //progressbar
 .progresswrapper{
@@ -828,14 +864,14 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		.jp-duration,
 		.jp-current-time{ font-size: 0.9em; }
 		.ctrlbtn{
-			opacity: 0.6;
+			// opacity: 0.6;
 			width: 50px;
 			height:50px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			@include transition(all, 300ms, linear);
 			cursor: pointer;
-			&:hover{ opacity: 1; }
+			// &:hover{ opacity: 1; }
 			&.jp-mute{
 				width: 30px;
 				height: 30px;
@@ -887,11 +923,12 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 ///////////////////////////////////////////////////////////////////////////
 //  Icons
 .jp-play{ background-image: url(../img/ui-icons/play.svg); }
-.jp-play:focus{ background-image: url(../img/ui-icons/pause.svg);}
+.jp-state-playing .jp-play{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-mute{  background-image: url(../img/ui-icons/volume_3.svg); }
 .jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
-
+.jp-previous{background-image: url(../img/ui-icons/prev.svg);}
+.jp-next{background-image: url(../img/ui-icons/next.svg);}
 		//old
 // #searchbar{
 // 	margin-left:-20px;

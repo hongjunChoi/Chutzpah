@@ -219,9 +219,9 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         }).success(function(data) {
             console.log(data);
 
-            $(".commentlist").empty();
+            $("#commentmain").empty();
             data.forEach(function(c) {
-                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
+                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
             });
             $(".commentField").show();
 
@@ -241,7 +241,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
         $rootScope.now_playing = post
         $scope.load_comments(post._id)
-
     }
 });
 
@@ -295,6 +294,10 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         }).success(function(data) {
             alert("success" + data)
         })
+    }
+
+    $scope.get_chat_from = function() {
+
     }
 
     $scope.get_chat = function() {

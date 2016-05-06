@@ -21,7 +21,6 @@
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
     <link rel="shortcut icon" href="img/favicon.ico">
-    <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
 </head>
 
 <body ng-app="myApp">
@@ -63,6 +62,7 @@
         <div id="profilewrapper" ng-controller="profileController">
             <!-- Chatting -->
             <div id="chatwrapper">
+
                 <div class="chatheader">
                     <button id="closechat" alt="close chat">close</button>
                 </div>
@@ -123,7 +123,8 @@
                 </ul>
             </div>
             <div class="commentlist">
-                <ul id="commentmain">
+                <ul id="commentmain" style="color: white">
+
                 </ul>
                 <div class="commentField">
                     <form ng-Submit="upload_comment()" ng-show="authenticated">
@@ -136,10 +137,6 @@
         <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
 
-
-            <div id="thumbwrapper">
-                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-            </div>
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
 
@@ -155,44 +152,44 @@
 					                    <div class="jp-play-bar"></div>
 					                </div>
 					            </div>
+								<div id="thumbwrapper">
+					                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
+					            </div>
                                 <div class="jp-details">
                                     <div class="titlewrapper">
                                         <div class="artistname">{{current_user}}</div>
                                         <div class="jp-title" aria-label="title">&nbsp;</div>
                                     </div>
                                 </div>
-                                <div class="jp-controls-wrapper">
-	                                <div class="jp-controls-holder">
-	                                    <div class="jp-controls">
-	                                        <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
-	                                        <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
-	                                    </div>
-	                                </div>
-	                                <div class="jp-details">
-	                                    <div class="progresswrapper">
-	                                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-	                                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-	                                    </div>
-	                                </div>
-	                                <div class="jp-controls-holder">
-	                                    <div class="jp-volume-controls">
-	                                        <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
-	                                        <!-- <button class="jp-volume-max ctrlbtn" role="button" tabindex="0"></button> -->
-	                                        <div class="jp-volume-bar">
-	                                            <div class="jp-volume-bar-value"><span></span></div>
-	                                        </div>
-	                                    </div>
+                                <div id="jp-playwrapper" class="jp-controls-holder">
+                                    <div class="jp-controls">
+                                    	<button class="jp-previous"></button>
+                                        <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
+                                    	<button class="jp-next"></button>
+                                        <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
+                                    </div>
+                                </div>
+                                <div id="jp-volumewrapper" class="jp-controls-holder">
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
+                                        <!-- <button class="jp-volume-max ctrlbtn" role="button" tabindex="0"></button> -->
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value"><span></span></div>
+                                        </div>
+                                    </div>
 	                                    <!--                                     <div class="jp-toggles">
 	                                        <button class="jp-repeat" role="button" tabindex="0">repeat</button>
 	                                        <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
 	                                    </div> -->
-	                                </div>
-                                </div>
+                                </div> 
+<!--                                 <div class="jp-details">
+                                    <div class="progresswrapper">
+                                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+                                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
-                        <!--                         <div class="jp-no-solution">
-                            <span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -203,19 +200,6 @@
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
-            </li>
-            <!-- Search -->
-            <li id="navsearch">
-                <h4>search</h4>
-<!--                 <div id="searchbar" ng-controller="searchController">
-                    <form>
-                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                        <input type="submit" ng-click="search()">
-                    </form>
-                    <div>
-                        <div ng-repeat="result in search_results">{{result}} </div>
-                    </div>
-                </div> -->
             </li>
             <li>
                 <h4>trending</h4>
