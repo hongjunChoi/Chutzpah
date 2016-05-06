@@ -21,7 +21,6 @@
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
     <link rel="shortcut icon" href="img/favicon.ico">
-    <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
 </head>
 
 <body ng-app="myApp">
@@ -68,8 +67,7 @@
                 </div>
                 <div class="chatmain"></div>
                 <div class="chatcontrol">
-                    <input type="text" placeholder="Type a message"></input>
-                    <div ng-click="get_chat()"> GET CHAT </div>
+                    <input id="chat_input" type="text" placeholder="Type a message"></input>
                     <div ng-click="send_chat()"> SEND CHAT </div>
                     <div ng-click="confirm_request()"> CONFIRM </div>
                     <!-- <input type="submit" value="send"></input> -->
@@ -190,9 +188,6 @@
                                 </div> -->
                             </div>
                         </div>
-                        <!--                         <div class="jp-no-solution">
-                            <span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -203,19 +198,6 @@
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
-            </li>
-            <!-- Search -->
-            <li id="navsearch">
-                <h4>search</h4>
-<!--                 <div id="searchbar" ng-controller="searchController">
-                    <form>
-                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                        <input type="submit" ng-click="search()">
-                    </form>
-                    <div>
-                        <div ng-repeat="result in search_results">{{result}} </div>
-                    </div>
-                </div> -->
             </li>
             <li>
                 <h4>trending</h4>
