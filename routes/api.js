@@ -53,8 +53,7 @@ router.route('/upload_file')
 				console.log("Error: ", err);
 				return res.end("Error upoading file");
 			}
-			console.log(res.req);
-			console.log("success!");
+
 			var post = new Post();
 			post.is_file = true;
 			post.created_by = res.req.user.username;
@@ -79,15 +78,27 @@ router.route('/get_chat_from')
 	var sent_to = req.query.sent_to;
 	var sent_from = req.query.sent_from;
 
+
 	Chat.find({
-		sent_to: sent_to,
-		sent_from: sent_from
-	}, function(err, chats) {
+
+		$or: [{
+			sent_to: sent_to,
+			sent_from: sent_from
+		}, {
+			sent_to: sent_from,
+			sent_from: sent_to
+		}]
+
+	}).sort({
+		sent_at: 1
+	}).exec(function(err, chats) {
+
 		if (err) {
 			return res.send(500, err);
 		}
 		return res.send(200, chats);
 	});
+
 })
 
 //api for getting comments/ putting comments on posts
@@ -132,8 +143,9 @@ router.route('/search')
 	var search_string = req.query.search_string.trim();
 	console.log(search_string);
 	var result = {
-		musician: [],
-		music: []
+		users: [],
+		posts: [],
+		events: []
 	};
 
 	User.find({
@@ -152,7 +164,7 @@ router.route('/search')
 		if (err) {
 			return res.send(err);
 		}
-		result.musician = user;
+		result.users = user;
 
 		Post.find({
 			$or: [{
@@ -168,9 +180,24 @@ router.route('/search')
 			if (err) {
 				return res.send(err);
 			}
-			result.music = post;
-			console.log(result);
-			res.send(result)
+			result.posts = post;
+			Event.find({
+				$or: [{
+					artist: search_string
+				}, {
+					venue: search_string
+				}, {
+					location: search_string
+				}, {
+					genre: search_string
+				}]
+			}, function(err, events) {
+				if (err) {
+					return res.send(err);
+				}
+				result.events = events;
+				res.send(result)
+			})
 		});
 
 	});
@@ -205,12 +232,30 @@ router.route("/profile")
 		});
 	});
 
-router.route("/event")
+
+router.route("/gig_requests")
+
+.post(function(req, res) {
+
+})
+
+.get(function(req, res) {
+
+});
+
+
+
+router.route("/events")
 //create a new event
 .post(function(req, res) {
 	var e = new Event();
 	e.artist = req.body.artist
 	e.venue = req.body.venue
+	e.time = req.body.time
+	e.genre = req.body.genre
+	e.location = req.body.location
+	e.num_likes = 0
+
 	e.save(function(err, e) {
 		if (err) {
 			return res.send(500, err);
@@ -220,7 +265,9 @@ router.route("/event")
 })
 
 .get(function(req, res) {
+	console.log("---------")
 	Event.find(function(err, events) {
+		console.log(events)
 		if (err) {
 			return res.send(500, err);
 		}

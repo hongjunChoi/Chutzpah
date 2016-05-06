@@ -26,19 +26,21 @@
 <body ng-app="myApp">
     <header>
         <ul>
-        	<li><img id="logo" src="img/logo.svg" /></li>
-        	<li id="searchwrapper">
-	        	<div id="searchbar" ng-controller="searchController">
-	                <form>
-	                	<span></span>
-	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-	                    <input type="submit" ng-click="search()">
-	                </form>
-	                <div id="searchresult">
-	                    <div ng-repeat="result in search_results">{{result}} </div>
-	                </div>
-	            </div>
-        	</li>
+            <li><img id="logo" src="img/logo.svg" /></li>
+            <li id="searchwrapper">
+                <div id="searchbar" ng-controller="searchController">
+                    <form>
+                        <span></span>
+                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+                        <input type="submit" ng-click="search()">
+                    </form>
+                    <div id="searchresult">
+                        <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
+                        <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
+                        <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
+                    </div>
+                </div>
+            </li>
             <li id="loginregister">
                 <p ng-hide="authenticated">
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
@@ -65,29 +67,29 @@
                 <div class="chatcontrol">
                     <input id="chat_input" type="text" placeholder="Type a message"></input>
                     <div ng-click="send_chat()"> SEND CHAT </div>
-                    <div ng-click="confirm_request()"> CONFIRM </div>
+                    <div ng-click="send_request()"> REQUEST A GIG! </div>
                     <!-- <input type="submit" value="send"></input> -->
                 </div>
             </div>
             <div class="profileinnerwrapper">
-            	<div id="profileheader" style="background-image:url(img/samplecover.jpg)">
-		            <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
-		            <button id="profileclose"><span></span><span></span></button>
-            	</div>
-	            <div id="profile">
-	                <img src="img/sample.jpg" />
-	                <h3 id="user_profile_username"></h3>
-	                <span id="user_profile_location"></span>
-	                <span id="user_profile_genre"></span>
-	                <p id="user_profile_description"></p>
-	                <button id="openchat">Contact Eugene So</button>
-	            </div>
-	            <div id="related">
-	                <h6>More songs by Eugene So</h6>
-	                <ul id="user_post_wrapper">
-	                    <!--related posts-->
-	                </ul>
-	            </div>
+                <div id="profileheader" style="background-image:url(img/samplecover.jpg)">
+                    <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
+                    <button id="profileclose"><span></span><span></span></button>
+                </div>
+                <div id="profile">
+                    <img src="img/sample.jpg" />
+                    <h3 id="user_profile_username"></h3>
+                    <span id="user_profile_location"></span>
+                    <span id="user_profile_genre"></span>
+                    <p id="user_profile_description"></p>
+                    <button id="openchat" ng-click="get_chat_from()">Contact <span class="current_user_profile"> </span></button>
+                </div>
+                <div id="related">
+                    <h6>More songs by <span class = "current_user_profile"></span></h6>
+                    <ul id="user_post_wrapper">
+                        <!--related posts-->
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- Main screen -->
@@ -107,30 +109,66 @@
             </div>
             <div class="mainlist maincontent">
                 <!-- content lists -->
+                <div style="color: white; position:fixed; z-index:9">
+                    <form>
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(1)" value="1" checked/>
+                        <label>Artist</label>
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(2)" value="2" />
+                        <label>Venue</label>
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(3)" value="3" />
+                        <label>Events</label>
+                    </form>
+                </div>
                 <ul id="listmenu">
                     <li>
-                        <h6>Song</h6>
-                        <h6>Artist</h6>
-                        <p>Date</p>
+                        <h6 id="col1">Song</h6>
+                        <h6 id="col2">Artist</h6>
+                        <p id="col3">Date</p>
                     </li>
                 </ul>
-                <ul class="postlist maincontent">
+                <ul id="artist_postlist">
                     <li ng-repeat="post in posts">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
                         <p>{{ post.created_at }}</p>
                     </li>
                 </ul>
-                <ul class="filelist maincontent">
+
+                <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
                         <h6>{{ file.created_by }}</h6>
                         <p>{{ file.created_at }}</p>
                     </li>
                 </ul>
+
+                <ul id="artistlist" class="maincontent">
+                    <li ng-repeat="artist in artists" ng-click="">
+                        <h6>{{ artist.name }}</h6>
+                        <h6>{{ artist.genre }}</h6>
+                        <p>{{ artist.location }}</p>
+                    </li>
+                </ul>
+
+                <ul id="request_list" class="maincontent">
+                    <li ng-repeat="request in requests" ng-click="">
+                        <h6>{{ request.name }}</h6>
+                        <h6>{{ request.genre }}</h6>
+                        <p>{{ request.location }}</p>
+                    </li>
+                </ul>
+
+                <ul id="eventlist" class="maincontent">
+                    <li ng-repeat="event in events" ng-click="">
+                        <h6>{{ event.venue }}</h6>
+                        <h6>{{ event.artist }}</h6>
+                        <p>{{ event.location }}</p>
+                    </li>
+                </ul>
+
             </div>
             <div class="commentlist">
-                <ul id="commentmain">
+                <ul id="commentmain" style="color: white">
                 </ul>
                 <div class="commentField">
                     <form ng-Submit="upload_comment()" ng-show="authenticated">
@@ -142,10 +180,8 @@
         </div>
         <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
-
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
-
                     <div class="jp-type-single">
                         <div id="jquery_jplayer_1" class="jp-jplayer"></div>
                         <div class="jp-gui">
@@ -153,25 +189,25 @@
                                 <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
                             </div>
                             <div class="jp-interface">
-			                    <div class="jp-progress">
-					                <div class="jp-seek-bar">
-					                    <div class="jp-play-bar"></div>
-					                </div>
-					            </div>
-								<div id="thumbwrapper">
-					                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-					            </div>
+                                <div class="jp-progress">
+                                    <div class="jp-seek-bar">
+                                        <div class="jp-play-bar"></div>
+                                    </div>
+                                </div>
+                                <div id="thumbwrapper">
+                                    <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
+                                </div>
                                 <div class="jp-details">
                                     <div class="titlewrapper">
-                                        <div class="artistname">{{current_user}}</div>
+                                        <div class="artistname">{{now_playing.created_by}}</div>
                                         <div class="jp-title" aria-label="title">&nbsp;</div>
                                     </div>
                                 </div>
                                 <div id="jp-playwrapper" class="jp-controls-holder">
                                     <div class="jp-controls">
-                                    	<button class="jp-previous"></button>
+                                        <button class="jp-previous"></button>
                                         <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
-                                    	<button class="jp-next"></button>
+                                        <button class="jp-next"></button>
                                         <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
                                     </div>
                                 </div>
@@ -183,12 +219,12 @@
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
                                     </div>
-	                                    <!--                                     <div class="jp-toggles">
-	                                        <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-	                                        <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-	                                    </div> -->
-                                </div> 
-<!--                                 <div class="jp-details">
+                                    <!--                                     <div class="jp-toggles">
+                                            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+                                            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+                                        </div> -->
+                                </div>
+                                <!--                                 <div class="jp-details">
                                     <div class="progresswrapper">
                                         <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
                                         <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
@@ -206,15 +242,23 @@
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
+                <div id="now_playing_info_wrapper" style="display : none">
+                    <p> Song Title : <span id="now_playing_song_title"></span></p>
+                    <p> Artist: <span id="now_playing_song_artist"></span></p>
+                    <p> posted at : <span id="now_playing_song_date"></span></p>
+                </div>
             </li>
             <li>
                 <h4>trending</h4>
+                <div style="display: none" id="trending_wrapper"></div>
             </li>
             <li>
                 <h4>saved</h4>
+                <div style="display: none" id="saved_wrapper"></div>
             </li>
             <li id="user_notification" ng-controller="profileController">
                 <h4 ng-click="get_chat()">notification</h4>
+                <span id="new_message_num"></span>
                 <ul id="chat_list"></ul>
             </li>
             <!-- Upload -->

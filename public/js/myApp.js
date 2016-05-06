@@ -9,6 +9,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
         if (data && data !== "undefined" && data['user']) {
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
+            $rootScope.user_type = data['user']['user_type'];
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
@@ -24,13 +25,43 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
         socket.on("new_msg", function(data) {
 
             if ($("body").hasClass("chatopened") && $rootScope.now_playing.created_by == data.from) {
-                var time = new Date().toString();
+                var time = new Date();
+                time = time.toString();
                 time = time.split(":")[0] + ":" + time.split(":")[1];
-                var dom = " <div class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
-                $(".chatmain").append(dom);
+                var music_type = data['music_type'];
+                var request_location = data["location"];
+                var request_time = data['time'];
+                var id = data['id'];
+                if (data['type'] == "request") {
+
+                    var dom = " <div id = '" + id + "'class = 'chat_msg gig_request'> " +
+                        data.msg + "      by  " + data.from + "      at  " + time +
+                        "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p>" +
+                        "</div> <div class = 'confirm_button'> CONFIRM </div> ";
+
+                    $(".chatmain").append(dom);
+                    $("#" + id).data("request_info", data);
+                } else {
+                    var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
+                    $(".chatmain").append(dom);
+                }
+                $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+                //update the latest read time
+                var url = "/update_notification"
+                $.post(url, {
+                    current_user: $rootScope.current_user
+                }).done(function(data) {
+                    console.log(data);
+                    console.log("NOTIFICATION TIME UPDATED");
+                });
+
             } else {
                 alert(data.msg + "  received from " + data.from);
             }
+
+
 
         });
 
@@ -106,14 +137,37 @@ app.service('fileUpload', ['$http',
 app.controller('searchController', function($scope, $rootScope, $http) {
     $scope.search_results = {};
     $scope.search = function() {
+
         $http.get('/api/search', {
             params: {
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            $scope.search_results = data;
+            console.log(data);
+            $scope.post_result = data.posts
+            $scope.user_result = data.users
+            $scope.event_result = data.events
         });
     };
+
+    $scope.view_post = function(post) {
+        if (post.is_file) {
+            //if file, change now_playing, jplayer
+            $rootScope.now_playing = post
+            $("#jquery_jplayer_1").jPlayer("setMedia", {
+                title: post.original_name,
+                mp3: post.url.substring(post.url.indexOf("/") + 1)
+            });
+        }
+    }
+
+    $scope.view_user = function(user) {
+
+    }
+
+    $scope.view_event = function(e) {
+
+    }
 });
 
 
@@ -121,31 +175,15 @@ app.factory('postService', function($resource) {
     return $resource('/api/posts/:id');
 });
 
-
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
 
     $scope.posts = [];
     $scope.files = [];
-
-    var temp = postService.query();
+    $scope.list_type = 1; //1: artists, 2: venues, 3: events
+    //   var temp = postService.query();
     var files = [];
     var text_posts = [];
-
-    temp.$promise.then(function(data) {
-        for (var i = 0; i < data.length; i++) {
-
-            var item = data[i];
-
-            if (item["is_file"] == true || item["is_file"] == "true") {
-                files.push(item);
-            } else {
-                text_posts.push(item);
-            }
-        }
-
-        $scope.posts = text_posts;
-        $scope.files = files;
-    });
+    var url = "/api/posts"
 
 
 
@@ -156,16 +194,41 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
     $scope.user_posts = {};
 
+    $http.get(url, {
+        params: {
+            user_type: "artist"
+        }
+    }).success(function(data) {
+        data.forEach(function(item) {
+            if (item["is_file"] == true || item["is_file"] == "true") {
+                item['created_at'] = convert_time(item['created_at']);
+                files.push(item);
+            } else {
+                item['created_at'] = convert_time(item['created_at']);
+                text_posts.push(item);
+            }
+        });
+
+        $scope.posts = text_posts;
+        $scope.files = files;
+    });
+
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
 
     $scope.post = function() {
-        alert("post")
         $scope.newPost.created_by = $rootScope.current_user;
+        $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
+        alert("change postService")
         postService.save($scope.newPost, function() {
-            $scope.posts = postService.query();
+            var list = postService.query();
+            list.forEach(function(item) {
+                item['created_at'] = convert_time(item['created_at']);
+            });
+
+            $scope.posts = list;
             $scope.newPost = {
                 created_by: '',
                 text: '',
@@ -174,16 +237,58 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+    $scope.change_post_view_type = function(val) {
+        // alert(val)
+        if (val == 1) {
+            set_columns("Song", "Artist", "Date")
+            $scope.load_artist_posts();
+        }
+        if (val == 2) {
+            set_columns("Gig requests", "Venue", "Date")
+            $scope.files = []
+            $scope.load_gig_requests();
+        }
+        if (val == 3) {
+            set_columns("Venue", "Artist", "Date")
+            $scope.files = []
+            $scope.load_gigs();
+        }
+    }
+
     $scope.get_now_playing = function() {
-        alert($rootScope.now_playing)
+        var data = $rootScope.now_playing;
+        if (!('_id' in data)) {
+            alert("please choose music beforehand!");
+            $("#now_playing_info_wrapper").hide();
+        } else {
+
+            if ($("#now_playing_info_wrapper").css('display') == "block") {
+                $("#now_playing_info_wrapper").hide();
+            } else {
+                // $("#uploadwrapper").hide();
+                $("#trending_wrapper").hide();
+                $("#saved_wrapper").hide();
+                $("#chat_list").hide();
+
+                set_now_playing_info(data);
+                $("#now_playing_info_wrapper").show();
+            }
+
+        }
     }
 
     $scope.upload = function() {
-        alert("upload file");
+        $("#now_playing_info_wrapper").hide();
+        $("#trending_wrapper").hide();
+        $("#saved_wrapper").hide();
+        $("#chat_list").hide();
+        $("#uploadwrapper").show();
+
         var file = $scope.myFile;
 
-        console.log('file is ');
-        console.dir(file);
+        if (typeof file === "undefined") {
+            return
+        }
 
         var uploadUrl = "/api/upload_file";
         fileUpload.uploadFileToUrl(file, uploadUrl);
@@ -201,12 +306,63 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             comment: $scope.comment
         }).success(function(data) {
             if (data.state == 'success') {
-
+                alert("successfully uploaded comment")
             } else {
                 $scope.error_message = data.message;
             }
         });
     };
+
+    $scope.load_artist_posts = function() {
+        var url = "/api/posts"
+        $(".postlist").empty()
+        $(".filelist").empty()
+
+        $http.get(url, {
+            params: {
+                user_type: "artist"
+            }
+        }).success(function(data) {
+            data.forEach(function(d) {
+                if (d["is_file"] == true || d["is_file"] == "true") {
+                    var item = "<li><h6>" + d.original_name + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
+                    $(".filelist").append(item)
+                } else {
+                    var item = "<li><h6>" + d.text + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
+                    $(".postlist").append(item)
+                }
+            })
+
+        });
+    }
+
+    $scope.load_gig_requests = function() {
+        var url = "/api/gig_requests";
+        $(".postlist").empty()
+        $(".filelist").empty()
+
+        $http.get(url, {}).success(function(data) {
+            console.log(data)
+            data.forEach(function(e) {
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
+                $(".postlist").append(item)
+            });
+        })
+    }
+
+    $scope.load_gigs = function() {
+        var url = "/api/events";
+        $(".postlist").empty()
+        $(".filelist").empty()
+
+        $http.get(url, {}).success(function(data) {
+            console.log(data)
+            data.forEach(function(e) {
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
+                $(".postlist").append(item)
+            });
+        })
+    }
 
     $scope.load_comments = function(id) {
         var url = "/api/comment";
@@ -219,9 +375,9 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         }).success(function(data) {
             console.log(data);
 
-            $(".commentlist").empty();
+            $("#commentmain").empty();
             data.forEach(function(c) {
-                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
+                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
             });
             $(".commentField").show();
 
@@ -230,7 +386,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.start_music = function(post) {
-        console.log("starting music")
+        console.log("starting music");
+        $("body").removeClass("menuopened");
+        $("body").removeClass("profileopened");
+        $("body").removeClass("searchopened");
+        $("body").removeClass("chatopened");
+
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
             mp3: post.url.substring(post.url.indexOf("/") + 1)
@@ -240,12 +401,27 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         data = $scope.load_comments(post._id);
 
         $rootScope.now_playing = post
-        $scope.load_comments(post._id)
-
+        $scope.load_comments(post._id);
+        $("body").addClass("menuopened");
+        $("#now_playing_info_wrapper").hide();
+        $scope.get_now_playing();
     }
 });
 
-function set_user_profile(info) {
+function set_now_playing_info(data) {
+    $("#now_playing_song_title").html(data.original_name);
+    $("#now_playing_song_artist").html(data.created_by);
+    $("#now_playing_song_date").html(data.created_at);
+}
+
+
+function set_columns(col1, col2, col3) {
+    $("#col1").text(col1);
+    $("#col2").text(col2);
+    $("#col3").text(col3);
+}
+
+function set_user_profile(info, user) {
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
@@ -254,7 +430,12 @@ function set_user_profile(info) {
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
     $("#user_profile_genre").html(genre);
-    $("#contact_to").html(username);
+    $(".current_user_profile").html(username);
+    if (username == user) {
+        $('#openchat').hide();
+    } else {
+        $('#openchat').show();
+    }
 }
 
 app.controller('profileController', function($scope, $rootScope, $http) {
@@ -272,60 +453,90 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             }
         }).success(function(data) {
             var user_info = data['info'];
-            set_user_profile(user_info[0]);
+            set_user_profile(user_info[0], $rootScope.current_user);
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
             $scope.user_info = user_info;
             $scope.user_posts = profile_posts;
             $("body").addClass("profileopened");
             profile_posts.forEach(function(entry) {
-                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + entry.created_at + "</p> <p>" + entry.created_by + "</p></li>"
+                $("#user_post_wrapper").empty();
+                var time = convert_time(entry.created_at);
+                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></li>"
                 $("#user_post_wrapper").append(item);
             });
 
         });
     }
 
-    $scope.confirm_request = function(req) {
-        console.log("confirming & posting request")
-        var url = "/api/event"
-        $http.post(url, {
-            artist: "ARTIST",
-            venue: "VENUE"
-        }).success(function(data) {
-            alert("success" + data)
-        })
-    }
+
 
     $scope.get_chat = function() {
+
+        $("#now_playing_info_wrapper").hide();
+        // $("#uploadwrapper").hide();
+        $("#trending_wrapper").hide();
+        $("#saved_wrapper").hide();
+        if ($("#chat_list").css("display") == "block") {
+            $("#chat_list").hide();
+        } else {
+            $("#chat_list").show();
+        }
+
         $http.get('/get_chat', {
             params: {
                 user_name: $rootScope.current_user
             }
-        }).success(function(data) {
-            alert("get chat success");
-            console.log("get chat results")
-            console.log(data);
+        }).success(function(obj) {
+
+            var old_chat = obj["newchat"];
+            var new_chat = obj["oldchat"];
             var chats = {};
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
+            for (var i = 0; i < old_chat.length; i++) {
+                var item = old_chat[i];
                 var from = item.sent_from;
                 if (from in chats) {
-                    chats[from].push(item);
+                    chats[from]["chats"].push(item);
                 } else {
                     var list = [];
                     list.push(item)
-                    chats[from] = list
+                    chats[from] = {
+                        "chats": list,
+                        "count": 0
+                    };
                 }
             }
+
+            for (var i = 0; i < new_chat.length; i++) {
+                var item = new_chat[i];
+                var from = item.sent_from;
+                if (from in chats) {
+                    chats[from]["chats"].push(item);
+                    chats[from]["count"] = chats[from]["count"] + 1
+                } else {
+                    var list = [];
+                    list.push(item)
+                    chats[from] = {
+                        "chats": list,
+                        "count": 1
+                    };
+                }
+            }
+            console.log("====== this data is saved as data attribute on notification chats for toggle ======");
+            console.log(chats);
+            var total = 0;
             var keys = Object.keys(chats);
+            $("#chat_list").empty();
             for (var i = 0; i < keys.length; i++) {
                 var sent_from = keys[i];
+                var new_chat_number = chats[sent_from]["count"];
+                total = total + new_chat_number
                 var id = "chat_" + sent_from;
-                var item = "<li id = " + id + ">" + sent_from + "</li>"
+                var item = "<li class = 'chat_list_item' id = " + id + ">" + sent_from + "   <span id = 'new_chat_count'> " + new_chat_number + "</span> </li>"
                 $("#chat_list").append(item);
                 $("#" + id).data("chats", chats[sent_from]);
             }
+            $("#new_message_num").html(total);
         });
     };
 
@@ -336,12 +547,46 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 sent_to: $rootScope.current_user
             }
         }).success(function(data) {
+
             add_chat(data);
             $("body").addClass("chatopened");
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
 
         });
     };
 
+    $scope.send_request = function() {
+        alert("send request");
+        var url = "/send_chat";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var sent_to = $rootScope.now_playing.created_by;
+        var text = $("#chat_input").val();
+        var sent_from = $rootScope.current_user;
+
+        $http.post(url, {
+            chat_type: "request",
+            sent_from: sent_from,
+            text: text,
+            sent_to: sent_to,
+            request_music_type: "sample genre",
+            request_location: "providence mall",
+            request_time: Date.now()
+
+        }).success(function(data) {
+            $("#chat_input").val("");
+            alert(JSON.stringify(data));
+            var type = data['request_music_type'];
+            var time = convert_time(data['request_time']);
+            var locatiion = data['request_location'];
+            var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
+                sent_to + "    <div class = 'request_info'>  <p>requested song type :" + type + "</p>" +
+                " <p>requested gig time :" + time + "</p>" +
+                " <p>requested location :" + location + "</p></div>";
+
+            $(".chatmain").append(dom);
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+        });
+    }
 
     $scope.send_chat = function() {
         var url = "/send_chat";
@@ -352,29 +597,64 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
 
         $http.post(url, {
-
+            chat_type: "msg",
             sent_from: sent_from,
             text: text,
             sent_to: sent_to
 
         }).success(function(data) {
-            console.log('send chat result ');
-            console.log(data);
+            var time = data['sent_at'];
+            time = convert_time(time);
+            $("#chat_input").val("");
+            var dom = " <div class = 'mychat_msg chat_msg'> " + text + "      at  " + time + "</div> ";
+            $(".chatmain").append(dom);
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
         });
+    }
+
+    function add_chat(info) {
+        $(".chatmain").empty();
+        for (var i = 0; i < info.length; i++) {
+            var data = info[i];
+            var time = convert_time(data['sent_at']);
+            var music_type = data['request_music_type'];
+            var request_location = data['request_location'];
+            var request_time = data['request_time'];
+            var id = data['_id'];
+
+            if (data.chat_type == "request") {
+                var dom = "";
+
+
+                if (data['sent_from'] == $rootScope.current_user) {
+                    dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
+                        data.sent_to + "    <div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p></div>";
+                } else {
+                    dom = " <div id = '" + id + "'  class = 'chat_msg gig_request'> " +
+                        data.chat_text + "      by  " + data.sent_from + "      at  " + time +
+                        "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p>" +
+                        "</div> <div class = 'confirm_button'> CONFIRM </div> ";
+                }
+
+
+
+                $(".chatmain").append(dom);
+                $("#" + id).data("request_info", data);
+            } else {
+                var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.chat_text + "      by  " + data.sent_from + "      at  " + time + "</div> ";
+                $(".chatmain").append(dom);
+            }
+        }
+
     }
 
 });
 
 
-function add_chat(info) {
-    for (var i = 0; i < info.length; i++) {
-        var item = info[i];
-        var time = convert_time(item.sent_at);
-        var dom = " <div class = 'chat_msg'> " + item.chat_text + "      by  " + item.sent_from + "      at  " + time + "</div> ";
-        $(".chatmain").append(dom);
-    }
-
-}
 
 function convert_time(time) {
     var year = time.split("-")[0];
@@ -401,9 +681,12 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
     $scope.login = function() {
         $http.post('/auth/login', $scope.user).success(function(data) {
+
             if (data.state == 'success') {
+
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
+                $rootScope.user_type = data.user.user_type;
                 $location.path('/profile');
             } else {
                 $scope.error_message = data.message;
@@ -411,18 +694,40 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
         });
     };
 
-    $scope.register = function() {
+    $scope.change_user_type = function() {
+        $("#register_musician").hide()
+        $("#register_host").hide()
+        $("#register_fan").hide()
+        var user_type = $('.user-checkbox:checked').val()
+        if (user_type == 1) {
+            $("#register_musician").show()
+        }
+        if (user_type == 2) {
+            $("#register_host").show()
+        }
+        if (user_type == 3) {
+            $("#register_fan").show()
+        }
+    }
 
-        if ($('#register_musician_tab').hasClass("active")) {
-            $scope.user.user_type = 'musician';
-        } else {
-            $scope.user.user_type = 'host';
+    $scope.register = function() {
+        var user_type = $('.user-checkbox:checked').val()
+
+        if (user_type == 1) {
+            $scope.user.user_type = 'artist';
+        }
+        if (user_type == 2) {
+            $scope.user.user_type = 'venue';
+        }
+        if (user_type == 3) {
+            $scope.user.user_type = 'fan';
         }
 
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
+                $rootScope.user_type = data.user.user_type;
                 $location.path('/');
             } else {
                 $scope.error_message = data.message;

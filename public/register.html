@@ -3,32 +3,71 @@
 	<h2>Register</h2>
 	<p class="text-warning">{{error_message}}</p>
 
+        <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio" value="1" checked/>
+        <label>Artist</label>
+        <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio"  value="2" />
+        <label>Venue</label>
+        <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio" value="3" />
+        <label>Just a Fan!</label>
+
+<!-- 
+
 	<ul class="nav nav-tabs" id="myTab">
 		<li class="active" id= "register_musician_tab" ><a data-target="#register_musician" data-toggle="tab">musicians</a></li>
 		<li id = "register_host_tab" ><a data-target="#register_host" data-toggle="tab">hosts</a></li>
-	</ul>
+	</ul> -->
 
 	<div class="tab-content">
-		<div class="tab-pane active" id="register_musician">
-			<input type="bandname" ng-model="user.bandname" placeholder="write your group's name" class="form-control"><br>
+		<div class="tab-pane tab-show" id="register_musician">
+			<input type="name" ng-model="user.name" placeholder="write your group's name" class="form-control"><br>
 			<input type="genre" ng-model="user.genre" placeholder="e.g. Rock" class="form-control"><br>
 			<input type="location" ng-model="user.location" placeholder="e.g. Providence " class="form-control"><br>
+			<input type="description" ng-model="user.description" placeholder="e.g. Second Biggie! " class="form-control"><br>
+			<input type="soundcloud" ng-model="user.soundcloud" placeholder="e.g. https://soundcloud.com/didf " class="form-control"><br>
+			<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
+			<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
+			<input type="email" ng-model="user.email" placeholder="email" class="form-control"><br>
+			<input type="submit" value="Register" class="btn btn-primary" />
 		</div>
-		
 
 		<div class="tab-pane" id="register_host">
+			<input type="name" ng-model="user.name" placeholder="write your Venue's name" class="form-control"><br>
 			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control"><br>
+			<input type="description" ng-model="user.description" placeholder="e.g. a great Bar near ...! " class="form-control"><br>
+			<input type="website" ng-model="user.website" placeholder="e.g. https://myHipBar.com " class="form-control"><br>
+			<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
+			<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
+			<input type="email" ng-model="user.email" placeholder="email" class="form-control"><br>
+			<input type="submit" value="Register" class="btn btn-primary" />
 		</div>
+
+		<div class="tab-pane" id="register_fan">
+			<input type="name" ng-model="user.name" placeholder="write your  name" class="form-control"><br>
+			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control"><br>
+			<input type="genre" ng-model="user.genre" placeholder="e.g. Hip-hop Jazz .." class="form-control"><br>
+			<input type="description" ng-model="user.description" placeholder="e.g. I love ...! " class="form-control"><br>
+			<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
+			<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
+			<input type="email" ng-model="user.email" placeholder="email" class="form-control"><br>
+			<input type="submit" value="Register" class="btn btn-primary" />
+		</div>
+
 	</div>
 
-	<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
-	<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
-	
+	<div>
+
+	</div>
 
 
-
-
-
-
-	<input type="submit" value="Register" class="btn btn-primary" />
 </form>
+
+<style>
+
+	.tab-pane{
+		position: absolute;
+		display: none;
+	}
+	.tab-show{
+		display: block;
+	}
+</style>

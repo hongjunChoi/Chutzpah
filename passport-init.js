@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var TempUser = mongoose.model('TempUser')
 var LocalStrategy = require('passport-local').Strategy;
 var bCrypt = require('bcrypt-nodejs');
+var nev = require('email-verification')(mongoose);
+
+
 
 module.exports = function(passport) {
 
@@ -50,6 +54,32 @@ module.exports = function(passport) {
         }
     ));
 
+    passport.use('verify_email', new LocalStrategy({
+            passReqToCallback: true
+        },
+        function(req, username, password, done) {
+            console.log("----------------")
+            var url = 'localhost:3000/auth/email-verification/' + req.params.username;
+            nev.confirmTempUser(url, function(err, user) {
+                if (err) {
+                    console.log('Error in Confirming user: ' + err);
+                }
+                if (user) {
+                    user.save(function(err) {
+                        if (err) {
+                            console.log('Error in Saving user: ' + err);
+                            throw err;
+                        }
+                        //redirect to profile
+                        return done(null, user);
+                    });
+                } else {
+                    console.log("sign up again please\n")
+                }
+                // redirect to sign-up 
+            });
+        }));
+
     passport.use('signup', new LocalStrategy({
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
@@ -75,26 +105,74 @@ module.exports = function(passport) {
                     // set the user's local credentials
                     newUser.username = username;
                     newUser.password = createHash(password);
-                    if (req.body.user_type == "host") {
-                        newUser.user_location = req.body.location;
-                        newUser.user_type = "host";
+                    newUser.email = req.body.email;
+                    newUser.user_location = req.body.location;
+                    newUser.user_type = req.body.user_type;
+                    newUser.user_description = req.body.description;
+                    newUser.name = req.body.name;
 
-                    } else {
-                        newUser.user_location = req.body.location;
-                        newUser.user_type = "musician";
+                    var user_type = req.body.user_type
+
+                    if (user_type == "artist") {
                         newUser.genre = req.body.genre;
-                        newUser.band_name = req.body.bandname;
-
+                        newUser.soundcloud = req.body.soundcloud;
+                    }
+                    if (user_type == "venue") {
+                        newUser.name = req.body.name;
+                        newUser.website = req.body.website;
+                    }
+                    if (user_type == "fan") {
+                        newUser.genre = req.body.genre;
                     }
 
 
-                    // save the user
+                    var url = "localhost:3000/auth/email-verification/" + username
+                    nev.configure({
+                        verificationURL: url,
+                        persistentUserModel: User,
+                        tempUserModel: TempUser,
+                        tempUserCollection: 'myawesomewebsite_tempusers',
+
+                        transportOptions: {
+                            service: 'Gmail',
+                            auth: {
+                                user: 'hyun_chang_song@brown.edu',
+                                pass: '1547Sean'
+                            }
+                        },
+                        verifyMailOptions: {
+                            from: 'Do Not Reply <myawesomeemail_do_not_reply@gmail.com>',
+                            subject: 'Please confirm account',
+                            html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+                            text: 'Please confirm your account by clicking the following link: ${URL}'
+                        }
+                    });
+
+                    // nev.createTempUser(newUser, function(err, newTempUser) {
+                    //     if (err) {
+                    //         console.log("----error in creating tempuser", err)
+                    //     }
+                    //     if (newTempUser) {
+                    //         nev.registerTempUser(newTempUser, function(err) {
+                    //             if (err) {
+                    //                 console.log("----error in registering tempuser", err)
+                    //             }
+                    //             console.log("----successfully created temp user")
+                    //             //  return done(null, null)
+                    //         });
+                    //     } else {
+                    //         console.log("failure in creating for somereason")
+                    //     }
+                    //     console.log(newTempUser)
+                    // });
+
                     newUser.save(function(err) {
                         if (err) {
                             console.log('Error in Saving user: ' + err);
+                            return done(null, null)
                             throw err;
                         }
-
+                        //redirect to profile
                         return done(null, newUser);
                     });
                 }
