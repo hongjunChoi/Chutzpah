@@ -58,6 +58,7 @@ router.route('/upload_file')
             post.is_file = true;
             post.created_by = res.req.user.username;
             post.original_name = res.req.file.originalname;
+            post.user_type = res.req.user.user_type;
             post.url = res.req.file.path;
 
             post.save(function(err, p) {
@@ -186,6 +187,8 @@ router.route('/search')
             if (err) {
                 return res.send(err);
             }
+            console.log("------")
+            console.log(posts)
             var files = [];
             var artist_posts = [];
             var requests = [];

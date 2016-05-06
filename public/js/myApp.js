@@ -126,6 +126,7 @@ app.service('fileUpload', ['$http',
                     'Content-Type': undefined
                 }
             }).success(function() {
+                alert("file upload success")
 
             }).error(function() {
 
@@ -222,7 +223,9 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
+            alert("00000")
             $rootScope.artist_posts = data.artist_posts;
+            console.log(data.files)
             $rootScope.files = data.files;
             $rootScope.artists = data.artists;
             $rootScope.requests = data.requests
@@ -407,7 +410,18 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             return data;
         });
     };
+    $scope.show_artist = function(artist) {
 
+    }
+    $scope.show_venue = function(venue) {
+
+    }
+    $scope.show_request = function(request) {
+
+    }
+    $scope.show_event = function(event) {
+
+    }
     $scope.start_music = function(post) {
         console.log("starting music");
         $("body").removeClass("menuopened");
