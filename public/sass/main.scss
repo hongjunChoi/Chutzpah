@@ -174,22 +174,14 @@ header{
 			}
 		}
 	}
-	#btn_upload{
-		span{
-			width: 24px;
-			height: 24px;
-			padding: 1px;
-			background-image: url(../img/ui-icons/upload.svg);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		div{
-			width: 400px;
-			height: 400px;
-			background-color: white;
-			display: none;
-		}
-	}
+	// #btn_upload{
+	// 	width: 20px;
+	// 	height: 20px;
+	// 	padding: 1px;
+	// 	background-image: url(../img/ui-icons/upload.svg);
+	// 	background-size: cover;
+	// 	background-repeat: no-repeat;
+	// }
 
 	// #btn_search{
 	// 	margin-top: 2px;
@@ -295,40 +287,7 @@ nav{
 		}
 	}
 }
-#uploadwrapper{
-	margin-right: 40px;
-	form{
-		position: relative;
-		border-bottom: 1px solid $c-pink;
-		margin-bottom: 10px;
-		height: 24px;
-		padding-bottom: 5px;
-	}
 
-	input[type="submit"]{
-		background-color: gray;
-		color: white;
-		float: right;
-		@include buttonA;
-	}
-	input.uploadfilebtn{ 
-		margin-top: 10px;
-		width: 210px;
-		display: inline-block;
-	}
-	input.uploadbtn{ 
-		display: inline-block;
-		background-color: $c-pink;
-	}
-	textarea{
-		display: inline-block;
-		overflow: auto;
-		height: 100%;
-		width: 210px;
-		vertical-align: bottom;
-		resize:none;
-	}
-}
 
 
 body.menuopened{
@@ -370,7 +329,8 @@ main{
 }
 #listmenu,
 .mainlist,
-.commentlist{
+.commentlist,
+#uploadwrapper{
 	width: 80%;
 	margin: auto;
 }
@@ -379,10 +339,10 @@ main{
 	background-color: $c-gray2;
 	opacity: 1;
 	border:none;
-	border-top: 200px solid $c-gray1;
+	// border-top: 200px solid $c-gray1;
 	border-bottom: 1px solid rgba(255,255,255,0.5);
 	padding-bottom: 2px;
-	margin-top:-200px;
+	// margin-top:200px;
 	h6,p{ 
 		opacity: .7;
 		letter-spacing: .05em; 
@@ -394,6 +354,7 @@ main{
 	padding-bottom: 100px;
 }
 .mainlist{
+	overflow: hidden;
 	padding-top: 40px;
 	ul{
 		margin-top: 46px;
@@ -482,6 +443,44 @@ main{
 			margin: 0;
 			@include buttonA;
 		}
+	}
+}
+#uploadwrapper{
+	margin-top: 100px;
+	background-color: white;
+	height: auto;
+	z-index: 50;
+	// margin-right: 40px;
+	form{
+		position: relative;
+		border-bottom: 1px solid $c-pink;
+		margin-bottom: 10px;
+		height: 24px;
+		padding-bottom: 5px;
+	}
+
+	input[type="submit"]{
+		background-color: gray;
+		color: white;
+		float: right;
+		@include buttonA;
+	}
+	input.uploadfilebtn{ 
+		margin-top: 10px;
+		width: 210px;
+		display: inline-block;
+	}
+	input.uploadbtn{ 
+		display: inline-block;
+		background-color: $c-pink;
+	}
+	textarea{
+		display: inline-block;
+		overflow: auto;
+		height: 100%;
+		width: 210px;
+		vertical-align: bottom;
+		resize:none;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////

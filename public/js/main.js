@@ -107,11 +107,20 @@ $(document).ready(function() {
 		}
 	}
 
+	function hide_all_right_panel() {
+		$("#now_playing_info_wrapper").hide();
+		$("#trending_wrapper").hide();
+		$("#saved_wrapper").hide();
+		$("#chat_list").hide();
+	}
+
 	function closeAll() {
 		$("body").removeClass("menuopened");
 		$("body").removeClass("profileopened");
 		$("body").removeClass("searchopened");
 		$("body").removeClass("chatopened");
+		hide_all_right_panel();
+
 	}
 
 

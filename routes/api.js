@@ -78,15 +78,27 @@ router.route('/get_chat_from')
     var sent_to = req.query.sent_to;
     var sent_from = req.query.sent_from;
 
+
     Chat.find({
-        sent_to: sent_to,
-        sent_from: sent_from
-    }, function(err, chats) {
+
+        $or: [{
+            sent_to: sent_to,
+            sent_from: sent_from
+        }, {
+            sent_to: sent_from,
+            sent_from: sent_to
+        }]
+
+    }).sort({
+        sent_at: 1
+    }).exec(function(err, chats) {
+
         if (err) {
             return res.send(500, err);
         }
         return res.send(200, chats);
     });
+
 })
 
 //api for getting comments/ putting comments on posts
@@ -214,6 +226,7 @@ router.route('/search')
         });
 
     });
+
 });
 
 

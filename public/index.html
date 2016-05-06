@@ -46,14 +46,10 @@
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
                 </p>
             </li>
+        	<li id="btn_upload" alt="upload"><p>upload</p></li>
             <li id="logininfo">
                 <p ng-show="authenticated">{{current_user}}</p>
                 <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
-            </li>
-            <!-- Buttons -->
-            <li id="btn_upload" alt="upload">
-                <span></span>
-                <div></div>
             </li>
             <li id="btn_menu"><span></span><span></span><span></span></li>
         </ul>
@@ -99,17 +95,29 @@
         <!-- Main screen -->
         <div id="mainscreen" ng-controller="mainController">
             <div ng-view></div>
-            <div class="mainlist">
+            <div id="uploadwrapper" ng-controller="mainController">
+                <div class="clearfix">
+                    <div ng-show="authenticated">
+                        <form ng-Submit="post()" ng-show="authenticated">
+                            <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
+                            <input class="btn submit-btn pull-right" type="submit" value="Add" />
+                        </form>
+                        <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+                        <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
+                    </div>
+                </div>
+            </div>
+            <div class="mainlist maincontent">
                 <!-- content lists -->
                 <div style="color: white; position:fixed; z-index:9">
                     <form>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(1)" value="1" checked/>
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="1" checked/>
                         <label>Songs</label>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(2)" value="2"/>
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="2"/>
                         <label>Artists</label>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(3)" value="3" />
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="3" />
                         <label>Venues</label>
-                        <input type="radio" name="post_type" ng-click="change_post_view_type(4)" value="4" />
+                        <input class=".registration-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="4" />
                         <label>Events</label>
                     </form>
                 </div>
@@ -120,7 +128,6 @@
                         <p id="col3">Date</p>
                     </li>
                 </ul>
-
                 <ul id="artist_postlist">
                     <li ng-repeat="post in artist_posts">
                         <h6>{{ post.text }}</h6>
@@ -129,7 +136,7 @@
                     </li>
                 </ul>
 
-                <ul id="filelist">
+                <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
                         <h6>{{ file.created_by }}</h6>
@@ -137,7 +144,7 @@
                     </li>
                 </ul>
 
-                <ul id="artistlist">
+                <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="">
                         <h6>{{ artist.name }}</h6>
                         <h6>{{ artist.genre }}</h6>
@@ -145,7 +152,7 @@
                     </li>
                 </ul>
 
-                <ul id="requestlist">
+                <ul id="request_list" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="">
                         <h6>{{ request.name }}</h6>
                         <h6>{{ request.genre }}</h6>
@@ -153,7 +160,7 @@
                     </li>
                 </ul>
 
-                <ul id="eventlist">
+                <ul id="eventlist" class="maincontent">
                     <li ng-repeat="event in events" ng-click="">
                         <h6>{{ event.venue }}</h6>
                         <h6>{{ event.artist }}</h6>
@@ -253,12 +260,13 @@
             </li>
             <li id="user_notification" ng-controller="profileController">
                 <h4 ng-click="get_chat()">notification</h4>
+                <span id="new_message_num"></span>
                 <ul id="chat_list"></ul>
             </li>
             <!-- Upload -->
             <li>
                 <h4>upload</h4>
-                <div id="uploadwrapper" ng-controller="mainController">
+<!--                 <div id="uploadwrapper" ng-controller="mainController">
                     <div class="clearfix">
                         <div ng-show="authenticated">
                             <form ng-Submit="post()" ng-show="authenticated">
@@ -269,7 +277,7 @@
                             <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
                         </div>
                     </div>
-                </div>
+                </div> -->
             </li>
         </ul>
     </nav>

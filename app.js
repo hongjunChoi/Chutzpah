@@ -95,47 +95,72 @@ io.sockets.on('connection', function(socket) {
     // the client disconnected/closed their browser window
     socket.on('disconnect', function(data) {
         // Leave the room!
-        console.log("==== fuck yeah======")
         console.log(current_chat_user);
-
-        Notification.find({
-            username: current_chat_user
-        }, function(err, time) {
-            if (err) {
-                console.log("ERROR IN FINDING NOTIFICAtiON ON disconnect");
-            }
-            if (time.length == 0) {
-                var notification = new Notification();
-                notification.username = current_chat_user;
-                notification.notification_time = Date.now();
-                notification.save(function(err, notification) {
-                    if (err) {
-                        console.log("ERROR IN SAVE NOTI");
-                    }
-                    console.log("SUCCESSFULLY SAVED CREATED NOTI");
-                    console.log(notification);
-                });
-            } else {
-                Notification.update({
-                    username: current_chat_user
-                }, {
-                    notification_time: Date.now()
-                }, function(err, new_time) {
-                    if (err) {
-                        console.log("ERROR IN UPDATE NOTI");
-                    }
-                    console.log("SUCCESSFULLY UPDATED NOTIFICATION TIME");
-                    console.log(new_time);
-                });
-
-            }
-        })
-
+        update_notification(current_chat_user, null);
     });
 });
 
 
 //API CALLS FOR CHATTING
+function update_notification(current_chat_user, res) {
+    console.log("updating notification ... user : " + current_chat_user);
+    Notification.find({
+        username: current_chat_user
+    }, function(err, time) {
+        if (err) {
+            console.log("ERROR IN FINDING NOTIFICAtiON ON disconnect");
+            if (res) {
+                return res.send(500, "error in updating notification time");
+            }
+
+        }
+        if (time.length == 0) {
+            var notification = new Notification();
+            notification.username = current_chat_user;
+            notification.notification_time = Date.now();
+            notification.save(function(err, notification) {
+                if (err) {
+                    console.log("ERROR IN SAVE NOTIFICATION (CREATED NEW ONE)");
+                    if (res) {
+                        return res.send(500, "error in updating notification time");
+                    }
+                }
+                console.log("SUCCESSFULLY SAVED CREATED NOTIFICATION");
+                if (res) {
+                    return res.send(200, "notification updated successfully");
+                }
+            });
+        } else {
+            Notification.update({
+                username: current_chat_user
+            }, {
+                notification_time: Date.now()
+            }, function(err, new_time) {
+                if (err) {
+                    console.log("ERROR IN UPDATE NOTIFICATION");
+                    if (res) {
+                        return res.send(500, "error in updating notification time");
+                    }
+                }
+                console.log("SUCCESSFULLY UPDATED NOTIFICATION TIME");
+                console.log(new_time);
+                if (res) {
+                    return res.send(200, "notification updated successfully");
+                }
+            });
+        }
+    });
+}
+
+
+app.post('/update_notification', function(req, res) {
+
+    var current_chat_user = req.body.current_user;
+    update_notification(current_chat_user, res);
+
+});
+
+
 //get room html 
 app.get('/get_chat', function(req, res) {
     var user = req.query.user_name;
@@ -145,18 +170,27 @@ app.get('/get_chat', function(req, res) {
         if (err) {
             return res.send(500, err);
         }
-        console.log("fuck")
+
         var last_date = notification[0].notification_time;
 
         Chat.find({
-            sent_to: user,
-            sent_at: {
-                $lt: last_date
-            }
-        }, function(err, new_chats) {
-            if (err) {
-                res.send(500, err);
-            }
+
+            $or: [{
+                sent_to: user,
+                sent_at: {
+                    $lt: last_date
+                }
+            }, {
+                sent_from: user,
+                sent_at: {
+                    $lt: last_date
+                }
+            }]
+
+        }).sort({
+            sent_at: 1
+        }).exec(function(err, new_chats) {
+
             Chat.find({
                 sent_to: user,
                 sent_at: {
@@ -173,7 +207,7 @@ app.get('/get_chat', function(req, res) {
 
                 return res.send(200, data);
             });
-        })
+        });
     });
 
 
