@@ -31,15 +31,16 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
                 var request_location = data.location;
                 var request_time = data.time;
                 var id = data.id;
-                if (data.type == "request") {
+                if (data.chat_type == "request") {
                     var dom = " <div id = '" + id + "'class = 'chat_msg gig_request'> " +
                         data.msg + "      by  " + data.from + "      at  " + time +
                         "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
                         " <p>requested gig time :" + request_time + "</p>" +
                         " <p>requested location :" + request_location + "</p>" +
-                        "</div> <div id = 'confirm_button' ng-click = 'confirm_request()'> CONFIRM </div> ";
+                        "</div> <div class = 'confirm_button'> CONFIRM </div> ";
 
                     $(".chatmain").append(dom);
+                    $("#" + id).data("request_info", data);
                 } else {
                     var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
                     $(".chatmain").append(dom);
@@ -526,6 +527,13 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 });
 
 
+$(".confirm_button").click(function() {
+    alert("asdfasdf");
+    var request_data = $(this).closest('.chat_msg').data("request_data");
+    alert(request_data);
+});
+
+
 function add_chat(info) {
     $(".chatmain").empty();
     for (var i = 0; i < info.length; i++) {
@@ -536,15 +544,16 @@ function add_chat(info) {
         var request_time = data.time;
         var id = data['_id'];
 
-        if (data.type == "request") {
+        if (data.chat_type == "request") {
             var dom = " <div id = '" + id + "'  class = 'chat_msg gig_request'> " +
                 data.chat_text + "      by  " + data.sent_from + "      at  " + time +
                 "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
                 " <p>requested gig time :" + request_time + "</p>" +
                 " <p>requested location :" + request_location + "</p>" +
-                "</div> <div id = 'confirm_button' ng-click = 'confirm_request()'> CONFIRM </div> ";
+                "</div> <div class = 'confirm_button'> CONFIRM </div> ";
 
             $(".chatmain").append(dom);
+            $("#" + id).data("request_info", data);
         } else {
             var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.chat_text + "      by  " + data.sent_from + "      at  " + time + "</div> ";
             $(".chatmain").append(dom);

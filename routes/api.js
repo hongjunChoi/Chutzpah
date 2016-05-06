@@ -53,8 +53,7 @@ router.route('/upload_file')
                 console.log("Error: ", err);
                 return res.end("Error upoading file");
             }
-            console.log(res.req);
-            console.log("success!");
+
             var post = new Post();
             post.is_file = true;
             post.created_by = res.req.user.username;
@@ -221,6 +220,7 @@ router.route("/profile")
         });
     });
 
+
 router.route("/gig_requests")
 
 .post(function(req, res) {
@@ -233,14 +233,17 @@ router.route("/gig_requests")
 
 
 
-
-
 router.route("/events")
 //create a new event
 .post(function(req, res) {
     var e = new Event();
     e.artist = req.body.artist
     e.venue = req.body.venue
+    e.time = req.body.time
+    e.genre = req.body.genre
+    e.location = req.body.location
+    e.num_likes = 0
+
     e.save(function(err, e) {
         if (err) {
             return res.send(500, err);
