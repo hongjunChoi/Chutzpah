@@ -202,7 +202,7 @@ app.post('/send_chat', function(req, res) {
     chat.chat_type = type;
 
     if (type == "request") {
-        console.log("@!@@#@@#$#@#@")
+        console.log("@!@@#@@#$#@#@");
         chat.request_location = request_location;
         chat.request_time = request_time;
         chat.request_music_type = request_music_type;
@@ -230,7 +230,7 @@ app.post('/send_chat', function(req, res) {
                 id: id,
                 msg: text,
                 from: sent_from,
-                type: type
+                chat_type: type
             });
         }
         res.json(p);
