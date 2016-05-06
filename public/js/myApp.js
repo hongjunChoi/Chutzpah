@@ -242,15 +242,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     };
 
-    $scope.change_post_view_type = function(val) {};
-
     $scope.change_post_view_type = function() {
 
         $scope.clear_lists();
-        var val = $('.user-checkbox:checked').val()
-
-
-        // alert(val)
+        var val = $(".cat-checkbox:checked").val()
         if (val == 1) {
             set_columns("Song", "Artist", "Date")
             $("#artist_postlist").show()
