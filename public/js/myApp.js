@@ -188,11 +188,14 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }).success(function(data) {
         data.forEach(function(item) {
             if (item["is_file"] == true || item["is_file"] == "true") {
+                item['created_at'] = convert_time(item['created_at']);
                 files.push(item);
             } else {
+                item['created_at'] = convert_time(item['created_at']);
                 text_posts.push(item);
             }
-        })
+        });
+
         $scope.posts = text_posts;
         $scope.files = files;
     });
@@ -207,7 +210,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $scope.newPost.created_at = Date.now();
         alert("change postService")
         postService.save($scope.newPost, function() {
-            $scope.posts = postService.query();
+            var list = postService.query();
+            list.forEach(function(item) {
+                item['created_at'] = convert_time(item['created_at']);
+            });
+
+            $scope.posts = list;
             $scope.newPost = {
                 created_by: '',
                 text: '',
@@ -299,7 +307,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $http.get(url, {}).success(function(data) {
             console.log(data)
             data.forEach(function(e) {
-                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
                 $(".postlist").append(item)
             });
         })
@@ -313,7 +321,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $http.get(url, {}).success(function(data) {
             console.log(data)
             data.forEach(function(e) {
-                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
                 $(".postlist").append(item)
             });
         })
@@ -332,7 +340,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
             $("#commentmain").empty();
             data.forEach(function(c) {
-                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
+                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
             });
             $(".commentField").show();
 
@@ -409,16 +417,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
-    $scope.confirm_request = function() {
-        alert("confirming & posting request")
-        var url = "/api/event"
-        $http.post(url, {
-            artist: "ARTIST",
-            venue: "VENUE"
-        }).success(function(data) {
-            alert("success" + data)
-        })
-    }
 
 
     $scope.get_chat = function() {
@@ -469,7 +467,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 var sent_from = keys[i];
                 var new_chat_number = chats[sent_from]["count"];
                 var id = "chat_" + sent_from;
-                var item = "<li id = " + id + ">" + sent_from + "   <span id = 'new_chat_count'> " + new_chat_number + "</span> </li>"
+                var item = "<li class = 'chat_list_item' id = " + id + ">" + sent_from + "   <span id = 'new_chat_count'> " + new_chat_number + "</span> </li>"
                 $("#chat_list").append(item);
                 $("#" + id).data("chats", chats[sent_from]);
             }
@@ -535,12 +533,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 });
 
 
-$(".confirm_button").click(function() {
-    alert("asdfasdf");
-    var request_data = $(this).closest('.chat_msg').data("request_data");
-    alert(request_data);
-});
-
 
 function add_chat(info) {
     $(".chatmain").empty();
@@ -595,7 +587,11 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
     $scope.login = function() {
         $http.post('/auth/login', $scope.user).success(function(data) {
+            alert("asdf");
+            console.log(data);
+
             if (data.state == 'success') {
+
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
                 $rootScope.user_type = data.user.user_type;
