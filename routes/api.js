@@ -15,8 +15,15 @@ var multer = require('multer'),
     maxSize = 10 * 1000 * 1000;
 
 
-var upload = multer({
+var upload_file = multer({
     dest: './public/uploads/',
+    limits: {
+        fileSize: maxSize
+    }
+}).single('file');
+
+var upload_img = multer({
+    dest: './public/uploads/img/',
     limits: {
         fileSize: maxSize
     }
@@ -45,10 +52,11 @@ function isAuthenticated(req, res, next) {
 router.use('/posts', isAuthenticated);
 
 
+
 router.route('/upload_file')
     .post(function(req, res) {
         console.log("-----file upload requested --------");
-        upload(req, res, function(err) {
+        upload_file(req, res, function(err) {
             if (err) {
                 console.log("Error: ", err);
                 return res.end("Error upoading file");
@@ -67,6 +75,30 @@ router.route('/upload_file')
                 }
                 res.json(p);
             })
+        })
+    });
+
+router.route('/upload_img')
+    .post(function(req, res) {
+        console.log("-----img upload requested --------");
+        upload_img(req, res, function(err) {
+            if (err) {
+                console.log("Error: ", err);
+                return res.end("Error upoading image");
+            }
+            User.updateOne({
+                "username": res.req.user.username
+            }, {
+                $set: {
+                    "img_url": res.req.file.path
+                }
+            }, function(err, result) {
+                console.log(result)
+                if (err) {
+                    return res.end(err)
+                }
+                res.json(result)
+            });
         })
     });
 

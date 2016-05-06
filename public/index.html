@@ -79,7 +79,10 @@
                     <button id="profileclose"><span></span><span></span></button>
                 </div>
                 <div id="profile">
-                    <img src="img/sample.jpg" />
+                    <img id="profile_image" src="img/sample.jpg"/>
+                    <div class="img-button" ng-click="upload_image()" >Change Image</div>
+                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*"/
+                    >
                     <h3 id="user_profile_username"></h3>
                     <span id="user_profile_location"></span>
                     <span id="user_profile_genre"></span>

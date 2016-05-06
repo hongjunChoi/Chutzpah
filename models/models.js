@@ -15,6 +15,7 @@ var userSchema = new mongoose.Schema({
     user_description: String,
     soundcloud: String,
     website: String,
+    img_url: String,
 });
 
 var tempUserSchema = new mongoose.Schema({

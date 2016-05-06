@@ -513,6 +513,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
+    $scope.upload_image = function() {
+        $(".file-upload").on('change', function() {
+            $scope.readURL();
+        });
+        $(".file-upload").click();
+    }
+
+    $scope.readURL = function() {
+        var img = $scope.imgFile;
+        var uploadUrl = "/api/upload_img";
+        fileUpload.uploadFileToUrl(img, uploadUrl);
+    }
 
 
     $scope.get_chat = function() {
