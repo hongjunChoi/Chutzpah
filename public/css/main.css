@@ -194,18 +194,6 @@ header {
         padding-bottom: 0; }
         header #logininfo:hover > p:last-of-type:hover {
           background-color: #292929; }
-  header #btn_upload span {
-    width: 24px;
-    height: 24px;
-    padding: 1px;
-    background-image: url(../img/ui-icons/upload.svg);
-    background-size: cover;
-    background-repeat: no-repeat; }
-  header #btn_upload div {
-    width: 400px;
-    height: 400px;
-    background-color: white;
-    display: none; }
   header #btn_menu {
     width: 28px;
     height: 24px;
@@ -350,44 +338,6 @@ nav {
       nav ul li.active > div {
         display: block; }
 
-#uploadwrapper {
-  margin-right: 40px; }
-  #uploadwrapper form {
-    position: relative;
-    border-bottom: 1px solid #fa4e5e;
-    margin-bottom: 10px;
-    height: 24px;
-    padding-bottom: 5px; }
-  #uploadwrapper input[type="submit"] {
-    background-color: gray;
-    color: white;
-    float: right;
-    -webkit-transition: all 100ms linear;
-    -moz-transition: all 100ms linear;
-    -o-transition: all 100ms linear;
-    -ms-transition: all 100ms linear;
-    transition: all 100ms linear;
-    border-radius: 4px;
-    padding: 4px 6px;
-    cursor: pointer; }
-    #uploadwrapper input[type="submit"]:hover {
-      background-color: #fa4e5e;
-      color: white; }
-  #uploadwrapper input.uploadfilebtn {
-    margin-top: 10px;
-    width: 210px;
-    display: inline-block; }
-  #uploadwrapper input.uploadbtn {
-    display: inline-block;
-    background-color: #fa4e5e; }
-  #uploadwrapper textarea {
-    display: inline-block;
-    overflow: auto;
-    height: 100%;
-    width: 210px;
-    vertical-align: bottom;
-    resize: none; }
-
 body.menuopened header ul li {
   color: black; }
 body.menuopened header #btn_menu span {
@@ -441,7 +391,8 @@ main {
 
 #listmenu,
 .mainlist,
-.commentlist {
+.commentlist,
+#uploadwrapper {
   width: 80%;
   margin: auto; }
 
@@ -450,10 +401,8 @@ main {
   background-color: #29292c;
   opacity: 1;
   border: none;
-  border-top: 200px solid #29292c;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 2px;
-  margin-top: -200px; }
+  padding-bottom: 2px; }
   #listmenu h6, #listmenu p {
     opacity: .7;
     letter-spacing: .05em; }
@@ -464,6 +413,7 @@ main {
   padding-bottom: 100px; }
 
 .mainlist {
+  overflow: hidden;
   padding-top: 40px; }
   .mainlist ul {
     margin-top: 46px;
@@ -574,6 +524,47 @@ main {
       .commentlist form input:hover {
         background-color: #fa4e5e;
         color: white; }
+
+#uploadwrapper {
+  margin-top: 100px;
+  background-color: white;
+  height: auto;
+  z-index: 50; }
+  #uploadwrapper form {
+    position: relative;
+    border-bottom: 1px solid #fa4e5e;
+    margin-bottom: 10px;
+    height: 24px;
+    padding-bottom: 5px; }
+  #uploadwrapper input[type="submit"] {
+    background-color: gray;
+    color: white;
+    float: right;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer; }
+    #uploadwrapper input[type="submit"]:hover {
+      background-color: #fa4e5e;
+      color: white; }
+  #uploadwrapper input.uploadfilebtn {
+    margin-top: 10px;
+    width: 210px;
+    display: inline-block; }
+  #uploadwrapper input.uploadbtn {
+    display: inline-block;
+    background-color: #fa4e5e; }
+  #uploadwrapper textarea {
+    display: inline-block;
+    overflow: auto;
+    height: 100%;
+    width: 210px;
+    vertical-align: bottom;
+    resize: none; }
 
 #profilewrapper {
   position: fixed;
