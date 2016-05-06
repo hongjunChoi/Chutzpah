@@ -220,16 +220,20 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
             $rootScope.artist_posts = data.artist_posts;
 
+
             for (var i = 0; i < data.files.length; i++) {
                 data.files[i]['created_at'] = convert_time(data[i].files['created_at']);
             }
             $rootScope.files = data.files;
             $rootScope.artists = data.artists;
 
+
             for (var i = 0; i < data.requests.length; i++) {
                 data.requests[i]['created_at'] = convert_time(data[i].requests['created_at']);
             }
             $rootScope.requests = data.requests;
+
+
 
             for (var i = 0; i < data.events.length; i++) {
                 data.events[i]['time'] = convert_time(data[i].events['time']);
@@ -420,7 +424,18 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             return data;
         });
     };
+    $scope.show_artist = function(artist) {
 
+    }
+    $scope.show_venue = function(venue) {
+
+    }
+    $scope.show_request = function(request) {
+
+    }
+    $scope.show_event = function(event) {
+
+    }
     $scope.start_music = function(post) {
         console.log("starting music");
         $("body").removeClass("menuopened");
@@ -521,6 +536,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         });
     }
 
+    $scope.upload_image = function() {
+        $(".file-upload").on('change', function() {
+            $scope.readURL();
+        });
+        $(".file-upload").click();
+    }
+
+    $scope.readURL = function() {
+        var img = $scope.imgFile;
+        var uploadUrl = "/api/upload_img";
+        fileUpload.uploadFileToUrl(img, uploadUrl);
+    }
 
 
     $scope.get_chat = function() {

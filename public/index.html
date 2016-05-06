@@ -79,7 +79,10 @@
                     <button id="profileclose"><span></span><span></span></button>
                 </div>
                 <div id="profile">
-                    <img src="img/sample.jpg" />
+                    <img id="profile_image" src="img/sample.jpg"/>
+                    <div class="img-button" ng-click="upload_image()" >Change Image</div>
+                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*"/
+                    >
                     <h3 id="user_profile_username"></h3>
                     <span id="user_profile_location"></span>
                     <span id="user_profile_genre"></span>
@@ -145,21 +148,21 @@
                     </li>
                 </ul>
                 <ul id="artistlist" class="maincontent">
-                    <li ng-repeat="artist in artists" ng-click="">
+                    <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
                         <h6>{{ artist.name }}</h6>
                         <h6>{{ artist.genre }}</h6>
                         <p>{{ artist.location }}</p>
                     </li>
                 </ul>
                 <ul id="request_list" class="maincontent">
-                    <li ng-repeat="request in requests" ng-click="">
+                    <li ng-repeat="request in requests" ng-click="show_request(request)">
                         <h6>{{ request.name }}</h6>
                         <h6>{{ request.genre }}</h6>
                         <p>{{ request.created_at }}</p>
                     </li>
                 </ul>
                 <ul id="eventlist" class="maincontent">
-                    <li ng-repeat="event in events" ng-click="">
+                    <li ng-repeat="event in events" ng-click="show_event(event)">
                         <h6>{{ event.venue }}</h6>
                         <h6>{{ event.artist }}</h6>
                         <p>{{ event.time }}</p>
