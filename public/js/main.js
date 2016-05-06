@@ -34,6 +34,12 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#openchat").click(function(){
+		$("body").addClass("chatopened");
+	});
+	$("#closechat").click(function(){
+		$("body").removeClass("chatopened");
+	});
 	// $("#btn_search").click(function() {
 	// 	menuopen();
 	// 	$("body").addClass("searchopened");

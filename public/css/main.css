@@ -578,8 +578,7 @@ main {
 #profilewrapper {
   position: fixed;
   right: 0;
-  width: 80%;
-  max-width: 600px;
+  width: 500px;
   height: 100%;
   background-color: white;
   -webkit-transition: 300ms all ease-in-out;
@@ -743,11 +742,11 @@ main {
 
 #chatwrapper {
   position: absolute;
-  width: 300px;
+  width: 500;
   height: 420px;
-  bottom: 80px;
+  bottom: 60px;
   background-color: white;
-  z-index: 0;
+  z-index: 9999;
   border-radius: 5px;
   -webkit-transition: all 300ms ease-out;
   -moz-transition: all 300ms ease-out;
@@ -762,7 +761,7 @@ main {
   #chatwrapper > div {
     padding-left: 10px;
     padding-right: 10px;
-    width: 280px;
+    width: 480px;
     position: relative;
     clear: both; }
   #chatwrapper .chatheader {

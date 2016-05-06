@@ -7,7 +7,7 @@ $c-gray1: #29292c;
 $c-gray2: #29292c;
 $borderA: 2px;
 $borderB: 5px;
-$controller:80px;
+$controller:60px;
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -490,8 +490,7 @@ main{
 #profilewrapper{
 	position: fixed;
 	right: 0;
-	width: 80%;
-	max-width: 600px;
+	width: 500px;
 	height: 100%;
 	background-color: white;
 	@include transition(300ms, all, ease-in-out);
@@ -639,12 +638,11 @@ main{
 //chat
 #chatwrapper{
 	position: absolute;
-	width: 300px;
+	width: 500;
 	height: 420px;
-	// left: -300px;
 	bottom: $controller;
 	background-color: white;
-	z-index: 0;
+	z-index: 9999;
 	border-radius: $borderB;
 	@include transition(all, 300ms, ease-out);
 	@include translateY(100%);
@@ -652,7 +650,7 @@ main{
 	& > div{
 		padding-left: 10px;
 		padding-right: 10px;
-		width: 280px;
+		width: 480px;
 		position: relative;
 		clear: both;
 	}
