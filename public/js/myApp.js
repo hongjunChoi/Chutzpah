@@ -200,8 +200,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             console.log(data);
 
             $(".commentlist").empty();
-            data.forEach(function(c){
-                $(".commentlist").append("<li>"+c.created_by+" said: " + c.text+ " at : "+ c.created_at+"</li>")
+            data.forEach(function(c) {
+                $(".commentlist").append("<li>" + c.created_by + " said: " + c.text + " at : " + c.created_at + "</li>")
             });
             $(".commentField").show();
 
@@ -218,13 +218,13 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
         $scope.post_id = post._id;
         data = $scope.load_comments(post._id);
-        
+
         $rootScope.now_playing = post
         console.log("==========")
         console.log($rootScope.now_playing);
         data = $scope.load_comments(post._id)
 
-        data.forEach(function(c){
+        data.forEach(function(c) {
             console.log(c);
         });
         console.log(data);
@@ -318,16 +318,15 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     };
 
     $scope.get_chat_from = function() {
-        alert("get_chat_from");
         $http.get('api/get_chat_from', {
             params: {
                 sent_from: $rootScope.now_playing.created_by,
                 sent_to: $rootScope.current_user
             }
         }).success(function(data) {
-            alert("get chat success");
             console.log("get chat results");
             console.log(data);
+            add_chat(data);
             $("body").addClass("chatopened");
 
         });
@@ -354,6 +353,27 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 });
 
 
+function add_chat(info) {
+    for (var i = 0; i < info.length; i++) {
+        var item = info[i];
+        var time = convert_time(item.sent_at);
+        var dom = " <div class = 'chat_msg'> " + item.chat_text + "      by  " + item.sent_from + "      at  " + time + "</div> ";
+        $(".chatmain").append(dom);
+    }
+
+}
+
+function convert_time(time) {
+    var year = time.split("-")[0];
+    var month = time.split("-")[1];
+    var day = time.split("-")[2];
+    day = day.split("T")[0];
+    var time = time.split("T")[1];
+    var hour = time.split(":")[0];
+    var min = time.split(":")[1];
+    var string_formatted_time = year + "/" + month + "/" + day + "     " + hour + ":" + min;
+    return string_formatted_time;
+}
 
 app.controller('authController', function($scope, $http, $rootScope, $location) {
     $scope.user = {
