@@ -35,9 +35,9 @@
 	                    <input type="submit" ng-click="search()">
 	                </form>
 	                <div id="searchresult">
-	                    <div ng-repeat="music in music_result" ng-click="view_item(result)">{{music}} </div>
-                        <div ng-repeat="user in user_result" ng-click="view_item(result)">{{user}} </div>          
-                        <div ng-repeat="event in event_result" ng-click="view_item(result)">{{event}} </div>
+	                    <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
+                        <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>          
+                        <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
 	                </div>
 	            </div>
         	</li>
@@ -125,6 +125,7 @@
                         <p>{{ post.created_at }}</p>
                     </li>
                 </ul>
+                
                 <ul class="filelist">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
