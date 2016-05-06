@@ -3,6 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
     $rootScope.now_playing = {};
+    $rootScope.search_string = "";
 
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
@@ -124,37 +125,26 @@ app.service('fileUpload', ['$http',
 
 app.controller('searchController', function($scope, $rootScope, $http) {
     $scope.search_results = {};
-    $scope.search = function() {
-        $http.get('/api/search', {
-            params: {
-                search_string: $scope.search_string
-            }
-        }).success(function(data) {
-            console.log(data)
-            $scope.post_result = data.posts
-            $scope.user_result = data.users
-            $scope.event_result = data.events
-        });
-    };
 
-    $scope.view_post = function(post) {
-        if (post.is_file) {
-            //if file, change now_playing, jplayer
-            $rootScope.now_playing = post
-            $("#jquery_jplayer_1").jPlayer("setMedia", {
-                title: post.original_name,
-                mp3: post.url.substring(post.url.indexOf("/") + 1)
-            });
-        }
-    }
 
-    $scope.view_user = function(user) {
+    // $scope.view_post = function(post) {
+    //     if (post.is_file) {
+    //         //if file, change now_playing, jplayer
+    //         $rootScope.now_playing = post
+    //         $("#jquery_jplayer_1").jPlayer("setMedia", {
+    //             title: post.original_name,
+    //             mp3: post.url.substring(post.url.indexOf("/") + 1)
+    //         });
+    //     }
+    // }
 
-    }
+    // $scope.view_user = function(user) {
 
-    $scope.view_event = function(e) {
+    // }
 
-    }
+    // $scope.view_event = function(e) {
+
+    // }
 });
 
 
@@ -162,24 +152,14 @@ app.factory('postService', function($resource) {
     return $resource('/api/posts/:id');
 });
 
-app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
+app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, $http) {
 
-    $scope.posts = [];
-    $scope.files = [];
+
     $scope.list_type = 1; //1: artists, 2: venues, 3: events
     //   var temp = postService.query();
     var files = [];
     var text_posts = [];
     var url = "/api/posts"
-
-
-
-    $scope.newPost = {
-        created_by: '',
-        text: '',
-        created_at: ''
-    };
-    $scope.user_posts = {};
 
     $http.get(url, {
         params: {
@@ -196,8 +176,11 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             }
         });
 
-        $scope.posts = text_posts;
-        $scope.files = files;
+        $rootScope.artist_posts = text_posts;
+        $rootScope.files = files;
+        $("#artistlist").hide()
+        $("#requestlist").hide()
+        $("#eventlist").hide()
     });
 
     $scope.trustSrc = function(src) {
@@ -208,38 +191,81 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
-        alert("change postService")
-        postService.save($scope.newPost, function() {
-            var list = postService.query();
-            list.forEach(function(item) {
-                item['created_at'] = convert_time(item['created_at']);
-            });
+        //   $scope.newPost.text = 
 
-            $scope.posts = list;
-            $scope.newPost = {
-                created_by: '',
-                text: '',
-                created_at: ''
-            };
+        var url = "/api/posts"
+        $http.post(url, {
+            newPost: $scope.newPost
+        }).success(function(data) {
+            console.log(data)
+        });
+    };
+
+    $scope.search = function() {
+        $rootScope.search_string = $scope.search_string
+        $http.get('/api/search', {
+            params: {
+                search_string: $scope.search_string
+            }
+        }).success(function(data) {
+            $rootScope.artist_posts = data.artist_posts;
+            $rootScope.files = data.files;
+            $rootScope.artists = data.artists;
+            $rootScope.requests = data.requests
+            $rootScope.events = data.events
         });
     };
 
     $scope.change_post_view_type = function(val) {
-        // alert(val)
+
+        $scope.clear_lists();
+
         if (val == 1) {
             set_columns("Song", "Artist", "Date")
-            $scope.load_artist_posts();
+            $("#artist_postlist").show()
+            $("#filelist").show()
+            if ($rootScope.search_string == "") {
+                $scope.load_artist_posts();
+            }
         }
         if (val == 2) {
-            set_columns("Gig requests", "Venue", "Date")
-            $scope.files = []
-            $scope.load_gig_requests();
+            $("#artistlist").show()
+            set_columns("Artist", "genre", "description")
+            if ($rootScope.search_string == "") {
+                $scope.load_artists();
+            }
         }
         if (val == 3) {
-            set_columns("Venue", "Artist", "Date")
-            $scope.files = []
-            $scope.load_gigs();
+            set_columns("Gig requests", "Venue", "Date")
+            if ($rootScope.search_string == "") {
+                $scope.load_gig_requests();
+            }
+            $("#requestlist").show()
         }
+        if (val == 4) {
+            set_columns("Venue", "Artist", "Date")
+            if ($rootScope.search_string == "") {
+                $scope.load_gigs();
+            }
+            $("#eventlist").show()
+        }
+
+    }
+
+    $scope.show_lists = function() {
+        $("#artist_postlist").show()
+        $("#filelist").show()
+        $("#artistlist").show()
+        $("#requestlist").show()
+        $("#eventlist").show()
+    }
+
+    $scope.clear_lists = function() {
+        $("#artist_postlist").hide()
+        $("#filelist").hide()
+        $("#artistlist").hide()
+        $("#requestlist").hide()
+        $("#eventlist").hide()
     }
 
     $scope.get_now_playing = function() {
@@ -252,7 +278,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             if ($("#now_playing_info_wrapper").css('display') == "block") {
                 $("#now_playing_info_wrapper").hide();
             } else {
-                // $("#uploadwrapper").hide();
+                / /
+                $("#uploadwrapper").hide();
                 $("#trending_wrapper").hide();
                 $("#saved_wrapper").hide();
                 $("#chat_list").hide();
@@ -280,7 +307,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
         var uploadUrl = "/api/upload_file";
         fileUpload.uploadFileToUrl(file, uploadUrl);
-        alert(uploadUrl);
     };
 
     $scope.upload_comment = function() {
@@ -302,53 +328,51 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.load_artist_posts = function() {
+        var files = [];
+        var text_posts = [];
         var url = "/api/posts"
-        $(".postlist").empty()
-        $(".filelist").empty()
 
         $http.get(url, {
             params: {
                 user_type: "artist"
             }
         }).success(function(data) {
-            data.forEach(function(d) {
-                if (d["is_file"] == true || d["is_file"] == "true") {
-                    var item = "<li><h6>" + d.original_name + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
-                    $(".filelist").append(item)
+            data.forEach(function(item) {
+                if (item["is_file"] == true || item["is_file"] == "true") {
+                    item['created_at'] = convert_time(item['created_at']);
+                    files.push(item);
                 } else {
-                    var item = "<li><h6>" + d.text + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
-                    $(".postlist").append(item)
+                    item['created_at'] = convert_time(item['created_at']);
+                    text_posts.push(item);
                 }
-            })
+            });
 
+            $rootScope.artist_posts = text_posts;
+            $rootScope.files = files;
         });
+
+    }
+
+    $scope.load_artists = function() {
+        var url = "/api/artists";
+        $http.get(url, {}).success(function(data) {
+            $rootScope.artists = data;
+        })
     }
 
     $scope.load_gig_requests = function() {
         var url = "/api/gig_requests";
-        $(".postlist").empty()
-        $(".filelist").empty()
 
         $http.get(url, {}).success(function(data) {
-            console.log(data)
-            data.forEach(function(e) {
-                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
-                $(".postlist").append(item)
-            });
+            $rootScope.requests = data;
         })
     }
 
     $scope.load_gigs = function() {
         var url = "/api/events";
-        $(".postlist").empty()
-        $(".filelist").empty()
 
         $http.get(url, {}).success(function(data) {
-            console.log(data)
-            data.forEach(function(e) {
-                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + convert_time(e.created_at) + "</p></li>"
-                $(".postlist").append(item)
-            });
+            $rootScope.events = data;
         })
     }
 

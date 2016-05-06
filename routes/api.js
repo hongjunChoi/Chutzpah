@@ -131,8 +131,10 @@ router.route('/search')
     var search_string = req.query.search_string.trim();
     console.log(search_string);
     var result = {
-        users: [],
-        posts: [],
+        artist_posts: [],
+        files: [],
+        artists: [],
+        requests: [],
         events: []
     };
 
@@ -144,15 +146,19 @@ router.route('/search')
         }, {
             username: search_string
         }, {
-            band_name: search_string
-        }, {
-            user_type: search_string
+            name: search_string
         }]
-    }, function(err, user) {
+    }, function(err, users) {
         if (err) {
             return res.send(err);
         }
-        result.users = user;
+        var artists = [];
+        users.forEach(function(user) {
+            if (user.user_type == "artist") {
+                artists.push(user)
+            }
+        })
+        result.artists = artists;
 
         Post.find({
             $or: [{
@@ -163,12 +169,31 @@ router.route('/search')
                 text: search_string
             }, {
                 original_name: search_string
-            }]
-        }, function(err, post) {
+            }, ]
+        }, function(err, posts) {
             if (err) {
                 return res.send(err);
             }
-            result.posts = post;
+            var files = [];
+            var artist_posts = [];
+            var requests = [];
+
+            posts.forEach(function(p) {
+                console.log(p)
+                if (p.user_type == "artist") {
+                    if (p.is_file) {
+                        files.push(p)
+                    } else {
+                        artist_posts.push(p)
+                    }
+                } else if (p.is_request) {
+                    requests.push(p)
+                }
+            })
+            result.artist_posts = artist_posts;
+            result.files = files;
+            result.requests = requests;
+
             Event.find({
                 $or: [{
                     artist: search_string
@@ -233,6 +258,21 @@ router.route("/gig_requests")
 
 
 
+router.route("/artists")
+
+.get(function(req, res) {
+    User.find({
+            user_type: "artist"
+        },
+        function(err, users) {
+            if (err) {
+                return res.send(500, err);
+            }
+            console.log(users)
+            return res.send(200, users)
+        });
+})
+
 router.route("/events")
 //create a new event
 .post(function(req, res) {
@@ -253,9 +293,7 @@ router.route("/events")
 })
 
 .get(function(req, res) {
-    console.log("---------")
     Event.find(function(err, events) {
-        console.log(events)
         if (err) {
             return res.send(500, err);
         }
@@ -266,11 +304,13 @@ router.route("/events")
 router.route('/posts')
 //creates a new post
 .post(function(req, res) {
+    console.log("------post requested")
     var post = new Post();
-    var text = req.body.text;
+    var text = req.body.newPost.text;
 
     post.text = text;
-    post.created_by = req.body.created_by;
+    post.created_by = req.body.newPost.created_by;
+    post.user_type = req.body.newPost.user_type;
     post.created_at = Date.now();
     post.is_file = false;
 
