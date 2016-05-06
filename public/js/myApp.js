@@ -126,9 +126,9 @@ app.service('fileUpload', ['$http',
                     'Content-Type': undefined
                 }
             }).success(function() {
-
+                alert("file successfully uploaded");
             }).error(function() {
-
+                alert("file upload failed");
             });
         }
     }
@@ -207,6 +207,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $http.post(url, {
             newPost: $scope.newPost
         }).success(function(data) {
+            $("#post_input_field").val("")
             console.log(data)
         });
     };
