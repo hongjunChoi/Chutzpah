@@ -2,6 +2,22 @@
 @import "eugeneso";
 
 $c-pink: #fa4e5e;
+$borderA: 2px;
+$borderB: 5px;
+
+$buttonBorder: 4px;
+$buttonPadding: 4px 6px;
+@mixin buttonA{
+	@include transition(all,100ms,linear);
+	border-radius: $buttonBorder;
+	padding: $buttonPadding;
+	cursor: pointer;
+	&:hover{
+		background-color: $c-pink;
+		color: white;
+	}
+}
+
 *{
 	margin: 0;
 	padding: 0;
@@ -20,6 +36,7 @@ body{
 body{
 	overflow: scroll;	
 	overflow-x:hidden;
+	background-color: $c-darkgray;
 }
 a{
 	text-decoration: none;
@@ -53,37 +70,70 @@ header{
 		display: inline-block;
 		float: right;
 		z-index: 100;
+		margin-right:10px;
 
 		li{
 			display: inline-block;
 			cursor: pointer;
-			margin-right: 30px;
+			margin-right: 20px;
+			vertical-align: top;
 			color:white;
 			z-index: 100;
-			@include transition(300ms, all, ease-in-out);
+			height:24px;
+			@include transition(200ms, all, ease-in-out);
 
-			&:hover{
-				opacity: 0.6;
-			}
+			&:hover{ opacity: 0.6; }
 		}
 		li, 
 		li p,
+		li p span,
 		li p a{	
 		    @include font-sans(300);
 		    font-size: 1em;
 		}
 	}
+	#logininfo{
+		opacity: 0.6;
+		height: auto;
+		border-radius: $buttonBorder;
+		overflow: hidden;
+		border:1px solid;
+		border-color: rgba(0,0,0,0);
+
+		p{
+			padding:1px 8px;
+			border-radius: 0;
+		}
+		& > p:last-of-type{ 
+			border-top:1px solid $c-gray;
+			visibility: hidden;
+			margin-top: 0;
+		}
+
+		&:hover{
+			opacity: 1;
+			border-color: $c-gray;
+			& > p:last-of-type{ 
+				visibility: visible;
+				padding-bottom: 0;
+				&:hover{ 
+					background-color: $c-gray;
+				}
+			}
+		}
+	}
 	#btn_search{
-		margin-top: -2px;
-		width:26px;
-		height:26px;
+		margin-top: 2px;
+		width:24px;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-image: url(../img/ui-icons/search.svg);
 	}
 	#btn_menu{
-		width:30px;
+		width:28px;
 		height:24px;
+		padding: 1px;
+		text-align: center;
 		span{
 			background-color: white;
 			display: block;
@@ -93,12 +143,14 @@ header{
 			border-radius: 1px;
 			display: block;
 			position: absolute;
-			top: 28px;
+			top: 32px;
+			// margin-left: 1px;
+
 			@include transition(300ms, all, ease-in-out);
 
-			&:nth-child(1){ @include translateY(-8px); }		
+			&:nth-child(1){ @include translateY(-7px); }		
 			&:nth-child(2){ opacity: 1; }		
-			&:nth-child(3){ @include translateY(8px); }
+			&:nth-child(3){ @include translateY(7px); }
 		}
 	}
 }
@@ -192,10 +244,7 @@ nav{
 		background-color: gray;
 		color: white;
 		float: right;
-		border-radius: 5px;
-		padding: 3px 6px;
-		cursor: pointer;
-		&:hover{ background-color: $c-pink;}
+		@include buttonA;
 	}
 	input.uploadfilebtn{ 
 		margin-top: 10px;
@@ -212,6 +261,7 @@ nav{
 		height: 100%;
 		width: 210px;
 		vertical-align: bottom;
+		resize:none;
 	}
 }
 #searchbar{
@@ -286,7 +336,7 @@ body.profileopened{
 //MAIN
 main{
 	width: 100%;
-	background-color: white;
+	background-color: $c-darkgray;
 }
 //main
 #mainscreen{
@@ -302,34 +352,44 @@ main{
 #listmenu{
 	position: fixed;
 	width: 90%;
-	background-color: black;
+	background-color: $c-darkgray;
 	opacity: 1;
 	border:none;
 	margin:0;
 	border-top: 200px solid $c-darkgray;
+	border-bottom: 1px solid rgba(255,255,255,0.5);
+	padding-bottom: 2px;
 	margin-top:-200px;
+	h6,p{ opacity: .7;
+		letter-spacing: .05em; 
+	}
 }
-.mainlist{
+.mainlist,
+.commentlist{
 	width: 90%;
 	margin: auto;
 	margin-top: 60px;
-	padding-top: 40px;
 	padding-bottom: 100px;
+}
+.mainlist{
+	padding-top: 40px;
 	ul{
-		margin-top: 27px;
+		margin-top: 46px;
 		padding-bottom:10px;
 		opacity: 1;
 		padding-top: 0;
 		padding-bottom: 0;
-		color:white;;
+		color:white;
 		li{
 			@include flexbox(row);
 			@include flexbox-justify(center);
+			padding-top: 5px;
+			padding-bottom: 5px;
 		}
 		h6,
 		p{
 			display: inline-block;
-			font-size: 1em;
+			font-size: 1.2em;
 			padding-bottom: 0;
 			font-weight: 500;
 		}
@@ -344,6 +404,7 @@ main{
 		}
 	}
 }
+#commentmain li,
 .postlist li,
 .filelist li{
 	// opacity: 0.8;
@@ -361,16 +422,54 @@ main{
 		border-bottom-color: $c-gray;
 	}
 	h6,
-	p{ font-weight: 300; }
+	p{
+		font-weight: 300;
+		font-size: 1em;
+	 }
 }
+#commentmain{
+	margin:auto;
+	background-color: $c-gray;
+	min-height: 100px;
+	height: 50px;
+	width: 90%;
+	padding: 12px 10px;
+}
+.commentlist{
+	background-color: $c-darkgray;
+	margin-bottom: 100px;
 
+	form{
+		margin:auto;
+		width: 90%;
+		padding: 12px 10px;
+		height: 26px;
+		background-color: $c-gray;
+		@include flexbox(row);
+		textarea{
+			min-width: 200px;
+			padding: 4px 4px;
+			resize:none;
+			background-color: white;
+			margin: 0;
+			border-radius: 2px;
+			flex-grow:2;
+			margin-right: 10px;
+		}
+		input{
+			float: right;
+			margin: 0;
+			@include buttonA;
+		}
+	}
+}
 //profile
 #profilewrapper{
 	position: fixed;
 	left: 0;
 	width: 80%;
 	max-width: 600px;
-	height: 100vh;
+	height: 100%;
 	background-color: white;
 	@include transition(300ms, all, ease-in-out);
 	-webkit-transform: translateX(-100%);
@@ -379,38 +478,55 @@ main{
 	    -ms-transform: translateX(-100%);
 	        transform: translateX(-100%);
 
-	#profileclose{
-		float: right;
-		margin-right: 40px;
-		margin-top: 20px;
-		cursor: pointer;
-		width:30px;
-		height:16px;
-
-		span{
-			background-color: $c-pink;
-			display: block;
-			position: absolute;
-			width: 28px;
-			height: 2px;
-			border-radius: 1px;
-			display: block;
-			position: absolute;
-			top: 28px;
-			@include transition(300ms, all, ease-in-out);
-
-			&:first-of-type{ @include rotate(405deg); }
-			&:last-of-type{ @include rotate(315deg); }
-		}
-	}
-
 	div{
 		margin: auto;
 		clear: both;
 	}
+	.profileinnerwrapper{
+		width: 100%;
+		height: 100%;
+		@include flexbox(column);
+	}
+	#profileheader{
+		width: 100%;
+		height: 200px;
+		overflow: hidden;
+	}
+		#profilecover{
+			position: relative;
+			width: 100%;
+			max-height: 200px;
+		}
+
+		#profileclose{
+			position: absolute;
+			right: 40px;
+			top: 0;
+			cursor: pointer;
+			width:30px;
+			height:16px;
+
+			span{
+				background-color: $c-pink;
+				display: block;
+				position: absolute;
+				width: 28px;
+				height: 2px;
+				border-radius: 1px;
+				display: block;
+				position: absolute;
+				top: 28px;
+				@include transition(300ms, all, ease-in-out);
+
+				&:first-of-type{ @include rotate(405deg); }
+				&:last-of-type{ @include rotate(315deg); }
+			}
+		}
 	#profile{
-		max-width: 450px;
-		margin-top: 100px;
+		flex-grow:2;
+		margin: auto;
+		width: 400px;
+		margin-top: -100px;
 		text-align: center;
 		img{
 			border-radius: 50%;
@@ -435,10 +551,7 @@ main{
 		}
 	}
 	#related{
-		position: absolute;
 		width: 100%;
-		bottom: 0;
-		left: 0;
 		margin: 0;
 		overflow: hidden;
 		h6{
@@ -472,14 +585,8 @@ main{
 	background-color: white;
 	color: $c-pink;
 	float: left;
-	padding: 2px 4px;
-	border-radius: 4px;
 	margin-left: -4px;
-	@include transition(all,100ms,linear);
-	&:hover{
-		background-color: $c-pink;
-		color: white;
-	}
+	@include buttonA;
 }
 
 //z-index
@@ -496,12 +603,13 @@ main{
 #chatwrapper{
 	position: absolute;
 	width: 300px;
-	height: 400px;
+	height: 420px;
 	right: -300px;
 	bottom: 120px;
 	background-color: white;
 	border:1px solid $c-pink;
 	z-index: 0;
+	border-radius: $borderB;
 	@include transition(all, 300ms, ease-out);
 	-webkit-transform: translateX(-100%);
 	   -moz-transform: translateX(-100%);

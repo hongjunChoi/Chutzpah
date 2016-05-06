@@ -33,6 +33,8 @@ module.exports = function(passport) {
         failureRedirect: '/auth/failure'
     }));
 
+    router.get('/email-verification/:username', passport.authenticate('verify_email'));
+
 
     //sends user session if there is one
     router.get('/session', function(req, res) {

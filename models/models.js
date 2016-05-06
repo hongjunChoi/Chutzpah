@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
 	username: String, //username from api
 	password: String, //hash created from password
+	email: String,
 	created_at: {
 		type: Date,
 		default: Date.now()
@@ -11,7 +12,22 @@ var userSchema = new mongoose.Schema({
 	genre: String,
 	band_name: String,
 	user_location: String,
-	user_description: String
+	user_description: String,
+});
+
+var tempUserSchema = new mongoose.Schema({
+	username: String, //username from api
+	password: String, //hash created from password
+	email: String,
+	created_at: {
+		type: Date,
+		default: Date.now()
+	}, //default will be time when user is created
+	user_type: String,
+	genre: String,
+	band_name: String,
+	user_location: String,
+	user_description: String,
 });
 
 var postSchema = new mongoose.Schema({
@@ -94,4 +110,5 @@ mongoose.model("Notification", notificationSchema);
 mongoose.model('Comment', commentSchema);
 mongoose.model('Post', postSchema);
 mongoose.model("User", userSchema);
-mongoose.model("Event", eventSchema)
+mongoose.model("Event", eventSchema);
+mongoose.model("TempUser", tempUserSchema);

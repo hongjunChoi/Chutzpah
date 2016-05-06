@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 	socket.on("new_msg", function(data) {
 		// alert(data.msg + "  received from " + data.from);
-		$(".chatmain").append( $("<p class='received'>") + data.msg + $("</p>") );
+		$(".chatmain").append($("<p class='received'>") + data.msg + $("</p>"));
 	});
 
 	var menuopened = false;
@@ -21,13 +21,17 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#btn_menu").click(function() {  menuopen();  });
+	$("#btn_menu").click(function() {
+		menuopen();
+	});
 
 
 	$("#logo").click(function() {
 		closeAll();
 
-		if (menuopened) {  menuopened = false;  }
+		if (menuopened) {
+			menuopened = false;
+		}
 	});
 
 	$("#btn_search").click(function() {
@@ -35,23 +39,41 @@ $(document).ready(function() {
 		$("body").addClass("searchopened");
 	});
 
-	$("#profileclose").click(function() {  closeAll(); });
+	$("#profileclose").click(function() {
+		closeAll();
+	});
 
 	function menuopen() {
-		if (!menuopened) { 
-			$("body").addClass("menuopened"); 
-		} 
-		else { closeAll(); }
+		if (!menuopened) {
+			$("body").addClass("menuopened");
+		} else {
+			closeAll();
+		}
 		menuopened = !menuopened;
 	}
 
-	//chat
-	$("#openchat").click(function(){  $("body").addClass("chatopened"); });
 
-	function closeAll(){
+
+	function closeAll() {
 		$("body").removeClass("menuopened");
 		$("body").removeClass("profileopened");
 		$("body").removeClass("searchopened");
 		$("body").removeClass("chatopened");
 	}
+
+	function add_chat(info) {
+		for (var i = 0; i < info.length; i++) {
+			var item = info[i];
+			var time = convert_time(info.sent_at);
+			var dom = " <div> " + info.chat_text + "      by  "
+			info.sent_from + "      at  " + time + "</div>"
+		}
+
+	}
+
+	function convert_time(time) {
+		alert(time.toDateString());
+		return time.toDateString();
+	}
+
 });

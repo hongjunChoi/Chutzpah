@@ -129,6 +129,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/public\/img\/favicon.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 790,
+		"inputAbbreviatedPath": "\/public\/img\/favicon.png",
+		"outputAbbreviatedPath": "\/public\/img\/favicon.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/public\/img\/mock\/artistprofile.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
@@ -169,6 +180,17 @@
 		"initialSize": 262177,
 		"inputAbbreviatedPath": "\/public\/img\/sample.jpg",
 		"outputAbbreviatedPath": "\/public\/img\/sample.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/img\/samplecover.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1.09728e+07,
+		"inputAbbreviatedPath": "\/public\/img\/samplecover.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/samplecover.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
