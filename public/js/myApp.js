@@ -2,7 +2,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
 
     $rootScope.authenticated = false;
     $rootScope.current_user = '';
-    $rootScope.now_playing = "";
+    $rootScope.now_playing = {};
 
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
@@ -12,8 +12,28 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
-
         }
+        $("#mainscreen").data("username", $rootScope.current_user);
+        var socket = io.connect();
+        var user_name = $("#mainscreen").data("username");
+
+        socket.emit('join', {
+            username: user_name
+        });
+
+        socket.on("new_msg", function(data) {
+
+            if ($("body").hasClass("chatopened") && $rootScope.now_playing.created_by == data.from) {
+                var time = new Date().toString();
+                time = time.split(":")[0] + ":" + time.split(":")[1];
+                var dom = " <div class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
+                $(".chatmain").append(dom);
+            } else {
+                alert(data.msg + "  received from " + data.from);
+            }
+
+        });
+
     });
 
 
@@ -220,14 +240,8 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         data = $scope.load_comments(post._id);
 
         $rootScope.now_playing = post
-        console.log("==========")
-        console.log($rootScope.now_playing);
-        data = $scope.load_comments(post._id)
+        $scope.load_comments(post._id)
 
-        data.forEach(function(c) {
-            console.log(c);
-        });
-        console.log(data);
     }
 });
 
@@ -258,8 +272,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             }
         }).success(function(data) {
             var user_info = data['info'];
-            console.log("==========user INFO=======");
-            console.log(user_info);
             set_user_profile(user_info[0]);
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
@@ -324,8 +336,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
                 sent_to: $rootScope.current_user
             }
         }).success(function(data) {
-            console.log("get chat results");
-            console.log(data);
             add_chat(data);
             $("body").addClass("chatopened");
 
@@ -336,17 +346,20 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.send_chat = function() {
         var url = "/send_chat";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var sent_to = "scottljy";
-        alert("sent chat front end");
+        var sent_to = $rootScope.now_playing.created_by;
+        var text = $("#chat_input").val();
+        var sent_from = $rootScope.current_user;
+
+
         $http.post(url, {
-            sent_from: $rootScope.current_user,
-            text: "abcd",
+
+            sent_from: sent_from,
+            text: text,
             sent_to: sent_to
+
         }).success(function(data) {
-            alert("send chat success");
             console.log('send chat result ');
             console.log(data);
-
         });
     }
 
