@@ -2,8 +2,12 @@
 @import "eugeneso";
 
 $c-pink: #fa4e5e;
+$c-gray1: #29292c;
+// $c-gray1: rgba(30,30,33,1.0);
+$c-gray2: #29292c;
 $borderA: 2px;
 $borderB: 5px;
+$controller:60px;
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -51,26 +55,30 @@ button{
 @include generate-type-size(1);
 
 #logo,
-header{
-	z-index: 200;
-}
-#profilewrapper{
-	z-index: 100;
-}
+header{ z-index: 200; }
+#profilewrapper{ z-index: 100; }
 
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//   Header
 header{
 	position: fixed;
 	top: 0;
-	right:0;
+	left:0;
+	width: 100%;
 	padding: 20px 0;
+	height: 20px;
 	z-index: 100;
-
+	background-color: $c-darkgray;
 
 	ul{
+		width:100%;
 		display: inline-block;
 		float: right;
 		z-index: 100;
 		margin-right:10px;
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
 
 		li{
 			display: inline-block;
@@ -81,8 +89,6 @@ header{
 			z-index: 100;
 			height:24px;
 			@include transition(200ms, all, ease-in-out);
-
-			&:hover{ opacity: 0.6; }
 		}
 		li, 
 		li p,
@@ -90,6 +96,54 @@ header{
 		li p a{	
 		    @include font-sans(300);
 		    font-size: 1em;
+		}
+		//Searchbar
+		#searchwrapper{ position: relative; }
+		#searchbar{
+			border:1px solid $c-gray2;
+			width: 240px;
+			opacity: 1;
+			overflow: hidden;
+			margin:auto;
+			position: fixed;
+			padding: 2px 6px;
+			@include transition(200ms, all, linear);
+			&:hover{ background-color: $c-gray1;}
+			form{
+				height: 28px;
+			}
+			span,
+			input{
+				display: inline-block;
+				margin: 0;
+				float: left;
+			}
+			span{
+				margin-top: 4px;
+				margin-right: 12px;
+				width:20px;
+				height:20px;
+				background-image:url(../img/ui-icons/search.svg);
+				background-size: cover;
+				background-repeat: no-repeat;
+				float: left;
+			}
+			input{
+				width: 200px;
+				height:28px;
+				background-color: transparent;
+				color: white;
+				float: left;
+			}
+			input:last-of-type{ display: none; }
+		}
+		#searchresult{
+			div{
+				border-top: 1px solid white;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				width: 100%;
+			}
 		}
 	}
 	#logininfo{
@@ -116,19 +170,34 @@ header{
 			& > p:last-of-type{ 
 				visibility: visible;
 				padding-bottom: 0;
-				&:hover{ 
-					background-color: $c-gray;
-				}
+				&:hover{  background-color: $c-gray; }
 			}
 		}
 	}
-	#btn_search{
-		margin-top: 2px;
-		width:24px;
-		background-size: cover;
-		background-repeat: no-repeat;
-		background-image: url(../img/ui-icons/search.svg);
+	#btn_upload{
+		span{
+			width: 24px;
+			height: 24px;
+			padding: 1px;
+			background-image: url(../img/ui-icons/upload.svg);
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		div{
+			width: 400px;
+			height: 400px;
+			background-color: white;
+			display: none;
+		}
 	}
+
+	// #btn_search{
+	// 	margin-top: 2px;
+	// 	width:24px;
+	// 	background-size: cover;
+	// 	background-repeat: no-repeat;
+	// 	background-image: url(../img/ui-icons/search.svg);
+	// }
 	#btn_menu{
 		width:28px;
 		height:24px;
@@ -144,7 +213,6 @@ header{
 			display: block;
 			position: absolute;
 			top: 32px;
-			// margin-left: 1px;
 
 			@include transition(300ms, all, ease-in-out);
 
@@ -168,8 +236,9 @@ header{
 }
 
 main, nav{ height: 100vh; }
-
-//MENU
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//  Nav
 nav{
 	display: block;
 	position: fixed;
@@ -178,11 +247,7 @@ nav{
 	width: 340px;
 	background-color: white;
 	@include transition(200ms, all, ease-in-out);
-	-webkit-transform: translateX(100%);
-	   -moz-transform: translateX(100%);
-	     -o-transform: translateX(100%);
-	    -ms-transform: translateX(100%);
-	        transform: translateX(100%);
+	@include translateX(100%);
 
 	ul{
 		margin-top: 100px;
@@ -264,38 +329,11 @@ nav{
 		resize:none;
 	}
 }
-#searchbar{
-	margin-left:-20px;
-	border-width: 1px;
-	border-style: solid;
-	border-color:$c-pink;
-	border-radius: 25px;
-	width: 200px;
-	padding:11px 20px;
-	opacity: 1;
-	overflow: hidden;
-	@include transition(200ms, all, linear);
 
-	input{
-		height:28px;
-		&:last-of-type{
-			cursor: pointer;
-			background-color: transparent;
-			color:transparent;
-			background-image:url(../img/ui-icons/search-01.svg);
-			background-size: cover;
-			background-repeat: no-repeat;
-			width:28px;
-			height:28px;
-			float: right;
-		}
-	}
-}
+
 body.menuopened{
 	header{
-		ul li{
-			color:black;
-		}
+		ul li{ color:black; }
 		#btn_menu{
 			span{
 				background-color: $c-pink;	
@@ -307,36 +345,20 @@ body.menuopened{
 
 		}
 	}
-	nav{
-	-webkit-transform: translateX(0);
-	   -moz-transform: translateX(0);
-	     -o-transform: translateX(0);
-	    -ms-transform: translateX(0);
-	        transform: translateX(0);
-	    ul{
-	    	li{
-			-webkit-transform: translateX(0);
-			        transform: translateX(0);
-	    	}
-	    }
+	nav{ @include translateX(0);
+	    ul li{ @include translateX(0); }
 	}
 	#btn_search{ display: none; }
 }
 body.profileopened{
-	#profilewrapper{
-	-webkit-transform: translateX(0);
-	   -moz-transform: translateX(0);
-	     -o-transform: translateX(0);
-	    -ms-transform: translateX(0);
-	        transform: translateX(0);
-	}
+	#profilewrapper{ @include translateX(0); }
 }
-
-///////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 //MAIN
 main{
 	width: 100%;
-	background-color: $c-darkgray;
+	background-color: $c-gray2;
 }
 //main
 #mainscreen{
@@ -344,30 +366,30 @@ main{
 	width:100%;
 	height: auto;
 	margin:0;
-	background-color: $c-darkgray;
-
-	& > div{
-	}
+	background-color: $c-gray2;
+}
+#listmenu,
+.mainlist,
+.commentlist{
+	width: 80%;
+	margin: auto;
 }
 #listmenu{
 	position: fixed;
-	width: 90%;
-	background-color: $c-darkgray;
+	background-color: $c-gray2;
 	opacity: 1;
 	border:none;
-	margin:0;
-	border-top: 200px solid $c-darkgray;
+	border-top: 200px solid $c-gray1;
 	border-bottom: 1px solid rgba(255,255,255,0.5);
 	padding-bottom: 2px;
 	margin-top:-200px;
-	h6,p{ opacity: .7;
+	h6,p{ 
+		opacity: .7;
 		letter-spacing: .05em; 
 	}
 }
 .mainlist,
 .commentlist{
-	width: 90%;
-	margin: auto;
 	margin-top: 60px;
 	padding-bottom: 100px;
 }
@@ -395,7 +417,7 @@ main{
 		}
 		h6{
 			margin-right:1%;
-			&:first-of-type{ width: 45%; }
+			&:first-of-type{ width: 40%; }
 			&:last-of-type{ width: 20%; }
 		}
 		p{
@@ -407,19 +429,18 @@ main{
 #commentmain li,
 .postlist li,
 .filelist li{
-	// opacity: 0.8;
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
-	border-top:1px solid $c-gray;
-	border-bottom:1px solid $c-gray;
+	border-top:1px solid $c-darkgray;
+	border-bottom:1px solid $c-darkgray;
 	&:nth-child(even){
-		border-top:$c-gray;
-		border-bottom:$c-gray;
+		border-top:$c-darkgray;
+		border-bottom:$c-darkgray;
 	}
 	&:hover{
-		background-color: $c-gray;
-		border-top-color: $c-gray;
-		border-bottom-color: $c-gray;
+		background-color: $c-darkgray;
+		border-top-color: $c-darkgray;
+		border-bottom-color: $c-darkgray;
 	}
 	h6,
 	p{
@@ -429,14 +450,14 @@ main{
 }
 #commentmain{
 	margin:auto;
-	background-color: $c-gray;
+	background-color: rgba(255,255,255,0.5);
 	min-height: 100px;
 	height: 50px;
 	width: 90%;
 	padding: 12px 10px;
 }
 .commentlist{
-	background-color: $c-darkgray;
+	background-color: $c-gray1;
 	margin-bottom: 100px;
 
 	form{
@@ -463,20 +484,17 @@ main{
 		}
 	}
 }
-//profile
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+// Profile
 #profilewrapper{
 	position: fixed;
-	left: 0;
-	width: 80%;
-	max-width: 600px;
+	right: 0;
+	width: 500px;
 	height: 100%;
 	background-color: white;
 	@include transition(300ms, all, ease-in-out);
-	-webkit-transform: translateX(-100%);
-	   -moz-transform: translateX(-100%);
-	     -o-transform: translateX(-100%);
-	    -ms-transform: translateX(-100%);
-	        transform: translateX(-100%);
+	@include translateX(100%);
 
 	div{
 		margin: auto;
@@ -491,6 +509,9 @@ main{
 		width: 100%;
 		height: 200px;
 		overflow: hidden;
+		background-size: cover;
+		background-repeat: no-repeat;
+
 	}
 		#profilecover{
 			position: relative;
@@ -529,25 +550,39 @@ main{
 		margin-top: -100px;
 		text-align: center;
 		img{
-			border-radius: 50%;
 			position: relative;
 			width: 100px;
 			height:100px;
 			margin:auto;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 			clear: both;
 		}
+		//name
 		h3{
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
 			font-weight: 700;
 			margin-bottom: 20px;
-
 		}
+		//description
 		p{
 			font-size: 1.1em;
 			line-height: 1.5em;
 			text-align: left;
+		}
+		//tags
+		span{
+			border: 1px solid #d1d0cc;
+			color: #d1d0cc;
+			padding: 2px 6px;
+			border-radius: $borderA;
+			cursor: pointer;
+			margin-left: 2px;
+			margin-right: 2px;
+			@include transition(all,100ms,linear);
+			&:hover{ border-color: $c-pink;
+				background-color: $c-pink;
+				color: white;}
 		}
 	}
 	#related{
@@ -599,28 +634,23 @@ main{
 	top: 0;
 	left: 0;
 }
+///////////////////////////////////////////////////////////////////////////
 //chat
 #chatwrapper{
 	position: absolute;
-	width: 300px;
+	width: 500;
 	height: 420px;
-	right: -300px;
-	bottom: 120px;
+	bottom: $controller;
 	background-color: white;
-	border:1px solid $c-pink;
-	z-index: 0;
+	z-index: 9999;
 	border-radius: $borderB;
 	@include transition(all, 300ms, ease-out);
-	-webkit-transform: translateX(-100%);
-	   -moz-transform: translateX(-100%);
-	     -o-transform: translateX(-100%);
-	    -ms-transform: translateX(-100%);
-	        transform: translateX(-100%);
+	@include translateY(100%);
 
 	& > div{
 		padding-left: 10px;
 		padding-right: 10px;
-		width: 280px;
+		width: 480px;
 		position: relative;
 		clear: both;
 	}
@@ -639,12 +669,8 @@ main{
 			padding: 4px;
 			margin: 2px 8px;
 		}
-		p.received{ 
-			float: left; 
-		}
-		p.sent{ 
-			float: right;
-		}
+		p.received{  float: left;  }
+		p.sent{ float: right; }
 	}
 	.chatcontrol{
 		height: 40px;
@@ -662,48 +688,41 @@ main{
 			color:black;
 			width: 100%;
 		}
-		// input[type="submit"]{
-		// 	background-color: $c-pink;
-		// 	opacity: .6;
-		// 	cursor: pointer;
-		// 	float: right;
-		// 	@include transition(all,200ms,linear);
-		// 	&:hover{ opacity: 1;}
-		// }
 	}
 }
-body.chatopened{
-	#chatwrapper{
-	-webkit-transform: translateX(10%);
-	   -moz-transform: translateX(10%);
-	     -o-transform: translateX(10%);
-	    -ms-transform: translateX(10%);
-	        transform: translateX(10%);
-	}
-}
+body.chatopened #chatwrapper{ @include translateY(0%); }
 
-
-
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 //controller
 #controller{
-	background-color: $c-pink;
+	z-index: 999;
+	background-color: $c-darkgray;
 	position: fixed;
 	bottom: 0;
 	height: 60px;
 	width: 100%;
+	border-top: 1px solid $c-gray;
 	display: block;
+	@include transition(all,100ms,linear);
+
+	&:hover{
+		background-color: $c-pink;
+		opacity: 1;
+	}
 
 	& > div{ position: absolute; }
 }
 
 #thumbwrapper{
 	margin: 0;
-	margin-top: -60px;
 	min-width: 160px;
 	width: 10%;
 	height: 160px;
 	text-align: center;
-
+	position: absolute;
+	left: 0;
+	z-index: 50;
 	img, span{
 		clear: both;
 		margin:auto;
@@ -711,14 +730,14 @@ body.chatopened{
 	}
 	img{
 		display: block;
-		width: 80px;
-		height:80px;
-		margin-bottom: 10px;
-		border-radius: 50%;
+		width: 50px;
+		height:50px;
+		margin-top: 5px;
 		background-color: black;
 		box-shadow: none;
 		outline: none;
 		opacity: 1;
+		cursor: pointer;
 		@include transition(all,300ms,linear);
 		&:hover{ opacity: .8;}
 	}
@@ -740,50 +759,55 @@ body.chatopened{
 	.jp-gui div{ display: inline-block; }
 	.jp-interface{
 		width: 100%;
-		@include flexbox(row);
-		@include flexbox-justify(space-between);
+		& > div{ 
+			position: relative;
+			vertical-align: middle; 
+		}
+		& > .jp-details{ margin-left: 160px;}
+	}
+	.jp-details{
+		.titlewrapper{ 
+			color: white;
+			min-width: 160px;
+			width: 10%;
+
+			& > div{
+				text-align: center;
+				clear: both;
+				margin:auto;
+				position: relative;
+				width: 100%;
+				padding-bottom: 4px;
+				&:first-of-type{
+					font-weight: 500;
+					letter-spacing: .05em;
+				}
+			}
+		}
+	}
+	.jp-controls-wrapper{
+		min-width: 630px;
+		position: relative;
+		margin: auto;
+		margin-left: 30px;
 		& > div{
 			vertical-align: middle;
 			background-color: transparent;
 			&:nth-child(0){ width: 10%; }
 		}
-		.jp-details{
-			&:first-of-type{ vertical-align: bottom; }
-			.titlewrapper{ 
-				color: white;
-				min-width: 160px;
-				width: 10%;
-
-				& > div{
-					text-align: center;
-					clear: both;
-					margin:auto;
-					position: relative;
-					width: 100%;
-				}
-			}
-		}
 	}
 
 //progressbar
-.jp-details{
-
-	& > div{ position: relative; }
-	.titlewrapper{ float: left; }
-	.progresswrapper{
-		float: right;
-		div{ vertical-align: middle; }
-	}
+.progresswrapper{
+	float: right;
+	div{ vertical-align: middle; }
 }
 	.jp-progress{
-		min-width: 300px;
-		width: auto;
-		max-width: 500px;
-		height: 8px;
-		margin: auto 6px;
+		width: 100%;
+		height: 4px;
 		position: relative;
-		border-radius: 4px;
 		overflow: hidden;
+		background-color: black;
 	}
 		.jp-seek-bar,
 		.jp-play-bar{
@@ -791,19 +815,18 @@ body.chatopened{
 			position: absolute;
 			left: 0;
 			top: 0;
-			height: 8px;
+			height: 4px;
 			cursor: pointer;
 		}
 		.jp-seek-bar{ background-color: rgba(0,0,0,0.5); }
 		.jp-play-bar{
-			background-color: white;
+			background-color: $c-pink;
 			border-top-right-radius: 4px;
 			border-bottom-right-radius: 4px;
 		}
+
 		.jp-duration,
-		.jp-current-time{
-			font-size: 0.9em;
-		}
+		.jp-current-time{ font-size: 0.9em; }
 		.ctrlbtn{
 			opacity: 0.6;
 			width: 50px;
@@ -824,10 +847,7 @@ body.chatopened{
 			@include transition(all,200ms,linear);
 			&:hover{ 
 				opacity: 1;
-
-				.jp-volume-bar-value span{
-					opacity: 1;
-				}
+				.jp-volume-bar-value span{ opacity: 1; }
 			}
 			& > button,
 			& > div{
@@ -842,7 +862,6 @@ body.chatopened{
 			position: relative;
 			cursor: pointer;
 			border-radius: 2px;
-
 		}
 		.jp-volume-bar-value{
 			background-color: rgba(0,0,0,0.5);
@@ -863,8 +882,41 @@ body.chatopened{
 				opacity: 0;
 			}
 		}
-		.jp-play{ background-image: url(../img/ui-icons/play.svg); }
-		.jp-play:focus{ background-image: url(../img/ui-icons/pause.svg);}
-		.jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
-		.jp-mute{  background-image: url(../img/ui-icons/volume_3.svg); }
-		.jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//  Icons
+.jp-play{ background-image: url(../img/ui-icons/play.svg); }
+.jp-play:focus{ background-image: url(../img/ui-icons/pause.svg);}
+.jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
+.jp-mute{  background-image: url(../img/ui-icons/volume_3.svg); }
+.jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
+
+		//old
+// #searchbar{
+// 	margin-left:-20px;
+// 	border-width: 1px;
+// 	border-style: solid;
+// 	border-color:$c-pink;
+// 	border-radius: 25px;
+// 	width: 200px;
+// 	padding:11px 20px;
+// 	opacity: 1;
+// 	overflow: hidden;
+// 	@include transition(200ms, all, linear);
+
+// 	input{
+// 		height:28px;
+// 		&:last-of-type{
+// 			cursor: pointer;
+// 			background-color: transparent;
+// 			color:transparent;
+// 			background-image:url(../img/ui-icons/search-01.svg);
+// 			background-size: cover;
+// 			background-repeat: no-repeat;
+// 			width:28px;
+// 			height:28px;
+// 			float: right;
+// 		}
+// 	}
+// }
