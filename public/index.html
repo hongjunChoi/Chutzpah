@@ -26,21 +26,21 @@
 <body ng-app="myApp">
     <header>
         <ul>
-        	<li><img id="logo" src="img/logo.svg" /></li>
-        	<li id="searchwrapper">
-	        	<div id="searchbar" ng-controller="searchController">
-	                <form>
-	                	<span></span>
-	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-	                    <input type="submit" ng-click="search()">
-	                </form>
-	                <div id="searchresult">
-	                    <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
-                        <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>          
+            <li><img id="logo" src="img/logo.svg" /></li>
+            <li id="searchwrapper">
+                <div id="searchbar" ng-controller="searchController">
+                    <form>
+                        <span></span>
+                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+                        <input type="submit" ng-click="search()">
+                    </form>
+                    <div id="searchresult">
+                        <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
+                        <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                         <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
-	                </div>
-	            </div>
-        	</li>
+                    </div>
+                </div>
+            </li>
             <li id="loginregister">
                 <p ng-hide="authenticated">
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
@@ -235,12 +235,19 @@
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
+                <div id="now_playing_info_wrapper" style="display : none">
+                    <p> Song Title : <span id="now_playing_song_title"></span></p>
+                    <p> Artist: <span id="now_playing_song_artist"></span></p>
+                    <p> posted at : <span id="now_playing_song_date"></span></p>
+                </div>
             </li>
             <li>
                 <h4>trending</h4>
+                <div style="display: none" id="trending_wrapper"></div>
             </li>
             <li>
                 <h4>saved</h4>
+                <div style="display: none" id="saved_wrapper"></div>
             </li>
             <li id="user_notification" ng-controller="profileController">
                 <h4 ng-click="get_chat()">notification</h4>
