@@ -103,11 +103,11 @@
                 <!-- content lists -->
                 <div style="color: white; position:fixed; z-index:9">
                     <form>
-                        <input type="radio" name="post_type" ng-click="change_post_type(1)" value="1" checked/>
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(1)" value="1" checked/>
                         <label>Artist</label>
-                        <input type="radio" name="post_type" ng-click="change_post_type(2)" value="2" />
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(2)" value="2" />
                         <label>Venue</label>
-                        <input type="radio" name="post_type" ng-click="change_post_type(3)" value="3" />
+                        <input type="radio" name="post_type" ng-click="change_post_view_type(3)" value="3" />
                         <label>Events</label>
                     </form>
                 </div>
@@ -125,7 +125,7 @@
                         <p>{{ post.created_at }}</p>
                     </li>
                 </ul>
-                
+
                 <ul class="filelist">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
