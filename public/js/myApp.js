@@ -9,7 +9,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
         if (data && data !== "undefined" && data['user']) {
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
-            $rootScope.current_user = data['user']['user_type'];
+            $rootScope.user_type = data['user']['user_type'];
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
@@ -590,7 +590,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
-                $rootScope.user_type = data.user.user_type
+                $rootScope.user_type = data.user.user_type;
                 $location.path('/profile');
             } else {
                 $scope.error_message = data.message;
@@ -610,6 +610,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
+                $rootScope.user_type = data.user.user_type;
                 $location.path('/');
             } else {
                 $scope.error_message = data.message;
