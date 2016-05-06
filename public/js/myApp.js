@@ -272,6 +272,10 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         })
     }
 
+    $scope.get_chat_from = function(){
+        
+    }
+
     $scope.get_chat = function() {
         alert("get chat request")
         $http.get('/get_chat', {
