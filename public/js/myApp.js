@@ -181,13 +181,14 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }).success(function(data) {
         data.forEach(function(item) {
             if (item["is_file"] == true || item["is_file"] == "true") {
-                item["created_at"] = convert_time(item["created_at"]);
+                item['created_at'] = convert_time(item['created_at']);
                 files.push(item);
             } else {
-                item["created_at"] = convert_time(item["created_at"]);
+                item['created_at'] = convert_time(item['created_at']);
                 text_posts.push(item);
             }
-        })
+        });
+
         $scope.posts = text_posts;
         $scope.files = files;
     });
@@ -201,7 +202,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
         postService.save($scope.newPost, function() {
-            $scope.posts = postService.query();
+            var list = postService.query();
+            list.forEach(function(item) {
+                item['created_at'] = convert_time(item['created_at']);
+            });
+
+            $scope.posts = list;
             $scope.newPost = {
                 created_by: '',
                 text: '',
