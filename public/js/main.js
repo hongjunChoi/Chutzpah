@@ -30,10 +30,10 @@ $(document).ready(function() {
 		if (menuopened) {  menuopened = false;  }
 	});
 
-	$("#btn_search").click(function() {
-		menuopen();
-		$("body").addClass("searchopened");
-	});
+	// $("#btn_search").click(function() {
+	// 	menuopen();
+	// 	$("body").addClass("searchopened");
+	// });
 
 	$("#profileclose").click(function() {  closeAll(); });
 
