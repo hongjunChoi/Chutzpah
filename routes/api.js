@@ -86,18 +86,16 @@ router.route('/upload_img')
                 console.log("Error: ", err);
                 return res.end("Error upoading image");
             }
-            User.updateOne({
-                "username": res.req.user.username
-            }, {
-                $set: {
-                    "img_url": res.req.file.path
-                }
-            }, function(err, result) {
-                console.log(result)
-                if (err) {
-                    return res.end(err)
-                }
-                res.json(result)
+            User.findById(res.req.user._id, function(err, user) {
+                if (err)
+                    res.send(err);
+                user.img_url = res.req.file.path;
+
+                user.save(function(err, post) {
+                    if (err)
+                        res.send(err);
+                    res.json(post);
+                });
             });
         })
     });
@@ -264,6 +262,20 @@ router.route('/search')
 
 });
 
+router.route("/user")
+    .get(function(req, res) {
+        var username = req.query.username;
+        User.find({
+            username: username
+        }, function(err, user) {
+            if (err) {
+                console.log("err")
+                return res.send(err);
+            }
+            console.log("!!!!!")
+            return res.json(user)
+        });
+    });
 
 //api for getting info needed for user profile
 router.route("/profile")

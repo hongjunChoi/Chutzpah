@@ -125,10 +125,29 @@ app.service('fileUpload', ['$http',
                 headers: {
                     'Content-Type': undefined
                 }
-            }).success(function() {
-                alert("file successfully uploaded");
-            }).error(function() {
-                alert("file upload failed");
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        }
+
+        this.uploadImageToUrl = function(img, uploadUrl) {
+            var fd = new FormData();
+            fd.append('file', img);
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function successCallback(response) {
+                console.log(response)
+                set_user_images(response.data.img_url)
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
             });
         }
     }
@@ -298,13 +317,12 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             if ($("#now_playing_info_wrapper").css('display') == "block") {
                 $("#now_playing_info_wrapper").hide();
             } else {
-                / /
-                $("#uploadwrapper").hide();
+                $("#upload_wrapper").hide();
                 $("#trending_wrapper").hide();
                 $("#saved_wrapper").hide();
                 $("#chat_list").hide();
 
-                set_now_playing_info(data);
+                $scope.set_now_playing_info(data);
                 $("#now_playing_info_wrapper").show();
             }
 
@@ -432,7 +450,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             title: post.original_name,
             mp3: post.url.substring(post.url.indexOf("/") + 1)
         });
-
         $scope.post_id = post._id;
         $scope.load_comments(post);
         $rootScope.now_playing = post
@@ -440,13 +457,25 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#now_playing_info_wrapper").hide();
         $scope.get_now_playing();
     }
+
+    $scope.set_now_playing_info = function(data) {
+        $("#now_playing_song_title").html(data.original_name);
+        $("#now_playing_song_artist").html(data.created_by);
+        $("#now_playing_song_date").html(data.created_at);
+        var url = "/api/user";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var user_name = data.created_by;
+        console.log("-------setnow")
+        $http.get(url, {
+            params: {
+                username: user_name
+            }
+        }).success(function(data) {
+            set_user_images(data[0].img_url)
+        });
+    }
 });
 
-function set_now_playing_info(data) {
-    $("#now_playing_song_title").html(data.original_name);
-    $("#now_playing_song_artist").html(data.created_by);
-    $("#now_playing_song_date").html(data.created_at);
-}
 
 
 function set_columns(col1, col2, col3) {
@@ -460,6 +489,7 @@ function set_user_profile(info, user) {
     var location = info.user_location;
     var description = info.user_description;
     var genre = info.genre;
+    set_user_images(info.image_url)
     $("#user_profile_username").html(username);
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
@@ -467,12 +497,23 @@ function set_user_profile(info, user) {
     $(".current_user_profile").html(username);
     if (username == user) {
         $('#openchat').hide();
+        $('.img-button').show();
     } else {
         $('#openchat').show();
+        $('.img-button').hide();
     }
 }
 
-app.controller('profileController', function($scope, $rootScope, $http) {
+function set_user_images(url) {
+    if (typeof url === "undefined")
+        return
+
+    $("#userthumb").attr("src", url.substring(url.indexOf("/") + 1))
+    $("#profile_image").attr("src", url.substring(url.indexOf("/") + 1))
+
+}
+
+app.controller('profileController', function(fileUpload, $scope, $rootScope, $http) {
     $scope.user_posts = [];
     $scope.user_info = {};
 
@@ -480,6 +521,10 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var user_name = $rootScope.now_playing.created_by;
+        if (user_name == "") {
+            alert("!!!")
+        }
+
 
         $http.get(url, {
             params: {
@@ -523,7 +568,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.readURL = function() {
         var img = $scope.imgFile;
         var uploadUrl = "/api/upload_img";
-        fileUpload.uploadFileToUrl(img, uploadUrl);
+        fileUpload.uploadImageToUrl(img, uploadUrl);
     }
 
 
