@@ -286,8 +286,9 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
         var file = $scope.myFile;
 
-        console.log('file is ');
-        console.dir(file);
+        if (typeof file === "undefined") {
+            return
+        }
 
         var uploadUrl = "/api/upload_file";
         fileUpload.uploadFileToUrl(file, uploadUrl);
