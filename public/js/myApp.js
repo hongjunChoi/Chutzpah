@@ -25,13 +25,15 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
         socket.on("new_msg", function(data) {
 
             if ($("body").hasClass("chatopened") && $rootScope.now_playing.created_by == data.from) {
-                var time = new Date().toString();
+                var time = new Date();
+                time = time.toString();
                 time = time.split(":")[0] + ":" + time.split(":")[1];
-                var music_type = data.music_type;
-                var request_location = data.location;
-                var request_time = data.time;
-                var id = data.id;
-                if (data.chat_type == "request") {
+                var music_type = data['music_type'];
+                var request_location = data["location"];
+                var request_time = data['time'];
+                var id = data['id'];
+                if (data['type'] == "request") {
+
                     var dom = " <div id = '" + id + "'class = 'chat_msg gig_request'> " +
                         data.msg + "      by  " + data.from + "      at  " + time +
                         "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
@@ -45,11 +47,21 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
                     var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.msg + "      by  " + data.from + "      at  " + time + "</div> ";
                     $(".chatmain").append(dom);
                 }
-
+                $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+                //update the latest read time
+                var url = "/update_notification"
+                $.post(url, {
+                    current_user: $rootScope.current_user
+                }).done(function(data) {
+                    console.log(data);
+                    console.log("NOTIFICATION TIME UPDATED");
+                });
 
             } else {
                 alert(data.msg + "  received from " + data.from);
             }
+
+
 
         });
 
@@ -125,12 +137,13 @@ app.service('fileUpload', ['$http',
 app.controller('searchController', function($scope, $rootScope, $http) {
     $scope.search_results = {};
     $scope.search = function() {
+
         $http.get('/api/search', {
             params: {
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            console.log(data)
+            console.log(data);
             $scope.post_result = data.posts
             $scope.user_result = data.users
             $scope.event_result = data.events
@@ -265,7 +278,6 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.upload = function() {
-        alert('asdf')
         $("#now_playing_info_wrapper").hide();
         $("#trending_wrapper").hide();
         $("#saved_wrapper").hide();
@@ -373,7 +385,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
 
     $scope.start_music = function(post) {
-        console.log("starting music")
+        console.log("starting music");
+        $("body").removeClass("menuopened");
+        $("body").removeClass("profileopened");
+        $("body").removeClass("searchopened");
+        $("body").removeClass("chatopened");
+
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
             mp3: post.url.substring(post.url.indexOf("/") + 1)
@@ -383,7 +400,10 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         data = $scope.load_comments(post._id);
 
         $rootScope.now_playing = post
-        $scope.load_comments(post._id)
+        $scope.load_comments(post._id);
+        $("body").addClass("menuopened");
+        $("#now_playing_info_wrapper").hide();
+        $scope.get_now_playing();
     }
 });
 
@@ -449,14 +469,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     }
 
 
-    function hide_all_right_panel() {
-        $("#now_playing_info_wrapper").hide();
-        $("#uploadwrapper").hide();
-        $("#trending_wrapper").hide();
-        $("#saved_wrapper").hide();
-        $("#chat_list").hide();
-    }
-
 
     $scope.get_chat = function() {
 
@@ -511,16 +523,19 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             }
             console.log("====== this data is saved as data attribute on notification chats for toggle ======");
             console.log(chats);
+            var total = 0;
             var keys = Object.keys(chats);
             $("#chat_list").empty();
             for (var i = 0; i < keys.length; i++) {
                 var sent_from = keys[i];
                 var new_chat_number = chats[sent_from]["count"];
+                total = total + new_chat_number
                 var id = "chat_" + sent_from;
                 var item = "<li class = 'chat_list_item' id = " + id + ">" + sent_from + "   <span id = 'new_chat_count'> " + new_chat_number + "</span> </li>"
                 $("#chat_list").append(item);
                 $("#" + id).data("chats", chats[sent_from]);
             }
+            $("#new_message_num").html(total);
         });
     };
 
@@ -534,6 +549,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
 
             add_chat(data);
             $("body").addClass("chatopened");
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
 
         });
     };
@@ -556,8 +572,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             request_time: Date.now()
 
         }).success(function(data) {
-            alert("successfully saved request");
             $("#chat_input").val("");
+            alert(JSON.stringify(data));
+            var type = data['request_music_type'];
+            var time = convert_time(data['request_time']);
+            var locatiion = data['request_location'];
+            var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
+                sent_to + "    <div class = 'request_info'>  <p>requested song type :" + type + "</p>" +
+                " <p>requested gig time :" + time + "</p>" +
+                " <p>requested location :" + location + "</p></div>";
+
+            $(".chatmain").append(dom);
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
         });
     }
 
@@ -576,41 +602,58 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             sent_to: sent_to
 
         }).success(function(data) {
+            var time = data['sent_at'];
+            time = convert_time(time);
             $("#chat_input").val("");
+            var dom = " <div class = 'mychat_msg chat_msg'> " + text + "      at  " + time + "</div> ";
+            $(".chatmain").append(dom);
+            $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
         });
+    }
+
+    function add_chat(info) {
+        $(".chatmain").empty();
+        for (var i = 0; i < info.length; i++) {
+            var data = info[i];
+            var time = convert_time(data['sent_at']);
+            var music_type = data['request_music_type'];
+            var request_location = data['request_location'];
+            var request_time = data['request_time'];
+            var id = data['_id'];
+
+            if (data.chat_type == "request") {
+                var dom = "";
+
+
+                if (data['sent_from'] == $rootScope.current_user) {
+                    dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
+                        data.sent_to + "    <div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p></div>";
+                } else {
+                    dom = " <div id = '" + id + "'  class = 'chat_msg gig_request'> " +
+                        data.chat_text + "      by  " + data.sent_from + "      at  " + time +
+                        "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
+                        " <p>requested gig time :" + request_time + "</p>" +
+                        " <p>requested location :" + request_location + "</p>" +
+                        "</div> <div class = 'confirm_button'> CONFIRM </div> ";
+                }
+
+
+
+                $(".chatmain").append(dom);
+                $("#" + id).data("request_info", data);
+            } else {
+                var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.chat_text + "      by  " + data.sent_from + "      at  " + time + "</div> ";
+                $(".chatmain").append(dom);
+            }
+        }
+
     }
 
 });
 
 
-
-function add_chat(info) {
-    $(".chatmain").empty();
-    for (var i = 0; i < info.length; i++) {
-        var data = info[i];
-        var time = convert_time(data.sent_at);
-        var music_type = data.music_type;
-        var request_location = data.location;
-        var request_time = data.time;
-        var id = data['_id'];
-
-        if (data.chat_type == "request") {
-            var dom = " <div id = '" + id + "'  class = 'chat_msg gig_request'> " +
-                data.chat_text + "      by  " + data.sent_from + "      at  " + time +
-                "<div class = 'request_info'>  <p>requested song type :" + music_type + "</p>" +
-                " <p>requested gig time :" + request_time + "</p>" +
-                " <p>requested location :" + request_location + "</p>" +
-                "</div> <div class = 'confirm_button'> CONFIRM </div> ";
-
-            $(".chatmain").append(dom);
-            $("#" + id).data("request_info", data);
-        } else {
-            var dom = " <div id = '" + id + "'class = 'chat_msg'> " + data.chat_text + "      by  " + data.sent_from + "      at  " + time + "</div> ";
-            $(".chatmain").append(dom);
-        }
-    }
-
-}
 
 function convert_time(time) {
     var year = time.split("-")[0];
