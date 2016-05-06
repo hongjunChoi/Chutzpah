@@ -114,6 +114,11 @@ app.controller('searchController', function($scope, $rootScope, $http) {
             $scope.search_results = data;
         });
     };
+
+    $scope.view_item = function(item) {
+        console.log(item[0]._id)
+        alert(item._id)
+    }
 });
 
 
@@ -126,7 +131,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.posts = [];
     $scope.files = [];
-
+    $scope.list_type = 1; //1: artists, 2: venues, 3: events
     var temp = postService.query();
     var files = [];
     var text_posts = [];
@@ -174,6 +179,23 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+    $scope.change_post_type = function(val) {
+        // alert(val)
+        if (val == 1) {
+            set_columns("Song", "Artist", "Date")
+        }
+        if (val == 2) {
+            set_columns("Gig requests", "Venue", "Date")
+            $scope.files = []
+            $scope.load_gig_requests();
+        }
+        if (val == 3) {
+            set_columns("Venue", "Artist", "Date")
+            $scope.files = []
+            $scope.load_gigs();
+        }
+    }
+
     $scope.get_now_playing = function() {
         alert($rootScope.now_playing)
     }
@@ -201,12 +223,37 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
             comment: $scope.comment
         }).success(function(data) {
             if (data.state == 'success') {
-
+                alert("successfully uploaded comment")
             } else {
                 $scope.error_message = data.message;
             }
         });
     };
+
+    $scope.load_gig_requests = function() {
+        var url = "/api/gig_requests";
+        $http.get(url, {}).success(function(data) {
+            $(".postlist").empty()
+            console.log(data)
+            data.forEach(function(e) {
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
+                $(".postlist").append(item)
+            });
+        })
+    }
+
+    $scope.load_gigs = function() {
+        var url = "/api/events";
+        $http.get(url, {}).success(function(data) {
+            $(".postlist").empty()
+            console.log("!!!!")
+            console.log(data)
+            data.forEach(function(e) {
+                var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
+                $(".postlist").append(item)
+            });
+        })
+    }
 
     $scope.load_comments = function(id) {
         var url = "/api/comment";
@@ -243,6 +290,12 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $scope.load_comments(post._id)
     }
 });
+
+function set_columns(col1, col2, col3) {
+    $("#col1").text(col1);
+    $("#col2").text(col2);
+    $("#col3").text(col3);
+}
 
 function set_user_profile(info) {
     var username = info["username"];
@@ -296,9 +349,6 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         })
     }
 
-    $scope.get_chat_from = function() {
-
-    }
 
     $scope.get_chat = function() {
         $http.get('/get_chat', {
