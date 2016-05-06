@@ -46,7 +46,9 @@
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
                 </p>
             </li>
-        	<li id="btn_upload" alt="upload"><p>upload</p></li>
+            <li id="btn_upload" alt="upload">
+                <p>upload</p>
+            </li>
             <li id="logininfo">
                 <p ng-show="authenticated">{{current_user}}</p>
                 <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
@@ -135,7 +137,6 @@
                         <p>{{ post.created_at }}</p>
                     </li>
                 </ul>
-
                 <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file)">
                         <h6>{{ file.original_name }}</h6>
@@ -143,7 +144,6 @@
                         <p>{{ file.created_at }}</p>
                     </li>
                 </ul>
-
                 <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="">
                         <h6>{{ artist.name }}</h6>
@@ -151,7 +151,6 @@
                         <p>{{ artist.location }}</p>
                     </li>
                 </ul>
-
                 <ul id="request_list" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="">
                         <h6>{{ request.name }}</h6>
@@ -159,7 +158,6 @@
                         <p>{{ request.created_at }}</p>
                     </li>
                 </ul>
-
                 <ul id="eventlist" class="maincontent">
                     <li ng-repeat="event in events" ng-click="">
                         <h6>{{ event.venue }}</h6>
@@ -167,14 +165,13 @@
                         <p>{{ event.time }}</p>
                     </li>
                 </ul>
-
             </div>
             <div class="commentlist">
                 <ul id="commentmain" style="color: white">
                 </ul>
                 <div class="commentField">
                     <form ng-Submit="upload_comment()" ng-show="authenticated">
-                        <textarea required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
+                        <textarea id="comment_input" required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
                         <input type="submit" value="Add comment" />
                     </form>
                 </div>
@@ -266,7 +263,7 @@
             <!-- Upload -->
             <li>
                 <h4>upload</h4>
-<!--                 <div id="uploadwrapper" ng-controller="mainController">
+                <!--                 <div id="uploadwrapper" ng-controller="mainController">
                     <div class="clearfix">
                         <div ng-show="authenticated">
                             <form ng-Submit="post()" ng-show="authenticated">

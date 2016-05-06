@@ -183,6 +183,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 files.push(item);
             } else {
                 item['created_at'] = convert_time(item['created_at']);
+                console.log(item);
                 text_posts.push(item);
             }
         });
@@ -202,8 +203,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
-        //   $scope.newPost.text = 
-
         var url = "/api/posts"
         $http.post(url, {
             newPost: $scope.newPost
@@ -231,11 +230,27 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
     };
 
+    $scope.open_profile = function(user_data) {
+
+    };
+
+    $scope.show_event = function(event_data) {
+
+    };
+
+    $scope.load_post_comments = function(post_data) {
+
+    };
+
+    $scope.change_post_view_type = function(val) {};
+
     $scope.change_post_view_type = function() {
 
         $scope.clear_lists();
         var val = $('.user-checkbox:checked').val()
 
+
+        // alert(val)
         if (val == 1) {
             set_columns("Song", "Artist", "Date")
             $("#artist_postlist").show()
@@ -317,20 +332,14 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     };
 
     $scope.upload_comment = function() {
-        alert("comment")
         var url = "/api/comment";
-        alert("uploading")
 
         $scope.comment.created_by = $rootScope.current_user;
         $scope.comment.post_id = $scope.post_id;
         $http.post(url, {
             comment: $scope.comment
         }).success(function(data) {
-            if (data.state == 'success') {
-                alert("successfully uploaded comment")
-            } else {
-                $scope.error_message = data.message;
-            }
+            $("#comment_input").val("");
         });
     };
 
@@ -383,7 +392,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         })
     }
 
-    $scope.load_comments = function(id) {
+    $scope.load_comments = function(post) {
+        var id = post["_id"];
         var url = "/api/comment";
         //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
         $scope.post_id = id;
@@ -392,7 +402,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 post_id: id
             }
         }).success(function(data) {
-            console.log(data);
 
             $("#commentmain").empty();
             data.forEach(function(c) {
@@ -417,10 +426,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
 
         $scope.post_id = post._id;
-        data = $scope.load_comments(post._id);
-
+        $scope.load_comments(post);
         $rootScope.now_playing = post
-        $scope.load_comments(post._id);
         $("body").addClass("menuopened");
         $("#now_playing_info_wrapper").hide();
         $scope.get_now_playing();
@@ -481,8 +488,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             profile_posts.forEach(function(entry) {
                 $("#user_post_wrapper").empty();
                 var time = convert_time(entry.created_at);
-                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></li>"
+                var is_file = entry['is_file'];
+                var item;
+                var id = "profile_post_" + entry["_id"];
+
+                if (is_file == "true" || is_file == true) {
+                    item = "<li class = 'profile_post_item' id ='" + id + "' style = 'display:block'><h6>" + entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></li>"
+                } else {
+                    item = "<li class = 'profile_post_item' id = '" + id + "' style = 'display:block'><h6>" + entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></li>"
+                }
+
                 $("#user_post_wrapper").append(item);
+                $("#" + id).data("profile_post", entry);
             });
 
         });
