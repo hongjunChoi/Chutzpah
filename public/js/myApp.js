@@ -253,7 +253,7 @@ function set_user_profile(info) {
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
     $("#user_profile_genre").html(genre);
-    $("#contact_to").html(username);
+    $(".current_user_profile").html(username);
 }
 
 app.controller('profileController', function($scope, $rootScope, $http) {
@@ -278,7 +278,9 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             $scope.user_posts = profile_posts;
             $("body").addClass("profileopened");
             profile_posts.forEach(function(entry) {
-                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + entry.created_at + "</p> <p>" + entry.created_by + "</p></li>"
+                $("#user_post_wrapper").empty();
+                var time = convert_time(entry.created_at);
+                var item = "<li style = 'display:block'><h6>" + entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></li>"
                 $("#user_post_wrapper").append(item);
             });
 
