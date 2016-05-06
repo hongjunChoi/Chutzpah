@@ -34,7 +34,7 @@
                         <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                         <input type="submit" ng-click="search()">
                     </form>
-<!--                     <div id="searchresult">
+                    <!--                     <div id="searchresult">
                         <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
                         <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                         <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
@@ -101,7 +101,7 @@
                 <div class="clearfix">
                     <div ng-show="authenticated">
                         <form ng-Submit="post()" ng-show="authenticated">
-                            <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
+                            <textarea id="post_input_field" required class="form-control" maxlength="200" placeholder="write anything here!" ng-model="newPost.text"></textarea>
                             <input class="btn submit-btn pull-right" type="submit" value="Add" />
                         </form>
                         <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
@@ -115,7 +115,7 @@
                     <form>
                         <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="1" checked/>
                         <label>Songs</label>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="2"/>
+                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="2" />
                         <label>Artists</label>
                         <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="3" />
                         <label>Venues</label>
