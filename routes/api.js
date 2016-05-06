@@ -220,6 +220,7 @@ router.route("/profile")
             });
         });
     });
+
 router.route("/gig_requests")
 
 .post(function(req, res) {

@@ -9,6 +9,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
         if (data && data !== "undefined" && data['user']) {
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
+            $rootScope.current_user = data['user']['user_type'];
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
@@ -129,13 +130,21 @@ app.controller('searchController', function($scope, $rootScope, $http) {
             }
         }).success(function(data) {
             console.log(data)
-            //     $scope.search_results = data;
+            $scope.post_result = data.posts
+            $scope.user_result = data.users
+            $scope.event_result = data.events
         });
     };
 
-    $scope.view_item = function(item) {
-        console.log(item[0]._id)
-        alert(item._id)
+    $scope.view_post = function(post) {
+        if (post.is_file) {
+            $rootScope.now_playing = post
+            $("#jquery_jplayer_1").jPlayer("setMedia", {
+                title: post.original_name,
+                mp3: post.url.substring(post.url.indexOf("/") + 1)
+            });
+        }
+
     }
 });
 
@@ -150,25 +159,10 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     $scope.posts = [];
     $scope.files = [];
     $scope.list_type = 1; //1: artists, 2: venues, 3: events
-    var temp = postService.query();
+    //   var temp = postService.query();
     var files = [];
     var text_posts = [];
-
-    temp.$promise.then(function(data) {
-        for (var i = 0; i < data.length; i++) {
-
-            var item = data[i];
-
-            if (item["is_file"] == true || item["is_file"] == "true") {
-                files.push(item);
-            } else {
-                text_posts.push(item);
-            }
-        }
-
-        $scope.posts = text_posts;
-        $scope.files = files;
-    });
+    var url = "/api/posts"
 
 
 
@@ -179,12 +173,29 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     };
     $scope.user_posts = {};
 
+    $http.get(url, {
+        params: {
+            user_type: "artist"
+        }
+    }).success(function(data) {
+        data.forEach(function(item) {
+            if (item["is_file"] == true || item["is_file"] == "true") {
+                files.push(item);
+            } else {
+                text_posts.push(item);
+            }
+        })
+        $scope.posts = text_posts;
+        $scope.files = files;
+    });
+
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
 
     $scope.post = function() {
         $scope.newPost.created_by = $rootScope.current_user;
+        $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
         postService.save($scope.newPost, function() {
             $scope.posts = postService.query();
@@ -200,6 +211,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         // alert(val)
         if (val == 1) {
             set_columns("Song", "Artist", "Date")
+            $scope.load_artist_posts();
         }
         if (val == 2) {
             set_columns("Gig requests", "Venue", "Date")
@@ -247,10 +259,35 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
+    $scope.load_artist_posts = function() {
+        var url = "/api/posts"
+        $(".postlist").empty()
+        $(".filelist").empty()
+
+        $http.get(url, {
+            params: {
+                user_type: "artist"
+            }
+        }).success(function(data) {
+            data.forEach(function(d) {
+                if (d["is_file"] == true || d["is_file"] == "true") {
+                    var item = "<li><h6>" + d.original_name + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
+                    $(".filelist").append(item)
+                } else {
+                    var item = "<li><h6>" + d.text + "</h6><h6>" + d.created_by + "</h6><p>" + d.created_at + "</p></li>"
+                    $(".postlist").append(item)
+                }
+            })
+
+        });
+    }
+
     $scope.load_gig_requests = function() {
         var url = "/api/gig_requests";
+        $(".postlist").empty()
+        $(".filelist").empty()
+
         $http.get(url, {}).success(function(data) {
-            $(".postlist").empty()
             console.log(data)
             data.forEach(function(e) {
                 var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
@@ -261,9 +298,10 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
 
     $scope.load_gigs = function() {
         var url = "/api/events";
+        $(".postlist").empty()
+        $(".filelist").empty()
+
         $http.get(url, {}).success(function(data) {
-            $(".postlist").empty()
-            console.log("!!!!")
             console.log(data)
             data.forEach(function(e) {
                 var item = "<li><h6>" + e.venue + "</h6><h6>" + e.artist + "</h6><p>" + e.created_at + "</p></li>"
@@ -314,7 +352,7 @@ function set_columns(col1, col2, col3) {
     $("#col3").text(col3);
 }
 
-function set_user_profile(info) {
+function set_user_profile(info, user) {
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
@@ -543,6 +581,7 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
             if (data.state == 'success') {
                 $rootScope.authenticated = true;
                 $rootScope.current_user = data.user.username;
+                $rootScope.user_type = data.user.user_type
                 $location.path('/profile');
             } else {
                 $scope.error_message = data.message;
