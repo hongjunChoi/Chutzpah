@@ -6,6 +6,7 @@ var Post = mongoose.model('Post');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 var Event = mongoose.model('Event');
+var Chat = mongoose.model('Chat');
 
 //fileupload
 var multer = require('multer'),
@@ -68,6 +69,26 @@ router.route('/upload_file')
 			})
 		})
 	});
+
+
+//api for getting chat from specific user
+router.route('/get_chat_from')
+//make comments on post
+.get(function(req, res) {
+	console.log("--------get chat from -------")
+	var sent_to = req.query.sent_to;
+	var sent_from = req.query.sent_from;
+
+	Chat.find({
+		sent_to: sent_to,
+		sent_from: sent_from
+	}, function(err, chats) {
+		if (err) {
+			return res.send(500, err);
+		}
+		return res.send(200, chats);
+	});
+})
 
 //api for getting comments/ putting comments on posts
 router.route('/comment')
@@ -186,19 +207,19 @@ router.route("/profile")
 
 router.route("/event")
 //create a new event
-.post(function(req, res){
+.post(function(req, res) {
 	var e = new Event();
 	e.artist = req.body.artist
 	e.venue = req.body.venue
 	e.save(function(err, e) {
-		if (err){
+		if (err) {
 			return res.send(500, err);
 		}
 		return res.json(e)
 	})
 })
 
-.get(function(req, res){
+.get(function(req, res) {
 	Event.find(function(err, events) {
 		if (err) {
 			return res.send(500, err);

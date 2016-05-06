@@ -9,7 +9,13 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- Typekit -->
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script> try { Typekit.load({ async: true }); } catch (e) {} </script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
@@ -19,9 +25,6 @@
 </head>
 
 <body ng-app="myApp">
-    
-
-<!-- HEADER -->
     <header>
         <ul>
         	<li><img id="logo" src="img/logo.svg" /></li>
@@ -54,22 +57,23 @@
             <li id="btn_menu"><span></span><span></span><span></span></li>
         </ul>
     </header>
-
-<!-- MAIN -->
+    <!-- MAIN -->
     <main>
         <!-- Left Profile -->
         <div id="profilewrapper" ng-controller="profileController">
             <!-- Chatting -->
             <div id="chatwrapper">
-            	<div class="chatheader"><button alt="close chat"></button></div>
-            	<div class="chatmain"></div>
-            	<div class="chatcontrol">
-            		<input type="text" placeholder="Type a message"></input>
-		            <div ng-click="get_chat()"> GET CHAT </div>
-		            <div ng-click="send_chat()"> SEND CHAT </div>
-		            <div ng-click="confirm_request()"> CONFIRM </div>
-            		<!-- <input type="submit" value="send"></input> -->
-            	</div>
+                <div class="chatheader">
+                    <button alt="close chat"></button>
+                </div>
+                <div class="chatmain"></div>
+                <div class="chatcontrol">
+                    <input type="text" placeholder="Type a message"></input>
+                    <div ng-click="get_chat()"> GET CHAT </div>
+                    <div ng-click="send_chat()"> SEND CHAT </div>
+                    <div ng-click="confirm_request()"> CONFIRM </div>
+                    <!-- <input type="submit" value="send"></input> -->
+                </div>
             </div>
             <div class="profileinnerwrapper">
             	<div id="profileheader" style="background-image:url(img/samplecover.jpg)">
@@ -92,7 +96,6 @@
 	            </div>
             </div>
         </div>
-
         <!-- Main screen -->
         <div id="mainscreen" ng-controller="mainController">
             <div ng-view></div>
@@ -131,7 +134,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
 
@@ -197,14 +199,12 @@
             </div>
         </div>
     </main>
-
-<!-- RIGHT NAVIGATION MENU -->
+    <!-- RIGHT NAVIGATION MENU -->
     <nav id="navwrapper">
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
             </li>
-
             <!-- Search -->
             <li id="navsearch">
                 <h4>search</h4>
@@ -228,7 +228,6 @@
                 <h4 ng-click="get_chat()">notification</h4>
                 <ul id="chat_list"></ul>
             </li>
-
             <!-- Upload -->
             <li>
                 <h4>upload</h4>
@@ -247,38 +246,38 @@
             </li>
         </ul>
     </nav>
-
-<!-- angular js files   -->
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
-<!-- custom js files  -->
-<script src="js/myApp.js"></script>
-<script src="js/login.js"></script>
-<!-- jquery - ui js  -->
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/main.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $("#jquery_jplayer_1").jPlayer({
-        ready: function() {
-            $(this).jPlayer("setMedia", {
-                title: "Big Buck Bunny Trailer",
-                mp3: "/uploads/sample.mp3"
-            });
-        },
-        cssSelectorAncestor: "#jp_container_1",
-        swfPath: "/js",
-        supplied: "mp3",
-        useStateClassSkin: true,
-        autoBlur: false,
-        smoothPlayBar: true,
-        keyEnabled: true,
-        remainingDuration: true,
-        toggleDuration: true
+    <!-- angular js files   -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+    <!-- custom js files  -->
+    <script src="js/myApp.js"></script>
+    <script src="js/login.js"></script>
+    <!-- jquery - ui js  -->
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function() {
+                $(this).jPlayer("setMedia", {
+                    title: "Big Buck Bunny Trailer",
+                    mp3: "/uploads/sample.mp3"
+                });
+            },
+            cssSelectorAncestor: "#jp_container_1",
+            swfPath: "/js",
+            supplied: "mp3",
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true,
+            remainingDuration: true,
+            toggleDuration: true
+        });
     });
-});
-</script>
+    </script>
 </body>
+
 </html>
