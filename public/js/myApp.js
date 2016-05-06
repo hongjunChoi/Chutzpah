@@ -139,12 +139,20 @@ app.controller('searchController', function($scope, $rootScope, $http) {
 
     $scope.view_post = function(post) {
         if (post.is_file) {
+            //if file, change now_playing, jplayer
             $rootScope.now_playing = post
             $("#jquery_jplayer_1").jPlayer("setMedia", {
                 title: post.original_name,
                 mp3: post.url.substring(post.url.indexOf("/") + 1)
             });
         }
+    }
+
+    $scope.view_user = function(user) {
+
+    }
+
+    $scope.view_event = function(e) {
 
     }
 });
@@ -153,7 +161,6 @@ app.controller('searchController', function($scope, $rootScope, $http) {
 app.factory('postService', function($resource) {
     return $resource('/api/posts/:id');
 });
-
 
 app.controller('mainController', function(postService, fileUpload, $scope, $rootScope, $sce, $http) {
 
@@ -201,6 +208,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
+        alert("change postService")
         postService.save($scope.newPost, function() {
             var list = postService.query();
             list.forEach(function(item) {
@@ -216,7 +224,7 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
         });
     };
 
-    $scope.change_post_type = function(val) {
+    $scope.change_post_view_type = function(val) {
         // alert(val)
         if (val == 1) {
             set_columns("Song", "Artist", "Date")
@@ -642,12 +650,33 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
         });
     };
 
-    $scope.register = function() {
+    $scope.change_user_type = function() {
+        $("#register_musician").hide()
+        $("#register_host").hide()
+        $("#register_fan").hide()
+        var user_type = $('.user-checkbox:checked').val()
+        if (user_type == 1) {
+            $("#register_musician").show()
+        }
+        if (user_type == 2) {
+            $("#register_host").show()
+        }
+        if (user_type == 3) {
+            $("#register_fan").show()
+        }
+    }
 
-        if ($('#register_musician_tab').hasClass("active")) {
-            $scope.user.user_type = 'musician';
-        } else {
-            $scope.user.user_type = 'host';
+    $scope.register = function() {
+        var user_type = $('.user-checkbox:checked').val()
+
+        if (user_type == 1) {
+            $scope.user.user_type = 'artist';
+        }
+        if (user_type == 2) {
+            $scope.user.user_type = 'venue';
+        }
+        if (user_type == 3) {
+            $scope.user.user_type = 'fan';
         }
 
         $http.post('/auth/signup', $scope.user).success(function(data) {

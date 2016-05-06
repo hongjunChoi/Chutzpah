@@ -106,18 +106,26 @@ module.exports = function(passport) {
                     newUser.username = username;
                     newUser.password = createHash(password);
                     newUser.email = req.body.email;
-                    console.log(req.body.email)
-                    if (req.body.user_type == "host") {
-                        newUser.user_location = req.body.location;
-                        newUser.user_type = "host";
+                    newUser.user_location = req.body.location;
+                    newUser.user_type = req.body.user_type;
+                    newUser.user_description = req.body.description;
+                    newUser.name = req.body.name;
 
-                    } else {
-                        newUser.user_location = req.body.location;
-                        newUser.user_type = "musician";
+                    var user_type = req.body.user_type
+
+                    if (user_type == "artist") {
                         newUser.genre = req.body.genre;
-                        newUser.band_name = req.body.bandname;
-
+                        newUser.soundcloud = req.body.soundcloud;
                     }
+                    if (user_type == "venue") {
+                        newUser.name = req.body.name;
+                        newUser.website = req.body.website;
+                    }
+                    if (user_type == "fan") {
+                        newUser.genre = req.body.genre;
+                    }
+
+
                     var url = "localhost:3000/auth/email-verification/" + username
                     nev.configure({
                         verificationURL: url,

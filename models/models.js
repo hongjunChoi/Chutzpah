@@ -10,9 +10,11 @@ var userSchema = new mongoose.Schema({
     }, //default will be time when user is created
     user_type: String, //artist/ venue/ none
     genre: String,
-    band_name: String,
+    name: String,
     user_location: String,
     user_description: String,
+    soundcloud: String,
+    website: String,
 });
 
 var tempUserSchema = new mongoose.Schema({
