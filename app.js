@@ -136,14 +136,10 @@ io.sockets.on('connection', function(socket) {
 //get room html 
 app.get('/get_chat', function(req, res) {
     console.log("in get chat...");
-
     user = req.query.user_name;
-    console.log("======================");
-    console.log(user);
-    console.log("=======================");
 
     Chat.find({
-        sent_to: user,
+        sent_to: user
     }, function(err, chats) {
         if (err) {
             return res.send(500, err);
@@ -191,9 +187,8 @@ app.get('/get_chat', function(req, res) {
 
     // });
 
-
-
 });
+
 
 app.post('/send_chat', function(req, res) {
     console.log("send chat backend  ")
@@ -203,6 +198,7 @@ app.post('/send_chat', function(req, res) {
     var sent_from = req.body.sent_from;
     var sent_to = req.body.sent_to;
     var text = req.body.text;
+
 
     var chat = new Chat();
     chat.sent_to = sent_to;

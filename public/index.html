@@ -21,25 +21,38 @@
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
     <link rel="shortcut icon" href="img/favicon.ico">
-    <!-- <link type="text/css" href="/skin/pink.flag/css/jplayer.pink.flag.css" rel="stylesheet" /> -->
 </head>
 
 <body ng-app="myApp">
-    <img id="logo" src="img/logo.svg" />
-    <!-- HEADER -->
     <header>
         <ul>
+        	<li><img id="logo" src="img/logo.svg" /></li>
+        	<li id="searchwrapper">
+	        	<div id="searchbar" ng-controller="searchController">
+	                <form>
+	                	<span></span>
+	                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+	                    <input type="submit" ng-click="search()">
+	                </form>
+	                <div id="searchresult">
+	                    <div ng-repeat="result in search_results">{{result}} </div>
+	                </div>
+	            </div>
+        	</li>
             <li id="loginregister">
                 <p ng-hide="authenticated">
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
                 </p>
             </li>
             <li id="logininfo">
-                <p ng-show="authenticated">signed in as <span>{{current_user}}</span></p>
+                <p ng-show="authenticated">{{current_user}}</p>
                 <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
             </li>
             <!-- Buttons -->
-            <li id="btn_search" alt="search"></li>
+            <li id="btn_upload" alt="upload">
+            	<span></span>
+            	<div></div>
+            </li>
             <li id="btn_menu"><span></span><span></span><span></span></li>
         </ul>
     </header>
@@ -51,36 +64,35 @@
             <div id="chatwrapper">
 
                 <div class="chatheader">
-                    <button alt="close chat"></button>
+                    <button id="closechat" alt="close chat">close</button>
                 </div>
                 <div class="chatmain"></div>
                 <div class="chatcontrol">
-                    <input type="text" placeholder="Type a message"></input>
-                    <div ng-click="get_chat()"> GET CHAT </div>
+                    <input id="chat_input" type="text" placeholder="Type a message"></input>
                     <div ng-click="send_chat()"> SEND CHAT </div>
                     <div ng-click="confirm_request()"> CONFIRM </div>
                     <!-- <input type="submit" value="send"></input> -->
                 </div>
             </div>
             <div class="profileinnerwrapper">
-                <div id="profileheader">
-                    <img id="profilecover" src="img/samplecover.jpg" />
-                    <button id="profileclose"><span></span><span></span></button>
-                </div>
-                <div id="profile">
-                    <img src="img/sample.jpg" />
-                    <h3 id="user_profile_username"></h3>
-                    <p id="user_profile_location"></p>
-                    <p id="user_profile_genre"></p>
-                    <p id="user_profile_description"></p>
-                    <button id="openchat" ng-click="get_chat_from()">Contact <span id="contact_to">Eugene So</span></button>
-                </div>
-                <div id="related">
-                    <h6>More songs by Eugene So</h6>
-                    <ul id="user_post_wrapper">
-                        <!--related posts-->
-                    </ul>
-                </div>
+            	<div id="profileheader" style="background-image:url(img/samplecover.jpg)">
+		            <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
+		            <button id="profileclose"><span></span><span></span></button>
+            	</div>
+	            <div id="profile">
+	                <img src="img/sample.jpg" />
+	                <h3 id="user_profile_username"></h3>
+	                <span id="user_profile_location"></span>
+	                <span id="user_profile_genre"></span>
+	                <p id="user_profile_description"></p>
+	                <button id="openchat">Contact Eugene So</button>
+	            </div>
+	            <div id="related">
+	                <h6>More songs by Eugene So</h6>
+	                <ul id="user_post_wrapper">
+	                    <!--related posts-->
+	                </ul>
+	            </div>
             </div>
         </div>
         <!-- Main screen -->
@@ -124,11 +136,10 @@
         </div>
         <!-- Bottom Controller -->
         <div id="controller" ng-controller="profileController">
-            <div id="thumbwrapper">
-                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-            </div>
+
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
+
                     <div class="jp-type-single">
                         <div id="jquery_jplayer_1" class="jp-jplayer"></div>
                         <div class="jp-gui">
@@ -136,30 +147,29 @@
                                 <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
                             </div>
                             <div class="jp-interface">
+			                    <div class="jp-progress">
+					                <div class="jp-seek-bar">
+					                    <div class="jp-play-bar"></div>
+					                </div>
+					            </div>
+								<div id="thumbwrapper">
+					                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
+					            </div>
                                 <div class="jp-details">
                                     <div class="titlewrapper">
                                         <div class="artistname">{{current_user}}</div>
                                         <div class="jp-title" aria-label="title">&nbsp;</div>
                                     </div>
                                 </div>
-                                <div class="jp-controls-holder">
+                                <div id="jp-playwrapper" class="jp-controls-holder">
                                     <div class="jp-controls">
+                                    	<button class="jp-previous"></button>
                                         <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
+                                    	<button class="jp-next"></button>
                                         <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
                                     </div>
                                 </div>
-                                <div class="jp-details">
-                                    <div class="progresswrapper">
-                                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                                        <div class="jp-progress">
-                                            <div class="jp-seek-bar">
-                                                <div class="jp-play-bar"></div>
-                                            </div>
-                                        </div>
-                                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-                                    </div>
-                                </div>
-                                <div class="jp-controls-holder">
+                                <div id="jp-volumewrapper" class="jp-controls-holder">
                                     <div class="jp-volume-controls">
                                         <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
                                         <!-- <button class="jp-volume-max ctrlbtn" role="button" tabindex="0"></button> -->
@@ -167,16 +177,19 @@
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
                                     </div>
-                                    <!--                                     <div class="jp-toggles">
-                                        <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-                                        <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                                    </div> -->
-                                </div>
+	                                    <!--                                     <div class="jp-toggles">
+	                                        <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+	                                        <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
+	                                    </div> -->
+                                </div> 
+<!--                                 <div class="jp-details">
+                                    <div class="progresswrapper">
+                                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+                                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
-                        <!--                         <div class="jp-no-solution">
-                            <span>Update Required</span> To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -187,20 +200,6 @@
         <ul>
             <li id="now_playing" ng-controller="mainController">
                 <h4 ng-click="get_now_playing()">Now Playing</h4>
-            </li>
-            <!-- Search -->
-            <li id="navsearch">
-                <h4>search</h4>
-                <div id="searchbar" ng-controller="searchController">
-                    <form>
-                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                        <input type="submit" ng-click="search()">
-                    </form>
-                    <!-- THIS IS WHERE SEARCH RESULTS SHOW UP -->
-                    <div>
-                        <div ng-repeat="result in search_results">{{result}} </div>
-                    </div>
-                </div>
             </li>
             <li>
                 <h4>trending</h4>

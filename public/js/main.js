@@ -1,14 +1,5 @@
 $(document).ready(function() {
-	var socket = io.connect();
-	//todo : programmically get the username
-	socket.emit('join', {
-		username: "scottljy"
-	});
 
-	socket.on("new_msg", function(data) {
-		// alert(data.msg + "  received from " + data.from);
-		$(".chatmain").append($("<p class='received'>") + data.msg + $("</p>"));
-	});
 
 	var menuopened = false;
 
@@ -34,9 +25,11 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#btn_search").click(function() {
-		menuopen();
-		$("body").addClass("searchopened");
+	$("#openchat").click(function(){
+		$("body").addClass("chatopened");
+	});
+	$("#closechat").click(function(){
+		$("body").removeClass("chatopened");
 	});
 
 	$("#profileclose").click(function() {
@@ -61,19 +54,5 @@ $(document).ready(function() {
 		$("body").removeClass("chatopened");
 	}
 
-	function add_chat(info) {
-		for (var i = 0; i < info.length; i++) {
-			var item = info[i];
-			var time = convert_time(info.sent_at);
-			var dom = " <div> " + info.chat_text + "      by  "
-			info.sent_from + "      at  " + time + "</div>"
-		}
-
-	}
-
-	function convert_time(time) {
-		alert(time.toDateString());
-		return time.toDateString();
-	}
 
 });
