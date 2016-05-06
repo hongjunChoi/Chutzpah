@@ -28,6 +28,14 @@ $(document).ready(function() {
 
 	$("#closechat").click(function() {
 		$("body").removeClass("chatopened");
+		//update the latest read time
+		var url = "/update_notification"
+		$.post(url, {
+			current_user: $("#mainscreen").data("username")
+		}).done(function(data) {
+			console.log(data);
+			console.log("NOTIFICATION TIME UPDATED");
+		});
 	});
 
 	$("#profileclose").click(function() {
@@ -55,6 +63,46 @@ $(document).ready(function() {
 	});
 
 
+	$(document).on('click', '.profile_post_item', function() {
+		var post_data = $(this).data("profile_post");
+		console.log(post_data);
+		if (post_data.is_file == true || post_data.is_file == "true") {
+			$("#jquery_jplayer_1").jPlayer("setMedia", {
+				title: post_data.original_name,
+				mp3: post_data.url.substring(post_data.url.indexOf("/") + 1)
+			});
+
+			var id = post_data["_id"];
+			var url = "/api/comment";
+			$.get(url, {
+				post_id: id
+			}).done(function(data) {
+				console.log(data);
+				// $("#commentmain").empty();
+				// data.forEach(function(c) {
+				// 	$("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+				// });
+				// $(".commentField").show();
+			});
+
+		} else {
+			var id = post_data["_id"];
+			var url = "/api/comment";
+			$.get(url, {
+				post_id: id
+			}).done(function(data) {
+				console.log(data);
+				// $("#commentmain").empty();
+				// data.forEach(function(c) {
+				// 	$("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+				// });
+				// $(".commentField").show();
+			});
+
+		}
+
+	});
+
 	function menuopen() {
 		if (!menuopened) {
 			$("body").addClass("menuopened");
@@ -69,6 +117,14 @@ $(document).ready(function() {
 		add_chat(chat_data.chats);
 		$("#userthumb").click();
 		$("body").addClass("chatopened");
+		//update the latest read time
+		var url = "/update_notification"
+		$.post(url, {
+			current_user: $("#mainscreen").data("username")
+		}).done(function(data) {
+			console.log(data);
+			console.log("NOTIFICATION TIME UPDATED");
+		});
 	});
 
 	$(document).on('click', '#show_upload_form', function() {
@@ -119,6 +175,14 @@ $(document).ready(function() {
 		$("body").removeClass("profileopened");
 		$("body").removeClass("searchopened");
 		$("body").removeClass("chatopened");
+		//update the latest read time
+		var url = "/update_notification"
+		$.post(url, {
+			current_user: $("#mainscreen").data("username")
+		}).done(function(data) {
+			console.log(data);
+			console.log("NOTIFICATION TIME UPDATED");
+		});
 		hide_all_right_panel();
 
 	}

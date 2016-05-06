@@ -49,15 +49,6 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
                     $(".chatmain").append(dom);
                 }
                 $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
-                //update the latest read time
-                var url = "/update_notification"
-                $.post(url, {
-                    current_user: $rootScope.current_user
-                }).done(function(data) {
-                    console.log(data);
-                    console.log("NOTIFICATION TIME UPDATED");
-                });
-
             } else {
                 alert(data.msg + "  received from " + data.from);
             }
@@ -127,6 +118,7 @@ app.service('fileUpload', ['$http',
                 }
             }).success(function() {
                 alert("file successfully uploaded");
+                $("#file_upload_form").val("");
             }).error(function() {
                 alert("file upload failed");
             });
@@ -223,11 +215,26 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
+            for (var i = 0; i < data.artist_posts.length; i++) {
+                data.artist_posts[i]['created_at'] = convert_time(data[i].artist_posts['created_at']);
+            }
             $rootScope.artist_posts = data.artist_posts;
+
+            for (var i = 0; i < data.files.length; i++) {
+                data.files[i]['created_at'] = convert_time(data[i].files['created_at']);
+            }
             $rootScope.files = data.files;
             $rootScope.artists = data.artists;
-            $rootScope.requests = data.requests
-            $rootScope.events = data.events
+
+            for (var i = 0; i < data.requests.length; i++) {
+                data.requests[i]['created_at'] = convert_time(data[i].requests['created_at']);
+            }
+            $rootScope.requests = data.requests;
+
+            for (var i = 0; i < data.events.length; i++) {
+                data.events[i]['time'] = convert_time(data[i].events['time']);
+            }
+            $rootScope.events = data.events;
         });
     };
 
@@ -376,6 +383,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/gig_requests";
 
         $http.get(url, {}).success(function(data) {
+
             $rootScope.requests = data;
         })
     }
@@ -384,6 +392,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/events";
 
         $http.get(url, {}).success(function(data) {
+            console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                data[i]['time'] = convert_time(data[i]['time']);
+            }
             $rootScope.events = data;
         })
     }
@@ -415,6 +427,14 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("body").removeClass("profileopened");
         $("body").removeClass("searchopened");
         $("body").removeClass("chatopened");
+        //update the latest read time
+        var url = "/update_notification"
+        $.post(url, {
+            current_user: $rootScope.current_user
+        }).done(function(data) {
+            console.log(data);
+            console.log("NOTIFICATION TIME UPDATED");
+        });
 
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
@@ -583,6 +603,14 @@ app.controller('profileController', function($scope, $rootScope, $http) {
             add_chat(data);
             $("body").addClass("chatopened");
             $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+            //update the latest read time
+            var url = "/update_notification"
+            $.post(url, {
+                current_user: $rootScope.current_user
+            }).done(function(data) {
+                console.log(data);
+                console.log("NOTIFICATION TIME UPDATED");
+            });
 
         });
     };
