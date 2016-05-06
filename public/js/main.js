@@ -71,6 +71,14 @@ $(document).ready(function() {
 		$("body").addClass("chatopened");
 	});
 
+	$(document).on('click', '#show_upload_form', function() {
+		$("#now_playing_info_wrapper").hide();
+		$("#trending_wrapper").hide();
+		$("#saved_wrapper").hide();
+		$("#chat_list").hide();
+		$("#uploadwrapper").show();
+	});
+
 	function add_chat(info) {
 		$(".chatmain").empty();
 		for (var i = 0; i < info.length; i++) {

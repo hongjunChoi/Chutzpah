@@ -235,11 +235,35 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 
     $scope.get_now_playing = function() {
-        alert($rootScope.now_playing)
+        var data = $rootScope.now_playing;
+        if (!('_id' in data)) {
+            alert("please choose music beforehand!");
+            $("#now_playing_info_wrapper").hide();
+        } else {
+
+            if ($("#now_playing_info_wrapper").css('display') == "block") {
+                $("#now_playing_info_wrapper").hide();
+            } else {
+                // $("#uploadwrapper").hide();
+                $("#trending_wrapper").hide();
+                $("#saved_wrapper").hide();
+                $("#chat_list").hide();
+
+                set_now_playing_info(data);
+                $("#now_playing_info_wrapper").show();
+            }
+
+        }
     }
 
     $scope.upload = function() {
-        alert("upload file");
+        alert('asdf')
+        $("#now_playing_info_wrapper").hide();
+        $("#trending_wrapper").hide();
+        $("#saved_wrapper").hide();
+        $("#chat_list").hide();
+        $("#uploadwrapper").show();
+
         var file = $scope.myFile;
 
         console.log('file is ');
@@ -355,6 +379,13 @@ app.controller('mainController', function(postService, fileUpload, $scope, $root
     }
 });
 
+function set_now_playing_info(data) {
+    $("#now_playing_song_title").html(data.original_name);
+    $("#now_playing_song_artist").html(data.created_by);
+    $("#now_playing_song_date").html(data.created_at);
+}
+
+
 function set_columns(col1, col2, col3) {
     $("#col1").text(col1);
     $("#col2").text(col2);
@@ -410,8 +441,27 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     }
 
 
+    function hide_all_right_panel() {
+        $("#now_playing_info_wrapper").hide();
+        $("#uploadwrapper").hide();
+        $("#trending_wrapper").hide();
+        $("#saved_wrapper").hide();
+        $("#chat_list").hide();
+    }
+
 
     $scope.get_chat = function() {
+
+        $("#now_playing_info_wrapper").hide();
+        // $("#uploadwrapper").hide();
+        $("#trending_wrapper").hide();
+        $("#saved_wrapper").hide();
+        if ($("#chat_list").css("display") == "block") {
+            $("#chat_list").hide();
+        } else {
+            $("#chat_list").show();
+        }
+
         $http.get('/get_chat', {
             params: {
                 user_name: $rootScope.current_user
@@ -579,8 +629,6 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
     $scope.login = function() {
         $http.post('/auth/login', $scope.user).success(function(data) {
-            alert("asdf");
-            console.log(data);
 
             if (data.state == 'success') {
 
