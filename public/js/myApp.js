@@ -223,7 +223,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            alert("00000")
             $rootScope.artist_posts = data.artist_posts;
             console.log(data.files)
             $rootScope.files = data.files;
