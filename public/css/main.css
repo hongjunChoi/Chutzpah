@@ -17,7 +17,8 @@ body {
 
 body {
   overflow: scroll;
-  overflow-x: hidden; }
+  overflow-x: hidden;
+  background-color: #1e1e1e; }
 
 a {
   text-decoration: none;
@@ -91,37 +92,64 @@ header {
   header ul {
     display: inline-block;
     float: right;
-    z-index: 100; }
+    z-index: 100;
+    margin-right: 10px; }
     header ul li {
       display: inline-block;
       cursor: pointer;
-      margin-right: 30px;
+      margin-right: 20px;
+      vertical-align: top;
       color: white;
       z-index: 100;
-      -webkit-transition: 300ms all ease-in-out;
-      -moz-transition: 300ms all ease-in-out;
-      -o-transition: 300ms all ease-in-out;
-      -ms-transition: 300ms all ease-in-out;
-      transition: 300ms all ease-in-out; }
+      height: 24px;
+      -webkit-transition: 200ms all ease-in-out;
+      -moz-transition: 200ms all ease-in-out;
+      -o-transition: 200ms all ease-in-out;
+      -ms-transition: 200ms all ease-in-out;
+      transition: 200ms all ease-in-out; }
       header ul li:hover {
         opacity: 0.6; }
     header ul li,
     header ul li p,
+    header ul li p span,
     header ul li p a {
       font-family: "neuzeit-grotesk", sans-serif;
       font-style: normal;
       font-weight: 300;
       font-size: 1em; }
+  header #logininfo {
+    opacity: 0.6;
+    height: auto;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid;
+    border-color: transparent; }
+    header #logininfo p {
+      padding: 1px 8px;
+      border-radius: 0; }
+    header #logininfo > p:last-of-type {
+      border-top: 1px solid #292929;
+      visibility: hidden;
+      margin-top: 0; }
+    header #logininfo:hover {
+      opacity: 1;
+      border-color: #292929; }
+      header #logininfo:hover > p:last-of-type {
+        visibility: visible;
+        padding-bottom: 0; }
+        header #logininfo:hover > p:last-of-type:hover {
+          background-color: #292929; }
   header #btn_search {
-    margin-top: -2px;
-    width: 26px;
-    height: 26px;
+    margin-top: 2px;
+    width: 24px;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(../img/ui-icons/search.svg); }
   header #btn_menu {
-    width: 30px;
-    height: 24px; }
+    width: 28px;
+    height: 24px;
+    padding: 1px;
+    text-align: center; }
     header #btn_menu span {
       background-color: white;
       display: block;
@@ -131,26 +159,26 @@ header {
       border-radius: 1px;
       display: block;
       position: absolute;
-      top: 28px;
+      top: 32px;
       -webkit-transition: 300ms all ease-in-out;
       -moz-transition: 300ms all ease-in-out;
       -o-transition: 300ms all ease-in-out;
       -ms-transition: 300ms all ease-in-out;
       transition: 300ms all ease-in-out; }
       header #btn_menu span:nth-child(1) {
-        -webkit-transform: translateY(-8px);
-        -moz-transform: translateY(-8px);
-        -o-transform: translateY(-8px);
-        -ms-transform: translateY(-8px);
-        transform: translateY(-8px); }
+        -webkit-transform: translateY(-7px);
+        -moz-transform: translateY(-7px);
+        -o-transform: translateY(-7px);
+        -ms-transform: translateY(-7px);
+        transform: translateY(-7px); }
       header #btn_menu span:nth-child(2) {
         opacity: 1; }
       header #btn_menu span:nth-child(3) {
-        -webkit-transform: translateY(8px);
-        -moz-transform: translateY(8px);
-        -o-transform: translateY(8px);
-        -ms-transform: translateY(8px);
-        transform: translateY(8px); }
+        -webkit-transform: translateY(7px);
+        -moz-transform: translateY(7px);
+        -o-transform: translateY(7px);
+        -ms-transform: translateY(7px);
+        transform: translateY(7px); }
 
 #logo {
   position: fixed;
@@ -273,11 +301,17 @@ nav {
     background-color: gray;
     color: white;
     float: right;
-    border-radius: 5px;
-    padding: 3px 6px;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear;
+    border-radius: 4px;
+    padding: 4px 6px;
     cursor: pointer; }
     #uploadwrapper input[type="submit"]:hover {
-      background-color: #fa4e5e; }
+      background-color: #fa4e5e;
+      color: white; }
   #uploadwrapper input.uploadfilebtn {
     margin-top: 10px;
     width: 210px;
@@ -290,7 +324,8 @@ nav {
     overflow: auto;
     height: 100%;
     width: 210px;
-    vertical-align: bottom; }
+    vertical-align: bottom;
+    resize: none; }
 
 #searchbar {
   margin-left: -20px;
@@ -359,7 +394,7 @@ body.profileopened #profilewrapper {
 
 main {
   width: 100%;
-  background-color: white; }
+  background-color: #1e1e1e; }
 
 #mainscreen {
   position: absolute;
@@ -371,21 +406,29 @@ main {
 #listmenu {
   position: fixed;
   width: 90%;
-  background-color: black;
+  background-color: #1e1e1e;
   opacity: 1;
   border: none;
   margin: 0;
   border-top: 200px solid #1e1e1e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 2px;
   margin-top: -200px; }
+  #listmenu h6, #listmenu p {
+    opacity: .7;
+    letter-spacing: .05em; }
 
-.mainlist {
+.mainlist,
+.commentlist {
   width: 90%;
   margin: auto;
   margin-top: 60px;
-  padding-top: 40px;
   padding-bottom: 100px; }
+
+.mainlist {
+  padding-top: 40px; }
   .mainlist ul {
-    margin-top: 27px;
+    margin-top: 46px;
     padding-bottom: 10px;
     opacity: 1;
     padding-top: 0;
@@ -398,11 +441,13 @@ main {
       -webkit-flex-direction: row;
       flex-direction: row;
       -webkit-justify-content: center;
-      justify-content: center; }
+      justify-content: center;
+      padding-top: 5px;
+      padding-bottom: 5px; }
     .mainlist ul h6,
     .mainlist ul p {
       display: inline-block;
-      font-size: 1em;
+      font-size: 1.2em;
       padding-bottom: 0;
       font-weight: 500; }
     .mainlist ul h6 {
@@ -415,6 +460,7 @@ main {
       width: 15%;
       margin: 0; }
 
+#commentmain li,
 .postlist li,
 .filelist li {
   cursor: pointer;
@@ -425,27 +471,78 @@ main {
   transition: all 100ms linear;
   border-top: 1px solid #292929;
   border-bottom: 1px solid #292929; }
+  #commentmain li:nth-child(even),
   .postlist li:nth-child(even),
   .filelist li:nth-child(even) {
     border-top: #292929;
     border-bottom: #292929; }
+  #commentmain li:hover,
   .postlist li:hover,
   .filelist li:hover {
     background-color: #292929;
     border-top-color: #292929;
     border-bottom-color: #292929; }
+  #commentmain li h6,
+  #commentmain li p,
   .postlist li h6,
   .postlist li p,
   .filelist li h6,
   .filelist li p {
-    font-weight: 300; }
+    font-weight: 300;
+    font-size: 1em; }
+
+#commentmain {
+  margin: auto;
+  background-color: #292929;
+  min-height: 100px;
+  height: 50px;
+  width: 90%;
+  padding: 12px 10px; }
+
+.commentlist {
+  background-color: #1e1e1e;
+  margin-bottom: 100px; }
+  .commentlist form {
+    margin: auto;
+    width: 90%;
+    padding: 12px 10px;
+    height: 26px;
+    background-color: #292929;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row; }
+    .commentlist form textarea {
+      min-width: 200px;
+      padding: 4px 4px;
+      resize: none;
+      background-color: white;
+      margin: 0;
+      border-radius: 2px;
+      flex-grow: 2;
+      margin-right: 10px; }
+    .commentlist form input {
+      float: right;
+      margin: 0;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer; }
+      .commentlist form input:hover {
+        background-color: #fa4e5e;
+        color: white; }
 
 #profilewrapper {
   position: fixed;
   left: 0;
   width: 80%;
   max-width: 600px;
-  height: 100vh;
+  height: 100%;
   background-color: white;
   -webkit-transition: 300ms all ease-in-out;
   -moz-transition: 300ms all ease-in-out;
@@ -457,10 +554,29 @@ main {
   -o-transform: translateX(-100%);
   -ms-transform: translateX(-100%);
   transform: translateX(-100%); }
+  #profilewrapper div {
+    margin: auto;
+    clear: both; }
+  #profilewrapper .profileinnerwrapper {
+    width: 100%;
+    height: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column; }
+  #profilewrapper #profileheader {
+    width: 100%;
+    height: 200px;
+    overflow: hidden; }
+  #profilewrapper #profilecover {
+    position: relative;
+    width: 100%;
+    max-height: 200px; }
   #profilewrapper #profileclose {
-    float: right;
-    margin-right: 40px;
-    margin-top: 20px;
+    position: absolute;
+    right: 40px;
+    top: 0;
     cursor: pointer;
     width: 30px;
     height: 16px; }
@@ -491,12 +607,11 @@ main {
         -o-transform: rotate(315deg);
         -ms-transform: rotate(315deg);
         transform: rotate(315deg); }
-  #profilewrapper div {
-    margin: auto;
-    clear: both; }
   #profilewrapper #profile {
-    max-width: 450px;
-    margin-top: 100px;
+    flex-grow: 2;
+    margin: auto;
+    width: 400px;
+    margin-top: -100px;
     text-align: center; }
     #profilewrapper #profile img {
       border-radius: 50%;
@@ -516,10 +631,7 @@ main {
       line-height: 1.5em;
       text-align: left; }
   #profilewrapper #related {
-    position: absolute;
     width: 100%;
-    bottom: 0;
-    left: 0;
     margin: 0;
     overflow: hidden; }
     #profilewrapper #related h6 {
@@ -551,14 +663,15 @@ main {
   background-color: white;
   color: #fa4e5e;
   float: left;
-  padding: 2px 4px;
-  border-radius: 4px;
   margin-left: -4px;
   -webkit-transition: all 100ms linear;
   -moz-transition: all 100ms linear;
   -o-transition: all 100ms linear;
   -ms-transition: all 100ms linear;
-  transition: all 100ms linear; }
+  transition: all 100ms linear;
+  border-radius: 4px;
+  padding: 4px 6px;
+  cursor: pointer; }
   #openchat:hover {
     background-color: #fa4e5e;
     color: white; }
@@ -575,12 +688,13 @@ main {
 #chatwrapper {
   position: absolute;
   width: 300px;
-  height: 400px;
+  height: 420px;
   right: -300px;
   bottom: 120px;
   background-color: white;
   border: 1px solid #fa4e5e;
   z-index: 0;
+  border-radius: 5px;
   -webkit-transition: all 300ms ease-out;
   -moz-transition: all 300ms ease-out;
   -o-transition: all 300ms ease-out;
