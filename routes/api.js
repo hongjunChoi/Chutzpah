@@ -132,8 +132,9 @@ router.route('/search')
     var search_string = req.query.search_string.trim();
     console.log(search_string);
     var result = {
-        musician: [],
-        music: []
+        users: [],
+        posts: [],
+        events: []
     };
 
     User.find({
@@ -152,7 +153,7 @@ router.route('/search')
         if (err) {
             return res.send(err);
         }
-        result.musician = user;
+        result.users = user;
 
         Post.find({
             $or: [{
@@ -168,9 +169,24 @@ router.route('/search')
             if (err) {
                 return res.send(err);
             }
-            result.music = post;
-            console.log(result);
-            res.send(result)
+            result.posts = post;
+            Event.find({
+                $or: [{
+                    artist: search_string
+                }, {
+                    venue: search_string
+                }, {
+                    location: search_string
+                }, {
+                    genre: search_string
+                }]
+            }, function(err, events) {
+                if (err) {
+                    return res.send(err);
+                }
+                result.events = events;
+                res.send(result)
+            })
         });
 
     });

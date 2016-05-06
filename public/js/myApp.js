@@ -111,7 +111,8 @@ app.controller('searchController', function($scope, $rootScope, $http) {
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            $scope.search_results = data;
+            console.log(data)
+            //     $scope.search_results = data;
         });
     };
 
