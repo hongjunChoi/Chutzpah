@@ -98,7 +98,7 @@
         </div>
         <!-- Main screen -->
         <div id="mainscreen" ng-controller="mainController">
-            <div ng-view></div>
+            <div id="loginwrapper" ng-view></div>
             <div id="uploadwrapper" ng-controller="mainController">
                 <div class="clearfix">
                     <div ng-show="authenticated">
@@ -115,14 +115,22 @@
                 <!-- content lists -->
                 <div style="color: white; z-index:999">
                     <form>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="1" checked/>
-                        <label>Songs</label>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="2" />
-                        <label>Artists</label>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="3" />
-                        <label>Venues</label>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="4" />
-                        <label>Events</label>
+                    	<div>
+	                        <label>Songs</label>
+	                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="1" checked/>
+                    	</div>
+                    	<div>
+	                        <label>Artists</label>
+	                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="2" />
+                    	</div>
+                    	<div>
+	                        <label>Venues</label>
+	                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="3" />
+                    	</div>
+                    	<div>
+	                        <label>Events</label>
+	                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="4" />
+                    	</div>
                     </form>
                 </div>
                 <ul id="listmenu">
@@ -132,7 +140,7 @@
                         <p id="col3">Date</p>
                     </li>
                 </ul>
-                <ul id="artist_postlist">
+                <ul id="artist_postlist" class="maincontent">
                     <li ng-repeat="post in artist_posts" ng-click="load_post_comments(post)">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
