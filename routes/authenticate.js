@@ -42,30 +42,45 @@ module.exports = function(passport) {
 
     //sign up
     router.post('/signup', passport.authenticate('signup', {
-        successRedirect: '/auth/success',
-        failureRedirect: '/auth/failure'
+        successRedirect: '/auth/email-verification',
+        failureRedirect: '/auth/failure',
     }));
 
-    router.get('/email-verification/:username', passport.authenticate('verify_email'));
+    router.get('/email-verification', function(req, res) {
+        res.send({
+            state: 'success',
+            user: null,
+            message: "email-sent"
+        });
+    });
 
 
     //sends user session if there is one
     router.get('/session', function(req, res) {
-        if (req.user) {
+        console.log("------SESSION-------")
+        console.log(req.session)
+
+        console.log(req.session.user)
+
+        console.log("------SEad0fa=sdfi=dsaifsSSION-------")
+        user = req.session.user
+        if (req.session.user) {
             var user_data = {
-                "_id": req.user["_id"],
-                "user_location": req.user["user_location"],
-                "user_type": req.user["user_type"],
-                "username": req.user["username"]
+                "_id": user["_id"],
+                "user_location": user["user_location"],
+                "user_type": user["user_type"],
+                "username": user["username"]
             };
 
             data = {
                 "user": user_data,
                 "state": "success"
             };
+            console.log(data)
             res.send("success", data);
 
         } else {
+
             res.send("success", null);
         }
     });

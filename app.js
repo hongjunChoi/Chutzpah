@@ -22,11 +22,14 @@ var mongoose = require('mongoose');
 var Chat = mongoose.model('Chat');
 var User = mongoose.model('User');
 var Notification = mongoose.model('Notification');
+var nev = require('email-verification')(mongoose);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+var engines = require('consolidate');
 
+app.set('views', __dirname + '/public');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -36,8 +39,30 @@ app.use(logger('dev'));
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store = new MongoDBStore({
     mongooseConnection: mongoose.connection
+})
+
+
+
+nev.configure({
+    persistentUserModel: User,
+    tempUserCollection: 'tempcollections',
+
+    transportOptions: {
+        service: 'Gmail',
+        auth: {
+            user: 'hyun_chang_song@brown.edu',
+            pass: '1547Sean'
+        }
+    },
+    verifyMailOptions: {
+        from: 'Do Not Reply <StageLight>',
+        subject: 'Please confirm account',
+        html: 'Click the following link to confirm your account:</p><p>${URL}</p>',
+        text: 'Please confirm your account by clicking the following link: ${URL}'
+    }
 });
 
+nev.generateTempUserModel(User);
 
 // // Catch errors
 store.on('error', function(error) {
@@ -101,6 +126,7 @@ io.sockets.on('connection', function(socket) {
 });
 
 
+
 //API CALLS FOR CHATTING
 function update_notification(current_chat_user, res) {
     console.log("updating notification ... user : " + current_chat_user);
@@ -151,6 +177,10 @@ function update_notification(current_chat_user, res) {
         }
     });
 }
+
+app.get('/', function(req, res) {
+    console.log("-------!!!!!!dfdasfasd")
+})
 
 
 app.post('/update_notification', function(req, res) {
@@ -273,6 +303,85 @@ app.post('/send_chat', function(req, res) {
 });
 
 
+app.get('/verify', function(req, res) {
+    var id = req.query.id;
+    console.log(id)
+    console.log("-------- verifying ------- ")
+
+    mongoose.connection.db.collection("tempcollections", function(err, collection) {
+        collection.find({
+            "_id": mongoose.Types.ObjectId(id)
+        }).toArray(function(err, items) {
+            console.log(items);
+            if (items.length == 0) {
+                res.redirect('/#/signup')
+            } else {
+                nev.confirmTempUser(items[0].GENERATED_VERIFYING_URL, function(err, user) {
+                    if (err) {
+                        console.log('Error in Confirming user: ' + err);
+                    }
+                    if (user) {
+                        user.save(function(err) {
+                            if (err) {
+                                console.log('Error in Saving user: ' + err);
+                                throw err;
+                            }
+                            console.log("YAY!!!!!!!!!!!!!")
+                            var user_data = {
+                                "_id": user["_id"],
+                                "user_location": user["user_location"],
+                                "user_type": user["user_type"],
+                                "username": user["username"]
+                            };
+                            req.session.authenticated = true;
+                            req.session.username = user.username;
+                            req.session.user = user_data;
+                            console.log(req.session)
+                            console.log("-------------REDIRECTING")
+                            res.redirect('/');
+                        });
+                    } else {
+                        console.log("sign up again please\n")
+                        res.redirect('/#/signup')
+                    }
+                });
+            }
+        });
+    });
+
+    // tempUser.findOne({
+    //     '_id': id
+    // }, )
+    // cursor.each(function(err, doc) {
+    //     if (doc != null) {
+    //         console.log("----------- doc not nil")
+    //         nev.confirmTempUser(doc.GENERATED_VERIFYING_URL, function(err, user) {
+    //             if (err) {
+    //                 console.log('Error in Confirming user: ' + err);
+    //             }
+    //             if (user) {
+    //                 user.save(function(err) {
+    //                     if (err) {
+    //                         console.log('Error in Saving user: ' + err);
+    //                         throw err;
+    //                     }
+    //                     console.log("YAY!!!!!!!!!!!!!")
+    //                     res.redirect('/' + user._id);
+    //                 });
+    //             } else {
+    //                 console.log("sign up again please\n")
+    //                 res.redirect('/#/signup')
+    //             }
+    //         });
+    //     } else {
+    //         console.log("=================== doc nil")
+    //         res.redirect('/#/signup')
+    //     }
+    // });
+
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -285,7 +394,7 @@ app.use(function(req, res, next) {
 
 //// Initialize Passport
 var initPassport = require('./passport-init');
-initPassport(passport);
+initPassport(passport, nev);
 
 
 // error handlers

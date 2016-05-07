@@ -49,7 +49,7 @@ function isAuthenticated(req, res, next) {
 };
 
 //Register the authentication middleware
-router.use('/posts', isAuthenticated);
+//router.use('/posts', isAuthenticated);
 
 
 
@@ -64,9 +64,10 @@ router.route('/upload_file')
 
             var post = new Post();
             post.is_file = true;
-            post.created_by = res.req.user.username;
-            post.original_name = res.req.file.originalname;
-            post.user_type = res.req.user.user_type;
+
+            post.created_by = req.session.username;
+            post.original_name = req.file.originalname;
+            post.user_type = req.session.user_type;
             post.url = res.req.file.path;
 
             post.save(function(err, p) {
@@ -86,7 +87,7 @@ router.route('/upload_img')
                 console.log("Error: ", err);
                 return res.end("Error upoading image");
             }
-            User.findById(res.req.user._id, function(err, user) {
+            User.findById(req.session.user._id, function(err, user) {
                 if (err)
                     res.send(err);
                 user.img_url = res.req.file.path;
@@ -99,7 +100,6 @@ router.route('/upload_img')
             });
         })
     });
-
 
 //api for getting chat from specific user
 router.route('/get_chat_from')
@@ -272,7 +272,6 @@ router.route("/user")
                 console.log("err")
                 return res.send(err);
             }
-            console.log("!!!!!")
             return res.json(user)
         });
     });
@@ -337,11 +336,13 @@ router.route("/events")
 //create a new event
 .post(function(req, res) {
     var e = new Event();
+    console.log(" ==== in creaing evtnt ======");
     e.artist = req.body.artist
     e.venue = req.body.venue
     e.time = req.body.time
     e.genre = req.body.genre
     e.location = req.body.location
+    console.log(e.time);
     e.num_likes = 0
 
     e.save(function(err, e) {
@@ -361,12 +362,13 @@ router.route("/events")
     });
 })
 
-router.route('/posts')
+router.route("/posts")
 //creates a new post
 .post(function(req, res) {
     console.log("------post requested")
     var post = new Post();
     var text = req.body.newPost.text;
+    console.log(req.body)
 
     post.text = text;
     post.created_by = req.body.newPost.created_by;
@@ -394,44 +396,44 @@ router.route('/posts')
 
 
 
-//post-specific commands. likely won't be used
-router.route('/posts/:id')
-//gets specified post
-.get(function(req, res) {
-    Post.findById(req.params.id, function(err, post) {
-        if (err)
-            res.send(err);
-        res.json(post);
-    });
-})
+// // //post-specific commands. likely won't be used
+// // router.route('/posts/:id')
+// // //gets specified post
+// // .get(function(req, res) {
+// //     Post.findById(req.params.id, function(err, post) {
+// //         if (err)
+// //             res.send(err);
+// //         res.json(post);
+// //     });
+// // })
 
-//updates specified post
-.put(function(req, res) {
-    Post.findById(req.params.id, function(err, post) {
-        if (err)
-            res.send(err);
+// //updates specified post
+// .put(function(req, res) {
+//     Post.findById(req.params.id, function(err, post) {
+//         if (err)
+//             res.send(err);
 
-        post.created_by = req.body.created_by;
-        post.text = req.body.text;
+//         post.created_by = req.body.created_by;
+//         post.text = req.body.text;
 
-        post.save(function(err, post) {
-            if (err)
-                res.send(err);
+//         post.save(function(err, post) {
+//             if (err)
+//                 res.send(err);
 
-            res.json(post);
-        });
-    });
-})
-//deletes the post
-.delete(function(req, res) {
-    Post.remove({
-        _id: req.params.id
-    }, function(err) {
-        if (err)
-            res.send(err);
-        res.json("deleted :(");
+//             res.json(post);
+//         });
+//     });
+// })
+// //deletes the post
+// .delete(function(req, res) {
+//     Post.remove({
+//         _id: req.params.id
+//     }, function(err) {
+//         if (err)
+//             res.send(err);
+//         res.json("deleted :(");
 
-    });
-});
+//     });
+// });
 
 module.exports = router;

@@ -8,9 +8,13 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
         if (data && data !== "undefined" && data['user']) {
+            console.log("============!!!============")
+
+            console.log(data)
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
             $rootScope.user_type = data['user']['user_type'];
+            $rootScope.user = data['user'];
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
@@ -49,15 +53,6 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
                     $(".chatmain").append(dom);
                 }
                 $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
-                //update the latest read time
-                var url = "/update_notification"
-                $.post(url, {
-                    current_user: $rootScope.current_user
-                }).done(function(data) {
-                    console.log(data);
-                    console.log("NOTIFICATION TIME UPDATED");
-                });
-
             } else {
                 alert(data.msg + "  received from " + data.from);
             }
@@ -196,13 +191,15 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             user_type: "artist"
         }
     }).success(function(data) {
+        console.log("==================")
+        console.log(data)
+
         data.forEach(function(item) {
             if (item["is_file"] == true || item["is_file"] == "true") {
                 item['created_at'] = convert_time(item['created_at']);
                 files.push(item);
             } else {
                 item['created_at'] = convert_time(item['created_at']);
-                console.log(item);
                 text_posts.push(item);
             }
         });
@@ -214,6 +211,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#eventlist").hide()
     });
 
+
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
@@ -222,7 +220,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
-        var url = "/api/posts"
+        console.log("----------");
+        console.log($scope.newPost);
+        var url = "/api/posts";
+
         $http.post(url, {
             newPost: $scope.newPost
         }).success(function(data) {
@@ -242,12 +243,30 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
+            for (var i = 0; i < data.artist_posts.length; i++) {
+                data.artist_posts[i]['created_at'] = convert_time(data[i].artist_posts['created_at']);
+            }
             $rootScope.artist_posts = data.artist_posts;
-            console.log(data.files)
+
+
+            for (var i = 0; i < data.files.length; i++) {
+                data.files[i]['created_at'] = convert_time(data[i].files['created_at']);
+            }
             $rootScope.files = data.files;
             $rootScope.artists = data.artists;
-            $rootScope.requests = data.requests
-            $rootScope.events = data.events
+
+
+            for (var i = 0; i < data.requests.length; i++) {
+                data.requests[i]['created_at'] = convert_time(data[i].requests['created_at']);
+            }
+            $rootScope.requests = data.requests;
+
+
+
+            for (var i = 0; i < data.events.length; i++) {
+                data.events[i]['time'] = convert_time(data[i].events['time']);
+            }
+            $rootScope.events = data.events;
         });
     };
 
@@ -293,6 +312,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             set_columns("Venue", "Artist", "Date")
             if ($rootScope.search_string == "") {
                 $scope.load_gigs();
+                console.log($rootScope.events);
             }
             $("#eventlist").show()
         }
@@ -395,6 +415,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/gig_requests";
 
         $http.get(url, {}).success(function(data) {
+
             $rootScope.requests = data;
         })
     }
@@ -403,6 +424,9 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/events";
 
         $http.get(url, {}).success(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                data[i]['time'] = convert_time(data[i]['time']);
+            }
             $rootScope.events = data;
         })
     }
@@ -445,6 +469,14 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("body").removeClass("profileopened");
         $("body").removeClass("searchopened");
         $("body").removeClass("chatopened");
+        //update the latest read time
+        var url = "/update_notification"
+        $.post(url, {
+            current_user: $rootScope.current_user
+        }).done(function(data) {
+            console.log(data);
+            console.log("NOTIFICATION TIME UPDATED");
+        });
 
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.original_name,
@@ -471,7 +503,9 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 username: user_name
             }
         }).success(function(data) {
-            set_user_images(data[0].img_url)
+            if (data.length > 0) {
+                set_user_images(data[0].img_url)
+            }
         });
     }
 });
@@ -652,6 +686,14 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             add_chat(data);
             $("body").addClass("chatopened");
             $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+            //update the latest read time
+            var url = "/update_notification"
+            $.post(url, {
+                current_user: $rootScope.current_user
+            }).done(function(data) {
+                console.log(data);
+                console.log("NOTIFICATION TIME UPDATED");
+            });
 
         });
     };
@@ -826,9 +868,11 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
-                $rootScope.authenticated = true;
-                $rootScope.current_user = data.user.username;
-                $rootScope.user_type = data.user.user_type;
+                alert("email-verification sent!")
+                // $rootScope.authenticated = false;
+                // // console.log(data);
+                // // $rootScope.current_user = data.user.username;
+                // // $rootScope.user_type = data.user.user_type;
                 $location.path('/');
             } else {
                 $scope.error_message = data.message;

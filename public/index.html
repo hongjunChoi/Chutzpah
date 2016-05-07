@@ -103,18 +103,18 @@
             <div id="uploadwrapper" ng-controller="mainController">
                 <div class="clearfix">
                     <div ng-show="authenticated">
-                        <form ng-Submit="post()" ng-show="authenticated">
+<!--                         <form ng-Submit="post()" ng-show="authenticated"> -->
                             <textarea id="post_input_field" required class="form-control" maxlength="200" placeholder="write anything here!" ng-model="newPost.text"></textarea>
-                            <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                        </form>
-                        <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+                            <input class="btn submit-btn pull-right" type="submit" ng-click="post()" value="Add" />
+                        <!-- </form> -->
+                        <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
                         <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
                     </div>
                 </div>
             </div>
             <div class="mainlist maincontent">
                 <!-- content lists -->
-                <div style="color: white; position:fixed; z-index:9">
+                <div style="color: white; z-index:999">
                     <form>
                         <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="1" checked/>
                         <label>Songs</label>

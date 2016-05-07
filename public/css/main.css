@@ -688,6 +688,7 @@ main {
 }
 
 #chat_list {
+    display: none;
     margin-top: 20px;
 }
 
