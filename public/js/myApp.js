@@ -238,7 +238,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             newPost: $scope.newPost
         }).success(function(data) {
             $("#post_input_field").val("")
-            console.log(data)
+            $scope.refresh_view()
         });
     };
 
@@ -280,7 +280,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     $scope.search = function() {
         $rootScope.search_string = $scope.search_string
         if ($scope.search_string == "") {
-            $scope.change_post_view_type();
+            $scope.refresh_view();
             return;
         }
         $http.get('/api/search', {
@@ -299,21 +299,21 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
 
             for (var i = 0; i < data.files.length; i++) {
-                data.files[i]['created_at'] = convert_time(data[i].files['created_at']);
+                data.files[i]['created_at'] = convert_time(data.files[i]['created_at']);
             }
             $rootScope.files = data.files;
             $rootScope.artists = data.artists;
 
 
             for (var i = 0; i < data.requests.length; i++) {
-                data.requests[i]['created_at'] = convert_time(data[i].requests['created_at']);
+                data.requests[i]['created_at'] = convert_time(data.requests[i]['created_at']);
             }
             $rootScope.requests = data.requests;
 
 
 
             for (var i = 0; i < data.events.length; i++) {
-                data.events[i]['time'] = convert_time(data[i].events['time']);
+                data.events[i]['time'] = convert_time(data.events[i]['time']);
             }
             $rootScope.events = data.events;
         });
@@ -391,7 +391,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         }
         var uploadUrl = "/api/upload_file";
         fileUpload.uploadFileToUrl(file, uploadUrl, function(res) {
-            $scope.change_post_view_type();
+            $scope.refresh_view();
         });
     };
 
