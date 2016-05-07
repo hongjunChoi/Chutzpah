@@ -123,6 +123,7 @@ app.service('fileUpload', ['$http',
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -555,6 +556,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var user_name = $rootScope.now_playing.created_by;
+        alert(user_name)
         if (user_name == "") {
             alert("!!!")
         }
@@ -565,6 +567,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
                 username: user_name
             }
         }).success(function(data) {
+            console.log(data)
             var user_info = data['info'];
             set_user_profile(user_info[0], $rootScope.current_user);
             var profile_posts = data["posts"];

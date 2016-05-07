@@ -64,10 +64,10 @@ router.route('/upload_file')
 
             var post = new Post();
             post.is_file = true;
-
+            console.log(req.session)
             post.created_by = req.session.username;
             post.original_name = req.file.originalname;
-            post.user_type = req.session.user_type;
+            post.user_type = req.session.user.user_type;
             post.url = res.req.file.path;
 
             post.save(function(err, p) {
@@ -168,7 +168,7 @@ router.route('/comment')
 
 
 //API FOR GETTING SEARCH RESULTS 
-router.route('/search')
+router.route("/search")
 //gets specified post
 .get(function(req, res) {
     var search_string = req.query.search_string.trim();
@@ -217,8 +217,6 @@ router.route('/search')
             if (err) {
                 return res.send(err);
             }
-            console.log("------")
-            console.log(posts)
             var files = [];
             var artist_posts = [];
             var requests = [];
@@ -279,7 +277,9 @@ router.route("/user")
 //api for getting info needed for user profile
 router.route("/profile")
     .get(function(req, res) {
+
         var username = req.query.username;
+        console.log(username)
         result = {
             posts: [],
             info: {}
