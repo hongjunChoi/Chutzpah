@@ -1,0 +1,47 @@
+import java.util.Arrays;
+
+public class TestPatron {
+	public static void main(String[] args) {
+
+		//make some books
+		Book b1 = new Book("The Hobbit", "J.R.R. Tolkien");
+		Book b2 = new Book("Alas Babylon", "Pat Frank");
+		Book b3 = new Book("I Robot", "Isaac Assimov");
+		Book b4 = new Book("Winnie The Pooh", "A.A. Milne");
+
+		Patron p1 = new Patron("Dudley Doright");
+		Patron p2 = new Patron("Rachel Reader");
+		p1.checkout(b1);
+
+		Book[] books = p1.getBooks();
+		System.out.println("Should display 1 book (Hobbit):");
+		System.out.println(Arrays.toString(books));
+		System.out.println();
+
+		//test checking out same book again
+		p1.checkout(b1);
+		books = p1.getBooks();
+		System.out.println("Should still display 1 book (Hobbit):");
+		System.out.println(Arrays.toString(books));
+		System.out.println();
+
+		//test checking out 3 books
+		p1.checkout(b2);
+		p1.checkout(b3);
+		books = p1.getBooks();
+		System.out.println("Should display 3 books: (Hobbit, Alas,Babylon, and I, Robot)");
+		System.out.println(Arrays.toString(books));
+		System.out.println();
+		
+		//checkout last book
+		p1.checkout(b4);
+
+		//test returning a book
+		p1.returnBook(b2);
+		books = p1.getBooks();
+		System.out.println("Should display 3 books (Hobbit, I,Robot, and Winnie the Pooh):");
+		System.out.println(Arrays.toString(books));
+		System.out.println();
+
+	}
+}

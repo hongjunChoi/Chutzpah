@@ -79,10 +79,9 @@
                     <button id="profileclose"><span></span><span></span></button>
                 </div>
                 <div id="profile">
-                    <img id="profile_image" src="img/sample.jpg"/>
-                    <div class="img-button" ng-click="upload_image()" >Change Image</div>
-                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*"/
-                    >
+                    <img id="profile_image" src="img/sample.jpg" />
+                    <div class="img-button" ng-click="upload_image()">Change Image</div>
+                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
                     <h3 id="user_profile_username"></h3>
                     <span id="user_profile_location"></span>
                     <span id="user_profile_genre"></span>
@@ -116,9 +115,9 @@
                 <!-- content lists -->
                 <div style="color: white; z-index:999">
                     <form>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="1" checked/>
+                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="1" checked/>
                         <label>Songs</label>
-                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="2" />
+                        <input class="cat-checkbox" type="radio" name="post_type" ng-click="refresh_view()" value="2" />
                         <label>Artists</label>
                         <input class="cat-checkbox" type="radio" name="post_type" ng-click="change_post_view_type()" value="3" />
                         <label>Venues</label>

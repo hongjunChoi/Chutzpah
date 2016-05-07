@@ -18,6 +18,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
+            set_user_images($rootScope.user.img_url)
         }
         $("#mainscreen").data("username", $rootScope.current_user);
         var socket = io.connect();
@@ -77,15 +78,15 @@ app.config(function($routeProvider) {
     $routeProvider
 
     //the login display
-    .when('/login', {
-        templateUrl: 'login.html',
-        controller: 'authController'
-    })
-    //the signup display
-    .when('/signup', {
-        templateUrl: 'register.html',
-        controller: 'authController'
-    })
+        .when('/login', {
+            templateUrl: 'login.html',
+            controller: 'authController'
+        })
+        //the signup display
+        .when('/signup', {
+            templateUrl: 'register.html',
+            controller: 'authController'
+        })
 });
 
 
@@ -110,11 +111,12 @@ app.directive('fileModel', ['$parse',
 
 
 
-app.service('fileUpload', ['$http',
-    function($http) {
-        this.uploadFileToUrl = function(file, uploadUrl) {
+app.service('fileUpload', ['$http', '$rootScope',
+    function($http, $rootScope) {
+        this.uploadFileToUrl = function(file, uploadUrl, callback) {
             var fd = new FormData();
             fd.append('file', file);
+            alert("file upload")
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: {
@@ -123,10 +125,15 @@ app.service('fileUpload', ['$http',
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                console.log($rootScope)
+                alert("ddddd")
+                callback();
+
 
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                console.log("123432r")
             });
         }
 
@@ -141,6 +148,7 @@ app.service('fileUpload', ['$http',
             }).then(function successCallback(response) {
                 console.log(response)
                 set_user_images(response.data.img_url)
+                $rootScope.user.image_url = response.data.img_url
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -172,6 +180,7 @@ app.controller('searchController', function($scope, $rootScope, $http) {
 
     // }
 });
+
 
 
 app.factory('postService', function($resource) {
@@ -233,6 +242,41 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
     };
 
+    $scope.refresh_view = function() {
+        $scope.clear_lists();
+        var val = $(".cat-checkbox:checked").val()
+        if (val == 1) {
+            set_columns("Song", "Artist", "Date")
+            $("#artist_postlist").show()
+            $("#filelist").show()
+            if ($rootScope.search_string == "") {
+                $scope.load_artist_posts();
+            }
+        }
+        if (val == 2) {
+            $("#artistlist").show()
+            set_columns("Artist", "genre", "description")
+            if ($rootScope.search_string == "") {
+                $scope.load_artists();
+            }
+        }
+        if (val == 3) {
+            set_columns("Gig requests", "Venue", "Date")
+            if ($rootScope.search_string == "") {
+                $scope.load_gig_requests();
+            }
+            $("#requestlist").show()
+        }
+        if (val == 4) {
+            set_columns("Venue", "Artist", "Date")
+            if ($rootScope.search_string == "") {
+                $scope.load_gigs();
+                console.log($rootScope.events);
+            }
+            $("#eventlist").show()
+        }
+    }
+
     $scope.search = function() {
         $rootScope.search_string = $scope.search_string
         if ($scope.search_string == "") {
@@ -283,42 +327,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     };
 
-    $scope.change_post_view_type = function() {
 
-        $scope.clear_lists();
-        var val = $(".cat-checkbox:checked").val()
-        if (val == 1) {
-            set_columns("Song", "Artist", "Date")
-            $("#artist_postlist").show()
-            $("#filelist").show()
-            if ($rootScope.search_string == "") {
-                $scope.load_artist_posts();
-            }
-        }
-        if (val == 2) {
-            $("#artistlist").show()
-            set_columns("Artist", "genre", "description")
-            if ($rootScope.search_string == "") {
-                $scope.load_artists();
-            }
-        }
-        if (val == 3) {
-            set_columns("Gig requests", "Venue", "Date")
-            if ($rootScope.search_string == "") {
-                $scope.load_gig_requests();
-            }
-            $("#requestlist").show()
-        }
-        if (val == 4) {
-            set_columns("Venue", "Artist", "Date")
-            if ($rootScope.search_string == "") {
-                $scope.load_gigs();
-                console.log($rootScope.events);
-            }
-            $("#eventlist").show()
-        }
-
-    }
 
     $scope.clear_lists = function() {
         $("#artist_postlist").hide()
@@ -358,13 +367,13 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#uploadwrapper").show();
 
         var file = $scope.myFile;
-
         if (typeof file === "undefined") {
             return
         }
-
         var uploadUrl = "/api/upload_file";
-        fileUpload.uploadFileToUrl(file, uploadUrl);
+        fileUpload.uploadFileToUrl(file, uploadUrl, function(res) {
+            $scope.change_post_view_type();
+        });
     };
 
     $scope.upload_comment = function() {
@@ -872,10 +881,10 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
                 alert("email-verification sent!")
-                // $rootScope.authenticated = false;
-                // // console.log(data);
-                // // $rootScope.current_user = data.user.username;
-                // // $rootScope.user_type = data.user.user_type;
+                    // $rootScope.authenticated = false;
+                    // // console.log(data);
+                    // // $rootScope.current_user = data.user.username;
+                    // // $rootScope.user_type = data.user.user_type;
                 $location.path('/');
             } else {
                 $scope.error_message = data.message;

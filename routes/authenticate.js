@@ -64,12 +64,13 @@ module.exports = function(passport) {
 
         console.log("------SEad0fa=sdfi=dsaifsSSION-------")
         user = req.session.user
-        if (req.session.user) {
+        if (user) {
             var user_data = {
                 "_id": user["_id"],
                 "user_location": user["user_location"],
                 "user_type": user["user_type"],
-                "username": user["username"]
+                "username": user["username"],
+                "img_url": user["img_url"]
             };
 
             data = {
