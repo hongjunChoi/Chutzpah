@@ -8,9 +8,13 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
         if (data && data !== "undefined" && data['user']) {
+            console.log("============!!!============")
+
+            console.log(data)
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
             $rootScope.user_type = data['user']['user_type'];
+            $rootScope.user = data['user'];
             $rootScope.now_playing = {
                 "created_by": $rootScope.current_user
             };
@@ -116,11 +120,30 @@ app.service('fileUpload', ['$http',
                 headers: {
                     'Content-Type': undefined
                 }
-            }).success(function() {
-                alert("file successfully uploaded");
-                $("#file_upload_form").val("");
-            }).error(function() {
-                alert("file upload failed");
+            }).then(function successCallback(response) {
+                // this callback will be called asynchronously
+                // when the response is available
+
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        }
+
+        this.uploadImageToUrl = function(img, uploadUrl) {
+            var fd = new FormData();
+            fd.append('file', img);
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).then(function successCallback(response) {
+                console.log(response)
+                set_user_images(response.data.img_url)
+            }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
             });
         }
     }
@@ -169,6 +192,9 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             user_type: "artist"
         }
     }).success(function(data) {
+        console.log("==================")
+        console.log(data)
+
         data.forEach(function(item) {
             if (item["is_file"] == true || item["is_file"] == "true") {
                 item['created_at'] = convert_time(item['created_at']);
@@ -195,7 +221,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
-        var url = "/api/posts"
+        console.log("----------");
+        console.log($scope.newPost);
+        var url = "/api/posts";
+
         $http.post(url, {
             newPost: $scope.newPost
         }).success(function(data) {
@@ -328,13 +357,12 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             if ($("#now_playing_info_wrapper").css('display') == "block") {
                 $("#now_playing_info_wrapper").hide();
             } else {
-                / /
-                $("#uploadwrapper").hide();
+                $("#upload_wrapper").hide();
                 $("#trending_wrapper").hide();
                 $("#saved_wrapper").hide();
                 $("#chat_list").hide();
 
-                set_now_playing_info(data);
+                $scope.set_now_playing_info(data);
                 $("#now_playing_info_wrapper").show();
             }
 
@@ -474,7 +502,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             title: post.original_name,
             mp3: post.url.substring(post.url.indexOf("/") + 1)
         });
-
         $scope.post_id = post._id;
         $scope.load_comments(post);
         $rootScope.now_playing = post
@@ -482,13 +509,27 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#now_playing_info_wrapper").hide();
         $scope.get_now_playing();
     }
+
+    $scope.set_now_playing_info = function(data) {
+        $("#now_playing_song_title").html(data.original_name);
+        $("#now_playing_song_artist").html(data.created_by);
+        $("#now_playing_song_date").html(data.created_at);
+        var url = "/api/user";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var user_name = data.created_by;
+        console.log("-------setnow")
+        $http.get(url, {
+            params: {
+                username: user_name
+            }
+        }).success(function(data) {
+            if (data.length > 0) {
+                set_user_images(data[0].img_url)
+            }
+        });
+    }
 });
 
-function set_now_playing_info(data) {
-    $("#now_playing_song_title").html(data.original_name);
-    $("#now_playing_song_artist").html(data.created_by);
-    $("#now_playing_song_date").html(data.created_at);
-}
 
 
 function set_columns(col1, col2, col3) {
@@ -502,6 +543,7 @@ function set_user_profile(info, user) {
     var location = info.user_location;
     var description = info.user_description;
     var genre = info.genre;
+    set_user_images(info.image_url)
     $("#user_profile_username").html(username);
     $("#user_profile_location").html(location);
     $("#user_profile_description").html(description);
@@ -509,12 +551,23 @@ function set_user_profile(info, user) {
     $(".current_user_profile").html(username);
     if (username == user) {
         $('#openchat').hide();
+        $('.img-button').show();
     } else {
         $('#openchat').show();
+        $('.img-button').hide();
     }
 }
 
-app.controller('profileController', function($scope, $rootScope, $http) {
+function set_user_images(url) {
+    if (typeof url === "undefined")
+        return
+
+    $("#userthumb").attr("src", url.substring(url.indexOf("/") + 1))
+    $("#profile_image").attr("src", url.substring(url.indexOf("/") + 1))
+
+}
+
+app.controller('profileController', function(fileUpload, $scope, $rootScope, $http) {
     $scope.user_posts = [];
     $scope.user_info = {};
 
@@ -522,12 +575,18 @@ app.controller('profileController', function($scope, $rootScope, $http) {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var user_name = $rootScope.now_playing.created_by;
+        alert(user_name)
+        if (user_name == "") {
+            alert("!!!")
+        }
+
 
         $http.get(url, {
             params: {
                 username: user_name
             }
         }).success(function(data) {
+            console.log(data)
             var user_info = data['info'];
             set_user_profile(user_info[0], $rootScope.current_user);
             var profile_posts = data["posts"];
@@ -566,7 +625,7 @@ app.controller('profileController', function($scope, $rootScope, $http) {
     $scope.readURL = function() {
         var img = $scope.imgFile;
         var uploadUrl = "/api/upload_img";
-        fileUpload.uploadFileToUrl(img, uploadUrl);
+        fileUpload.uploadImageToUrl(img, uploadUrl);
     }
 
 
@@ -832,9 +891,11 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
 
         $http.post('/auth/signup', $scope.user).success(function(data) {
             if (data.state == 'success') {
-                $rootScope.authenticated = true;
-                $rootScope.current_user = data.user.username;
-                $rootScope.user_type = data.user.user_type;
+                alert("email-verification sent!")
+                // $rootScope.authenticated = false;
+                // // console.log(data);
+                // // $rootScope.current_user = data.user.username;
+                // // $rootScope.user_type = data.user.user_type;
                 $location.path('/');
             } else {
                 $scope.error_message = data.message;
