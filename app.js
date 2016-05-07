@@ -96,6 +96,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
+function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/#login');
+    }
+}
+
 //routing define
 app.use('/', index); //root homepage
 app.use('/auth', authenticate); //login related 
@@ -178,12 +187,9 @@ function update_notification(current_chat_user, res) {
     });
 }
 
-app.get('/', function(req, res) {
-    console.log("-------!!!!!!dfdasfasd")
-})
 
 
-app.post('/update_notification', function(req, res) {
+app.post('/update_notification', loggedIn, function(req, res) {
 
     var current_chat_user = req.body.current_user;
     update_notification(current_chat_user, res);
@@ -192,7 +198,7 @@ app.post('/update_notification', function(req, res) {
 
 
 //get room html 
-app.get('/get_chat', function(req, res) {
+app.get('/get_chat', loggedIn, function(req, res) {
     var user = req.query.user_name;
     Notification.find({
         username: user
@@ -247,7 +253,7 @@ app.get('/get_chat', function(req, res) {
 });
 
 
-app.post('/send_chat', function(req, res) {
+app.post('/send_chat', loggedIn, function(req, res) {
     console.log("===========  send chat ==============  ");
     var sent_from = req.body.sent_from;
     var sent_to = req.body.sent_to;

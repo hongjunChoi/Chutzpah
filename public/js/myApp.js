@@ -8,9 +8,7 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
         if (data && data !== "undefined" && data['user']) {
-            console.log("============!!!============")
 
-            console.log(data)
             $rootScope.authenticated = true;
             $rootScope.current_user = data['user']['username'];
             $rootScope.user_type = data['user']['user_type'];
@@ -123,6 +121,7 @@ app.service('fileUpload', ['$http',
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
+                $("#file_upload_form").val("");
 
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
@@ -284,6 +283,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     };
 
     $scope.load_post_comments = function(post_data) {
+        $rootScope.now_playing['created_by'] = post_data["created_by"];
         var url = "/api/comment";
 
         var post_id = post_data['_id'];
@@ -379,6 +379,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var file = $scope.myFile;
 
         if (typeof file === "undefined") {
+            $("#file_upload_form").val("");
             return
         }
 
@@ -539,6 +540,7 @@ function set_columns(col1, col2, col3) {
 }
 
 function set_user_profile(info, user) {
+
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
@@ -574,20 +576,17 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
     $scope.get_profile_info = function() {
         var url = "/api/profile";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
-        var user_name = $rootScope.now_playing.created_by;
-        alert(user_name)
-        if (user_name == "") {
-            alert("!!!")
-        }
-
+        var user_name = $rootScope.now_playing['created_by'];
+        
 
         $http.get(url, {
             params: {
                 username: user_name
             }
         }).success(function(data) {
-            console.log(data)
+
             var user_info = data['info'];
+
             set_user_profile(user_info[0], $rootScope.current_user);
             var profile_posts = data["posts"];
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
@@ -740,7 +739,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
 
         }).success(function(data) {
             $("#chat_input").val("");
-            alert(JSON.stringify(data));
+
             var type = data['request_music_type'];
             var time = convert_time(data['request_time']);
             var locatiion = data['request_location'];

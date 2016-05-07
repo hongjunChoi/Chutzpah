@@ -30,26 +30,22 @@ var upload_img = multer({
 }).single('file');
 
 
-//Used for routes that must be authenticated.
-function isAuthenticated(req, res, next) {
-    // if user is authenticated in the session, call the next() to call the next request handler 
-    // Passport adds this method to request object. A middleware is allowed to add properties to
-    // request and response objects
+
+
+
+router.use(function (req, res, next) {
 
     //allow all get request methods
     if (req.method === "GET") {
         return next();
     }
-    if (req.isAuthenticated()) {
-        return next();
+    if (typeof req.user === 'undefined' || req.user == "undefined" || req.user == null || !(req.user) ) {
+         return res.redirect('/#login');
     }
 
     // if the user is not authenticated then redirect him to the login page
-    return res.redirect('/#login');
-};
-
-//Register the authentication middleware
-//router.use('/posts', isAuthenticated);
+    return next();
+});
 
 
 
@@ -101,6 +97,8 @@ router.route('/upload_img')
         })
     });
 
+
+
 //api for getting chat from specific user
 router.route('/get_chat_from')
 //make comments on post
@@ -131,6 +129,7 @@ router.route('/get_chat_from')
     });
 
 })
+
 
 //api for getting comments/ putting comments on posts
 router.route('/comment')
@@ -305,6 +304,7 @@ router.route("/profile")
     });
 
 
+
 router.route("/gig_requests")
 
 .post(function(req, res) {
@@ -331,6 +331,7 @@ router.route("/artists")
             return res.send(200, users)
         });
 })
+
 
 router.route("/events")
 //create a new event
@@ -361,6 +362,7 @@ router.route("/events")
         return res.send(200, events);
     });
 })
+
 
 router.route("/posts")
 //creates a new post
