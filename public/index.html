@@ -133,7 +133,7 @@
                     </li>
                 </ul>
                 <ul id="artist_postlist">
-                    <li ng-repeat="post in artist_posts">
+                    <li ng-repeat="post in artist_posts" ng-click="load_post_comments(post)">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
                         <p>{{ post.created_at }}</p>

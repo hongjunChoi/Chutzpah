@@ -288,10 +288,14 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-            for (var i = 0; i < data.artist_posts.length; i++) {
-                data.artist_posts[i]['created_at'] = convert_time(data[i].artist_posts['created_at']);
+
+            var artist_posts = data['artist_posts'];
+
+            for (var i = 0; i < artist_posts.length; i++) {
+                var time = artist_posts[i]['created_at'];
+                artist_posts[i]['created_at'] = convert_time(time);
             }
-            $rootScope.artist_posts = data.artist_posts;
+            $rootScope.artist_posts = artist_posts;
 
 
             for (var i = 0; i < data.files.length; i++) {
@@ -324,7 +328,22 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     };
 
     $scope.load_post_comments = function(post_data) {
+        var url = "/api/comment";
 
+        var post_id = post_data['_id'];
+        $scope.post_id = post_id;
+        $http.get(url, {
+            params: {
+                post_id: post_id
+            }
+        }).success(function(data) {
+
+            $("#commentmain").empty();
+            data.forEach(function(c) {
+                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+            });
+            $(".commentField").show();
+        });
     };
 
 
@@ -583,9 +602,10 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
             $scope.user_info = user_info;
             $scope.user_posts = profile_posts;
+            $("#user_post_wrapper").empty();
             $("body").addClass("profileopened");
             profile_posts.forEach(function(entry) {
-                $("#user_post_wrapper").empty();
+
                 var time = convert_time(entry.created_at);
                 var is_file = entry['is_file'];
                 var item;
