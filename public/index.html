@@ -79,10 +79,9 @@
                     <button id="profileclose"><span></span><span></span></button>
                 </div>
                 <div id="profile">
-                    <img id="profile_image" src="img/sample.jpg"/>
-                    <div class="img-button" ng-click="upload_image()" >Change Image</div>
-                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*"/
-                    >
+                    <img id="profile_image" src="img/sample.jpg" />
+                    <div class="img-button" ng-click="upload_image()">Change Image</div>
+                    <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
                     <h3 id="user_profile_username"></h3>
                     <span id="user_profile_location"></span>
                     <span id="user_profile_genre"></span>
@@ -134,7 +133,7 @@
                     </li>
                 </ul>
                 <ul id="artist_postlist">
-                    <li ng-repeat="post in artist_posts">
+                    <li ng-repeat="post in artist_posts" ng-click="load_post_comments(post)">
                         <h6>{{ post.text }}</h6>
                         <h6>{{ post.created_by }}</h6>
                         <p>{{ post.created_at }}</p>
