@@ -8,7 +8,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/carousel/owl.carousel.css">
     <link rel="stylesheet" href="css/carousel/owl.theme.css">
@@ -43,10 +49,11 @@
                 </p>
             </li>
             <li id="btn_upload" alt="upload" ng-show="authenticated">
-            	<span></span><p>Upload</p>
+                <span></span>
+                <p>Upload</p>
             </li>
             <li id="logininfo" ng-show="authenticated">
-            	<img id="loginthumb" src="" />
+                <img id="loginthumb" src="" />
                 <p class="logininfo-name" ng-show="authenticated">{{current_user}}</p>
                 <p class="logininfo-signout" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
             </li>
@@ -97,7 +104,7 @@
         <div id="mainscreen" ng-controller="mainController">
             <div id="loginwrapper" ng-view></div>
             <div id="uploadwrapper" ng-controller="mainController" ng-show="authenticated">
-            	<h4>Upload</h4>
+                <h4>Upload</h4>
                 <div class="clearfix">
                     <div>
                         <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
@@ -123,35 +130,34 @@
             </div>
             <h5 class="mainheading" ng-show="authenticated">Upcoming Trends</h5>
             <div id="news-carousel" class="owl-carousel" ng-show="authenticated">
-				<div class="item">
-					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
-					<div>
-						<p>Trap Party</p>
-						<h3>Kevin Herchen</h3>
-						<h6>Providence, Rhode Island</h6>
-						<h6>May 26, 2016</h6>
-					</div>
-				</div>
-				<div class="item">
-					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
-					<div>
-						<p>Trap Party</p>
-						<h3>Kevin Herchen</h3>
-						<h6>Providence, Rhode Island</h6>
-						<h6>May 26, 2016</h6>
-					</div>
-				</div>	
-				<div class="item">
-					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
-					<div>
-						<p>Trap Party</p>
-						<h3>Kevin Herchen</h3>
-						<h6>Providence, Rhode Island</h6>
-						<h6>May 26, 2016</h6>
-					</div>
-				</div>	
+                <div class="item">
+                    <img class="lazyOwl" data-src="img/sampleheader.jpg" alt="" />
+                    <div>
+                        <p>Trap Party</p>
+                        <h3>Kevin Herchen</h3>
+                        <h6>Providence, Rhode Island</h6>
+                        <h6>May 26, 2016</h6>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="lazyOwl" data-src="img/sampleheader.jpg" alt="" />
+                    <div>
+                        <p>Trap Party</p>
+                        <h3>Kevin Herchen</h3>
+                        <h6>Providence, Rhode Island</h6>
+                        <h6>May 26, 2016</h6>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="lazyOwl" data-src="img/sampleheader.jpg" alt="" />
+                    <div>
+                        <p>Trap Party</p>
+                        <h3>Kevin Herchen</h3>
+                        <h6>Providence, Rhode Island</h6>
+                        <h6>May 26, 2016</h6>
+                    </div>
+                </div>
             </div>
-
             <!-- content lists -->
             <h5 class="mainheading" ng-show="authenticated">Browse</h5>
             <div class="mainlist" ng-show="authenticated">
@@ -177,9 +183,11 @@
                 </div>
                 <ul id="list-header">
                     <li>
-                        <h6 id="col1">Posts</h6><div></div>
+                        <h6 id="col1">Posts</h6>
+                        <div></div>
                         <h6 id="col2">Artist</h6>
-                        <p id="col3">Date</p><div></div>
+                        <p id="col3">Date</p>
+                        <div></div>
                     </li>
                 </ul>
                 <ul id="artist_postlist" class="maincontent">
@@ -258,11 +266,11 @@
                 </ul>
                 <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
-                    	<div class="postgeneral">
-	                        <h6>{{ artist.name }}</h6>
-	                        <h6>{{ artist.genre }}</h6>
-	                        <p>{{ artist.location }}</p>
-                    	</div>
+                        <div class="postgeneral">
+                            <h6>{{ artist.name }}</h6>
+                            <h6>{{ artist.genre }}</h6>
+                            <p>{{ artist.location }}</p>
+                        </div>
                     </li>
                 </ul>
                 <ul id="requestlist" class="maincontent">
@@ -395,7 +403,24 @@
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        // $("#jquery_jplayer_1").jPlayer({ // ready: function() { // $(this).jPlayer("setMedia", { // title: "Big Buck Bunny Trailer", // mp3: "/uploads/sample.mp3" // }); // }, // cssSelectorAncestor: "#jp_container_1", // swfPath: "/js", // supplied: "mp3", // useStateClassSkin: true, // autoBlur: false, // smoothPlayBar: true, // keyEnabled: true, // remainingDuration: true, // toggleDuration: true // });
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function() {
+                $(this).jPlayer("setMedia", {
+                    title: "Big Buck Bunny Trailer",
+                    mp3: "/uploads/sample.mp3"
+                });
+            },
+            cssSelectorAncestor: "#jp_container_1",
+            swfPath: "/js",
+            supplied: "mp3",
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true,
+            remainingDuration: true,
+            toggleDuration: true
+
+        });
 
     });
     </script>

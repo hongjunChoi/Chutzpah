@@ -684,9 +684,12 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             console.log("NOTIFICATION TIME UPDATED");
         });
         alert(post.music_url)
+
+
+
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.music_name,
-            mp3: post.music_url.substring(post.music_url.indexOf("/") + 1)
+            mp3: post.music_url
 
         });
         var dom = $(event.target).closest(".music_post_list");
@@ -756,7 +759,7 @@ function set_user_images(url) {
         return
 
     $("#userthumb").attr("src", url);
-    $("#loginthumb").attr("src",url);
+    $("#loginthumb").attr("src", url);
     $("#profile_image").attr("src", url);
 }
 
