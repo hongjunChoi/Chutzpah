@@ -311,16 +311,17 @@ router.route("/profile")
     });
 
 
-
+//the users that are in type venues
 router.route("/gig_requests")
-
-.post(function(req, res) {
-
-})
-
-.get(function(req, res) {
-
-});
+    .get(function(req, res) {
+        console.log("adsfasdfasfddasfasdfasfasdf")
+        User.find({ user_type: "venue" }, function(err, venues) {
+            if (err) {
+                return res.send(500, err);
+            }
+            return res.send(200, venues)
+        });
+    });
 
 
 
@@ -446,11 +447,7 @@ router.route("/posts")
         if (err) {
             return res.send(500, err);
         }
-
-
-
         final_posts = [];
-        console.log("LENGTH " + posts.length)
         async.each(posts, function(post, callback) {
 
             var post_id = post['_id'];
@@ -460,14 +457,10 @@ router.route("/posts")
                     res.send(500, err);
                 }
 
-                console.log("========= posts like ======");
                 var new_post = {};
                 new_post['post_info'] = post;
                 new_post['like_info'] = data;
-                // post['like_info'] = data;
 
-                console.log(JSON.stringify(new_post['like_info']));
-                console.log("=========================\n\n")
                 final_posts.push(new_post);
                 callback();
             });
@@ -477,10 +470,8 @@ router.route("/posts")
             if (err) {
                 // One of the iterations produced an error.
                 // All processing will now stop.
-                console.log('ERROR');
+                console.log('ERROR IN GETTING LIKES & POSTS');
             } else {
-                console.log(JSON.stringify(final_posts))
-                console.log("=============== END ============")
                 res.send(200, final_posts);
             }
         });

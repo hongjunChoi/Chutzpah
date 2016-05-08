@@ -328,7 +328,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }
         if (val == 3) {
-            set_columns("Gig requests", "Venue", "Date")
+            set_columns("Venue Name", "Location", "Music preference")
             if ($rootScope.search_string == "") {
                 $scope.load_gig_requests();
             }
