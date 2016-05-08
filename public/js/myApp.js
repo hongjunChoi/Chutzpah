@@ -429,6 +429,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var post_id = post_data['_id'];
         $scope.post_id = post_id;
         var root_dom = $(event.target).closest(".post-item");
+        root_dom.toggleClass('detailopened');
         var chat_field = root_dom.find('.commentField');
         var chat_list = root_dom.find('.commentmain');
         $http.get(url, {
