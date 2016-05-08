@@ -39,12 +39,16 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    images: [String],
+    music_url: String,
+    music_name: String,
+    text: String,
+
     post_location: String,
     user_type: String, //artist: artist, venue: venue
     post_type: String,
     original_name: String,
-    url: String,
-    text: String,
+    //    url: String,
     is_file: Boolean,
     is_request: Boolean,
     num_likes: Number

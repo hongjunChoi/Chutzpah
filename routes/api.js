@@ -33,17 +33,19 @@ var upload_img = multer({
 
 
 
-router.use(function (req, res, next) {
+router.use(function(req, res, next) {
 
     //allow all get request methods
     if (req.method === "GET") {
         return next();
     }
-    if (typeof req.user === 'undefined' || req.user == "undefined" || req.user == null || !(req.user) ) {
-         return res.redirect('/#login');
+
+    if (typeof req.session.user === 'undefined' || req.session.user == "undefined" || req.session.user == null || !(req.session.user)) {
+        return res.redirect('/#login');
     }
 
-    // if the user is not authenticated then redirect him to the login page
+    // // if the user is not authenticated then redirect him to the login page
+
     return next();
 });
 
@@ -57,21 +59,23 @@ router.route('/upload_file')
                 console.log("Error: ", err);
                 return res.end("Error upoading file");
             }
+            console.log("upload success...")
+            return res.json(res.req.file)
 
-            var post = new Post();
-            post.is_file = true;
-            console.log(req.session)
-            post.created_by = req.session.username;
-            post.original_name = req.file.originalname;
-            post.user_type = req.session.user.user_type;
-            post.url = res.req.file.path;
+            // var post = new Post();
+            // post.is_file = true;
+            // console.log(req.session)
+            // post.created_by = req.session.username;
+            // post.original_name = req.file.originalname;
+            // post.user_type = req.session.user.user_type;
+            // post.url = res.req.file.path;
 
-            post.save(function(err, p) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                res.json(p);
-            })
+            // post.save(function(err, p) {
+            //     if (err) {
+            //         return res.send(500, err);
+            //     }
+            //     res.json(p);
+            // })
         })
     });
 
@@ -368,15 +372,16 @@ router.route("/posts")
     //creates a new post
     .post(function(req, res) {
         console.log("------post requested")
+        var newPost = req.body.newPost;
         var post = new Post();
-        var text = req.body.newPost.text;
-        console.log(req.body)
 
-        post.text = text;
-        post.created_by = req.body.newPost.created_by;
-        post.user_type = req.body.newPost.user_type;
+        post.text = newPost.text;
+        post.created_by = newPost.created_by;
+        post.user_type = newPost.user_type;
         post.created_at = Date.now();
-        post.is_file = false;
+        post.images = newPost.images;
+        post.music_url = newPost.music_url;
+        post.music_name = newPost.music_name;
 
         post.save(function(err, post) {
             if (err) {
