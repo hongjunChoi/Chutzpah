@@ -211,12 +211,21 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     var posts = [];
     var url = "/api/posts"
 
+
     $http.get(url, {}).success(function(data) {
+        var posts = [];
+        var music_list = [];
         data.forEach(function(item) {
             item.post_info['created_at'] = convert_time(item.post_info['created_at']);
-            posts.push(item);
+            if (item.post_info["music_url"] != null && (typeof item.post_info["music_url"] != "undefined")) {
+                music_list.push(item);
+            } else {
+                posts.push(item);
+            }
+
         });
 
+        $rootScope.files = music_list;
         $rootScope.artist_posts = posts;
         $("#artistlist").hide();
         $("#requestlist").hide();
@@ -585,27 +594,68 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         })
     }
 
-    // $scope.load_comments = function(post) {
-    //     var id = post["_id"];
+
+
+
+
+
+
+    //     $scope.load_post_comments = function(event, post_data) {
+    //     $rootScope.now_playing['created_by'] = post_data["created_by"];
     //     var url = "/api/comment";
-    //     //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
-    //     $scope.post_id = id;
+    //     var post_id = post_data['_id'];
+    //     $scope.post_id = post_id;
+    //     var root_dom = $(event.target).closest(".post-item");
+    //     root_dom.toggleClass('detailopened');
+    //     var chat_field = root_dom.find('.commentField');
+    //     var chat_list = root_dom.find('.commentmain');
     //     $http.get(url, {
     //         params: {
-    //             post_id: id
+    //             post_id: post_id
     //         }
     //     }).success(function(data) {
+    //         // $("li.detailopened").removeClass('detailopened');
+    //         // $scope.toggleClass('detailopened');
 
-    //         $(".commentmain").empty();
+    //         // $("#commentmain").parents("li.post-item").toggleClass('detailopened');
+
+    //         console.log("========  LOAD POST COMMENT ========");
+    //         console.log(data);
+
+    //         $("#commentmain").empty();
+    //         chat_list.empty();
+
     //         data.forEach(function(c) {
-    //             console.log(c);
-    //             $(".commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+    //             chat_list.append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
     //         });
-    //         $(".commentField").show();
-
-    //         return data;
+    //         chat_field.show();
     //     });
     // };
+
+
+    $scope.load_comments = function(post, div) {
+        var id = post["_id"];
+        var url = "/api/comment";
+        //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
+        $scope.post_id = id;
+        $http.get(url, {
+            params: {
+                post_id: id
+            }
+        }).success(function(data) {
+
+            div.empty();
+            data.forEach(function(c) {
+                console.log(c);
+                div.append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+            });
+            var chat_field = div.closest(".commentField");
+            chat_field.show();
+            div.closest(".postdetail").show();
+            return data;
+        });
+    };
+
 
     $scope.show_artist = function(artist) {
 
@@ -619,7 +669,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     $scope.show_event = function(event) {
 
     }
-    $scope.start_music = function(post) {
+    $scope.start_music = function(event, post) {
         console.log("starting music");
         $("body").removeClass("menuopened");
         $("body").removeClass("profileopened");
@@ -635,11 +685,16 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
 
         $("#jquery_jplayer_1").jPlayer("setMedia", {
-            title: post.original_name,
-            mp3: post.url.substring(post.url.indexOf("/") + 1)
+            title: post.music_name,
+            mp3: post.music_url.substring(post.music_url.indexOf("/") + 1)
+
         });
+        var dom = $(event.target).closest(".music_post_list");
+        var detail_wrapper = dom.find(".postdetail-wrapper");
+        detail_wrapper.css("display", "block");
+        var chat_list = dom.find(".commentmain");
         $scope.post_id = post._id;
-        $scope.load_comments(post);
+        $scope.load_comments(post, chat_list);
         $rootScope.now_playing = post
         $("body").addClass("menuopened");
         $("#now_playing_info_wrapper").hide();
@@ -647,7 +702,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     }
 
     $scope.set_now_playing_info = function(data) {
-        $("#now_playing_song_title").html(data.original_name);
+        $("#now_playing_song_title").html(data.music_name);
         $("#now_playing_song_artist").html(data.created_by);
         $("#now_playing_song_date").html(data.created_at);
         var url = "/api/user";
