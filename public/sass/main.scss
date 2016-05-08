@@ -10,6 +10,7 @@ $borderB: 5px;
 $controller:64px;
 
 $a-gray1: #eff1fe;
+$a-white0: rgba(255,255,255,0.10);
 $a-white1: rgba(255,255,255,0.25);
 $a-white2: rgba(255,255,255,0.5);
 $a-white3: rgba(255,255,255,0.75);
@@ -46,7 +47,7 @@ body{
 body{
 	overflow: scroll;	
 	overflow-x:hidden;
-	background-color: $c-darkgray;
+	background-color: $a-darkbg;
 }
 a{
 	text-decoration: none;
@@ -75,7 +76,7 @@ header{
 	padding: 20px 0;
 	height: 20px;
 	z-index: 100;
-	background-color: $c-darkgray;
+	background-color: $a-darkbg;
 
 	ul{
 		width:70%;
@@ -110,7 +111,9 @@ header{
 	width:212px;
 }
 #searchbar{
-	border:1px solid $c-gray2;
+	border:1px solid;
+	border-color: $a-white0;
+	border-radius: $buttonBorder;
 	opacity: 1;
 	overflow: hidden;
 	margin:auto;
@@ -118,10 +121,11 @@ header{
 	width: 200px;
 	padding: 2px 6px;
 	@include transition(200ms, all, linear);
-	&:hover{ background-color: $c-gray1;}
-	form{
-		height: 28px;
+	&:hover{ 
+		border-color: $a-white2;
+		span{ opacity: .5;}
 	}
+	form{ height: 28px; }
 	span,
 	input{
 		display: inline-block;
@@ -129,22 +133,22 @@ header{
 		float: left;
 	}
 	span{
-		margin-top: 4px;
-		margin-right: 12px;
 		width:20px;
 		height:20px;
+		margin-top: 4px;
+		margin-right: 12px;
 		background-image:url(../img/ui-icons/search.svg);
 		background-size: cover;
 		background-repeat: no-repeat;
-		float: left;
+		opacity: .25;
 	}
 	input{
 		width: 160px;
 		height:28px;
 		background-color: transparent;
-		color: white;
-		float: left;
+		color: $a-white0;
 	}
+	input:focus{ color: white; }
 	input:last-of-type{ display: none; }
 }
 #searchresult{
@@ -433,8 +437,6 @@ main{
 	height: auto;
 	width: 100%;
 	// display: block;
-	padding-top: 5px;
-	padding-bottom: 5px;
 	position: relative;
 
 	&:nth-child(even){
@@ -487,6 +489,8 @@ svg.likeicon{
 	height: auto;
 }
 .postgeneral{
+	padding-top: 5px;
+	padding-bottom: 5px;
 	@include flexbox(row);
 	@include flexbox-justify(center);
 }

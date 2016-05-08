@@ -18,18 +18,25 @@ var multer = require('multer'),
     maxSize = 10 * 1000 * 1000;
 
 
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/uploads/img/')
+    },
+    filename: function(req, file, cb) {
+        //rename file as username
+        cb(null, req.session.user.username)
+    }
+})
+
 var upload_file = multer({
     dest: './public/uploads/',
     limits: {
         fileSize: maxSize
-    }
+    },
 }).single('file');
 
 var upload_img = multer({
-    dest: './public/uploads/img/',
-    limits: {
-        fileSize: maxSize
-    }
+    storage
 }).single('file');
 
 

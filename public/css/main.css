@@ -131,7 +131,9 @@ header {
   width: 212px; }
 
 #searchbar {
-  border: 1px solid #29292c;
+  border: 1px solid;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
   opacity: 1;
   overflow: hidden;
   margin: auto;
@@ -144,7 +146,9 @@ header {
   -ms-transition: 200ms all linear;
   transition: 200ms all linear; }
   #searchbar:hover {
-    background-color: #29292c; }
+    border-color: rgba(255, 255, 255, 0.5); }
+    #searchbar:hover span {
+      opacity: .5; }
   #searchbar form {
     height: 28px; }
   #searchbar span,
@@ -153,20 +157,21 @@ header {
     margin: 0;
     float: left; }
   #searchbar span {
-    margin-top: 4px;
-    margin-right: 12px;
     width: 20px;
     height: 20px;
+    margin-top: 4px;
+    margin-right: 12px;
     background-image: url(../img/ui-icons/search.svg);
     background-size: cover;
     background-repeat: no-repeat;
-    float: left; }
+    opacity: .25; }
   #searchbar input {
     width: 160px;
     height: 28px;
     background-color: transparent;
-    color: white;
-    float: left; }
+    color: rgba(255, 255, 255, 0.1); }
+  #searchbar input:focus {
+    color: white; }
   #searchbar input:last-of-type {
     display: none; }
 
@@ -503,8 +508,6 @@ main {
   transition: all 100ms linear;
   height: auto;
   width: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
   position: relative; }
   .maincontent li:nth-child(even) {
     border-top: 1px solid rgba(255, 255, 255, 0.25);
@@ -550,6 +553,8 @@ svg.likeicon {
   height: auto; }
 
 .postgeneral {
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
