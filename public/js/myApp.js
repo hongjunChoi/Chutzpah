@@ -354,6 +354,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $rootScope.now_playing['created_by'] = post_data["created_by"];
         var url = "/api/comment";
 
+        // $(this).toggleClass('detailopened');
+
         var post_id = post_data['_id'];
         $scope.post_id = post_id;
         $http.get(url, {

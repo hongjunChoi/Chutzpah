@@ -215,6 +215,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/public\/img\/sampleheader.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 9.0892e+06,
+		"inputAbbreviatedPath": "\/public\/img\/sampleheader.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/sampleheader.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/public\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,

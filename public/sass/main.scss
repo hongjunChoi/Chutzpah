@@ -10,6 +10,10 @@ $borderB: 5px;
 $controller:64px;
 
 $a-gray1: #eff1fe;
+$a-white1: rgba(255,255,255,0.25);
+$a-white2: rgba(255,255,255,0.5);
+$a-white3: rgba(255,255,255,0.75);
+$a-darkbg: rgba(30,30,30,1.0);
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -391,7 +395,6 @@ main{
 			width: 100px;
 			display: inline-block;
 			height: 30px;
-			// border:1px solid white;
 			border:1px solid $c-darkgray;
 			border-radius: $borderA;
 			cursor: pointer;
@@ -427,8 +430,6 @@ main{
 .maincontent li{
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
-	border-top:1px solid $c-darkgray;
-	border-bottom:1px solid $c-darkgray;
 	height: auto;
 	width: 100%;
 	// display: block;
@@ -437,13 +438,13 @@ main{
 	position: relative;
 
 	&:nth-child(even){
-		border-top:$c-darkgray;
-		border-bottom:$c-darkgray;
+	border-top:1px solid $a-white1;
+	border-bottom:1px solid $a-white1;
 	}
 	&:hover{
-		background-color: $c-pink;
-		border-top-color: $c-pink;
-		border-bottom-color: $c-pink;
+		background-color: $a-white1;
+		border-top-color: $a-white1;
+		border-bottom-color: $a-white1;
 	}
 	h6,
 	p{
@@ -453,6 +454,30 @@ main{
 		line-height: auto;
 	 }
 }
+//like
+.post_like{
+	svg,
+	div{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+svg.likeicon{
+	width: 16px;
+	height: 16px;
+	path{
+		fill: rgba(255,255,255,0.25);
+		@include transition(all,100ms,linear);
+	}
+}
+.post-item:hover{
+	svg.likeicon path{ 
+		fill: $a-white2;
+		&:hover{ fill:$c-pink;}
+	}
+}
+
+//post general & details
 .postgeneral,
 .postdetail-wrapper{
 	width: 100%;
@@ -466,8 +491,7 @@ main{
 	@include flexbox-justify(center);
 }
 .postdetail-wrapper{
-	// display: none;
-	background-color: white;
+	display: none;
 	height: auto;
 }
 .postdetail{
@@ -478,8 +502,16 @@ main{
 }
 
 .maincontent li.detailopened{
-	.postgeneral{
+	.postdetail-wrapper{
 		display: block;
+	}
+	.postgeneral{
+		background-color: $c-pink;
+		&:hover{ background-color: $c-pink;}
+	}
+	.postdetail-wrapper{
+		display: block;
+		background-color: white;
 	}
 }
 
@@ -490,11 +522,9 @@ main{
 	min-height: 100px;
 	height: 50px;
 	width: 90%;
-	// padding: 12px 10px;
 }
 .commentlist{
-	background-color: $c-gray1;
-	// margin-bottom: 100px;
+	background-color: transparent;
 
 	form{
 		margin:auto;
@@ -507,7 +537,7 @@ main{
 			min-width: 200px;
 			padding: 4px 4px;
 			resize:none;
-			background-color: white;
+			background-color: transparent;
 			margin: 0;
 			border-radius: 2px;
 			flex-grow:2;
