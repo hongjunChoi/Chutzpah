@@ -140,7 +140,6 @@ router.route('/comment')
     .get(function(req, res) {
         console.log("---------api")
         var post_id = req.query.post_id;
-        console.log(post_id)
         Comment.find({
             post_id: post_id
         }, function(err, comments) {
