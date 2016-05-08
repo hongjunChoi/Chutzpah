@@ -133,14 +133,14 @@
 					</div>
 				</div>
 				<div class="item">
-					<img class="lazyOwl" data-src="img/sampleheader2.jpg" alt=""/>
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
 					<div>
 						<p>Trap Party</p>
 						<h3>Kevin Herchen</h3>
-						<h6>New Port, Rhode Island</h6>
-						<h6>May 30, 2016</h6>
+						<h6>Providence, Rhode Island</h6>
+						<h6>May 26, 2016</h6>
 					</div>
-				</div>
+				</div>	
 				<div class="item">
 					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
 					<div>
@@ -149,7 +149,7 @@
 						<h6>Providence, Rhode Island</h6>
 						<h6>May 26, 2016</h6>
 					</div>
-				</div>
+				</div>	
             </div>
 
             <!-- content lists -->
@@ -258,9 +258,11 @@
                 </ul>
                 <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
-                        <h6>{{ artist.name }}</h6>
-                        <h6>{{ artist.genre }}</h6>
-                        <p>{{ artist.location }}</p>
+                    	<div class="postgeneral">
+	                        <h6>{{ artist.name }}</h6>
+	                        <h6>{{ artist.genre }}</h6>
+	                        <p>{{ artist.location }}</p>
+                    	</div>
                     </li>
                 </ul>
                 <ul id="requestlist" class="maincontent">
@@ -389,6 +391,7 @@
     <!-- jquery - ui js  -->
     <script src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/owl.carousel.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {

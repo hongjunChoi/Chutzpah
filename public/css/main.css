@@ -1305,8 +1305,8 @@ body.chatopened #chatwrapper {
 
 #loginwrapper {
   width: 100%;
-  height: auto;
   min-height: 100vh;
+  height: auto;
   position: relative;
   margin: auto;
   padding: 120px 0 100px 0;
@@ -1317,6 +1317,18 @@ body.chatopened #chatwrapper {
   #loginwrapper p.text-warning {
     color: #fa4e5e;
     font-weight: 500; }
+  #loginwrapper p,
+  #loginwrapper p.small {
+    color: white;
+    margin-bottom: 0;
+    padding-bottom: 8px; }
+  #loginwrapper p.small {
+    font-size: 1em; }
+    #loginwrapper p.small a {
+      font-size: 1em;
+      margin-left: 4px; }
+      #loginwrapper p.small a:hover {
+        color: #fa4e5e; }
   #loginwrapper form {
     max-width: 375px;
     text-align: center;
@@ -1338,7 +1350,8 @@ body.chatopened #chatwrapper {
     background-color: #fa4e5e;
     color: white;
     cursor: pointer;
-    padding: 10px 0; }
+    padding: 10px 0;
+    margin-top: 30px; }
     #loginwrapper input[type="submit"]:hover {
       background-color: rgba(237, 80, 96, 0.8); }
   #loginwrapper .register-checkbox-wrapper {
@@ -1346,13 +1359,6 @@ body.chatopened #chatwrapper {
     position: relative;
     height: auto;
     margin: auto; }
-    #loginwrapper .register-checkbox-wrapper p,
-    #loginwrapper .register-checkbox-wrapper p.small {
-      color: white;
-      margin-bottom: 0;
-      padding-bottom: 8px; }
-    #loginwrapper .register-checkbox-wrapper p.small {
-      font-size: 1em; }
   #loginwrapper .register-checkbox {
     width: 110px;
     height: 32px;
@@ -1408,7 +1414,10 @@ body.chatopened #chatwrapper {
       margin-top: 10px;
       padding-top: 10px; }
   #loginwrapper .tab-pane {
-    position: relative; }
+    position: relative;
+    display: none; }
+  #loginwrapper .tab-show {
+    display: block; }
   #loginwrapper input[type="radio"] {
     -webkit-appearance: none; }
 

@@ -211,6 +211,11 @@ $(document).ready(function() {
     	slideSpeed:500
     });
 
+    // Scroll control
+    $("#logo").click(function(){
+		$.scrollTo($("body"),200);
+    });
+
     // Key Input (Space to play/pause)
     // Controller Previous/Next Button
     // Controller Volume Button

@@ -1213,8 +1213,8 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 
 #loginwrapper{
 	width: 100%;
-	height: auto;
 	min-height: 100vh;
+	height: auto;
 	position: relative;
 	margin:auto;
 	padding: 120px 0 100px 0;
@@ -1225,6 +1225,21 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	p.text-warning{
 		color:$c-pink;
 		font-weight: 500;
+	}
+	p,
+	p.small{
+		color: white;
+		margin-bottom: 0;
+		padding-bottom: 8px;
+	}
+	p.small{ 
+		font-size:1em; 
+		// signup button
+		a{
+			font-size: 1em;
+			margin-left: 4px;
+			&:hover{ color: $c-pink; }
+		}
 	}
 	form{
 		max-width: 375px;
@@ -1250,6 +1265,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		color: white;
 		cursor: pointer;
 		padding:10px 0;
+		margin-top: 30px;
 		&:hover{ background-color: $c-pink2;}
 	}
 	//register
@@ -1258,14 +1274,6 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		position: relative;
 		height: auto;
 		margin: auto;
-
-		p,
-		p.small{
-			color: white;
-			margin-bottom: 0;
-			padding-bottom: 8px;
-		}
-		p.small{ font-size:1em; }
 	}
 	.register-checkbox{
 		width: 110px;
@@ -1328,10 +1336,14 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	}
 	.tab-pane{
 		position: relative;
+		display: none;
 
 		& > div{
 
 		}
+	}
+	.tab-show{
+		display: block;
 	}
 	input[type="radio"]{
 		-webkit-appearance: none;
