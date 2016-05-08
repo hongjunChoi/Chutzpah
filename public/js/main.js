@@ -200,6 +200,10 @@ $(document).ready(function() {
 
     }
 
+    $('.jcarousel').jcarousel({
+    	vertical:false
+    });
+
     // Key Input (Space to play/pause)
     // Controller Previous/Next Button
     // Controller Volume Button
