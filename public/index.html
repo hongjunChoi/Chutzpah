@@ -152,8 +152,20 @@
 	                            <div ng-click="show_likes($event, post.like_info)" class="like_count"> {{post.post_info.num_likes}}</div>
 	                        </div>
                         </div>
-                        <div class="postdetail">
+                        <div class="postdetail-wrapper">
                         	<!-- data here -->
+                        	<div class="postdetail"></div>
+                        	<!-- comment -->
+                        	<div class="commentlist">
+				                <ul id="commentmain" style="color: white">
+				                </ul>
+				                <div class="commentField">
+				                    <form ng-Submit="upload_comment()" ng-show="authenticated">
+				                        <textarea id="comment_input" required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
+				                        <input type="submit" value="Add comment" />
+				                    </form>
+				                </div>
+				            </div>
                         </div>
                     </li>
                 </ul>
@@ -190,16 +202,6 @@
                         <p>{{ event.time }}</p>
                     </li>
                 </ul>
-            </div>
-            <div class="commentlist">
-                <ul id="commentmain" style="color: white">
-                </ul>
-                <div class="commentField">
-                    <form ng-Submit="upload_comment()" ng-show="authenticated">
-                        <textarea id="comment_input" required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
-                        <input type="submit" value="Add comment" />
-                    </form>
-                </div>
             </div>
         </div>
         <!-- Bottom Controller -->

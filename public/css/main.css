@@ -427,14 +427,18 @@ main {
   #listmenu h6, #listmenu p {
     opacity: .7;
     letter-spacing: .05em; }
-
-.mainlist,
-.commentlist {
-  margin-top: 60px;
-  padding-bottom: 100px; }
+  #listmenu li {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: center;
+    justify-content: center; }
 
 .mainlist {
   overflow: hidden;
+  margin-top: 60px;
   padding-top: 40px; }
   .mainlist ul {
     padding-bottom: 10px;
@@ -519,7 +523,7 @@ main {
     line-height: auto; }
 
 .postgeneral,
-.postdetail {
+.postdetail-wrapper {
   width: 100%;
   clear: both;
   position: relative;
@@ -535,9 +539,15 @@ main {
   -webkit-justify-content: center;
   justify-content: center; }
 
-.postdetail {
+.postdetail-wrapper {
   background-color: white;
-  height: 30px; }
+  height: auto; }
+
+.postdetail {
+  width: 100%;
+  background-color: blue;
+  height: auto;
+  min-height: 20px; }
 
 .maincontent li.detailopened .postgeneral {
   display: block; }
@@ -547,12 +557,10 @@ main {
   background-color: rgba(255, 255, 255, 0.5);
   min-height: 100px;
   height: 50px;
-  width: 90%;
-  padding: 12px 10px; }
+  width: 90%; }
 
 .commentlist {
-  background-color: #29292c;
-  margin-bottom: 100px; }
+  background-color: #29292c; }
   .commentlist form {
     margin: auto;
     width: 90%;

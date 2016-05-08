@@ -343,7 +343,6 @@ main{
 	margin: auto;
 }
 #listmenu{
-	// position: fixed;
 	background-color: $c-gray2;
 	opacity: 1;
 	border:none;
@@ -353,14 +352,15 @@ main{
 		opacity: .7;
 		letter-spacing: .05em; 
 	}
-}
-.mainlist,
-.commentlist{
-	margin-top: 60px;
-	padding-bottom: 100px;
+	li{
+
+	@include flexbox(row);
+	@include flexbox-justify(center);
+	}
 }
 .mainlist{
 	overflow: hidden;
+	margin-top: 60px;
 	padding-top: 40px;
 	ul{
 		// margin-top: 46px;
@@ -454,7 +454,7 @@ main{
 	 }
 }
 .postgeneral,
-.postdetail{
+.postdetail-wrapper{
 	width: 100%;
 	clear:both;
 	position: relative;
@@ -465,10 +465,16 @@ main{
 	@include flexbox(row);
 	@include flexbox-justify(center);
 }
-.postdetail{
+.postdetail-wrapper{
 	// display: none;
 	background-color: white;
-	height: 30px;
+	height: auto;
+}
+.postdetail{
+	width: 100%;
+	background-color: blue;
+	height: auto;
+	min-height: 20px;
 }
 
 .maincontent li.detailopened{
@@ -484,11 +490,11 @@ main{
 	min-height: 100px;
 	height: 50px;
 	width: 90%;
-	padding: 12px 10px;
+	// padding: 12px 10px;
 }
 .commentlist{
 	background-color: $c-gray1;
-	margin-bottom: 100px;
+	// margin-bottom: 100px;
 
 	form{
 		margin:auto;
