@@ -82,6 +82,7 @@ header{
 	height: 20px;
 	z-index: 100;
 	background-color: $a-darkbg;
+	// box-shadow: 0px 10px 10px 0 rgba(0,0,0,.15);
 
 	ul{
 		width:70%;
@@ -179,26 +180,49 @@ header{
 	border:1px solid;
 	height: auto;
 	border-color: rgba(0,0,0,0);
+	background-color: $a-darkbg;
 
 	p{
-		padding:1px 8px;
+		display: inline-block;
 		border-radius: 0;
+		padding:3px 10px 3px 8px;
 	}
 	&:hover{
 		opacity: 1;
 		border-color: $c-gray;
 	}
 }
+#btn_upload{
+	span{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		float: left;
+		margin: 4px 0 4px 6px;
+		background-image: url(../img/ui-icons/upload.svg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+} 
 #logininfo{
-	p:last-of-type{ 
+	.logininfo-signout{ 
 		border-top:1px solid $c-gray;
-		visibility: hidden;
+		display: none;
 		margin-top: 0;
+	}
+	#logininfo-thumb{
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+		float: left;
+		margin:0 0 0 6px;
+		vertical-align: middle;
 	}
 
 	&:hover{
-		p:last-of-type{ 
-			visibility: visible;
+		.logininfo-signout{ 
+			display: block;
 			padding-bottom: 0;
 			&:hover{  background-color: $c-gray; }
 		}
@@ -373,8 +397,11 @@ main{
 }
 //carousel
 .item{
-	cursor: pointer;
-	img{ width: 100%;}
+	// cursor: pointer;
+	img{ 
+		width: 100%;
+		max-height: 487px;
+	}
 	div{
 		width: auto;
 		min-width: 280px;
@@ -502,16 +529,18 @@ main{
 	opacity: 1;
 	border:none;
 	border-bottom: 1px solid $a-darkbg;
-	padding: 6px 18px;
+	padding: 6px 0;
+	div{ width:30px; height:30px;}
+	div:last-of-type{ margin-right: 18px;}
+	h6{ margin-left: 18px;}
 	h6,p{ 
 		opacity: .7;
 		letter-spacing: .05em; 
 		font-weight: 500;
 	}
 	li{
-
-	@include flexbox(row);
-	@include flexbox-justify(space-between);
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
 	}
 }
 // list
@@ -655,15 +684,19 @@ svg.likeicon{
 		}
 	}
 }
+
+//Upload
 #uploadwrapper{
 	position: fixed;
-	padding: 80px 10% 20px 10%;
+	margin-top: 60px;
+	padding: 20px 10% 20px 10%;
 	z-index: 50;
 	background-color: $a-darkbg;
+	// background-color: $c-gray2;
 	@include translateY(-100%);
 	@include transition(all,300ms,ease-in-out);
 	text-align: center;
-	border-top:1px solid $a-white2;
+	border-top:1px solid $a-white0;
 	h4,h6{
 		color: white;
 	}
@@ -720,6 +753,7 @@ body.uploadopened{
 	#uploadwrapper{
 		@include translateY(0);
 		box-shadow: $shadow;
+		// margin-top: 1px;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -1117,21 +1151,21 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		.jp-duration,
 		.jp-current-time{ font-size: 0.9em; }
 		.ctrlbtn{
-			// opacity: 0.6;
 			width: 50px;
 			height:50px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			@include transition(all, 300ms, linear);
 			cursor: pointer;
-			// &:hover{ opacity: 1; }
 			&.jp-mute{
-				width: 30px;
-				height: 30px;
+				width: 26px;
+				height: 21px;
+				margin-right: 5px;
+				vertical-align: middle;
 			}
 		}
 		.jp-volume-controls{
-			margin-left: 50px;
+			margin: 6px 0 0 20px;
 			opacity: .5;
 			@include transition(all,200ms,linear);
 			&:hover{ 
@@ -1146,11 +1180,12 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		}
 		.jp-volume-bar{
 			width: 100px;
-			background-color: rgba(0,0,0,0.5);
+			background-color: $a-white1;
 			height: 4px;
 			position: relative;
 			cursor: pointer;
 			border-radius: 2px;
+			margin-left: 4px;
 		}
 		.jp-volume-bar-value{
 			background-color: rgba(0,0,0,0.5);
@@ -1178,24 +1213,15 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 
 #loginwrapper{
 	width: 100%;
-	height: 100vh;
+	height: auto;
+	min-height: 100vh;
 	position: relative;
 	margin:auto;
-	padding-top: 100px;
-	// @include flexbox(column);
-	// @include flexbox-justify(center);
-	// @include flexbox-align-items(center);
-	// background-image: url(../img/background.jpg);
-	// background-repeat: no-repeat;
-	// background-size: cover;
-	// background-position: center center;
+	padding: 120px 0 100px 0;
 	background-color: $a-darkbg2;
 
 	h4,
-	h6{
-		color: white;
-		// color: $a-darkbg2;
-	}
+	h6{ color: white; }
 	p.text-warning{
 		color:$c-pink;
 		font-weight: 500;
@@ -1318,8 +1344,8 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 .jp-play{ background-image: url(../img/ui-icons/play.svg); }
 .jp-state-playing .jp-play{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
-.jp-mute{  background-image: url(../img/ui-icons/volume_3.svg); }
-.jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
+.jp-mute{  background-image: url(../img/ui-icons/volume.svg); }
+// .jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
 .jp-previous{background-image: url(../img/ui-icons/prev.svg);}
 .jp-next{background-image: url(../img/ui-icons/next.svg);}
 		//old

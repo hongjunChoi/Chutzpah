@@ -176,17 +176,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/public\/img\/background.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 556081,
-		"inputAbbreviatedPath": "\/public\/img\/background.jpg",
-		"outputAbbreviatedPath": "\/public\/img\/background.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/public\/img\/favicon.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -260,6 +249,17 @@
 		"initialSize": 9.0892e+06,
 		"inputAbbreviatedPath": "\/public\/img\/sampleheader.jpg",
 		"outputAbbreviatedPath": "\/public\/img\/sampleheader.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/img\/sampleheader2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 556081,
+		"inputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
