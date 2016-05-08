@@ -250,8 +250,9 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         file = input[0].files[0];
         var uploadUrl = "/api/upload_file"
         fileUpload.uploadFileToUrl(file, uploadUrl, function(file) {
-            file.url = file.url.substring(file.url.indexOf("/") + 1);
-            $rootScope.images_to_post.push(file.url);
+            console.log(file)
+            var path = file.path.substring(file.path.indexOf("/") + 1);
+            $rootScope.images_to_post.push(path);
         })
 
     }
@@ -266,11 +267,11 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         file = input[0].files[0];
         var uploadUrl = "/api/upload_file"
         fileUpload.uploadFileToUrl(file, uploadUrl, function(file) {
-            file.url = file.url.substring(file.url.indexOf("/") + 1);
+            file.path = file.path.substring(file.path.indexOf("/") + 1);
             $rootScope.music_to_post = file;
             $("#music-holder").empty();
             console.log(file)
-            $("#music-holder").append("<button>" + file.original_name + "</button>")
+            $("#music-holder").append("<button>" + file.originalname + "</button>")
         })
     }
 
@@ -281,13 +282,18 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     $scope.post = function() {
         ////// do not post if all empty ////// 
 
+        var text = $("#text_input_field").val();
+        if (text == "") {
+            $("#text_input_field").attr("placeholder", "Please Write Something To Post!")
+            return
+        }
         $scope.newPost = {};
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
         $scope.newPost.images = $rootScope.images_to_post;
-        $scope.newPost.music_url = $rootScope.music_to_post.url;
-        $scope.newPost.music_name = $rootScope.music_to_post.original_name;
+        $scope.newPost.music_url = $rootScope.music_to_post.path;
+        $scope.newPost.music_name = $rootScope.music_to_post.originalname;
         $scope.newPost.text = $("#text_input_field").val();
         console.log($scope.newPost);
         var url = "/api/posts";
@@ -295,10 +301,11 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $http.post(url, {
             newPost: $scope.newPost
         }).success(function(data) {
-            $("#post_input_field").val("")
-            $rootScope.images = [];
+            $("#text_input_field").val("");
+            $("#music-holder").empty();
+            $rootScope.images_to_post = [];
             $rootScope.music_to_post = "";
-            $scope.refresh_view()
+            $scope.refresh_view();
         });
     };
 
