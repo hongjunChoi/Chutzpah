@@ -102,17 +102,34 @@
             <div id="uploadwrapper" ng-controller="mainController">
                 <div class="clearfix">
                     <div ng-show="authenticated">
-                        <form ng-Submit="post()" ng-show="authenticated">
-                            <textarea id="post_input_field" required class="form-control" maxlength="200" placeholder="write anything here!" ng-model="newPost.text"></textarea>
-                            <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                        </form>
-                        <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                        <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
+                        <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
+                        <textarea id="text_input_field" style="height: 100px" required class="form-control" placeholder="write anything here!"></textarea>
+                        <div class="img-button" ng-click="add_image()">Image</div>
+                        <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
+                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
+ -->
+                        <div class="music-button" ng-click="add_music()">Music</div>
+                        <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
+                        <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
+<input id="file_upload_form" type="file" class="btn submit-btn pull-left" class="uploadfilebtn" type="submit" value="Photo" />
+<input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />adfadfa
+ -->
+                        <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
+                        <!-- </form> -->
+                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+ -->
+                        <div id="image-holder">
+                            <img style="width:30px; height:30px" ng-repeat="img in images_to_post" src={{img}}>
+                        </div>
+                        <div id="music-holder"></div>
                     </div>
                 </div>
             </div>
             <div class="mainlist maincontent">
                 <!-- content lists -->
+                <!--                 <div class="news">
+                    <img src="img/sampleheader.jpg" />
+                </div> -->
                 <div style="color: white; z-index:999">
                     <form>
                         <div>
@@ -137,19 +154,22 @@
                 <!-- Carousel Venue page -->
                 <ul id="listmenu">
                     <li>
-                        <h6 id="col1">Song</h6>
+                        <h6 id="col1">Posts</h6>
                         <h6 id="col2">Artist</h6>
                         <p id="col3">Date</p>
+                        <p></p>
                     </li>
                 </ul>
                 <ul id="artist_postlist maincontent">
-                    <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
+                    <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments(post.post_info)">
                         <div class="postgeneral">
                             <h6>{{ post.post_info.text }}</h6>
                             <h6>{{ post.post_info.created_by }}</h6>
                             <p>{{ post.post_info.created_at }}</p>
                             <div class="post_like">
-                                <p ng-click="like($event, post.post_info)"> LIKE </p>
+                                <svg class="likeicon" ng-click="like($event, post.post_info)" viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+                                    <path class="likeiconpath" d="M58.729,9.272C55.328,5.873,50.809,4,46,4s-8.662,1.727-12.061,5.126c-0.002,0.002-0.004,0.003-0.006,0.005l-0.002,0.001 L32,11.565l-1.932-2.286c-0.002-0.002-0.004-0.004-0.006-0.006c0,0-0.001,0-0.001-0.001C26.661,5.873,22.808,4,18,4 S8.672,5.873,5.272,9.272C1.872,12.672,0,17.192,0,22c0,4.806,1.87,9.323,5.266,12.723L29.16,58.816 C29.911,59.574,30.933,60,32,60c1.066,0,2.089-0.426,2.84-1.184l23.893-24.092C62.129,31.325,64,26.806,64,22 C64,17.192,62.128,12.672,58.729,9.272z" />
+                                </svg>
                                 <div ng-click="show_likes($event, post.like_info)" class="like_count"> {{post.post_info.num_likes}}</div>
                             </div>
                         </div>
@@ -318,23 +338,8 @@
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        $("#jquery_jplayer_1").jPlayer({
-            ready: function() {
-                $(this).jPlayer("setMedia", {
-                    title: "Big Buck Bunny Trailer",
-                    mp3: "/uploads/sample.mp3"
-                });
-            },
-            cssSelectorAncestor: "#jp_container_1",
-            swfPath: "/js",
-            supplied: "mp3",
-            useStateClassSkin: true,
-            autoBlur: false,
-            smoothPlayBar: true,
-            keyEnabled: true,
-            remainingDuration: true,
-            toggleDuration: true
-        });
+        // $("#jquery_jplayer_1").jPlayer({ // ready: function() { // $(this).jPlayer("setMedia", { // title: "Big Buck Bunny Trailer", // mp3: "/uploads/sample.mp3" // }); // }, // cssSelectorAncestor: "#jp_container_1", // swfPath: "/js", // supplied: "mp3", // useStateClassSkin: true, // autoBlur: false, // smoothPlayBar: true, // keyEnabled: true, // remainingDuration: true, // toggleDuration: true // });
+
     });
     </script>
 </body>

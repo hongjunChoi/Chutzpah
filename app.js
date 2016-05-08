@@ -98,7 +98,13 @@ app.use(passport.session());
 
 
 function loggedIn(req, res, next) {
-    if (req.user) {
+    console.log("------")
+    console.log(req.user)
+    console.log("------")
+
+    console.log(req.session)
+
+    if (req.user || req.session.user) {
         next();
     } else {
         res.redirect('/#login');
