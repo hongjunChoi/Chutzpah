@@ -26,6 +26,10 @@ $(document).ready(function() {
         }
     });
 
+    $("#btn_upload").click(function(){
+    	$("body").toggleClass("uploadopened");
+    });
+
 
     $("#closechat").click(function() {
         $("body").removeClass("chatopened");
@@ -181,6 +185,7 @@ $(document).ready(function() {
         $("body").removeClass("profileopened");
         $("body").removeClass("searchopened");
         $("body").removeClass("chatopened");
+        $("body").removeClass("uploadopened");
         //update the latest read time
         var url = "/update_notification"
         $.post(url, {
@@ -193,5 +198,7 @@ $(document).ready(function() {
 
     }
 
-
+    // Key Input (Space to play/pause)
+    // Controller Previous/Next Button
+    // Controller Volume Button
 });

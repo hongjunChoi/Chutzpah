@@ -216,26 +216,15 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             user_type: "artist"
         }
     }).success(function(data) {
-        console.log("==================")
-        console.log(data)
-
         data.forEach(function(item) {
-            // if (item["is_file"] == true || item["is_file"] == "true") {
-            //     item['created_at'] = convert_time(item['created_at']);
-            //     files.push(item);
-            // } else {
-            //     item['created_at'] = convert_time(item['created_at']);
-            //     text_posts.push(item);
-            // }
-            item['created_at'] = convert_time(item['created_at']);
-            posts.push(item)
+            item.post_info['created_at'] = convert_time(item.post_info['created_at']);
+            posts.push(item);
         });
 
         $rootScope.artist_posts = posts;
-        //      $rootScope.files = files;
-        $("#artistlist").hide()
-        $("#requestlist").hide()
-        $("#eventlist").hide()
+        $("#artistlist").hide();
+        $("#requestlist").hide();
+        $("#eventlist").hide();
     });
     // $scope.upload_image = function() {
     //     $(".file-upload").on('change', function() {
@@ -346,6 +335,35 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
             $("#eventlist").show()
         }
+    }
+
+    $scope.show_likes = function(event, like_info) {
+        alert(JSON.stringify(like_info));
+        //like info contains information about who liked what
+        //make sure to use toggle or show
+
+    }
+
+    $scope.like = function(event, post) {
+        var url = "/api/like"
+        $http.post(url, {
+            post_id: post['_id'],
+            created_by: $rootScope.current_user
+        }).success(function(data) {
+            if (data == "like already exists") {
+                return
+            }
+
+            var item = $(event.target).closest(".post_like");
+            var dom = item.find(".like_count");
+
+            console.log(item);
+            console.log(dom);
+            console.log("===");
+
+            var new_count = parseInt(dom.html());
+            dom.html(new_count + 1);
+        });
     }
 
     $scope.search = function() {
@@ -497,7 +515,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 //     item['created_at'] = convert_time(item['created_at']);
                 //     text_posts.push(item);
                 // }
-                item['created_at'] = convert_time(item['created_at']);
+                item.post_info['created_at'] = convert_time(item.post_info['created_at']);
                 posts.push(item)
             });
 
@@ -802,7 +820,6 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
     };
 
     $scope.send_request = function() {
-        alert("send request");
         var url = "/send_chat";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var sent_to = $rootScope.now_playing.created_by;

@@ -1,4 +1,6 @@
 var express = require('express');
+var async = require("async");
+
 var router = express.Router();
 
 var mongoose = require('mongoose');
@@ -7,6 +9,7 @@ var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 var Event = mongoose.model('Event');
 var Chat = mongoose.model('Chat');
+var Like = mongoose.model('Like');
 
 //fileupload
 var multer = require('multer'),
@@ -337,6 +340,52 @@ router.route("/artists")
 })
 
 
+
+router.route("/like")
+    //create a new event
+    .post(function(req, res) {
+        console.log(req.body);
+        var post_id = req.body.post_id
+        var created_by = req.body.created_by
+        Like.find({
+            'post_id': post_id,
+            'created_by': created_by
+        }, function(err, like) {
+            if (err) {
+                res.send(500, err);
+            }
+
+            if (like.length == 0) {
+                var new_like = new Like();
+                new_like.post_id = post_id;
+                new_like.created_by = created_by;
+                new_like.save(function(err, result) {
+                    Post.findById(post_id,
+                        function(err, data) {
+                            if (err) {
+                                res.send(500, err);
+                            }
+                            if ((typeof data.num_likes) === "undefined" || data.num_likes == 0) {
+                                data.num_likes = 1;
+                            } else {
+                                data.num_likes = data.num_likes + 1;
+                            }
+
+                            data.save(function(err, result) {
+                                if (err) {
+                                    res.send(500, err);
+                                }
+                                res.send(200, new_like);
+                            });
+                        });
+                });
+            } else {
+                res.send(200, "like already exists");
+            }
+        });
+    });
+
+
 router.route("/events")
     //create a new event
     .post(function(req, res) {
@@ -397,9 +446,50 @@ router.route("/posts")
         if (err) {
             return res.send(500, err);
         }
-        return res.send(200, posts);
+
+
+
+        final_posts = [];
+        console.log("LENGTH " + posts.length)
+        async.each(posts, function(post, callback) {
+
+            var post_id = post['_id'];
+
+            Like.find({ 'post_id': post_id }, function(err, data) {
+                if (err) {
+                    res.send(500, err);
+                }
+
+                console.log("========= posts like ======");
+                var new_post = {};
+                new_post['post_info'] = post;
+                new_post['like_info'] = data;
+                // post['like_info'] = data;
+
+                console.log(JSON.stringify(new_post['like_info']));
+                console.log("=========================\n\n")
+                final_posts.push(new_post);
+                callback();
+            });
+
+        }, function(err) {
+            // if any of the file processing produced an error, err would equal that error
+            if (err) {
+                // One of the iterations produced an error.
+                // All processing will now stop.
+                console.log('ERROR');
+            } else {
+                console.log(JSON.stringify(final_posts))
+                console.log("=============== END ============")
+                res.send(200, final_posts);
+            }
+        });
+
+
+
     });
 });
+
 
 
 
