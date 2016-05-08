@@ -683,7 +683,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             console.log(data);
             console.log("NOTIFICATION TIME UPDATED");
         });
-
+        alert(post.music_url)
         $("#jquery_jplayer_1").jPlayer("setMedia", {
             title: post.music_name,
             mp3: post.music_url.substring(post.music_url.indexOf("/") + 1)
