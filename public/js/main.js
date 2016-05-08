@@ -77,7 +77,7 @@ $(document).ready(function() {
         if ((post_data.music_url != null) && (typeof post_data.music_url != "undefined")) {
             $("#jquery_jplayer_1").jPlayer("setMedia", {
                 title: post_data.music_name,
-                mp3: post_data.music_url.substring(post_data.url.indexOf("/") + 1)
+                mp3: post_data.music_url.substring(post_data.music_url.indexOf("/") + 1)
             });
         }
 
