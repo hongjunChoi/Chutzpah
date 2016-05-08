@@ -197,7 +197,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             user_type: "artist"
         }
     }).success(function(data) {
-
         data.forEach(function(item) {
             if (item.post_info["is_file"] == true || item.post_info["is_file"] == "true") {
                 item.post_info['created_at'] = convert_time(item.post_info['created_at']);
@@ -255,7 +254,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }
         if (val == 3) {
-            set_columns("Gig requests", "Venue", "Date")
+            set_columns("Venue Name", "Location", "Music preference")
             if ($rootScope.search_string == "") {
                 $scope.load_gig_requests();
             }

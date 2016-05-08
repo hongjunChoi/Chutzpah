@@ -25,7 +25,7 @@
 
 <body ng-app="myApp">
     <header>
-    	<img id="logo" src="img/logo.svg" />
+        <img id="logo" src="img/logo.svg" />
         <ul>
             <li id="searchwrapper">
                 <div id="searchbar" ng-controller="mainController">
@@ -133,8 +133,8 @@
                         </div>
                     </form>
                 </div>
-    <!-- Carousel Event page -->
-    <!-- Carousel Venue page -->
+                <!-- Carousel Event page -->
+                <!-- Carousel Venue page -->
                 <ul id="listmenu">
                     <li>
                         <h6 id="col1">Song</h6>
@@ -153,7 +153,7 @@
                         </div>
                     </li>
                 </ul>
-    <!-- comment should be dynamically appended -->
+                <!-- comment should be dynamically appended -->
                 <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file.post_info)">
                         <h6>{{ file.post_info.original_name }}</h6>
@@ -175,8 +175,8 @@
                 <ul id="request_list" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="show_request(request)">
                         <h6>{{ request.name }}</h6>
-                        <h6>{{ request.genre }}</h6>
-                        <p>{{ request.created_at }}</p>
+                        <h6>{{ request.user_location }}</h6>
+                        <p>{{ request.genre }}</p>
                     </li>
                 </ul>
                 <ul id="eventlist" class="maincontent">
