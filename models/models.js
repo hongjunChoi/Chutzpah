@@ -47,8 +47,12 @@ var postSchema = new mongoose.Schema({
     text: String,
     is_file: Boolean,
     is_request: Boolean,
-    num_likes: Number
+    num_likes: {
+        type: Number,
+        default: 0
+    }
 });
+
 
 var eventSchema = new mongoose.Schema({
     artist: String, //should be changed to ObjectId, ref "User"

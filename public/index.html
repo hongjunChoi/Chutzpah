@@ -133,17 +133,25 @@
                     </li>
                 </ul>
                 <ul id="artist_postlist">
-                    <li ng-repeat="post in artist_posts" ng-click="load_post_comments(post)">
-                        <h6>{{ post.text }}</h6>
-                        <h6>{{ post.created_by }}</h6>
-                        <p>{{ post.created_at }}</p>
+                    <li ng-repeat="post in artist_posts" ng-click="load_post_comments(post.post_info)">
+                        <h6>{{ post.post_info.text }}</h6>
+                        <h6>{{ post.post_info.created_by }}</h6>
+                        <p>{{ post.post_info.created_at }}</p>
+                        <div class="post_like">
+                            <p ng-click="like($event, post.post_info)"> LIKE </p>
+                            <div ng-click="show_likes($event, post.like_info)" class="like_count"> {{post.post_info.num_likes}}</div>
+                        </div>
                     </li>
                 </ul>
                 <ul id="filelist" class="maincontent">
-                    <li ng-repeat="file in files" ng-click="start_music(file)">
-                        <h6>{{ file.original_name }}</h6>
-                        <h6>{{ file.created_by }}</h6>
-                        <p>{{ file.created_at }}</p>
+                    <li ng-repeat="file in files" ng-click="start_music(file.post_info)">
+                        <h6>{{ file.post_info.original_name }}</h6>
+                        <h6>{{ file.post_info.created_by }}</h6>
+                        <p>{{ file.post_info.created_at }}</p>
+                        <div class="post_like">
+                            <p class="like" id="12" ng-click="like($event, file.post_info)"> LIKE </p>
+                            <div ng-click="show_likes($event, file.like_info)" class="like_count"> {{file.post_info.num_likes}}</div>
+                        </div>
                     </li>
                 </ul>
                 <ul id="artistlist" class="maincontent">
