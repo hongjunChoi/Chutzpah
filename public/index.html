@@ -25,8 +25,8 @@
 
 <body ng-app="myApp">
     <header>
+    	<img id="logo" src="img/logo.svg" />
         <ul>
-            <li><img id="logo" src="img/logo.svg" /></li>
             <li id="searchwrapper">
                 <div id="searchbar" ng-controller="mainController">
                     <form>
@@ -147,6 +147,8 @@
                         </div>
                     </form>
                 </div>
+    <!-- Carousel Event page -->
+    <!-- Carousel Venue page -->
                 <ul id="listmenu">
                     <li>
                         <h6 id="col1">Posts</h6>
@@ -166,6 +168,7 @@
                         </div>
                     </li>
                 </ul>
+    <!-- comment should be dynamically appended -->
                 <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file.post_info)">
                         <h6>{{ file.post_info.original_name }}</h6>
