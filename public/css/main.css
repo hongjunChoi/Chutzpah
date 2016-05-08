@@ -427,14 +427,18 @@ main {
   #listmenu h6, #listmenu p {
     opacity: .7;
     letter-spacing: .05em; }
-
-.mainlist,
-.commentlist {
-  margin-top: 60px;
-  padding-bottom: 100px; }
+  #listmenu li {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: center;
+    justify-content: center; }
 
 .mainlist {
   overflow: hidden;
+  margin-top: 60px;
   padding-top: 40px; }
   .mainlist ul {
     padding-bottom: 10px;
@@ -442,16 +446,6 @@ main {
     padding-top: 0;
     padding-bottom: 0;
     color: white; }
-    .mainlist ul li {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-direction: row;
-      flex-direction: row;
-      -webkit-justify-content: center;
-      justify-content: center;
-      padding-top: 5px;
-      padding-bottom: 5px; }
     .mainlist ul h6,
     .mainlist ul p {
       display: inline-block;
@@ -508,7 +502,12 @@ main {
   -ms-transition: all 100ms linear;
   transition: all 100ms linear;
   border-top: 1px solid #1e1e1e;
-  border-bottom: 1px solid #1e1e1e; }
+  border-bottom: 1px solid #1e1e1e;
+  height: auto;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative; }
   .maincontent li:nth-child(even) {
     border-top: #1e1e1e;
     border-bottom: #1e1e1e; }
@@ -519,19 +518,49 @@ main {
   .maincontent li h6,
   .maincontent li p {
     font-weight: 300;
-    font-size: 1em; }
+    font-size: 1em;
+    height: auto;
+    line-height: auto; }
+
+.postgeneral,
+.postdetail-wrapper {
+  width: 100%;
+  clear: both;
+  position: relative;
+  float: none;
+  height: auto; }
+
+.postgeneral {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center; }
+
+.postdetail-wrapper {
+  background-color: white;
+  height: auto; }
+
+.postdetail {
+  width: 100%;
+  background-color: blue;
+  height: auto;
+  min-height: 20px; }
+
+.maincontent li.detailopened .postgeneral {
+  display: block; }
 
 #commentmain {
   margin: auto;
   background-color: rgba(255, 255, 255, 0.5);
   min-height: 100px;
   height: 50px;
-  width: 90%;
-  padding: 12px 10px; }
+  width: 90%; }
 
 .commentlist {
-  background-color: #29292c;
-  margin-bottom: 100px; }
+  background-color: #29292c; }
   .commentlist form {
     margin: auto;
     width: 90%;

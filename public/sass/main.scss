@@ -343,7 +343,6 @@ main{
 	margin: auto;
 }
 #listmenu{
-	// position: fixed;
 	background-color: $c-gray2;
 	opacity: 1;
 	border:none;
@@ -353,14 +352,15 @@ main{
 		opacity: .7;
 		letter-spacing: .05em; 
 	}
-}
-.mainlist,
-.commentlist{
-	margin-top: 60px;
-	padding-bottom: 100px;
+	li{
+
+	@include flexbox(row);
+	@include flexbox-justify(center);
+	}
 }
 .mainlist{
 	overflow: hidden;
+	margin-top: 60px;
 	padding-top: 40px;
 	ul{
 		// margin-top: 46px;
@@ -369,12 +369,6 @@ main{
 		padding-top: 0;
 		padding-bottom: 0;
 		color:white;
-		li{
-			@include flexbox(row);
-			@include flexbox-justify(center);
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
 		h6,
 		p{
 			display: inline-block;
@@ -435,6 +429,13 @@ main{
 	@include transition(all, 100ms, linear);
 	border-top:1px solid $c-darkgray;
 	border-bottom:1px solid $c-darkgray;
+	height: auto;
+	width: 100%;
+	// display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: relative;
+
 	&:nth-child(even){
 		border-top:$c-darkgray;
 		border-bottom:$c-darkgray;
@@ -448,19 +449,52 @@ main{
 	p{
 		font-weight: 300;
 		font-size: 1em;
+		height: auto;
+		line-height: auto;
 	 }
 }
+.postgeneral,
+.postdetail-wrapper{
+	width: 100%;
+	clear:both;
+	position: relative;
+	float: none;
+	height: auto;
+}
+.postgeneral{
+	@include flexbox(row);
+	@include flexbox-justify(center);
+}
+.postdetail-wrapper{
+	// display: none;
+	background-color: white;
+	height: auto;
+}
+.postdetail{
+	width: 100%;
+	background-color: blue;
+	height: auto;
+	min-height: 20px;
+}
+
+.maincontent li.detailopened{
+	.postgeneral{
+		display: block;
+	}
+}
+
+
 #commentmain{
 	margin:auto;
 	background-color: rgba(255,255,255,0.5);
 	min-height: 100px;
 	height: 50px;
 	width: 90%;
-	padding: 12px 10px;
+	// padding: 12px 10px;
 }
 .commentlist{
 	background-color: $c-gray1;
-	margin-bottom: 100px;
+	// margin-bottom: 100px;
 
 	form{
 		margin:auto;

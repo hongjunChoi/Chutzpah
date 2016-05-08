@@ -47,6 +47,13 @@ $(document).ready(function() {
         closeAll();
     });
 
+    // post list click to open detail
+    // $(".postgeneral").click(function(){
+    // 	$("li.detailopened").removeClass("detailopened");
+    // 	$(this).parent().addClass("detailopened");
+    // 	console.log("working");
+    // });
+
     $(document).on('click', '.confirm_button', function() {
         var request_data = $(this).closest('.chat_msg').data("request_info");
         alert(JSON.stringify(request_data));
