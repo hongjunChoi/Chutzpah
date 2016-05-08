@@ -176,7 +176,14 @@
                         </div>
                         <div class="postdetail-wrapper">
                             <!-- data here -->
-                            <div class="postdetail"></div>
+                            <!-- images: post.post_info.images 
+                                 images: post.post_info.images -->
+                            <div class="postdetail">
+                                <div id="postdetail-image-holder">
+                                    <img style="width:100px; height:100px" ng-repeat="img in post.post_info.images" src={{img}}>
+                                </div>
+                                <div id="music-holder"></div>
+                            </div>
                             <!-- comment -->
                             <div class="commentlist">
                                 <div class="commentField">
