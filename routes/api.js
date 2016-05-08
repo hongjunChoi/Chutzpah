@@ -23,12 +23,13 @@ var storage = multer.diskStorage({
         cb(null, './public/uploads/img/')
     },
     filename: function(req, file, cb) {
-        //rename file as username
+        //rename file as username 
         cb(null, req.session.user.username)
     }
 })
 
 var upload_file = multer({
+
     dest: './public/uploads/',
     limits: {
         fileSize: maxSize
