@@ -100,14 +100,14 @@
         <div id="mainscreen" ng-controller="mainController">
             <div id="loginwrapper" ng-view></div>
             <div id="uploadwrapper" ng-controller="mainController">
+            	<h4>Upload</h4>
                 <div class="clearfix">
                     <div ng-show="authenticated">
                         <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
                         <textarea id="text_input_field" required class="form-control" placeholder="write anything here!"></textarea>
                         <div class="img-button" ng-click="add_image()">Image</div>
                         <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
-                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
- -->
+                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" /> -->
                         <div class="music-button" ng-click="add_music()">Music</div>
                         <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
                         <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
@@ -116,8 +116,7 @@
  -->
                         <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
                         <!-- </form> -->
-                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
- -->
+                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" /> -->
                         <div id="image-holder">
                             <img ng-repeat="img in images_to_post" src={{img}}>
                         </div>

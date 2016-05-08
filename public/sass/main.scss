@@ -2,6 +2,7 @@
 @import "eugeneso";
 
 $c-pink: #fa4e5e;
+$c-pink2: rgba(237,80,96,0.8);
 $c-gray1: #29292c;
 // $c-gray1: rgba(30,30,33,1.0);
 $c-gray2: #29292c;
@@ -19,6 +20,7 @@ $a-white3: rgba(255,255,255,0.75);
 $a-darkbg: rgba(30,30,30,1.0);
 $a-darkbg2: rgba(30,30,30,0.75);
 $a-darkbg1: rgba(30,30,30,0.50);
+
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -161,6 +163,13 @@ header{
 		padding-bottom: 5px;
 		width: 100%;
 	}
+}
+#loginregister{
+	color:rgba(255,255,255,0.5);
+	p{padding:1px 8px;}
+	a:hover{ color: white; }
+	a:first-of-type{ margin-right: 4px;	}
+	a:last-of-type{ margin-left: 4px;	}
 }
 #btn_upload,
 #logininfo{
@@ -423,7 +432,7 @@ main{
 			label{
 				padding:7px 0;
 				text-transform: uppercase;
-				letter-spacing: 0.05em;
+				letter-spacing: 0.1em;
 				font-size: .85em;
 			}
 		}
@@ -472,29 +481,7 @@ main{
 		line-height: auto;
 	 }
 }
-//like
-.post_like{
-	svg,
-	div{
-		display: inline-block;
-		vertical-align: middle;
-	}
-}
-svg.likeicon{
-	width: 16px;
-	height: 16px;
-	path{
-		fill: $a-white1;
-		@include transition(all,100ms,linear);
-	}
-}
-.post-item:hover{
-	cursor: pointer;
-	svg.likeicon path{ 
-		fill: $a-white2;
-		&:hover{ fill:$c-pink;}
-	}
-}
+
 
 //post general & details
 .postgeneral,
@@ -516,7 +503,34 @@ svg.likeicon{
 		height: 20px;
 		display: inline-block;
 	}
+	h6{ margin-left: 18px;}
 }
+//like
+.post_like{
+	margin-right: 18px;
+	padding-top: 3px;
+	svg,
+	div{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+svg.likeicon{
+	width: 16px;
+	height: 16px;
+	path{
+		fill: $a-white1;
+		@include transition(all,100ms,linear);
+	}
+}
+.post-item:hover{
+	cursor: pointer;
+	svg.likeicon path{ 
+		fill: $a-white2;
+		&:hover{ fill:$c-pink;}
+	}
+}
+//details
 .postdetail-wrapper{
 	display: none;
 	height: auto;
@@ -585,13 +599,16 @@ svg.likeicon{
 }
 #uploadwrapper{
 	position: fixed;
-	top: 80px;
 	height: 80px;
-	padding: 20px 10%;
+	padding: 80px 10% 20px 10%;
 	z-index: 50;
-	background-color: $c-gray1;
-	@include translateY(-120%);
+	background-color: $a-darkbg;
+	@include translateY(-100%);
 	@include transition(all,300ms,ease-in-out);
+	text-align: center;
+	h4,h6{
+		color: white;
+	}
 	form{
 		position: relative;
 		border-bottom: 1px solid $c-pink;
@@ -605,7 +622,7 @@ svg.likeicon{
 		display: inline-block;
 	}
 	div{
-
+		color: white;
 		cursor: pointer;
 	}
 	input[type="submit"]{
@@ -1080,54 +1097,134 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	height: 100vh;
 	position: relative;
 	margin:auto;
-	@include flexbox(column);
-	@include flexbox-justify(center);
-	background-image: url(../img/background.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
+	padding-top: 100px;
+	// @include flexbox(column);
+	// @include flexbox-justify(center);
+	// @include flexbox-align-items(center);
+	// background-image: url(../img/background.jpg);
+	// background-repeat: no-repeat;
+	// background-size: cover;
+	// background-position: center center;
+	background-color: $a-darkbg2;
 
-	h4{
+	h4,
+	h6{
 		color: white;
+		// color: $a-darkbg2;
 	}
 	p.text-warning{
 		color:$c-pink;
 		font-weight: 500;
-
 	}
 	form{
-		// width: 250px;
+		max-width: 375px;
 		text-align: center;
 		margin: auto;
+		position: relative;
 	}
 	input{
 		position: relative;
 		display: block;
-		margin:12px auto;
+		margin:16px auto;
 		font-size: 1.2em;
 		clear: both;
 		width: 230px;
 		height: 20px;
 		padding:10px 10px;
-		// border-color: 1px solid $a-gray1;
-	}
-	input[type="username"],
-	input[type="password"],
-	input[type="submit"]{
-	}
-	input:focus{
-		// border-color: 1px solid $c-pink;
+		border-radius: $buttonBorder;
 	}
 	input[type="submit"]{
 		height: 40px;
-		// border-color: 1px solid $c-pink;
+		width: 250px;
 		background-color: $c-pink;
 		color: white;
 		cursor: pointer;
-		margin-left: 0;
-		margin-right: 0;
-		width: 100%;
 		padding:10px 0;
+		&:hover{ background-color: $c-pink2;}
+	}
+	//register
+	.register-checkbox-wrapper{
+		display: block;
+		position: relative;
+		height: auto;
+		margin: auto;
+
+		p,
+		p.small{
+			color: white;
+			margin-bottom: 0;
+			padding-bottom: 8px;
+		}
+		p.small{ font-size:1em; }
+	}
+	.register-checkbox{
+		width: 110px;
+		height: 32px;
+		margin: 0 5px;
+		display: inline-block;
+		position: relative;
+		border: 1px solid;
+		border-color: $a-white0;
+		border-radius: $buttonBorder;
+		@include transition(all,100ms,linear);
+		&:first-of-type{ margin-left: 0;}
+		&:last-of-type{ margin-right: 0;}
+		&:hover{ border-color:$a-white2; }
+
+		label,
+		input{
+			position: absolute;
+			width: 100%;
+			height: 14px;
+			display: block;
+			top: 0;
+			left: 0;
+			color: white;
+			cursor: pointer;
+			margin: 0;
+			background-color: transparent;
+		}
+		label{
+			padding: 7px 0 10px 0;
+			color:rgba(255,255,255,0.8);
+		}
+		input{
+			padding: 16px 0;
+		}
+		input.longform{
+			height: 50px;
+		}
+	}
+	.tab-content{
+		height: auto;
+		display: block;
+
+		label{
+			color: white;
+			margin:5px 20px;
+			text-align: left;
+			float: left;
+		}
+		input{
+			width: 335px;
+		}
+		input[type="submit"]{
+			width: 355px;
+		}
+		h6{
+			margin-top: 10px;
+			padding-top: 10px;
+		}
+	}
+	.tab-pane{
+		position: relative;
+
+		& > div{
+
+		}
+	}
+	input[type="radio"]{
+		-webkit-appearance: none;
 	}
 }
 
