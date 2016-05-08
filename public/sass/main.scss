@@ -369,12 +369,6 @@ main{
 		padding-top: 0;
 		padding-bottom: 0;
 		color:white;
-		li{
-			@include flexbox(row);
-			@include flexbox-justify(center);
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
 		h6,
 		p{
 			display: inline-block;
@@ -435,6 +429,13 @@ main{
 	@include transition(all, 100ms, linear);
 	border-top:1px solid $c-darkgray;
 	border-bottom:1px solid $c-darkgray;
+	height: auto;
+	width: 100%;
+	// display: block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: relative;
+
 	&:nth-child(even){
 		border-top:$c-darkgray;
 		border-bottom:$c-darkgray;
@@ -448,8 +449,35 @@ main{
 	p{
 		font-weight: 300;
 		font-size: 1em;
+		height: auto;
+		line-height: auto;
 	 }
 }
+.postgeneral,
+.postdetail{
+	width: 100%;
+	clear:both;
+	position: relative;
+	float: none;
+	height: auto;
+}
+.postgeneral{
+	@include flexbox(row);
+	@include flexbox-justify(center);
+}
+.postdetail{
+	// display: none;
+	background-color: white;
+	height: 30px;
+}
+
+.maincontent li.detailopened{
+	.postgeneral{
+		display: block;
+	}
+}
+
+
 #commentmain{
 	margin:auto;
 	background-color: rgba(255,255,255,0.5);

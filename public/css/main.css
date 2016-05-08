@@ -442,16 +442,6 @@ main {
     padding-top: 0;
     padding-bottom: 0;
     color: white; }
-    .mainlist ul li {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-direction: row;
-      flex-direction: row;
-      -webkit-justify-content: center;
-      justify-content: center;
-      padding-top: 5px;
-      padding-bottom: 5px; }
     .mainlist ul h6,
     .mainlist ul p {
       display: inline-block;
@@ -508,7 +498,12 @@ main {
   -ms-transition: all 100ms linear;
   transition: all 100ms linear;
   border-top: 1px solid #1e1e1e;
-  border-bottom: 1px solid #1e1e1e; }
+  border-bottom: 1px solid #1e1e1e;
+  height: auto;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative; }
   .maincontent li:nth-child(even) {
     border-top: #1e1e1e;
     border-bottom: #1e1e1e; }
@@ -519,7 +514,33 @@ main {
   .maincontent li h6,
   .maincontent li p {
     font-weight: 300;
-    font-size: 1em; }
+    font-size: 1em;
+    height: auto;
+    line-height: auto; }
+
+.postgeneral,
+.postdetail {
+  width: 100%;
+  clear: both;
+  position: relative;
+  float: none;
+  height: auto; }
+
+.postgeneral {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center; }
+
+.postdetail {
+  background-color: white;
+  height: 30px; }
+
+.maincontent li.detailopened .postgeneral {
+  display: block; }
 
 #commentmain {
   margin: auto;
