@@ -372,8 +372,8 @@ main{
 	&:first-of-type{margin-top:60px;}
 }
 //carousel
-#news-carousel{}
 .item{
+	cursor: pointer;
 	img{ width: 100%;}
 	div{
 		width: auto;
@@ -384,8 +384,7 @@ main{
 		left: 10%;
 		bottom: 0;
 		color: white;
-		padding:11px 20px 20px 14px;
-		border: 2px solid $c-gray;
+		padding:12px 21px 21px 15px;
 		cursor: pointer;
 		@include transition(all,100ms,linear);
 
@@ -395,9 +394,7 @@ main{
 			color:$a-white2;
 			padding-bottom: 0;
 		}
-		h3{
-			font-weight: 700;
-		}
+		h3{ font-weight: 700; }
 		h3:after{
 			content: '';
 			position: relative;
@@ -407,13 +404,20 @@ main{
 			background-color: $c-pink;
 			margin-top:8px;
 			margin-left: 1px;
+			@include transition(all,100ms,linear);
 		}
 		h6{
 			font-size: 1.2em;
 			padding-bottom: 0;
 		}
 		&:hover{
-			border-color:white;
+		}
+	}
+	&:hover{
+		div{
+			background-color: $c-pink;
+			h3:after{ background-color: $c-white;}
+
 		}
 	}
 }
@@ -791,15 +795,30 @@ body.uploadopened{
 			margin-bottom: 10px;
 			clear: both;
 		}
+		//change image button
+		.img-button{
+			position: absolute;
+			right: 0;
+			top: 70px;
+			margin-top: 100px;
+			margin-right: 36px;
+			font-size: 1em;
+			color: white;
+			cursor: pointer;
+			@include buttonA;
+			background-color: transparent;
+
+		}
 		//name
 		h3{
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
 			font-weight: 700;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 		}
 		//description
 		p{
+			margin-top: 20px;
 			font-size: 1.1em;
 			line-height: 1.5em;
 			text-align: left;

@@ -204,7 +204,7 @@ $(document).ready(function() {
     $("#news-carousel").owlCarousel({
     	items: 1,
     	lazyLoad : true,
-    	navigation: true,
+    	// navigation: true,
     	autoPlay: 4000,
     	stopOnHover: true,
     	singleItem:true,
