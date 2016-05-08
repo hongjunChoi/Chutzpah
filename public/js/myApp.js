@@ -219,6 +219,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         data.forEach(function(item) {
             item.post_info['created_at'] = convert_time(item.post_info['created_at']);
             posts.push(item);
+            console.log(item)
         });
 
         $rootScope.artist_posts = posts;
@@ -375,6 +376,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     $scope.search = function() {
         $rootScope.search_string = $scope.search_string
+        console.log("searching: " + $scope.search_string)
         if ($scope.search_string == "") {
             $scope.refresh_view();
             return;
@@ -386,7 +388,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         }).success(function(data) {
 
             var artist_posts = data['artist_posts'];
-
+            console.log(data)
             for (var i = 0; i < artist_posts.length; i++) {
                 var time = artist_posts[i]['created_at'];
                 artist_posts[i]['created_at'] = convert_time(time);
@@ -526,7 +528,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     $scope.load_artist_posts = function() {
         var posts = [];
         var url = "/api/posts"
-
+        console.log("!!!!!!!")
         $http.get(url, {
             params: {
                 user_type: "artist"
@@ -543,7 +545,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 item.post_info['created_at'] = convert_time(item.post_info['created_at']);
                 posts.push(item)
             });
-
+            console.log(posts)
             $rootScope.artist_posts = posts;
         });
 

@@ -103,7 +103,7 @@
                 <div class="clearfix">
                     <div ng-show="authenticated">
                         <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
-                        <textarea id="text_input_field" style="height: 100px" required class="form-control" placeholder="write anything here!"></textarea>
+                        <textarea id="text_input_field" style="height: 200px" required class="form-control" placeholder="write anything here!"></textarea>
                         <div class="img-button" ng-click="add_image()">Image</div>
                         <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
                         <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
@@ -163,7 +163,8 @@
                 <ul id="artist_postlist maincontent">
                     <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments(post.post_info)">
                         <div class="postgeneral">
-                            <h6>{{ post.post_info.text }}</h6>
+                            <!-- <h6>{{ post.post_info.text }}</h6> -->
+                            <img style="width:30px; height:30px" src="/uploads/img/{{post.post_info.created_by}}">
                             <h6>{{ post.post_info.created_by }}</h6>
                             <p>{{ post.post_info.created_at }}</p>
                             <div class="post_like">
