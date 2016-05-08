@@ -9,12 +9,16 @@ $borderA: 2px;
 $borderB: 5px;
 $controller:64px;
 
+$shadow: 0px 20px 20px 0 rgba(0,0,0,.15);
+
 $a-gray1: #eff1fe;
 $a-white0: rgba(255,255,255,0.10);
 $a-white1: rgba(255,255,255,0.25);
 $a-white2: rgba(255,255,255,0.5);
 $a-white3: rgba(255,255,255,0.75);
 $a-darkbg: rgba(30,30,30,1.0);
+$a-darkbg2: rgba(30,30,30,0.75);
+$a-darkbg1: rgba(30,30,30,0.50);
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -42,12 +46,11 @@ body{
 	width: 100%;
 	height: 100vh;
 	overflow: none;
-	background-color: black;
+	background-color: $a-darkbg;
 }
 body{
 	overflow: scroll;	
 	overflow-x:hidden;
-	background-color: $a-darkbg;
 }
 a{
 	text-decoration: none;
@@ -254,6 +257,7 @@ nav{
 	top: 0;
 	width: 340px;
 	background-color: white;
+	box-shadow: 20px 20px 20px 20px rgba(0,0,0,.15);
 	@include transition(200ms, all, ease-in-out);
 	@include translateX(100%);
 
@@ -350,28 +354,13 @@ main{
 	width: 80%;
 	margin: auto;
 }
-#listmenu{
-	background-color: $c-gray2;
-	opacity: 1;
-	border:none;
-	border-bottom: 1px solid rgba(255,255,255,0.5);
-	padding-bottom: 2px;
-	h6,p{ 
-		opacity: .7;
-		letter-spacing: .05em; 
-	}
-	li{
 
-	@include flexbox(row);
-	@include flexbox-justify(center);
-	}
-}
 .mainlist{
 	overflow: hidden;
-	margin-top: 60px;
+	margin:60px auto 140px auto;
 	padding-top: 40px;
+	font-size: 1em;
 	ul{
-		// margin-top: 46px;
 		padding-bottom:10px;
 		opacity: 1;
 		padding-top: 0;
@@ -380,9 +369,9 @@ main{
 		h6,
 		p{
 			display: inline-block;
-			font-size: 1.2em;
+			font-size: 1em;
 			padding-bottom: 0;
-			font-weight: 500;
+			font-weight: 300;
 		}
 		h6{
 			margin-right:1%;
@@ -394,29 +383,38 @@ main{
 			margin: 0;
 		}
 	}
+}
+// togglemenu
+#list-menu{
+	background-color: $a-darkbg;
+	padding: 4px 4px;	
 	form{
 		div{
-			width: 100px;
+			width: 70px;
 			display: inline-block;
-			height: 30px;
-			border:1px solid $c-darkgray;
-			border-radius: $borderA;
+			height: 24px;
+			border-bottom: 2px solid;
+			border-bottom-color: transparent;
 			cursor: pointer;
 			@include transition(all,100ms,linear);
 			&:hover{
 				color: $c-pink;
-				border:1px solid $c-pink;
+				// border:1px solid $c-pink;
+				// border-bottom: 2px solid $c-pink;
+				border-bottom-color: $c-pink;
 			}
 
 			.cat-checkbox,
 			label{
 				position: absolute;
-				width: 100px;
+				width: 70px;
 				vertical-align: middle;
 				box-shadow: none;
 				text-align: center;
 				cursor: pointer;
 				margin: 0;
+				font-size: 1em;
+				font-weight: 400;
 			}
 			.cat-checkbox{
 				-webkit-appearance: none;
@@ -431,6 +429,25 @@ main{
 		}
 	}
 }
+// header
+#list-header{
+	background-color: $a-darkbg1;
+	opacity: 1;
+	border:none;
+	border-bottom: 1px solid $a-darkbg;
+	padding: 6px 18px;
+	h6,p{ 
+		opacity: .7;
+		letter-spacing: .05em; 
+		font-weight: 500;
+	}
+	li{
+
+	@include flexbox(row);
+	@include flexbox-justify(space-between);
+	}
+}
+// list
 .maincontent li{
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
@@ -467,11 +484,12 @@ svg.likeicon{
 	width: 16px;
 	height: 16px;
 	path{
-		fill: rgba(255,255,255,0.25);
+		fill: $a-white1;
 		@include transition(all,100ms,linear);
 	}
 }
 .post-item:hover{
+	cursor: pointer;
 	svg.likeicon path{ 
 		fill: $a-white2;
 		&:hover{ fill:$c-pink;}
@@ -488,10 +506,16 @@ svg.likeicon{
 	height: auto;
 }
 .postgeneral{
+	cursor: pointer;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	@include flexbox(row);
-	@include flexbox-justify(center);
+	@include flexbox-justify(space-between);
+	img{
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+	}
 }
 .postdetail-wrapper{
 	display: none;
@@ -499,12 +523,12 @@ svg.likeicon{
 }
 .postdetail{
 	width: 100%;
-	background-color: blue;
 	height: auto;
 	min-height: 20px;
 }
 
 .maincontent li.detailopened{
+
 	.postdetail-wrapper{
 		display: block;
 	}
@@ -514,8 +538,8 @@ svg.likeicon{
 	}
 	.postdetail-wrapper{
 		display: block;
-		background-color: white;
 	}
+	svg.likeicon path{ fill:white;}
 }
 
 
@@ -525,16 +549,22 @@ svg.likeicon{
 	min-height: 100px;
 	height: 50px;
 	width: 90%;
+
+	// comment
+	li{ 
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
 }
 .commentlist{
 	background-color: transparent;
+	padding-bottom: 14px;
 
-	form{
-		margin:auto;
-		width: 90%;
+	form{margin-top: 10px;
 		padding: 12px 10px;
 		height: 26px;
-		background-color: $c-gray;
+		background-color: white;
+		border-radius: $buttonBorder;
 		@include flexbox(row);
 		textarea{
 			min-width: 200px;
@@ -575,7 +605,7 @@ svg.likeicon{
 		display: inline-block;
 	}
 	div{
-		
+
 		cursor: pointer;
 	}
 	input[type="submit"]{
@@ -603,7 +633,7 @@ svg.likeicon{
 body.uploadopened{
 	#uploadwrapper{
 		@include translateY(0);
-		box-shadow: 0px 20px 20px 0 rgba(0,0,0,.15);
+		box-shadow: $shadow;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////

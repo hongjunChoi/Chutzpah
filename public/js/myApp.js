@@ -347,7 +347,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         alert(JSON.stringify(like_info));
         //like info contains information about who liked what
         //make sure to use toggle or show
-
     }
 
     $scope.like = function(event, post) {
