@@ -163,9 +163,8 @@
                 <ul id="artist_postlist" class="maincontent">
                     <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
                         <div class="postgeneral">
-                            <!-- <h6>{{ post.post_info.text }}</h6> -->
-                            <h6>placeholder title here</h6>
-                            <img src="/uploads/img/{{post.post_info.created_by}}">
+                            <h6>{{ post.post_info.text }}</h6>
+                            <img style="width:30px; height:30px" src="/uploads/img/{{post.post_info.created_by}}">
                             <h6>{{ post.post_info.created_by }}</h6>
                             <p>{{ post.post_info.created_at }}</p>
                             <div class="post_like">

@@ -26,8 +26,8 @@ $(document).ready(function() {
         }
     });
 
-    $("#btn_upload").click(function(){
-    	$("body").toggleClass("uploadopened");
+    $("#btn_upload").click(function() {
+        $("body").toggleClass("uploadopened");
     });
 
 
@@ -46,6 +46,7 @@ $(document).ready(function() {
     $("#profileclose").click(function() {
         closeAll();
     });
+
 
     $(document).on('click', '.confirm_button', function() {
         var request_data = $(this).closest('.chat_msg').data("request_info");
@@ -72,43 +73,44 @@ $(document).ready(function() {
 
     $(document).on('click', '.profile_post_item', function() {
         var post_data = $(this).data("profile_post");
-        console.log(post_data);
-        if (post_data.is_file == true || post_data.is_file == "true") {
+        alert(JSON.stringify(post_data));
+        if ((post_data.music_url != null) && (typeof post_data.music_url != "undefined")) {
             $("#jquery_jplayer_1").jPlayer("setMedia", {
-                title: post_data.original_name,
-                mp3: post_data.url.substring(post_data.url.indexOf("/") + 1)
+                title: post_data.music_name,
+                mp3: post_data.music_url.substring(post_data.url.indexOf("/") + 1)
             });
-
-            var id = post_data["_id"];
-            var url = "/api/comment";
-            $.get(url, {
-                post_id: id
-            }).done(function(data) {
-                console.log(data);
-                // $("#commentmain").empty();
-                // data.forEach(function(c) {
-                // 	$("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
-                // });
-                // $(".commentField").show();
-            });
-
-        } else {
-            var id = post_data["_id"];
-            var url = "/api/comment";
-            $.get(url, {
-                post_id: id
-            }).done(function(data) {
-                console.log(data);
-                // $("#commentmain").empty();
-
-
-                // data.forEach(function(c) {
-                // 	$("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
-                // });
-                // $(".commentField").show();
-            });
-
         }
+
+        var id = post_data["_id"];
+        var url = "/api/comment";
+        $.get(url, {
+            post_id: id
+        }).done(function(data) {
+            console.log(data);
+            // $("#commentmain").empty();
+            // data.forEach(function(c) {
+            //  $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+            // });
+            // $(".commentField").show();
+        });
+
+
+        var id = post_data["_id"];
+        var url = "/api/comment";
+        $.get(url, {
+            post_id: id
+        }).done(function(data) {
+            console.log(data);
+            // $("#commentmain").empty();
+
+
+            // data.forEach(function(c) {
+            //  $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+            // });
+            // $(".commentField").show();
+        });
+
+
 
     });
 

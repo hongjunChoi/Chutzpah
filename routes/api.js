@@ -24,7 +24,7 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, cb) {
         //rename file as username 
-        cb(null, req.session.user.username)
+        cb(null, req.session.username)
     }
 })
 
@@ -35,7 +35,9 @@ var upload_file = multer({
     }
 }).single('file');
 
-var upload_img = multer(storage).single('file');
+var upload_img = multer({
+    storage
+}).single('file');
 
 
 
@@ -95,17 +97,8 @@ router.route('/upload_img')
                 console.log("Error: ", err);
                 return res.end("Error upoading image");
             }
-            User.findById(req.session.user._id, function(err, user) {
-                if (err)
-                    res.send(err);
-                user.img_url = res.req.file.path
-                req.session.user.img_url = user.img_url
-                user.save(function(err, post) {
-                    if (err)
-                        res.send(err);
-                    res.json(post);
-                });
-            });
+            console.log("-----uploaded")
+            res.send(200, "Success")
         })
     });
 
