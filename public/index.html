@@ -160,7 +160,7 @@
                         <p></p>
                     </li>
                 </ul>
-                <ul id="artist_postlist maincontent">
+                <ul id="artist_postlist" class="maincontent">
                     <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
                         <div class="postgeneral">
                             <!-- <h6>{{ post.post_info.text }}</h6> -->
@@ -216,7 +216,7 @@
                         <p>{{ artist.location }}</p>
                     </li>
                 </ul>
-                <ul id="request_list" class="maincontent">
+                <ul id="requestlist" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="show_request(request)">
                         <h6>{{ request.name }}</h6>
                         <h6>{{ request.user_location }}</h6>

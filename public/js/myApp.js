@@ -211,11 +211,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     var posts = [];
     var url = "/api/posts"
 
-    $http.get(url, {
-        params: {
-            user_type: "artist"
-        }
-    }).success(function(data) {
+    $http.get(url, {}).success(function(data) {
         data.forEach(function(item) {
             item.post_info['created_at'] = convert_time(item.post_info['created_at']);
             posts.push(item);
@@ -227,18 +223,20 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $("#requestlist").hide();
         $("#eventlist").hide();
     });
-    // $scope.upload_image = function() {
-    //     $(".file-upload").on('change', function() {
-    //         $scope.readURL();
-    //     });
-    //     $(".file-upload").click();
-    // }
 
-    // $scope.readURL = function() {
-    //     var img = $scope.imgFile;
-    //     var uploadUrl = "/api/upload_img";
-    //     fileUpload.uploadImageToUrl(img, uploadUrl);
-    // }
+    $scope.upload_image = function() {
+        $(".file-upload").on('change', function() {
+            $scope.readURL();
+        });
+        $(".file-upload").click();
+    }
+
+    $scope.readURL = function() {
+        var img = $scope.imgFile;
+        var uploadUrl = "/api/upload_img";
+        fileUpload.uploadImageToUrl(img, uploadUrl);
+    }
+
 
 
     $scope.add_image = function() {
