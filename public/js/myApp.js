@@ -384,20 +384,23 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 search_string: $scope.search_string
             }
         }).success(function(data) {
-
             var artist_posts = data['artist_posts'];
-
+            var artist_post_data = [];
             for (var i = 0; i < artist_posts.length; i++) {
                 var time = artist_posts[i]['created_at'];
                 artist_posts[i]['created_at'] = convert_time(time);
+                var item = { 'post_info': artist_posts[i] }
+                artist_post_data.push(item);
             }
-            $rootScope.artist_posts = artist_posts;
+            $rootScope.artist_posts = artist_post_data;
 
-
+            var file_list_data = [];
             for (var i = 0; i < data.files.length; i++) {
                 data.files[i]['created_at'] = convert_time(data.files[i]['created_at']);
+                var item = { 'post_info': data.files[i] }
+                file_list_data.push(item);
             }
-            $rootScope.files = data.files;
+            $rootScope.files = file_list_data;
             $rootScope.artists = data.artists;
 
 
