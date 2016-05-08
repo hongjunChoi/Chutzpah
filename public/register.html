@@ -6,15 +6,15 @@
 	<div class="register-checkbox-wrapper">	
 		<p>You are joining Stagelight as....</p>
 		<p class="small">Select one</p>
-		<div class="register-checkbox">
-		    <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio" value="1" checked/>
+		<div id="register-checkbox1" class="register-checkbox">
+		    <input class="user-checkbox active" name="type" ng-click="change_user_type()" type="radio" value="1" checked/>
 		    <label>Artist</label>
 		</div>
-		<div class="register-checkbox">
+		<div id="register-checkbox2" class="register-checkbox">
 		    <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio"  value="2" />
 		    <label>Venue</label>
 		</div>
-		<div class="register-checkbox">
+		<div id="register-checkbox3" class="register-checkbox">
 		    <input class="user-checkbox" name="type" ng-click="change_user_type()" type="radio" value="3" />
 		    <label>Just a Fan!</label>
 		</div>
@@ -28,49 +28,59 @@
 		<div class="tab-pane tab-show" id="register_musician">
 			<h6>Account Information</h6>
 			<input type="username" ng-model="user.username" placeholder="Username" class="form-control">
-
 			<input type="password" ng-model="user.password" placeholder="Password" class="form-control">
-
 			<input type="email" ng-model="user.email" placeholder="email" class="form-control">
 
-			<h6>About You</h6>
+			<h6>About Yourself</h6>
 			<label>What is your or your group's name?</label>
 			<input type="name" ng-model="user.name" placeholder="name" class="form-control">
-
 			<label>What is your genre of music?</label>
 			<input type="genre" ng-model="user.genre" placeholder="e.g. Rock" class="form-control">
-
 			<label>Where do you live?</label>
 			<input type="location" ng-model="user.location" placeholder="e.g. Providence " class="form-control">
-
-			<label>Tell us about yourself.</label>
-			<input type="description" ng-model="user.description" placeholder="e.g. Second Biggie! " class="form-control longform">
-
-			<label>Please provide us a link to your website or other online music profile.</label>
+			<label>Please tell us about yourself.</label>
+			<input type="description" ng-model="user.description" placeholder="e.g. Second Biggie! " rows="5" class="form-control longform">
+			<label>Please provide us a link to your website or other online music profile. (If you have one)</label>
 			<input type="soundcloud" ng-model="user.soundcloud" placeholder="e.g. https://soundcloud.com/didf " class="form-control">
 
 			<input type="submit" value="Sign Up" class="btn btn-primary" />
 		</div>
 
 		<div class="tab-pane" id="register_host">
-			<input type="name" ng-model="user.name" placeholder="write your Venue's name" class="form-control"><br>
-			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control"><br>
-			<input type="description" ng-model="user.description" placeholder="e.g. a great Bar near ...! " class="form-control"><br>
-			<input type="website" ng-model="user.website" placeholder="e.g. https://myHipBar.com " class="form-control"><br>
-			<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
-			<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
-			<input type="email" ng-model="user.email" placeholder="email" class="form-control"><br>
+			<h6>Account Information</h6>
+			<input type="username" ng-model="user.username" placeholder="Username" class="form-control">
+			<input type="password" ng-model="user.password" placeholder="Password" class="form-control">
+			<input type="email" ng-model="user.email" placeholder="Email" class="form-control">
+
+			<h6>About Your Venue</h6>
+			<label>What is your venue name?</label>
+			<input type="name" ng-model="user.name" placeholder="name" class="form-control">
+			<label>Where is your venue?</label>
+			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control">
+			<label>Please tell us about your venue.</label>
+			<input type="description" ng-model="user.description" placeholder="e.g. a great Bar near ...! " class="form-control">
+			<label>Please provide us a link to your venue's website or an online social page. (If there is one)</label>
+			<input type="website" ng-model="user.website" placeholder="e.g. https://myHipBar.com " class="form-control">
+
 			<input type="submit" value="Register" class="btn btn-primary" />
 		</div>
 
 		<div class="tab-pane" id="register_fan">
-			<input type="name" ng-model="user.name" placeholder="write your  name" class="form-control"><br>
-			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control"><br>
-			<input type="genre" ng-model="user.genre" placeholder="e.g. Hip-hop Jazz .." class="form-control"><br>
-			<input type="description" ng-model="user.description" placeholder="e.g. I love ...! " class="form-control"><br>
-			<input type="username" ng-model="user.username" placeholder="Username" class="form-control"><br>
-			<input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
-			<input type="email" ng-model="user.email" placeholder="email" class="form-control"><br>
+			<h6>Account Information</h6>
+			<input type="username" ng-model="user.username" placeholder="Username" class="form-control">
+			<input type="password" ng-model="user.password" placeholder="Password" class="form-control">
+			<input type="email" ng-model="user.email" placeholder="Email" class="form-control">
+
+			<h6>About Yourself</h6>
+			<label>What is your name?</label>
+			<input type="name" ng-model="user.name" placeholder="Name" class="form-control">
+			<label>Where do you live?</label>
+			<input type="location" ng-model="user.location" placeholder="e.g. Providence" class="form-control">
+			<label>What genre of music do you prefer?</label>
+			<input type="genre" ng-model="user.genre" placeholder="e.g. Hip-hop Jazz .." class="form-control">
+			<label>Please tell us about yourself.</label>
+			<input type="description" ng-model="user.description" placeholder="e.g. I love ...! " class="form-control">
+
 			<input type="submit" value="Register" class="btn btn-primary" />
 		</div>
 

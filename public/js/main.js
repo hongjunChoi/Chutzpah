@@ -197,8 +197,9 @@ $(document).ready(function() {
             console.log("NOTIFICATION TIME UPDATED");
         });
         hide_all_right_panel();
-
     }
+
+    // Login & Register
 
     // Carousel
     $("#news-carousel").owlCarousel({

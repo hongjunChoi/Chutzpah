@@ -1052,19 +1052,24 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
     };
 
     $scope.change_user_type = function() {
-        $("#register_musician").hide()
-        $("#register_host").hide()
-        $("#register_fan").hide()
+        $("#register_musician").hide();
+        $("#register_host").hide();
+        $("#register_fan").hide();
         var user_type = $('.user-checkbox:checked').val()
+        $(".register-checkbox.active").removeClass('active');
         if (user_type == 1) {
-            $("#register_musician").show()
+            $("#register_musician").show();
+            $("#register-checkbox1").addClass('active');
         }
         if (user_type == 2) {
-            $("#register_host").show()
+            $("#register_host").show();
+            $("#register-checkbox2").addClass('active');
         }
         if (user_type == 3) {
-            $("#register_fan").show()
+            $("#register_fan").show();
+            $("#register-checkbox3").addClass('active');
         }
+
     }
 
     $scope.register = function() {

@@ -1359,6 +1359,8 @@ body.chatopened #chatwrapper {
     position: relative;
     height: auto;
     margin: auto; }
+    #loginwrapper .register-checkbox-wrapper p.small {
+      color: rgba(255, 255, 255, 0.5); }
   #loginwrapper .register-checkbox {
     width: 110px;
     height: 32px;
@@ -1393,11 +1395,19 @@ body.chatopened #chatwrapper {
       background-color: transparent; }
     #loginwrapper .register-checkbox label {
       padding: 7px 0 10px 0;
-      color: rgba(255, 255, 255, 0.8); }
+      color: rgba(255, 255, 255, 0.8);
+      pointer-events: none; }
     #loginwrapper .register-checkbox input {
       padding: 16px 0; }
     #loginwrapper .register-checkbox input.longform {
       height: 50px; }
+    #loginwrapper .register-checkbox.active {
+      background-color: #fa4e5e;
+      border-color: #fa4e5e; }
+      #loginwrapper .register-checkbox.active:hover {
+        border-color: #fa4e5e; }
+      #loginwrapper .register-checkbox.active label {
+        color: white; }
   #loginwrapper .tab-content {
     height: auto;
     display: block; }

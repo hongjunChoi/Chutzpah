@@ -1274,6 +1274,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		position: relative;
 		height: auto;
 		margin: auto;
+		p.small{color:$a-white2;}
 	}
 	.register-checkbox{
 		width: 110px;
@@ -1288,7 +1289,6 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		&:first-of-type{ margin-left: 0;}
 		&:last-of-type{ margin-right: 0;}
 		&:hover{ border-color:$a-white2; }
-
 		label,
 		input{
 			position: absolute;
@@ -1305,12 +1305,17 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		label{
 			padding: 7px 0 10px 0;
 			color:rgba(255,255,255,0.8);
+			pointer-events:none;
 		}
-		input{
-			padding: 16px 0;
-		}
+		input{ padding: 16px 0; }
 		input.longform{
 			height: 50px;
+		}
+		&.active{
+			background-color: $c-pink;
+			border-color: $c-pink;
+			&:hover{ border-color:$c-pink;}
+			label{ color: white;}
 		}
 	}
 	.tab-content{
