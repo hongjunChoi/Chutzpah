@@ -200,8 +200,15 @@ $(document).ready(function() {
 
     }
 
-    $('.jcarousel').jcarousel({
-    	vertical:false
+    // Carousel
+    $("#news-carousel").owlCarousel({
+    	items: 1,
+    	lazyLoad : true,
+    	navigation: true,
+    	autoPlay: 4000,
+    	stopOnHover: true,
+    	singleItem:true,
+    	slideSpeed:500
     });
 
     // Key Input (Space to play/pause)

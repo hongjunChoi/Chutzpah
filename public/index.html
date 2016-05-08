@@ -7,20 +7,15 @@
     <meta name="author" content="" />
     <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- Typekit -->
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>
-    try {
-        Typekit.load({
-            async: true
-        });
-    } catch (e) {}
-    </script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/carousel/owl.carousel.css">
+    <link rel="stylesheet" href="css/carousel/owl.theme.css">
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
-    <script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
+    <!-- <script type="text/javascript" src="js/jcarousel.transitions.js"></script> -->
     <link rel="shortcut icon" href="img/favicon.ico">
 </head>
 
@@ -35,7 +30,7 @@
                         <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                         <input type="submit" ng-click="search()">
                     </form>
-                    <!--                     <div id="searchresult">
+                    <!-- <div id="searchresult">
                         <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
                         <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                         <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
@@ -125,18 +120,28 @@
                     </div>
                 </div>
             </div>
-            <div id="carousel-wrapper" class="jcarousel-wrapper">
-	            <div class="jcarousel" data-jcarousel="true">
-	            	<ul>
-		            	<li><img src="img/sampleheader.jpg"></li>
-		            	<li><img src="img/sampleheader.jpg"></li>
-	            	</ul>
-	            </div>
-	            <a href="#" class="jcarousel-control-prev" data-jcarouselcontrol="true">‹</a>
-	            <a href="#" class="jcarousel-control-next" data-jcarouselcontrol="true">›</a>
+
+            <div id="news-carousel" class="owl-carousel">
+				<div class="item">
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
+					<div>
+						<p>Rhode Island</p>
+						<h3>Kevin Herchen</h3>
+						<h6>The Trap</h6>
+					</div>
+				</div>
+				<div class="item">
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
+					<div>
+						<p>Trap Party</p>
+						<h3>Kevin Herchen</h3>
+						<h6>Providence, Rhode Island</h6>
+					</div>
+				</div>
             </div>
+
+            <!-- content lists -->
             <div class="mainlist">
-                <!-- content lists -->
                 <div id="list-menu" style="color: white; z-index:999">
                     <form>
                         <div>
@@ -157,8 +162,6 @@
                         </div>
                     </form>
                 </div>
-                <!-- Carousel Event page -->
-                <!-- Carousel Venue page -->
                 <ul id="list-header">
                     <li>
                         <h6 id="col1">Posts</h6>
@@ -204,7 +207,6 @@
                         </div>
                     </li>
                 </ul>
-                <!-- comment should be dynamically appended -->
                 <ul id="filelist" class="maincontent">
                     <li class="music_post_list" ng-repeat="file in files" ng-click="start_music($event, file.post_info)">
                         <div class="postgeneral">
@@ -295,13 +297,11 @@
                                         <button class="jp-previous"></button>
                                         <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
                                         <button class="jp-next"></button>
-                                        <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
                                     </div>
                                 </div>
                                 <div id="jp-volumewrapper" class="jp-controls-holder">
                                     <div class="jp-volume-controls">
                                         <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
-                                        <!-- <button class="jp-volume-max ctrlbtn" role="button" tabindex="0"></button> -->
                                         <div class="jp-volume-bar">
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
@@ -376,6 +376,7 @@
     <script src="js/login.js"></script>
     <!-- jquery - ui js  -->
     <script src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
