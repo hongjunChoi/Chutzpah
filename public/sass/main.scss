@@ -9,6 +9,8 @@ $borderA: 2px;
 $borderB: 5px;
 $controller:64px;
 
+$a-gray1: #eff1fe;
+
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
 @mixin buttonA{
@@ -98,7 +100,10 @@ header{
 		    font-size: 1em;
 		}
 		//Searchbar
-		#searchwrapper{ position: relative; }
+		#searchwrapper{ 
+			position: relative; 
+			width:252px;
+		}
 		#searchbar{
 			border:1px solid $c-gray2;
 			width: 240px;
@@ -174,22 +179,6 @@ header{
 			}
 		}
 	}
-	// #btn_upload{
-	// 	width: 20px;
-	// 	height: 20px;
-	// 	padding: 1px;
-	// 	background-image: url(../img/ui-icons/upload.svg);
-	// 	background-size: cover;
-	// 	background-repeat: no-repeat;
-	// }
-
-	// #btn_search{
-	// 	margin-top: 2px;
-	// 	width:24px;
-	// 	background-size: cover;
-	// 	background-repeat: no-repeat;
-	// 	background-image: url(../img/ui-icons/search.svg);
-	// }
 	#btn_menu{
 		width:28px;
 		height:24px;
@@ -327,7 +316,7 @@ main{
 	margin:0;
 	background-color: $c-gray2;
 }
-#listmenu,
+// #listmenu,
 .mainlist,
 .commentlist,
 #uploadwrapper{
@@ -335,14 +324,12 @@ main{
 	margin: auto;
 }
 #listmenu{
-	position: fixed;
+	// position: fixed;
 	background-color: $c-gray2;
 	opacity: 1;
 	border:none;
-	// border-top: 200px solid $c-gray1;
 	border-bottom: 1px solid rgba(255,255,255,0.5);
 	padding-bottom: 2px;
-	// margin-top:200px;
 	h6,p{ 
 		opacity: .7;
 		letter-spacing: .05em; 
@@ -357,7 +344,7 @@ main{
 	overflow: hidden;
 	padding-top: 40px;
 	ul{
-		margin-top: 46px;
+		// margin-top: 46px;
 		padding-bottom:10px;
 		opacity: 1;
 		padding-top: 0;
@@ -386,10 +373,45 @@ main{
 			margin: 0;
 		}
 	}
+	form{
+		div{
+			width: 100px;
+			display: inline-block;
+			height: 30px;
+			// border:1px solid white;
+			border:1px solid $c-darkgray;
+			border-radius: $borderA;
+			cursor: pointer;
+			@include transition(all,100ms,linear);
+			&:hover{
+				color: $c-pink;
+				border:1px solid $c-pink;
+			}
+
+			.cat-checkbox,
+			label{
+				position: absolute;
+				width: 100px;
+				vertical-align: middle;
+				box-shadow: none;
+				text-align: center;
+				cursor: pointer;
+				margin: 0;
+			}
+			.cat-checkbox{
+				-webkit-appearance: none;
+				height: 30px;
+			}
+			label{
+				padding:7px 0;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				font-size: .85em;
+			}
+		}
+	}
 }
-#commentmain li,
-.postlist li,
-.filelist li{
+.maincontent li{
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
 	border-top:1px solid $c-darkgray;
@@ -399,9 +421,9 @@ main{
 		border-bottom:$c-darkgray;
 	}
 	&:hover{
-		background-color: $c-darkgray;
-		border-top-color: $c-darkgray;
-		border-bottom-color: $c-darkgray;
+		background-color: $c-pink;
+		border-top-color: $c-pink;
+		border-bottom-color: $c-pink;
 	}
 	h6,
 	p{
@@ -446,11 +468,14 @@ main{
 	}
 }
 #uploadwrapper{
-	margin-top: 100px;
-	background-color: white;
-	height: auto;
+	position: fixed;
+	top: 80px;
+	height: 80px;
+	padding: 20px 10%;
 	z-index: 50;
-	// margin-right: 40px;
+	background-color: $c-gray1;
+	@include translateY(-120%);
+	@include transition(all,300ms,ease-in-out);
 	form{
 		position: relative;
 		border-bottom: 1px solid $c-pink;
@@ -481,6 +506,12 @@ main{
 		width: 210px;
 		vertical-align: bottom;
 		resize:none;
+	}
+}
+body.uploadopened{
+	#uploadwrapper{
+		@include translateY(0);
+		box-shadow: 0px 20px 20px 0 rgba(0,0,0,.15);
 	}
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -917,6 +948,66 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 				opacity: 0;
 			}
 		}
+
+
+/////////////
+// ETC
+
+#loginwrapper{
+	width: 100%;
+	height: 100vh;
+	position: relative;
+	margin:auto;
+	@include flexbox(column);
+	@include flexbox-justify(center);
+	background-image: url(../img/background.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+
+	h4{
+		color: white;
+	}
+	p.text-warning{
+		color:$c-pink;
+		font-weight: 500;
+
+	}
+	form{
+		// width: 250px;
+		text-align: center;
+		margin: auto;
+	}
+	input{
+		position: relative;
+		display: block;
+		margin:12px auto;
+		font-size: 1.2em;
+		clear: both;
+		width: 230px;
+		height: 20px;
+		padding:10px 10px;
+		// border-color: 1px solid $a-gray1;
+	}
+	input[type="username"],
+	input[type="password"],
+	input[type="submit"]{
+	}
+	input:focus{
+		// border-color: 1px solid $c-pink;
+	}
+	input[type="submit"]{
+		height: 40px;
+		// border-color: 1px solid $c-pink;
+		background-color: $c-pink;
+		color: white;
+		cursor: pointer;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+		padding:10px 0;
+	}
+}
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
