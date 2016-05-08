@@ -225,12 +225,12 @@ header {
   border-top: 1px solid #292929;
   display: none;
   margin-top: 0; }
-#logininfo #logininfo-thumb {
+#logininfo #loginthumb {
   display: inline-block;
   width: 28px;
   height: 28px;
   float: left;
-  margin: 0 0 0 6px;
+  margin: 2px 0 0 6px;
   vertical-align: middle; }
 #logininfo:hover .logininfo-signout {
   display: block;
@@ -825,6 +825,17 @@ svg.likeicon {
     resize: none;
     border-radius: 4px;
     padding: 5px; }
+
+#image-holder,
+#music-holder {
+  margin-top: 40px;
+  max-width: 400px; }
+
+#image-holder img {
+  width: 100%; }
+
+#music-holder button {
+  color: white; }
 
 body.uploadopened #uploadwrapper {
   -webkit-transform: translateY(0);
