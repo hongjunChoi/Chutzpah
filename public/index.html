@@ -24,7 +24,7 @@
 </head>
 <body ng-app="myApp">
     <header>
-    	<img id="logo" src="img/logo.svg" />
+        <img id="logo" src="img/logo.svg" />
         <ul>
             <li id="searchwrapper">
                 <div id="searchbar" ng-controller="mainController">
@@ -101,12 +101,26 @@
             <div id="uploadwrapper" ng-controller="mainController">
                 <div class="clearfix">
                     <div ng-show="authenticated">
-                        <form ng-Submit="post()" ng-show="authenticated">
-                            <textarea id="post_input_field" required class="form-control" maxlength="200" placeholder="write anything here!" ng-model="newPost.text"></textarea>
-                            <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                        </form>
-                        <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                        <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
+                        <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
+                        <textarea id="text_input_field" style="height: 100px" required class="form-control" placeholder="write anything here!"></textarea>
+                        <div class="img-button" ng-click="add_image()">Image</div>
+                        <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
+                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
+ -->
+                        <div class="music-button" ng-click="add_music()">Music</div>
+                        <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
+                        <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
+<input id="file_upload_form" type="file" class="btn submit-btn pull-left" class="uploadfilebtn" type="submit" value="Photo" />
+<input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />adfadfa
+ -->
+                        <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
+                        <!-- </form> -->
+                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+ -->
+                        <div id="image-holder">
+                            <img style="width:30px; height:30px" ng-repeat="img in images_to_post" src={{img}}>
+                        </div>
+                        <div id="music-holder"></div>
                     </div>
                 </div>
             </div>
@@ -136,13 +150,14 @@
                         </div>
                     </form>
                 </div>
-    <!-- Carousel Event page -->
-    <!-- Carousel Venue page -->
+                <!-- Carousel Event page -->
+                <!-- Carousel Venue page -->
                 <ul id="listmenu">
                     <li>
-                        <h6 id="col1">Song</h6>
+                        <h6 id="col1">Posts</h6>
                         <h6 id="col2">Artist</h6>
                         <p id="col3">Date</p>
+                        <p></p>
                     </li>
                 </ul>
                 <ul id="artist_postlist maincontent">
@@ -175,7 +190,7 @@
                         </div>
                     </li>
                 </ul>
-    <!-- comment should be dynamically appended -->
+                <!-- comment should be dynamically appended -->
                 <ul id="filelist" class="maincontent">
                     <li ng-repeat="file in files" ng-click="start_music(file.post_info)">
                         <h6>{{ file.post_info.original_name }}</h6>
@@ -197,8 +212,8 @@
                 <ul id="request_list" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="show_request(request)">
                         <h6>{{ request.name }}</h6>
-                        <h6>{{ request.genre }}</h6>
-                        <p>{{ request.created_at }}</p>
+                        <h6>{{ request.user_location }}</h6>
+                        <p>{{ request.genre }}</p>
                     </li>
                 </ul>
                 <ul id="eventlist" class="maincontent">
@@ -324,23 +339,8 @@
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-        $("#jquery_jplayer_1").jPlayer({
-            ready: function() {
-                $(this).jPlayer("setMedia", {
-                    title: "Big Buck Bunny Trailer",
-                    mp3: "/uploads/sample.mp3"
-                });
-            },
-            cssSelectorAncestor: "#jp_container_1",
-            swfPath: "/js",
-            supplied: "mp3",
-            useStateClassSkin: true,
-            autoBlur: false,
-            smoothPlayBar: true,
-            keyEnabled: true,
-            remainingDuration: true,
-            toggleDuration: true
-        });
+        // $("#jquery_jplayer_1").jPlayer({ // ready: function() { // $(this).jPlayer("setMedia", { // title: "Big Buck Bunny Trailer", // mp3: "/uploads/sample.mp3" // }); // }, // cssSelectorAncestor: "#jp_container_1", // swfPath: "/js", // supplied: "mp3", // useStateClassSkin: true, // autoBlur: false, // smoothPlayBar: true, // keyEnabled: true, // remainingDuration: true, // toggleDuration: true // });
+
     });
     </script>
 </body>

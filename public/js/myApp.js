@@ -4,6 +4,10 @@ var app = angular.module('myApp', ['ngRoute', 'ngResource']).run(function($rootS
     $rootScope.current_user = '';
     $rootScope.now_playing = {};
     $rootScope.search_string = "";
+    $rootScope.images_to_post = [];
+    $rootScope.music_to_post = "";
+
+
 
     //TODO: need to check user authentication (using session stored in mongodb) and keep logged in
     $http.get('/auth/session').success(function(data) {
@@ -114,7 +118,6 @@ app.service('fileUpload', ['$http', '$rootScope',
         this.uploadFileToUrl = function(file, uploadUrl, callback) {
             var fd = new FormData();
             fd.append('file', file);
-            alert("file upload")
             $http.post(uploadUrl, fd, {
                 transformRequest: angular.identity,
                 headers: {
@@ -123,15 +126,32 @@ app.service('fileUpload', ['$http', '$rootScope',
             }).then(function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-                $("#file_upload_form").val("");
-                callback();
+                callback(response.data);
 
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                console.log("123432r")
+                console.log(response)
             });
         }
+
+        // this.uploadFileToPost = function(file, uploadUrl) {
+        //     var fd = new FormData();
+        //     fd.append('file', file);
+        //     $http.post(uploadUrl, fd, {
+        //         transformRequest: angular.identity,
+        //         headers: {
+        //             'Content-Type': undefined
+        //         }
+        //     }).then(function successCallback(response) {
+        //         console.log(response)
+        //         set_user_images(response.data.img_url)
+        //         $rootScope.user.image_url = response.data.img_url
+        //     }, function errorCallback(response) {
+        //         // called asynchronously if an error occurs
+        //         // or server returns response with an error status.
+        //     });
+        // }
 
         this.uploadImageToUrl = function(img, uploadUrl) {
             var fd = new FormData();
@@ -188,8 +208,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     $scope.list_type = 1; //1: artists, 2: venues, 3: events
     //   var temp = postService.query();
-    var files = [];
-    var text_posts = [];
+    var posts = [];
     var url = "/api/posts"
 
     $http.get(url, {
@@ -197,42 +216,96 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             user_type: "artist"
         }
     }).success(function(data) {
-
         data.forEach(function(item) {
-            if (item.post_info["is_file"] == true || item.post_info["is_file"] == "true") {
-                item.post_info['created_at'] = convert_time(item.post_info['created_at']);
-                files.push(item);
-            } else {
-                item.post_info['created_at'] = convert_time(item.post_info['created_at']);
-                text_posts.push(item);
-            }
+            item.post_info['created_at'] = convert_time(item.post_info['created_at']);
+            posts.push(item);
         });
 
-        $rootScope.artist_posts = text_posts;
-        $rootScope.files = files;
-        $("#artistlist").hide()
-        $("#requestlist").hide()
-        $("#eventlist").hide()
+        $rootScope.artist_posts = posts;
+        $("#artistlist").hide();
+        $("#requestlist").hide();
+        $("#eventlist").hide();
     });
+    // $scope.upload_image = function() {
+    //     $(".file-upload").on('change', function() {
+    //         $scope.readURL();
+    //     });
+    //     $(".file-upload").click();
+    // }
 
+    // $scope.readURL = function() {
+    //     var img = $scope.imgFile;
+    //     var uploadUrl = "/api/upload_img";
+    //     fileUpload.uploadImageToUrl(img, uploadUrl);
+    // }
+
+
+    $scope.add_image = function() {
+        $(".img-upload").click();
+    }
+
+    $scope.add_image_to_holder = function() {
+
+        input = $(".img-upload")
+        file = input[0].files[0];
+        var uploadUrl = "/api/upload_file"
+        fileUpload.uploadFileToUrl(file, uploadUrl, function(file) {
+            console.log(file)
+            var path = file.path.substring(file.path.indexOf("/") + 1);
+            $rootScope.images_to_post.push(path);
+        })
+
+    }
+
+    $scope.add_music = function() {
+        $(".music-upload").click();
+    }
+
+    $scope.add_music_to_holder = function() {
+
+        input = $(".music-upload")
+        file = input[0].files[0];
+        var uploadUrl = "/api/upload_file"
+        fileUpload.uploadFileToUrl(file, uploadUrl, function(file) {
+            file.path = file.path.substring(file.path.indexOf("/") + 1);
+            $rootScope.music_to_post = file;
+            $("#music-holder").empty();
+            console.log(file)
+            $("#music-holder").append("<button>" + file.originalname + "</button>")
+        })
+    }
 
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
     }
 
     $scope.post = function() {
+        ////// do not post if all empty ////// 
+
+        var text = $("#text_input_field").val();
+        if (text == "") {
+            $("#text_input_field").attr("placeholder", "Please Write Something To Post!")
+            return
+        }
+        $scope.newPost = {};
         $scope.newPost.created_by = $rootScope.current_user;
         $scope.newPost.user_type = $rootScope.user_type;
         $scope.newPost.created_at = Date.now();
-        console.log("----------");
+        $scope.newPost.images = $rootScope.images_to_post;
+        $scope.newPost.music_url = $rootScope.music_to_post.path;
+        $scope.newPost.music_name = $rootScope.music_to_post.originalname;
+        $scope.newPost.text = $("#text_input_field").val();
         console.log($scope.newPost);
         var url = "/api/posts";
 
         $http.post(url, {
             newPost: $scope.newPost
         }).success(function(data) {
-            $("#post_input_field").val("")
-            $scope.refresh_view()
+            $("#text_input_field").val("");
+            $("#music-holder").empty();
+            $rootScope.images_to_post = [];
+            $rootScope.music_to_post = "";
+            $scope.refresh_view();
         });
     };
 
@@ -240,7 +313,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.clear_lists();
         var val = $(".cat-checkbox:checked").val()
         if (val == 1) {
-            set_columns("Song", "Artist", "Date")
+            set_columns("Posts", "Artist", "Date")
             $("#artist_postlist").show()
             $("#filelist").show()
             if ($rootScope.search_string == "") {
@@ -255,7 +328,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }
         if (val == 3) {
-            set_columns("Gig requests", "Venue", "Date")
+            set_columns("Venue Name", "Location", "Music preference")
             if ($rootScope.search_string == "") {
                 $scope.load_gig_requests();
             }
@@ -435,8 +508,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     };
 
     $scope.load_artist_posts = function() {
-        var files = [];
-        var text_posts = [];
+        var posts = [];
         var url = "/api/posts"
 
         $http.get(url, {
@@ -445,17 +517,18 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }).success(function(data) {
             data.forEach(function(item) {
-                if (item.post_info["is_file"] == true || item.post_info["is_file"] == "true") {
-                    item.post_info['created_at'] = convert_time(item.post_info['created_at']);
-                    files.push(item);
-                } else {
-                    item.post_info['created_at'] = convert_time(item.post_info['created_at']);
-                    text_posts.push(item);
-                }
+                // if (item["is_file"] == true || item["is_file"] == "true") {
+                //     item['created_at'] = convert_time(item['created_at']);
+                //     files.push(item);
+                // } else {
+                //     item['created_at'] = convert_time(item['created_at']);
+                //     text_posts.push(item);
+                // }
+                item.post_info['created_at'] = convert_time(item.post_info['created_at']);
+                posts.push(item)
             });
 
-            $rootScope.artist_posts = text_posts;
-            $rootScope.files = files;
+            $rootScope.artist_posts = posts;
         });
 
     }

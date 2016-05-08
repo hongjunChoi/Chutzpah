@@ -42,11 +42,13 @@ router.use(function(req, res, next) {
     if (req.method === "GET") {
         return next();
     }
-    if (typeof req.user === 'undefined' || req.session.user == "undefined" || req.user == null || !(req.session.user)) {
-        res.redirect('/#login');
+
+    if (typeof req.session.user === 'undefined' || req.session.user == "undefined" || req.session.user == null || !(req.session.user)) {
+        return res.redirect('/#login');
     }
 
-    // if the user is not authenticated then redirect him to the login page
+    // // if the user is not authenticated then redirect him to the login page
+
     return next();
 });
 
@@ -60,21 +62,23 @@ router.route('/upload_file')
                 console.log("Error: ", err);
                 return res.end("Error upoading file");
             }
+            console.log("upload success...")
+            return res.json(res.req.file)
 
-            var post = new Post();
-            post.is_file = true;
-            console.log(req.session)
-            post.created_by = req.session.username;
-            post.original_name = req.file.originalname;
-            post.user_type = req.session.user.user_type;
-            post.url = res.req.file.path;
+            // var post = new Post();
+            // post.is_file = true;
+            // console.log(req.session)
+            // post.created_by = req.session.username;
+            // post.original_name = req.file.originalname;
+            // post.user_type = req.session.user.user_type;
+            // post.url = res.req.file.path;
 
-            post.save(function(err, p) {
-                if (err) {
-                    return res.send(500, err);
-                }
-                res.json(p);
-            })
+            // post.save(function(err, p) {
+            //     if (err) {
+            //         return res.send(500, err);
+            //     }
+            //     res.json(p);
+            // })
         })
     });
 
@@ -307,16 +311,17 @@ router.route("/profile")
     });
 
 
-
+//the users that are in type venues
 router.route("/gig_requests")
-
-.post(function(req, res) {
-
-})
-
-.get(function(req, res) {
-
-});
+    .get(function(req, res) {
+        console.log("adsfasdfasfddasfasdfasfasdf")
+        User.find({ user_type: "venue" }, function(err, venues) {
+            if (err) {
+                return res.send(500, err);
+            }
+            return res.send(200, venues)
+        });
+    });
 
 
 
@@ -416,15 +421,17 @@ router.route("/events")
 router.route("/posts")
     //creates a new post
     .post(function(req, res) {
+        console.log("------post requested")
+        var newPost = req.body.newPost;
         var post = new Post();
-        var text = req.body.newPost.text;
-        console.log(req.body)
 
-        post.text = text;
-        post.created_by = req.body.newPost.created_by;
-        post.user_type = req.body.newPost.user_type;
+        post.text = newPost.text;
+        post.created_by = newPost.created_by;
+        post.user_type = newPost.user_type;
         post.created_at = Date.now();
-        post.is_file = false;
+        post.images = newPost.images;
+        post.music_url = newPost.music_url;
+        post.music_name = newPost.music_name;
 
         post.save(function(err, post) {
             if (err) {
@@ -440,11 +447,7 @@ router.route("/posts")
         if (err) {
             return res.send(500, err);
         }
-
-
-
         final_posts = [];
-        console.log("LENGTH " + posts.length)
         async.each(posts, function(post, callback) {
 
             var post_id = post['_id'];
@@ -454,14 +457,10 @@ router.route("/posts")
                     res.send(500, err);
                 }
 
-                console.log("========= posts like ======");
                 var new_post = {};
                 new_post['post_info'] = post;
                 new_post['like_info'] = data;
-                // post['like_info'] = data;
 
-                console.log(JSON.stringify(new_post['like_info']));
-                console.log("=========================\n\n")
                 final_posts.push(new_post);
                 callback();
             });
@@ -471,10 +470,8 @@ router.route("/posts")
             if (err) {
                 // One of the iterations produced an error.
                 // All processing will now stop.
-                console.log('ERROR');
+                console.log('ERROR IN GETTING LIKES & POSTS');
             } else {
-                console.log(JSON.stringify(final_posts))
-                console.log("=============== END ============")
                 res.send(200, final_posts);
             }
         });
