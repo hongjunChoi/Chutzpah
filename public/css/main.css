@@ -650,6 +650,12 @@ svg.likeicon {
     margin-bottom: 10px;
     height: 24px;
     padding-bottom: 5px; }
+  #uploadwrapper input,
+  #uploadwrapper textarea,
+  #uploadwrapper div {
+    display: inline-block; }
+  #uploadwrapper div {
+    cursor: pointer; }
   #uploadwrapper input[type="submit"] {
     background-color: gray;
     color: white;
@@ -667,10 +673,8 @@ svg.likeicon {
       color: white; }
   #uploadwrapper input.uploadfilebtn {
     margin-top: 10px;
-    width: 210px;
-    display: inline-block; }
+    width: 210px; }
   #uploadwrapper input.uploadbtn {
-    display: inline-block;
     background-color: #fa4e5e; }
   #uploadwrapper textarea {
     display: inline-block;

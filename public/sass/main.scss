@@ -436,7 +436,6 @@ main{
 	@include transition(all, 100ms, linear);
 	height: auto;
 	width: 100%;
-	// display: block;
 	position: relative;
 
 	&:nth-child(even){
@@ -570,7 +569,15 @@ svg.likeicon{
 		height: 24px;
 		padding-bottom: 5px;
 	}
-
+	input,
+	textarea,
+	div{
+		display: inline-block;
+	}
+	div{
+		
+		cursor: pointer;
+	}
 	input[type="submit"]{
 		background-color: gray;
 		color: white;
@@ -580,10 +587,8 @@ svg.likeicon{
 	input.uploadfilebtn{ 
 		margin-top: 10px;
 		width: 210px;
-		display: inline-block;
 	}
 	input.uploadbtn{ 
-		display: inline-block;
 		background-color: $c-pink;
 	}
 	textarea{
