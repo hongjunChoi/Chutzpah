@@ -93,11 +93,12 @@ header {
   z-index: 100;
   background-color: #1e1e1e; }
   header ul {
-    width: 100%;
+    width: 70%;
     display: inline-block;
-    float: right;
+    position: absolute;
+    right: 0;
+    top: 15px;
     z-index: 100;
-    margin-right: 10px;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -108,11 +109,9 @@ header {
     header ul li {
       display: inline-block;
       cursor: pointer;
-      margin-right: 20px;
       vertical-align: top;
       color: white;
       z-index: 100;
-      height: 24px;
       -webkit-transition: 200ms all ease-in-out;
       -moz-transition: 200ms all ease-in-out;
       -o-transition: 200ms all ease-in-out;
@@ -126,116 +125,126 @@ header {
       font-style: normal;
       font-weight: 300;
       font-size: 1em; }
-    header ul #searchwrapper {
-      position: relative;
-      width: 252px; }
-    header ul #searchbar {
-      border: 1px solid #29292c;
-      width: 240px;
-      opacity: 1;
-      overflow: hidden;
-      margin: auto;
-      position: fixed;
-      padding: 2px 6px;
-      -webkit-transition: 200ms all linear;
-      -moz-transition: 200ms all linear;
-      -o-transition: 200ms all linear;
-      -ms-transition: 200ms all linear;
-      transition: 200ms all linear; }
-      header ul #searchbar:hover {
-        background-color: #29292c; }
-      header ul #searchbar form {
-        height: 28px; }
-      header ul #searchbar span,
-      header ul #searchbar input {
-        display: inline-block;
-        margin: 0;
-        float: left; }
-      header ul #searchbar span {
-        margin-top: 4px;
-        margin-right: 12px;
-        width: 20px;
-        height: 20px;
-        background-image: url(../img/ui-icons/search.svg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        float: left; }
-      header ul #searchbar input {
-        width: 200px;
-        height: 28px;
-        background-color: transparent;
-        color: white;
-        float: left; }
-      header ul #searchbar input:last-of-type {
-        display: none; }
-    header ul #searchresult div {
-      border-top: 1px solid white;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      width: 100%; }
-  header #logininfo {
-    opacity: 0.6;
-    height: auto;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid;
-    border-color: transparent; }
-    header #logininfo p {
-      padding: 1px 8px;
-      border-radius: 0; }
-    header #logininfo > p:last-of-type {
-      border-top: 1px solid #292929;
-      visibility: hidden;
-      margin-top: 0; }
-    header #logininfo:hover {
-      opacity: 1;
-      border-color: #292929; }
-      header #logininfo:hover > p:last-of-type {
-        visibility: visible;
-        padding-bottom: 0; }
-        header #logininfo:hover > p:last-of-type:hover {
-          background-color: #292929; }
-  header #btn_menu {
+
+#searchwrapper {
+  position: relative;
+  width: 212px; }
+
+#searchbar {
+  border: 1px solid #29292c;
+  opacity: 1;
+  overflow: hidden;
+  margin: auto;
+  position: fixed;
+  width: 200px;
+  padding: 2px 6px;
+  -webkit-transition: 200ms all linear;
+  -moz-transition: 200ms all linear;
+  -o-transition: 200ms all linear;
+  -ms-transition: 200ms all linear;
+  transition: 200ms all linear; }
+  #searchbar:hover {
+    background-color: #29292c; }
+  #searchbar form {
+    height: 28px; }
+  #searchbar span,
+  #searchbar input {
+    display: inline-block;
+    margin: 0;
+    float: left; }
+  #searchbar span {
+    margin-top: 4px;
+    margin-right: 12px;
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/ui-icons/search.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    float: left; }
+  #searchbar input {
+    width: 160px;
+    height: 28px;
+    background-color: transparent;
+    color: white;
+    float: left; }
+  #searchbar input:last-of-type {
+    display: none; }
+
+#searchresult div {
+  border-top: 1px solid white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%; }
+
+#btn_upload,
+#logininfo {
+  opacity: 0.6;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid;
+  height: auto;
+  border-color: transparent; }
+  #btn_upload p,
+  #logininfo p {
+    padding: 1px 8px;
+    border-radius: 0; }
+  #btn_upload:hover,
+  #logininfo:hover {
+    opacity: 1;
+    border-color: #292929; }
+
+#logininfo p:last-of-type {
+  border-top: 1px solid #292929;
+  visibility: hidden;
+  margin-top: 0; }
+#logininfo:hover p:last-of-type {
+  visibility: visible;
+  padding-bottom: 0; }
+  #logininfo:hover p:last-of-type:hover {
+    background-color: #292929; }
+
+#btn_menu {
+  width: 28px;
+  height: 24px;
+  padding: 1px;
+  text-align: center;
+  margin-right: 30px; }
+  #btn_menu span {
+    background-color: white;
+    display: block;
+    position: absolute;
     width: 28px;
-    height: 24px;
-    padding: 1px;
-    text-align: center; }
-    header #btn_menu span {
-      background-color: white;
-      display: block;
-      position: absolute;
-      width: 28px;
-      height: 2px;
-      border-radius: 1px;
-      display: block;
-      position: absolute;
-      top: 32px;
-      -webkit-transition: 300ms all ease-in-out;
-      -moz-transition: 300ms all ease-in-out;
-      -o-transition: 300ms all ease-in-out;
-      -ms-transition: 300ms all ease-in-out;
-      transition: 300ms all ease-in-out; }
-      header #btn_menu span:nth-child(1) {
-        -webkit-transform: translateY(-7px);
-        -moz-transform: translateY(-7px);
-        -o-transform: translateY(-7px);
-        -ms-transform: translateY(-7px);
-        transform: translateY(-7px); }
-      header #btn_menu span:nth-child(2) {
-        opacity: 1; }
-      header #btn_menu span:nth-child(3) {
-        -webkit-transform: translateY(7px);
-        -moz-transform: translateY(7px);
-        -o-transform: translateY(7px);
-        -ms-transform: translateY(7px);
-        transform: translateY(7px); }
+    height: 2px;
+    border-radius: 1px;
+    display: block;
+    position: absolute;
+    top: 15px;
+    -webkit-transition: 300ms all ease-in-out;
+    -moz-transition: 300ms all ease-in-out;
+    -o-transition: 300ms all ease-in-out;
+    -ms-transition: 300ms all ease-in-out;
+    transition: 300ms all ease-in-out; }
+    #btn_menu span:nth-child(1) {
+      -webkit-transform: translateY(-7px);
+      -moz-transform: translateY(-7px);
+      -o-transform: translateY(-7px);
+      -ms-transform: translateY(-7px);
+      transform: translateY(-7px); }
+    #btn_menu span:nth-child(2) {
+      opacity: 1; }
+    #btn_menu span:nth-child(3) {
+      -webkit-transform: translateY(7px);
+      -moz-transform: translateY(7px);
+      -o-transform: translateY(7px);
+      -ms-transform: translateY(7px);
+      transform: translateY(7px); }
 
 #logo {
-  position: fixed;
+  position: absolute;
   display: block;
-  width: 160px;
-  top: 20px;
+  top: 24px;
   left: 30px;
+  width: 120px;
   cursor: pointer;
   -webkit-transition: 300ms all ease-in-out;
   -moz-transition: 300ms all ease-in-out;
@@ -245,6 +254,19 @@ header {
   #logo:hover {
     opacity: 0.6; }
 
+@media (min-width: 800px) {
+  #logo {
+    top: 20px;
+    width: 160px; }
+
+  #searchwrapper {
+    width: 262px;
+    margin-right: 50px; }
+
+  #searchbar {
+    width: 250px; }
+    #searchbar input {
+      width: 210px; } }
 main, nav {
   height: 100vh; }
 
