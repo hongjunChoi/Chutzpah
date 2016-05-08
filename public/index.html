@@ -161,7 +161,7 @@
                     </li>
                 </ul>
                 <ul id="artist_postlist maincontent">
-                    <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments(post.post_info)">
+                    <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
                         <div class="postgeneral">
                             <!-- <h6>{{ post.post_info.text }}</h6> -->
                             <img style="width:30px; height:30px" src="/uploads/img/{{post.post_info.created_by}}">

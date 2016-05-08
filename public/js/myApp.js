@@ -387,19 +387,23 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }).success(function(data) {
 
-            var artist_posts = data['artist_posts'];
-            console.log(data)
+            var artist_post_data = [];
+
             for (var i = 0; i < artist_posts.length; i++) {
                 var time = artist_posts[i]['created_at'];
                 artist_posts[i]['created_at'] = convert_time(time);
+                var item = { 'post_info': artist_posts[i] }
+                artist_post_data.push(item);
             }
-            $rootScope.artist_posts = artist_posts;
+            $rootScope.artist_posts = artist_post_data;
 
-
+            var file_list_data = [];
             for (var i = 0; i < data.files.length; i++) {
                 data.files[i]['created_at'] = convert_time(data.files[i]['created_at']);
+                var item = { 'post_info': data.files[i] }
+                file_list_data.push(item);
             }
-            $rootScope.files = data.files;
+            $rootScope.files = file_list_data;
             $rootScope.artists = data.artists;
 
 
@@ -431,6 +435,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var post_id = post_data['_id'];
         $scope.post_id = post_id;
         var root_dom = $(event.target).closest(".post-item");
+        root_dom.toggleClass('detailopened');
         var chat_field = root_dom.find('.commentField');
         var chat_list = root_dom.find('.commentmain');
         $http.get(url, {
@@ -440,7 +445,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         }).success(function(data) {
             // $("li.detailopened").removeClass('detailopened');
             // $scope.toggleClass('detailopened');
-            
+
             // $("#commentmain").parents("li.post-item").toggleClass('detailopened');
             $("#commentmain").empty();
 
