@@ -423,25 +423,6 @@ main {
   width: 80%;
   margin: auto; }
 
-#listmenu {
-  background-color: #29292c;
-  opacity: 1;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 2px; }
-  #listmenu h6, #listmenu p {
-    opacity: .7;
-    letter-spacing: .05em;
-    font-weight: 500; }
-  #listmenu li {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-justify-content: space-between;
-    justify-content: space-between; }
-
 .mainlist {
   overflow: hidden;
   margin: 60px auto 140px auto;
@@ -468,38 +449,63 @@ main {
     .mainlist ul p {
       width: 15%;
       margin: 0; }
-  .mainlist form div {
-    width: 100px;
+
+#list-menu {
+  background-color: #1e1e1e;
+  padding: 4px 4px; }
+  #list-menu form div {
+    width: 70px;
     display: inline-block;
-    height: 30px;
-    border: 1px solid #1e1e1e;
-    border-radius: 2px;
+    height: 24px;
+    border-bottom: 2px solid;
+    border-bottom-color: transparent;
     cursor: pointer;
     -webkit-transition: all 100ms linear;
     -moz-transition: all 100ms linear;
     -o-transition: all 100ms linear;
     -ms-transition: all 100ms linear;
     transition: all 100ms linear; }
-    .mainlist form div:hover {
+    #list-menu form div:hover {
       color: #fa4e5e;
-      border: 1px solid #fa4e5e; }
-    .mainlist form div .cat-checkbox,
-    .mainlist form div label {
+      border-bottom-color: #fa4e5e; }
+    #list-menu form div .cat-checkbox,
+    #list-menu form div label {
       position: absolute;
-      width: 100px;
+      width: 70px;
       vertical-align: middle;
       box-shadow: none;
       text-align: center;
       cursor: pointer;
-      margin: 0; }
-    .mainlist form div .cat-checkbox {
+      margin: 0;
+      font-size: 1em;
+      font-weight: 400; }
+    #list-menu form div .cat-checkbox {
       -webkit-appearance: none;
       height: 30px; }
-    .mainlist form div label {
+    #list-menu form div label {
       padding: 7px 0;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-size: .85em; }
+
+#list-header {
+  background-color: rgba(30, 30, 30, 0.5);
+  opacity: 1;
+  border: none;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 6px 18px; }
+  #list-header h6, #list-header p {
+    opacity: .7;
+    letter-spacing: .05em;
+    font-weight: 500; }
+  #list-header li {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    justify-content: space-between; }
 
 .maincontent li {
   cursor: pointer;

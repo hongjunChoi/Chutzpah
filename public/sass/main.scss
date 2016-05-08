@@ -17,6 +17,8 @@ $a-white1: rgba(255,255,255,0.25);
 $a-white2: rgba(255,255,255,0.5);
 $a-white3: rgba(255,255,255,0.75);
 $a-darkbg: rgba(30,30,30,1.0);
+$a-darkbg2: rgba(30,30,30,0.75);
+$a-darkbg1: rgba(30,30,30,0.50);
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -352,23 +354,7 @@ main{
 	width: 80%;
 	margin: auto;
 }
-#listmenu{
-	background-color: $c-gray2;
-	opacity: 1;
-	border:none;
-	border-bottom: 1px solid rgba(255,255,255,0.5);
-	padding-bottom: 2px;
-	h6,p{ 
-		opacity: .7;
-		letter-spacing: .05em; 
-		font-weight: 500;
-	}
-	li{
 
-	@include flexbox(row);
-	@include flexbox-justify(space-between);
-	}
-}
 .mainlist{
 	overflow: hidden;
 	margin:60px auto 140px auto;
@@ -397,29 +383,38 @@ main{
 			margin: 0;
 		}
 	}
+}
+// togglemenu
+#list-menu{
+	background-color: $a-darkbg;
+	padding: 4px 4px;	
 	form{
 		div{
-			width: 100px;
+			width: 70px;
 			display: inline-block;
-			height: 30px;
-			border:1px solid $c-darkgray;
-			border-radius: $borderA;
+			height: 24px;
+			border-bottom: 2px solid;
+			border-bottom-color: transparent;
 			cursor: pointer;
 			@include transition(all,100ms,linear);
 			&:hover{
 				color: $c-pink;
-				border:1px solid $c-pink;
+				// border:1px solid $c-pink;
+				// border-bottom: 2px solid $c-pink;
+				border-bottom-color: $c-pink;
 			}
 
 			.cat-checkbox,
 			label{
 				position: absolute;
-				width: 100px;
+				width: 70px;
 				vertical-align: middle;
 				box-shadow: none;
 				text-align: center;
 				cursor: pointer;
 				margin: 0;
+				font-size: 1em;
+				font-weight: 400;
 			}
 			.cat-checkbox{
 				-webkit-appearance: none;
@@ -434,6 +429,25 @@ main{
 		}
 	}
 }
+// header
+#list-header{
+	background-color: $a-darkbg1;
+	opacity: 1;
+	border:none;
+	border-bottom: 1px solid $a-darkbg;
+	padding: 6px 18px;
+	h6,p{ 
+		opacity: .7;
+		letter-spacing: .05em; 
+		font-weight: 500;
+	}
+	li{
+
+	@include flexbox(row);
+	@include flexbox-justify(space-between);
+	}
+}
+// list
 .maincontent li{
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
