@@ -47,6 +47,9 @@ $(document).ready(function() {
         closeAll();
     });
 
+    // $("div.postgeneral").click(function(){
+    // 	console.log("yes");
+    // });
     $(document).on('click', '.confirm_button', function() {
         var request_data = $(this).closest('.chat_msg').data("request_info");
         alert(JSON.stringify(request_data));

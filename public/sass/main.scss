@@ -433,8 +433,6 @@ main{
 	height: auto;
 	width: 100%;
 	// display: block;
-	padding-top: 5px;
-	padding-bottom: 5px;
 	position: relative;
 
 	&:nth-child(even){
@@ -487,6 +485,8 @@ svg.likeicon{
 	height: auto;
 }
 .postgeneral{
+	padding-top: 5px;
+	padding-bottom: 5px;
 	@include flexbox(row);
 	@include flexbox-justify(center);
 }

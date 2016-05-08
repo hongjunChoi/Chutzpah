@@ -427,7 +427,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $rootScope.now_playing['created_by'] = post_data["created_by"];
         var url = "/api/comment";
 
-        // $(this).toggleClass('detailopened');
 
         var post_id = post_data['_id'];
         $scope.post_id = post_id;
@@ -436,7 +435,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 post_id: post_id
             }
         }).success(function(data) {
-
+            // $("li.detailopened").removeClass('detailopened');
+            // $scope.toggleClass('detailopened');
+            
+            // $("#commentmain").parents("li.post-item").toggleClass('detailopened');
             $("#commentmain").empty();
             data.forEach(function(c) {
                 $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")

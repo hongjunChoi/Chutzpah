@@ -503,8 +503,6 @@ main {
   transition: all 100ms linear;
   height: auto;
   width: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
   position: relative; }
   .maincontent li:nth-child(even) {
     border-top: 1px solid rgba(255, 255, 255, 0.25);
@@ -550,6 +548,8 @@ svg.likeicon {
   height: auto; }
 
 .postgeneral {
+  padding-top: 5px;
+  padding-bottom: 5px;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
