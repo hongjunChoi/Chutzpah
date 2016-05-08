@@ -425,23 +425,34 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     };
 
-    $scope.load_post_comments = function(post_data) {
+    $scope.load_post_comments = function(event, post_data) {
         $rootScope.now_playing['created_by'] = post_data["created_by"];
         var url = "/api/comment";
-
         var post_id = post_data['_id'];
         $scope.post_id = post_id;
+        var root_dom = $(event.target).closest(".post-item");
+        var chat_field = root_dom.find('.commentField');
+        var chat_list = root_dom.find('.commentmain');
         $http.get(url, {
             params: {
                 post_id: post_id
             }
         }).success(function(data) {
-
+            // $("li.detailopened").removeClass('detailopened');
+            // $scope.toggleClass('detailopened');
+            
+            // $("#commentmain").parents("li.post-item").toggleClass('detailopened');
             $("#commentmain").empty();
+
+            console.log("loading comments of clicked post : id ", chat_field)
+            console.log(data);
+            console.log("==========");
+            chat_list.empty();
+
             data.forEach(function(c) {
-                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+                chat_list.append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
             });
-            $(".commentField").show();
+            chat_field.show();
         });
     };
 
@@ -495,15 +506,21 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
     };
 
-    $scope.upload_comment = function() {
+    $scope.upload_comment = function(event, post) {
+        var post_id = post['_id'];
+        console.log("loading comment to post : id : ", post_id);
         var url = "/api/comment";
+        var dom = $(event.target).closest(".commentField");
+        var text = dom.find(".comment_input").val();
 
-        $scope.comment.created_by = $rootScope.current_user;
-        $scope.comment.post_id = $scope.post_id;
         $http.post(url, {
-            comment: $scope.comment
+            comment: {
+                'created_by': $rootScope.current_user,
+                'post_id': post_id,
+                'text': text
+            }
         }).success(function(data) {
-            $("#comment_input").val("");
+            $(".comment_input").val("");
         });
     };
 
@@ -560,26 +577,28 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         })
     }
 
-    $scope.load_comments = function(post) {
-        var id = post["_id"];
-        var url = "/api/comment";
-        //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
-        $scope.post_id = id;
-        $http.get(url, {
-            params: {
-                post_id: id
-            }
-        }).success(function(data) {
+    // $scope.load_comments = function(post) {
+    //     var id = post["_id"];
+    //     var url = "/api/comment";
+    //     //TODO: NEED TO GET POST ID FOR QUERYING COMMENTS
+    //     $scope.post_id = id;
+    //     $http.get(url, {
+    //         params: {
+    //             post_id: id
+    //         }
+    //     }).success(function(data) {
 
-            $("#commentmain").empty();
-            data.forEach(function(c) {
-                $("#commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
-            });
-            $(".commentField").show();
+    //         $(".commentmain").empty();
+    //         data.forEach(function(c) {
+    //             console.log(c);
+    //             $(".commentmain").append("<li>" + c.created_by + " said: " + c.text + " at : " + convert_time(c.created_at) + "</li>")
+    //         });
+    //         $(".commentField").show();
 
-            return data;
-        });
-    };
+    //         return data;
+    //     });
+    // };
+
     $scope.show_artist = function(artist) {
 
     }
