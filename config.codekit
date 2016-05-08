@@ -57,6 +57,35 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/public\/css\/carousel\/grabbing.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 116,
+		"inputAbbreviatedPath": "\/public\/css\/carousel\/grabbing.png",
+		"outputAbbreviatedPath": "\/public\/css\/carousel\/grabbing.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/css\/carousel\/owl.carousel.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/carousel\/owl.carousel.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/css\/carousel\/owl.theme.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/carousel\/owl.theme.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/public\/css\/full-slider.css": {
 		"fileType": 16,
 		"ignore": 0,
@@ -71,6 +100,15 @@
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/css\/ie.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/css\/jcarousel.transitions.css": {
+		"fileType": 16,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/jcarousel.transitions.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -137,17 +175,6 @@
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
-		},
-	"\/public\/img\/background.jpg": {
-		"fileType": 16384,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 556081,
-		"inputAbbreviatedPath": "\/public\/img\/background.jpg",
-		"outputAbbreviatedPath": "\/public\/img\/background.jpg",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
 		},
 	"\/public\/img\/favicon.png": {
 		"fileType": 32768,
@@ -226,6 +253,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/public\/img\/sampleheader2.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 556081,
+		"inputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/public\/index.html": {
 		"fileType": 8192,
 		"ignore": 0,
@@ -243,6 +281,17 @@
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
+		},
+	"\/public\/js\/jcarousel.transitions.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/jcarousel.transitions.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/jcarousel.transitions-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
 		},
 	"\/public\/js\/jquery-ui.min.js": {
 		"fileType": 64,
@@ -266,12 +315,34 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/public\/js\/jquery.jcarousel.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/jquery.jcarousel.min.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/jquery.jcarousel.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/public\/js\/jquery.jplayer.min.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/js\/jquery.jplayer.min.js",
 		"outputAbbreviatedPath": "\/public\/js\/min\/jquery.jplayer.min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/jquery.scrollTo.min.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/jquery.scrollTo.min.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/jquery.scrollTo.min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -294,6 +365,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/js\/main.js",
 		"outputAbbreviatedPath": "\/public\/js\/min\/main-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/min\/jquery.jcarousel.min-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/min\/jquery.jcarousel.min-min.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/min\/jquery.jcarousel.min-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -338,6 +420,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/js\/myApp.js",
 		"outputAbbreviatedPath": "\/public\/js\/min\/myApp-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/owl.carousel.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/owl.carousel.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/owl.carousel-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
@@ -1693,6 +1786,17 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/routes\/index.js",
 		"outputAbbreviatedPath": "\/routes\/min\/index-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/routes\/min\/api-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/routes\/min\/api-min.js",
+		"outputAbbreviatedPath": "\/routes\/min\/min\/api-min-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

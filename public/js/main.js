@@ -197,8 +197,25 @@ $(document).ready(function() {
             console.log("NOTIFICATION TIME UPDATED");
         });
         hide_all_right_panel();
-
     }
+
+    // Login & Register
+
+    // Carousel
+    $("#news-carousel").owlCarousel({
+    	items: 1,
+    	lazyLoad : true,
+    	// navigation: true,
+    	autoPlay: 4000,
+    	stopOnHover: true,
+    	singleItem:true,
+    	slideSpeed:500
+    });
+
+    // Scroll control
+    $("#logo").click(function(){
+		$.scrollTo($("body"),200);
+    });
 
     // Key Input (Space to play/pause)
     // Controller Previous/Next Button

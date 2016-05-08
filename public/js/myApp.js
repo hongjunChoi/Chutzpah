@@ -131,7 +131,7 @@ app.service('fileUpload', ['$http', '$rootScope',
             }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                console.log(response)
+                console.log(response);
             });
         }
 
@@ -257,7 +257,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         file = input[0].files[0];
         var uploadUrl = "/api/upload_file"
         fileUpload.uploadFileToUrl(file, uploadUrl, function(file) {
-            console.log(file)
+            console.log(file);
             var path = file.path.substring(file.path.indexOf("/") + 1);
             $rootScope.images_to_post.push(path);
         })
@@ -277,7 +277,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             file.path = file.path.substring(file.path.indexOf("/") + 1);
             $rootScope.music_to_post = file;
             $("#music-holder").empty();
-            console.log(file)
+            console.log(file);
             $("#music-holder").append("<button>" + file.originalname + "</button>")
         })
     }
@@ -291,8 +291,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         alert("asdfasdf")
         var text = $("#text_input_field").val();
         if (text == "") {
-            $("#text_input_field").attr("placeholder", "Please Write Something To Post!")
-            return
+            $("#text_input_field").attr("placeholder", "Please Write Something To Post!");
+            return;
         }
         $scope.newPost = {};
         $scope.newPost.created_by = $rootScope.current_user;
@@ -323,8 +323,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var val = $(".cat-checkbox:checked").val()
         if (val == 1) {
             set_columns("Posts", "Artist", "Date")
-            $("#artist_postlist").show()
-            $("#filelist").show()
+            $("#artist_postlist").show();
+            $("#filelist").show();
             if ($rootScope.search_string == "") {
                 $scope.load_artist_posts();
             }
@@ -341,16 +341,16 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             if ($rootScope.search_string == "") {
                 $scope.load_gig_requests();
             }
-            $("#requestlist").show()
+            $("#requestlist").show();
         }
         if (val == 4) {
             set_columns("Venue", "Artist", "Date")
             if ($rootScope.search_string == "") {
                 $scope.load_gigs();
-                console.log("=======EVENTS======")
+                console.log("=======EVENTS======");
                 console.log($rootScope.events);
             }
-            $("#eventlist").show()
+            $("#eventlist").show();
         }
     }
 
@@ -473,11 +473,11 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
 
     $scope.clear_lists = function() {
-        $("#artist_postlist").hide()
-        $("#filelist").hide()
-        $("#artistlist").hide()
-        $("#requestlist").hide()
-        $("#eventlist").hide()
+        $("#artist_postlist").hide();
+        $("#filelist").hide();
+        $("#artistlist").hide();
+        $("#requestlist").hide();
+        $("#eventlist").hide();
     }
 
     $scope.get_now_playing = function() {
@@ -512,7 +512,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var file = $scope.myFile;
         if (typeof file === "undefined") {
             $("#file_upload_form").val("");
-            return
+            return;
         }
         var uploadUrl = "/api/upload_file";
         fileUpload.uploadFileToUrl(file, uploadUrl, function(res) {
@@ -535,7 +535,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             }
         }).success(function(data) {
             console.log(data);
-            console.log("=====")
+            console.log("=====");
             $(".comment_input").val("");
         });
     };
@@ -580,7 +580,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $http.get(url, {}).success(function(data) {
 
             $rootScope.requests = data;
-        })
+        });
     }
 
     $scope.load_gigs = function() {
@@ -755,9 +755,9 @@ function set_user_images(url) {
     if (typeof url === "undefined")
         return
 
-    $("#userthumb").attr("src", url)
-
-    $("#profile_image").attr("src", url)
+    $("#userthumb").attr("src", url);
+    $("#loginthumb").attr("src",url);
+    $("#profile_image").attr("src", url);
 }
 
 app.controller('profileController', function(fileUpload, $scope, $rootScope, $http) {
@@ -1052,19 +1052,24 @@ app.controller('authController', function($scope, $http, $rootScope, $location) 
     };
 
     $scope.change_user_type = function() {
-        $("#register_musician").hide()
-        $("#register_host").hide()
-        $("#register_fan").hide()
+        $("#register_musician").hide();
+        $("#register_host").hide();
+        $("#register_fan").hide();
         var user_type = $('.user-checkbox:checked').val()
+        $(".register-checkbox.active").removeClass('active');
         if (user_type == 1) {
-            $("#register_musician").show()
+            $("#register_musician").show();
+            $("#register-checkbox1").addClass('active');
         }
         if (user_type == 2) {
-            $("#register_host").show()
+            $("#register_host").show();
+            $("#register-checkbox2").addClass('active');
         }
         if (user_type == 3) {
-            $("#register_fan").show()
+            $("#register_fan").show();
+            $("#register-checkbox3").addClass('active');
         }
+
     }
 
     $scope.register = function() {

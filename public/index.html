@@ -7,19 +7,15 @@
     <meta name="author" content="" />
     <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- Typekit -->
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>
-    try {
-        Typekit.load({
-            async: true
-        });
-    } catch (e) {}
-    </script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/carousel/owl.carousel.css">
+    <link rel="stylesheet" href="css/carousel/owl.theme.css">
     <link rel="stylesheet" href="css/main.css" type="text/css" media="screen" />
     <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
     <script type="text/javascript" src="/js/jquery.jplayer.min.js"></script>
+    <!-- <script type="text/javascript" src="js/jcarousel.transitions.js"></script> -->
     <link rel="shortcut icon" href="img/favicon.ico">
 </head>
 
@@ -27,14 +23,14 @@
     <header>
         <img id="logo" src="img/logo.svg" />
         <ul>
-            <li id="searchwrapper">
+            <li id="searchwrapper" ng-show="authenticated">
                 <div id="searchbar" ng-controller="mainController">
                     <form>
                         <span></span>
                         <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                         <input type="submit" ng-click="search()">
                     </form>
-                    <!--                     <div id="searchresult">
+                    <!-- <div id="searchresult">
                         <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
                         <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                         <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
@@ -46,14 +42,15 @@
                     <a href="#/login">Login</a>or<a href="#/signup">Register</a>
                 </p>
             </li>
-            <li id="btn_upload" alt="upload">
-                <p>upload</p>
+            <li id="btn_upload" alt="upload" ng-show="authenticated">
+            	<span></span><p>Upload</p>
             </li>
-            <li id="logininfo">
-                <p ng-show="authenticated">{{current_user}}</p>
-                <p ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
+            <li id="logininfo" ng-show="authenticated">
+            	<img id="loginthumb" src="" />
+                <p class="logininfo-name" ng-show="authenticated">{{current_user}}</p>
+                <p class="logininfo-signout" ng-show="authenticated"><a href="#" ng-click="signout()">Logout</a></p>
             </li>
-            <li id="btn_menu"><span></span><span></span><span></span></li>
+            <li id="btn_menu" ng-show="authenticated"><span></span><span></span><span></span></li>
         </ul>
     </header>
     <!-- MAIN -->
@@ -99,15 +96,15 @@
         <!-- Main screen -->
         <div id="mainscreen" ng-controller="mainController">
             <div id="loginwrapper" ng-view></div>
-            <div id="uploadwrapper" ng-controller="mainController">
+            <div id="uploadwrapper" ng-controller="mainController" ng-show="authenticated">
+            	<h4>Upload</h4>
                 <div class="clearfix">
-                    <div ng-show="authenticated">
+                    <div>
                         <!-- <form ng-Submit="post()" style="height: 100px" ng-show="authenticated"> -->
                         <textarea id="text_input_field" required class="form-control" placeholder="write anything here!"></textarea>
                         <div class="img-button" ng-click="add_image()">Image</div>
                         <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
-                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />
- -->
+                        <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" /> -->
                         <div class="music-button" ng-click="add_music()">Music</div>
                         <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
                         <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
@@ -116,8 +113,7 @@
  -->
                         <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
                         <!-- </form> -->
-                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
- -->
+                        <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" /> -->
                         <div id="image-holder">
                             <img ng-repeat="img in images_to_post" src={{img}}>
                         </div>
@@ -125,11 +121,40 @@
                     </div>
                 </div>
             </div>
-            <div class="mainlist">
-                <!-- content lists -->
-                <!--                 <div class="news">
-                    <img src="img/sampleheader.jpg" />
-                </div> -->
+            <h5 class="mainheading" ng-show="authenticated">Upcoming Trends</h5>
+            <div id="news-carousel" class="owl-carousel" ng-show="authenticated">
+				<div class="item">
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
+					<div>
+						<p>Trap Party</p>
+						<h3>Kevin Herchen</h3>
+						<h6>Providence, Rhode Island</h6>
+						<h6>May 26, 2016</h6>
+					</div>
+				</div>
+				<div class="item">
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
+					<div>
+						<p>Trap Party</p>
+						<h3>Kevin Herchen</h3>
+						<h6>Providence, Rhode Island</h6>
+						<h6>May 26, 2016</h6>
+					</div>
+				</div>	
+				<div class="item">
+					<img class="lazyOwl" data-src="img/sampleheader.jpg" alt=""/>
+					<div>
+						<p>Trap Party</p>
+						<h3>Kevin Herchen</h3>
+						<h6>Providence, Rhode Island</h6>
+						<h6>May 26, 2016</h6>
+					</div>
+				</div>	
+            </div>
+
+            <!-- content lists -->
+            <h5 class="mainheading" ng-show="authenticated">Browse</h5>
+            <div class="mainlist" ng-show="authenticated">
                 <div id="list-menu" style="color: white; z-index:999">
                     <form>
                         <div>
@@ -150,14 +175,11 @@
                         </div>
                     </form>
                 </div>
-                <!-- Carousel Event page -->
-                <!-- Carousel Venue page -->
                 <ul id="list-header">
                     <li>
-                        <h6 id="col1">Posts</h6>
+                        <h6 id="col1">Posts</h6><div></div>
                         <h6 id="col2">Artist</h6>
-                        <p id="col3">Date</p>
-                        <p></p>
+                        <p id="col3">Date</p><div></div>
                     </li>
                 </ul>
                 <ul id="artist_postlist" class="maincontent">
@@ -197,7 +219,6 @@
                         </div>
                     </li>
                 </ul>
-                <!-- comment should be dynamically appended -->
                 <ul id="filelist" class="maincontent">
                     <li class="music_post_list" ng-repeat="file in files" ng-click="start_music($event, file.post_info)">
                         <div class="postgeneral">
@@ -237,9 +258,11 @@
                 </ul>
                 <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
-                        <h6>{{ artist.name }}</h6>
-                        <h6>{{ artist.genre }}</h6>
-                        <p>{{ artist.location }}</p>
+                    	<div class="postgeneral">
+	                        <h6>{{ artist.name }}</h6>
+	                        <h6>{{ artist.genre }}</h6>
+	                        <p>{{ artist.location }}</p>
+                    	</div>
                     </li>
                 </ul>
                 <ul id="requestlist" class="maincontent">
@@ -259,7 +282,7 @@
             </div>
         </div>
         <!-- Bottom Controller -->
-        <div id="controller" ng-controller="profileController">
+        <div id="controller" ng-controller="profileController" ng-show="authenticated">
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
                     <div class="jp-type-single">
@@ -288,13 +311,11 @@
                                         <button class="jp-previous"></button>
                                         <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
                                         <button class="jp-next"></button>
-                                        <!-- <button class="jp-stop ctrlbtn" role="button" tabindex="0"></button> -->
                                     </div>
                                 </div>
                                 <div id="jp-volumewrapper" class="jp-controls-holder">
                                     <div class="jp-volume-controls">
                                         <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
-                                        <!-- <button class="jp-volume-max ctrlbtn" role="button" tabindex="0"></button> -->
                                         <div class="jp-volume-bar">
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
@@ -369,6 +390,8 @@
     <script src="js/login.js"></script>
     <!-- jquery - ui js  -->
     <script src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
     <script src="js/main.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {

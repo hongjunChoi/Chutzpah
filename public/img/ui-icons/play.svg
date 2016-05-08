@@ -3,40 +3,40 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
 <style type="text/css">
-	.st0{display:none;}
-	.st1{display:inline;}
-	.st2{fill:#FA4E5E;}
+	.st0{fill:#FFFFFF;}
+	.st1{display:none;}
+	.st2{display:inline;}
+	.st3{fill:#FA4E5E;}
 </style>
-<g class="st0">
-	<rect x="55" y="35" class="st1" width="10" height="10"/>
-	<rect x="45" y="45" class="st1" width="10" height="10"/>
-	<rect x="35" y="55" class="st1" width="10" height="10"/>
-	<rect x="25" y="65" class="st1" width="10" height="10"/>
-	<rect x="25" y="75" class="st1" width="10" height="10"/>
-	<rect x="5" y="85" class="st1" width="10" height="10"/>
-	<rect x="25" y="85" class="st1" width="10" height="10"/>
-	<rect x="35" y="85" class="st1" width="10" height="10"/>
-	<rect x="5" y="65" class="st1" width="10" height="10"/>
-	<rect x="5" y="55" class="st1" width="10" height="10"/>
-	<rect x="5" y="45" class="st1" width="10" height="10"/>
-	<rect x="45" y="85" class="st1" width="10" height="10"/>
-	<rect x="65" y="25" class="st1" width="10" height="10"/>
-	<rect x="75" y="15" class="st1" width="10" height="10"/>
-	<rect x="85" y="5" class="st1" width="10" height="10"/>
-	<rect x="85" y="15" class="st1" width="10" height="10"/>
-	<rect x="75" y="25" class="st1" width="10" height="10"/>
-	<rect x="65" y="35" class="st1" width="10" height="10"/>
-	<rect x="55" y="45" class="st1" width="10" height="10"/>
-	<rect x="45" y="55" class="st1" width="10" height="10"/>
-	<rect x="35" y="65" class="st1" width="10" height="10"/>
-	<rect x="15" y="85" class="st1" width="10" height="10"/>
-	<rect x="5" y="75" class="st1" width="10" height="10"/>
-	<rect x="15" y="75" class="st1" width="10" height="10"/>
-	<rect x="55" y="85" class="st1" width="10" height="10"/>
-	<rect x="5" y="35" class="st1" width="10" height="10"/>
+<polygon class="st0" points="34.7,20.5 34.7,49.9 34.7,79.3 54,64.5 73.3,49.9 54,35.3 "/>
+<g class="st1">
+	<rect x="55" y="35" class="st2" width="10" height="10"/>
+	<rect x="45" y="45" class="st2" width="10" height="10"/>
+	<rect x="35" y="55" class="st2" width="10" height="10"/>
+	<rect x="25" y="65" class="st2" width="10" height="10"/>
+	<rect x="25" y="75" class="st2" width="10" height="10"/>
+	<rect x="5" y="85" class="st2" width="10" height="10"/>
+	<rect x="25" y="85" class="st2" width="10" height="10"/>
+	<rect x="35" y="85" class="st2" width="10" height="10"/>
+	<rect x="5" y="65" class="st2" width="10" height="10"/>
+	<rect x="5" y="55" class="st2" width="10" height="10"/>
+	<rect x="5" y="45" class="st2" width="10" height="10"/>
+	<rect x="45" y="85" class="st2" width="10" height="10"/>
+	<rect x="65" y="25" class="st2" width="10" height="10"/>
+	<rect x="75" y="15" class="st2" width="10" height="10"/>
+	<rect x="85" y="5" class="st2" width="10" height="10"/>
+	<rect x="85" y="15" class="st2" width="10" height="10"/>
+	<rect x="75" y="25" class="st2" width="10" height="10"/>
+	<rect x="65" y="35" class="st2" width="10" height="10"/>
+	<rect x="55" y="45" class="st2" width="10" height="10"/>
+	<rect x="45" y="55" class="st2" width="10" height="10"/>
+	<rect x="35" y="65" class="st2" width="10" height="10"/>
+	<rect x="15" y="85" class="st2" width="10" height="10"/>
+	<rect x="5" y="75" class="st2" width="10" height="10"/>
+	<rect x="15" y="75" class="st2" width="10" height="10"/>
+	<rect x="55" y="85" class="st2" width="10" height="10"/>
+	<rect x="5" y="35" class="st2" width="10" height="10"/>
 </g>
-<g>
-	<path class="st2" d="M50,4.9c-24.8,0-45,20.2-45,45c0,24.8,20.2,45,45,45s45-20.2,45-45C94.9,25.1,74.8,4.9,50,4.9z M54,61.1
-		L39.2,72.4V49.9V27.4L54,38.7l14.8,11.2L54,61.1z"/>
-</g>
+<path class="st3" d="M50,4.9C24.1,4.9,3.1,27,5.1,53.4c1.7,22,19.4,39.7,41.4,41.4C72.9,96.8,95,75.8,95,49.9
+	C94.9,25.1,74.8,4.9,50,4.9z M54,61.1L39.2,72.4V49.9V27.4L54,38.7l14.8,11.2L54,61.1z"/>
 </svg>

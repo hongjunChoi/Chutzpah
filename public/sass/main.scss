@@ -2,6 +2,7 @@
 @import "eugeneso";
 
 $c-pink: #fa4e5e;
+$c-pink2: rgba(237,80,96,0.8);
 $c-gray1: #29292c;
 // $c-gray1: rgba(30,30,33,1.0);
 $c-gray2: #29292c;
@@ -19,6 +20,7 @@ $a-white3: rgba(255,255,255,0.75);
 $a-darkbg: rgba(30,30,30,1.0);
 $a-darkbg2: rgba(30,30,30,0.75);
 $a-darkbg1: rgba(30,30,30,0.50);
+
 
 $buttonBorder: 4px;
 $buttonPadding: 4px 6px;
@@ -80,6 +82,7 @@ header{
 	height: 20px;
 	z-index: 100;
 	background-color: $a-darkbg;
+	// box-shadow: 0px 10px 10px 0 rgba(0,0,0,.15);
 
 	ul{
 		width:70%;
@@ -162,6 +165,13 @@ header{
 		width: 100%;
 	}
 }
+#loginregister{
+	color:rgba(255,255,255,0.5);
+	p{padding:1px 8px;}
+	a:hover{ color: white; }
+	a:first-of-type{ margin-right: 4px;	}
+	a:last-of-type{ margin-left: 4px;	}
+}
 #btn_upload,
 #logininfo{
 	opacity: 0.6;
@@ -170,26 +180,49 @@ header{
 	border:1px solid;
 	height: auto;
 	border-color: rgba(0,0,0,0);
+	background-color: $a-darkbg;
 
 	p{
-		padding:1px 8px;
+		display: inline-block;
 		border-radius: 0;
+		padding:3px 10px 3px 8px;
 	}
 	&:hover{
 		opacity: 1;
 		border-color: $c-gray;
 	}
 }
+#btn_upload{
+	span{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		float: left;
+		margin: 4px 0 4px 6px;
+		background-image: url(../img/ui-icons/upload.svg);
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+} 
 #logininfo{
-	p:last-of-type{ 
+	.logininfo-signout{ 
 		border-top:1px solid $c-gray;
-		visibility: hidden;
+		display: none;
 		margin-top: 0;
+	}
+	#logininfo-thumb{
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+		float: left;
+		margin:0 0 0 6px;
+		vertical-align: middle;
 	}
 
 	&:hover{
-		p:last-of-type{ 
-			visibility: visible;
+		.logininfo-signout{ 
+			display: block;
 			padding-bottom: 0;
 			&:hover{  background-color: $c-gray; }
 		}
@@ -354,11 +387,72 @@ main{
 	width: 80%;
 	margin: auto;
 }
+//heading
+.mainheading{
+	color: white;
+	margin-left: 10%;
+	padding:18px 14px;
+	font-weight: 500;
+	&:first-of-type{margin-top:60px;}
+}
+//carousel
+.item{
+	// cursor: pointer;
+	img{ 
+		width: 100%;
+		max-height: 487px;
+	}
+	div{
+		width: auto;
+		min-width: 280px;
+		height: auto;
+		background-color: $c-gray;
+		position: absolute;
+		left: 10%;
+		bottom: 0;
+		color: white;
+		padding:12px 21px 21px 15px;
+		cursor: pointer;
+		@include transition(all,100ms,linear);
 
+		p{
+			font-size:1em;
+			font-weight: 300;
+			color:$a-white2;
+			padding-bottom: 0;
+		}
+		h3{ font-weight: 700; }
+		h3:after{
+			content: '';
+			position: relative;
+			display: block;
+			width: 50px;
+			height: 2px;
+			background-color: $c-pink;
+			margin-top:8px;
+			margin-left: 1px;
+			@include transition(all,100ms,linear);
+		}
+		h6{
+			font-size: 1.2em;
+			padding-bottom: 0;
+		}
+		&:hover{
+		}
+	}
+	&:hover{
+		div{
+			background-color: $c-pink;
+			h3:after{ background-color: $c-white;}
+
+		}
+	}
+}
+// main list
 .mainlist{
 	overflow: hidden;
-	margin:60px auto 140px auto;
-	padding-top: 40px;
+	margin:0 auto 140px auto;
+	// padding-top: 40px;
 	font-size: 1em;
 	ul{
 		padding-bottom:10px;
@@ -423,7 +517,7 @@ main{
 			label{
 				padding:7px 0;
 				text-transform: uppercase;
-				letter-spacing: 0.05em;
+				letter-spacing: 0.1em;
 				font-size: .85em;
 			}
 		}
@@ -435,16 +529,18 @@ main{
 	opacity: 1;
 	border:none;
 	border-bottom: 1px solid $a-darkbg;
-	padding: 6px 18px;
+	padding: 6px 0;
+	div{ width:30px; height:30px;}
+	div:last-of-type{ margin-right: 18px;}
+	h6{ margin-left: 18px;}
 	h6,p{ 
 		opacity: .7;
 		letter-spacing: .05em; 
 		font-weight: 500;
 	}
 	li{
-
-	@include flexbox(row);
-	@include flexbox-justify(space-between);
+		@include flexbox(row);
+		@include flexbox-justify(space-between);
 	}
 }
 // list
@@ -472,29 +568,7 @@ main{
 		line-height: auto;
 	 }
 }
-//like
-.post_like{
-	svg,
-	div{
-		display: inline-block;
-		vertical-align: middle;
-	}
-}
-svg.likeicon{
-	width: 16px;
-	height: 16px;
-	path{
-		fill: $a-white1;
-		@include transition(all,100ms,linear);
-	}
-}
-.post-item:hover{
-	cursor: pointer;
-	svg.likeicon path{ 
-		fill: $a-white2;
-		&:hover{ fill:$c-pink;}
-	}
-}
+
 
 //post general & details
 .postgeneral,
@@ -516,7 +590,34 @@ svg.likeicon{
 		height: 20px;
 		display: inline-block;
 	}
+	h6{ margin-left: 18px;}
 }
+//like
+.post_like{
+	margin-right: 18px;
+	padding-top: 3px;
+	svg,
+	div{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+svg.likeicon{
+	width: 16px;
+	height: 16px;
+	path{
+		fill: $a-white1;
+		@include transition(all,100ms,linear);
+	}
+}
+.post-item:hover{
+	cursor: pointer;
+	svg.likeicon path{ 
+		fill: $a-white2;
+		&:hover{ fill:$c-pink;}
+	}
+}
+//details
 .postdetail-wrapper{
 	display: none;
 	height: auto;
@@ -583,15 +684,22 @@ svg.likeicon{
 		}
 	}
 }
+
+//Upload
 #uploadwrapper{
 	position: fixed;
-	top: 80px;
-	height: 80px;
-	padding: 20px 10%;
+	margin-top: 60px;
+	padding: 20px 10% 20px 10%;
 	z-index: 50;
-	background-color: $c-gray1;
-	@include translateY(-120%);
+	background-color: $a-darkbg;
+	// background-color: $c-gray2;
+	@include translateY(-100%);
 	@include transition(all,300ms,ease-in-out);
+	text-align: center;
+	border-top:1px solid $a-white0;
+	h4,h6{
+		color: white;
+	}
 	form{
 		position: relative;
 		border-bottom: 1px solid $c-pink;
@@ -602,16 +710,26 @@ svg.likeicon{
 	input,
 	textarea,
 	div{
+		margin:auto;
+		display: block;
+		margin-top: 6px;
+		margin-bottom: 6px;
+	}
+	.img-button,
+	.music-button{
+		background-color: gray;
+		@include buttonA;
+		color: white;
+		cursor: pointer;
+		width: 90px;
 		display: inline-block;
 	}
-	div{
-
-		cursor: pointer;
+	.img-button{
+		margin-right: 10px;
 	}
 	input[type="submit"]{
 		background-color: gray;
 		color: white;
-		float: right;
 		@include buttonA;
 	}
 	input.uploadfilebtn{ 
@@ -622,18 +740,20 @@ svg.likeicon{
 		background-color: $c-pink;
 	}
 	textarea{
-		display: inline-block;
 		overflow: auto;
 		height: 100%;
 		width: 210px;
 		vertical-align: bottom;
 		resize:none;
+		border-radius: $buttonBorder;
+		padding: 5px;
 	}
 }
 body.uploadopened{
 	#uploadwrapper{
 		@include translateY(0);
 		box-shadow: $shadow;
+		// margin-top: 1px;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -709,15 +829,30 @@ body.uploadopened{
 			margin-bottom: 10px;
 			clear: both;
 		}
+		//change image button
+		.img-button{
+			position: absolute;
+			right: 0;
+			top: 70px;
+			margin-top: 100px;
+			margin-right: 36px;
+			font-size: 1em;
+			color: white;
+			cursor: pointer;
+			@include buttonA;
+			background-color: transparent;
+
+		}
 		//name
 		h3{
 			text-transform: uppercase;
 			letter-spacing: 0.05em;
 			font-weight: 700;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 		}
 		//description
 		p{
+			margin-top: 20px;
 			font-size: 1.1em;
 			line-height: 1.5em;
 			text-align: left;
@@ -1016,21 +1151,21 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		.jp-duration,
 		.jp-current-time{ font-size: 0.9em; }
 		.ctrlbtn{
-			// opacity: 0.6;
 			width: 50px;
 			height:50px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			@include transition(all, 300ms, linear);
 			cursor: pointer;
-			// &:hover{ opacity: 1; }
 			&.jp-mute{
-				width: 30px;
-				height: 30px;
+				width: 26px;
+				height: 21px;
+				margin-right: 5px;
+				vertical-align: middle;
 			}
 		}
 		.jp-volume-controls{
-			margin-left: 50px;
+			margin: 6px 0 0 20px;
 			opacity: .5;
 			@include transition(all,200ms,linear);
 			&:hover{ 
@@ -1045,11 +1180,12 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		}
 		.jp-volume-bar{
 			width: 100px;
-			background-color: rgba(0,0,0,0.5);
+			background-color: $a-white1;
 			height: 4px;
 			position: relative;
 			cursor: pointer;
 			border-radius: 2px;
+			margin-left: 4px;
 		}
 		.jp-volume-bar-value{
 			background-color: rgba(0,0,0,0.5);
@@ -1077,57 +1213,145 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 
 #loginwrapper{
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
+	height: auto;
 	position: relative;
 	margin:auto;
-	@include flexbox(column);
-	@include flexbox-justify(center);
-	background-image: url(../img/background.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
+	padding: 120px 0 100px 0;
+	background-color: $a-darkbg2;
 
-	h4{
-		color: white;
-	}
+	h4,
+	h6{ color: white; }
 	p.text-warning{
 		color:$c-pink;
 		font-weight: 500;
-
+	}
+	p,
+	p.small{
+		color: white;
+		margin-bottom: 0;
+		padding-bottom: 8px;
+	}
+	p.small{ 
+		font-size:1em; 
+		// signup button
+		a{
+			font-size: 1em;
+			margin-left: 4px;
+			&:hover{ color: $c-pink; }
+		}
 	}
 	form{
-		// width: 250px;
+		max-width: 375px;
 		text-align: center;
 		margin: auto;
+		position: relative;
 	}
 	input{
 		position: relative;
 		display: block;
-		margin:12px auto;
+		margin:16px auto;
 		font-size: 1.2em;
 		clear: both;
 		width: 230px;
 		height: 20px;
 		padding:10px 10px;
-		// border-color: 1px solid $a-gray1;
-	}
-	input[type="username"],
-	input[type="password"],
-	input[type="submit"]{
-	}
-	input:focus{
-		// border-color: 1px solid $c-pink;
+		border-radius: $buttonBorder;
 	}
 	input[type="submit"]{
 		height: 40px;
-		// border-color: 1px solid $c-pink;
+		width: 250px;
 		background-color: $c-pink;
 		color: white;
 		cursor: pointer;
-		margin-left: 0;
-		margin-right: 0;
-		width: 100%;
 		padding:10px 0;
+		margin-top: 30px;
+		&:hover{ background-color: $c-pink2;}
+	}
+	//register
+	.register-checkbox-wrapper{
+		display: block;
+		position: relative;
+		height: auto;
+		margin: auto;
+		p.small{color:$a-white2;}
+	}
+	.register-checkbox{
+		width: 110px;
+		height: 32px;
+		margin: 0 5px;
+		display: inline-block;
+		position: relative;
+		border: 1px solid;
+		border-color: $a-white0;
+		border-radius: $buttonBorder;
+		@include transition(all,100ms,linear);
+		&:first-of-type{ margin-left: 0;}
+		&:last-of-type{ margin-right: 0;}
+		&:hover{ border-color:$a-white2; }
+		label,
+		input{
+			position: absolute;
+			width: 100%;
+			height: 14px;
+			display: block;
+			top: 0;
+			left: 0;
+			color: white;
+			cursor: pointer;
+			margin: 0;
+			background-color: transparent;
+		}
+		label{
+			padding: 7px 0 10px 0;
+			color:rgba(255,255,255,0.8);
+			pointer-events:none;
+		}
+		input{ padding: 16px 0; }
+		input.longform{
+			height: 50px;
+		}
+		&.active{
+			background-color: $c-pink;
+			border-color: $c-pink;
+			&:hover{ border-color:$c-pink;}
+			label{ color: white;}
+		}
+	}
+	.tab-content{
+		height: auto;
+		display: block;
+
+		label{
+			color: white;
+			margin:5px 20px;
+			text-align: left;
+			float: left;
+		}
+		input{
+			width: 335px;
+		}
+		input[type="submit"]{
+			width: 355px;
+		}
+		h6{
+			margin-top: 10px;
+			padding-top: 10px;
+		}
+	}
+	.tab-pane{
+		position: relative;
+		display: none;
+
+		& > div{
+
+		}
+	}
+	.tab-show{
+		display: block;
+	}
+	input[type="radio"]{
+		-webkit-appearance: none;
 	}
 }
 
@@ -1137,8 +1361,8 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 .jp-play{ background-image: url(../img/ui-icons/play.svg); }
 .jp-state-playing .jp-play{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
-.jp-mute{  background-image: url(../img/ui-icons/volume_3.svg); }
-.jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
+.jp-mute{  background-image: url(../img/ui-icons/volume.svg); }
+// .jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
 .jp-previous{background-image: url(../img/ui-icons/prev.svg);}
 .jp-next{background-image: url(../img/ui-icons/next.svg);}
 		//old

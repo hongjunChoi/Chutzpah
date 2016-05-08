@@ -36,7 +36,7 @@ var upload_file = multer({
 }).single('file');
 
 
-var upload_img = multer({ storage }).single('file');
+var upload_img = multer({ storage: storage }).single('file');
 
 
 

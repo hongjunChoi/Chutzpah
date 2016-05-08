@@ -180,6 +180,17 @@ header {
   padding-bottom: 5px;
   width: 100%; }
 
+#loginregister {
+  color: rgba(255, 255, 255, 0.5); }
+  #loginregister p {
+    padding: 1px 8px; }
+  #loginregister a:hover {
+    color: white; }
+  #loginregister a:first-of-type {
+    margin-right: 4px; }
+  #loginregister a:last-of-type {
+    margin-left: 4px; }
+
 #btn_upload,
 #logininfo {
   opacity: 0.6;
@@ -187,24 +198,44 @@ header {
   overflow: hidden;
   border: 1px solid;
   height: auto;
-  border-color: transparent; }
+  border-color: transparent;
+  background-color: #1e1e1e; }
   #btn_upload p,
   #logininfo p {
-    padding: 1px 8px;
-    border-radius: 0; }
+    display: inline-block;
+    border-radius: 0;
+    padding: 3px 10px 3px 8px; }
   #btn_upload:hover,
   #logininfo:hover {
     opacity: 1;
     border-color: #292929; }
 
-#logininfo p:last-of-type {
+#btn_upload span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 4px 0 4px 6px;
+  background-image: url(../img/ui-icons/upload.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
+#logininfo .logininfo-signout {
   border-top: 1px solid #292929;
-  visibility: hidden;
+  display: none;
   margin-top: 0; }
-#logininfo:hover p:last-of-type {
-  visibility: visible;
+#logininfo #logininfo-thumb {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  float: left;
+  margin: 0 0 0 6px;
+  vertical-align: middle; }
+#logininfo:hover .logininfo-signout {
+  display: block;
   padding-bottom: 0; }
-  #logininfo:hover p:last-of-type:hover {
+  #logininfo:hover .logininfo-signout:hover {
     background-color: #292929; }
 
 #btn_menu {
@@ -423,10 +454,65 @@ main {
   width: 80%;
   margin: auto; }
 
+.mainheading {
+  color: white;
+  margin-left: 10%;
+  padding: 18px 14px;
+  font-weight: 500; }
+  .mainheading:first-of-type {
+    margin-top: 60px; }
+
+.item img {
+  width: 100%;
+  max-height: 487px; }
+.item div {
+  width: auto;
+  min-width: 280px;
+  height: auto;
+  background-color: #292929;
+  position: absolute;
+  left: 10%;
+  bottom: 0;
+  color: white;
+  padding: 12px 21px 21px 15px;
+  cursor: pointer;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  transition: all 100ms linear; }
+  .item div p {
+    font-size: 1em;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    padding-bottom: 0; }
+  .item div h3 {
+    font-weight: 700; }
+  .item div h3:after {
+    content: '';
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #fa4e5e;
+    margin-top: 8px;
+    margin-left: 1px;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear; }
+  .item div h6 {
+    font-size: 1.2em;
+    padding-bottom: 0; }
+.item:hover div {
+  background-color: #fa4e5e; }
+  .item:hover div h3:after {
+    background-color: #FFFFFF; }
+
 .mainlist {
   overflow: hidden;
-  margin: 60px auto 140px auto;
-  padding-top: 40px;
+  margin: 0 auto 140px auto;
   font-size: 1em; }
   .mainlist ul {
     padding-bottom: 10px;
@@ -485,7 +571,7 @@ main {
     #list-menu form div label {
       padding: 7px 0;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       font-size: .85em; }
 
 #list-header {
@@ -493,7 +579,14 @@ main {
   opacity: 1;
   border: none;
   border-bottom: 1px solid #1e1e1e;
-  padding: 6px 18px; }
+  padding: 6px 0; }
+  #list-header div {
+    width: 30px;
+    height: 30px; }
+  #list-header div:last-of-type {
+    margin-right: 18px; }
+  #list-header h6 {
+    margin-left: 18px; }
   #list-header h6, #list-header p {
     opacity: .7;
     letter-spacing: .05em;
@@ -531,29 +624,6 @@ main {
     height: auto;
     line-height: auto; }
 
-.post_like svg,
-.post_like div {
-  display: inline-block;
-  vertical-align: middle; }
-
-svg.likeicon {
-  width: 16px;
-  height: 16px; }
-  svg.likeicon path {
-    fill: rgba(255, 255, 255, 0.25);
-    -webkit-transition: all 100ms linear;
-    -moz-transition: all 100ms linear;
-    -o-transition: all 100ms linear;
-    -ms-transition: all 100ms linear;
-    transition: all 100ms linear; }
-
-.post-item:hover {
-  cursor: pointer; }
-  .post-item:hover svg.likeicon path {
-    fill: rgba(255, 255, 255, 0.5); }
-    .post-item:hover svg.likeicon path:hover {
-      fill: #fa4e5e; }
-
 .postgeneral,
 .postdetail-wrapper {
   width: 100%;
@@ -577,6 +647,34 @@ svg.likeicon {
     width: 20px;
     height: 20px;
     display: inline-block; }
+  .postgeneral h6 {
+    margin-left: 18px; }
+
+.post_like {
+  margin-right: 18px;
+  padding-top: 3px; }
+  .post_like svg,
+  .post_like div {
+    display: inline-block;
+    vertical-align: middle; }
+
+svg.likeicon {
+  width: 16px;
+  height: 16px; }
+  svg.likeicon path {
+    fill: rgba(255, 255, 255, 0.25);
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear; }
+
+.post-item:hover {
+  cursor: pointer; }
+  .post-item:hover svg.likeicon path {
+    fill: rgba(255, 255, 255, 0.5); }
+    .post-item:hover svg.likeicon path:hover {
+      fill: #fa4e5e; }
 
 .postdetail-wrapper {
   display: none;
@@ -648,21 +746,24 @@ svg.likeicon {
 
 #uploadwrapper {
   position: fixed;
-  top: 80px;
-  height: 80px;
-  padding: 20px 10%;
+  margin-top: 60px;
+  padding: 20px 10% 20px 10%;
   z-index: 50;
-  background-color: #29292c;
-  -webkit-transform: translateY(-120%);
-  -moz-transform: translateY(-120%);
-  -o-transform: translateY(-120%);
-  -ms-transform: translateY(-120%);
-  transform: translateY(-120%);
+  background-color: #1e1e1e;
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -o-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
   -webkit-transition: all 300ms ease-in-out;
   -moz-transition: all 300ms ease-in-out;
   -o-transition: all 300ms ease-in-out;
   -ms-transition: all 300ms ease-in-out;
-  transition: all 300ms ease-in-out; }
+  transition: all 300ms ease-in-out;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  #uploadwrapper h4, #uploadwrapper h6 {
+    color: white; }
   #uploadwrapper form {
     position: relative;
     border-bottom: 1px solid #fa4e5e;
@@ -672,13 +773,34 @@ svg.likeicon {
   #uploadwrapper input,
   #uploadwrapper textarea,
   #uploadwrapper div {
+    margin: auto;
+    display: block;
+    margin-top: 6px;
+    margin-bottom: 6px; }
+  #uploadwrapper .img-button,
+  #uploadwrapper .music-button {
+    background-color: gray;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer;
+    color: white;
+    cursor: pointer;
+    width: 90px;
     display: inline-block; }
-  #uploadwrapper div {
-    cursor: pointer; }
+    #uploadwrapper .img-button:hover,
+    #uploadwrapper .music-button:hover {
+      background-color: #fa4e5e;
+      color: white; }
+  #uploadwrapper .img-button {
+    margin-right: 10px; }
   #uploadwrapper input[type="submit"] {
     background-color: gray;
     color: white;
-    float: right;
     -webkit-transition: all 100ms linear;
     -moz-transition: all 100ms linear;
     -o-transition: all 100ms linear;
@@ -696,12 +818,13 @@ svg.likeicon {
   #uploadwrapper input.uploadbtn {
     background-color: #fa4e5e; }
   #uploadwrapper textarea {
-    display: inline-block;
     overflow: auto;
     height: 100%;
     width: 210px;
     vertical-align: bottom;
-    resize: none; }
+    resize: none;
+    border-radius: 4px;
+    padding: 5px; }
 
 body.uploadopened #uploadwrapper {
   -webkit-transform: translateY(0);
@@ -795,12 +918,34 @@ body.uploadopened #uploadwrapper {
       margin: auto;
       margin-bottom: 10px;
       clear: both; }
+    #profilewrapper #profile .img-button {
+      position: absolute;
+      right: 0;
+      top: 70px;
+      margin-top: 100px;
+      margin-right: 36px;
+      font-size: 1em;
+      color: white;
+      cursor: pointer;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer;
+      background-color: transparent; }
+      #profilewrapper #profile .img-button:hover {
+        background-color: #fa4e5e;
+        color: white; }
     #profilewrapper #profile h3 {
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 700;
-      margin-bottom: 20px; }
+      margin-bottom: 10px; }
     #profilewrapper #profile p {
+      margin-top: 20px;
       font-size: 1.1em;
       line-height: 1.5em;
       text-align: left; }
@@ -1110,11 +1255,13 @@ body.chatopened #chatwrapper {
   transition: all 300ms linear;
   cursor: pointer; }
   .ctrlbtn.jp-mute {
-    width: 30px;
-    height: 30px; }
+    width: 26px;
+    height: 21px;
+    margin-right: 5px;
+    vertical-align: middle; }
 
 .jp-volume-controls {
-  margin-left: 50px;
+  margin: 6px 0 0 20px;
   opacity: .5;
   -webkit-transition: all 200ms linear;
   -moz-transition: all 200ms linear;
@@ -1131,11 +1278,12 @@ body.chatopened #chatwrapper {
 
 .jp-volume-bar {
   width: 100px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.25);
   height: 4px;
   position: relative;
   cursor: pointer;
-  border-radius: 2px; }
+  border-radius: 2px;
+  margin-left: 4px; }
 
 .jp-volume-bar-value {
   background-color: rgba(0, 0, 0, 0.5);
@@ -1157,46 +1305,131 @@ body.chatopened #chatwrapper {
 
 #loginwrapper {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   position: relative;
   margin: auto;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  -webkit-justify-content: center;
-  justify-content: center;
-  background-image: url(../img/background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center; }
-  #loginwrapper h4 {
+  padding: 120px 0 100px 0;
+  background-color: rgba(30, 30, 30, 0.75); }
+  #loginwrapper h4,
+  #loginwrapper h6 {
     color: white; }
   #loginwrapper p.text-warning {
     color: #fa4e5e;
     font-weight: 500; }
+  #loginwrapper p,
+  #loginwrapper p.small {
+    color: white;
+    margin-bottom: 0;
+    padding-bottom: 8px; }
+  #loginwrapper p.small {
+    font-size: 1em; }
+    #loginwrapper p.small a {
+      font-size: 1em;
+      margin-left: 4px; }
+      #loginwrapper p.small a:hover {
+        color: #fa4e5e; }
   #loginwrapper form {
+    max-width: 375px;
     text-align: center;
-    margin: auto; }
+    margin: auto;
+    position: relative; }
   #loginwrapper input {
     position: relative;
     display: block;
-    margin: 12px auto;
+    margin: 16px auto;
     font-size: 1.2em;
     clear: both;
     width: 230px;
     height: 20px;
-    padding: 10px 10px; }
+    padding: 10px 10px;
+    border-radius: 4px; }
   #loginwrapper input[type="submit"] {
     height: 40px;
+    width: 250px;
     background-color: #fa4e5e;
     color: white;
     cursor: pointer;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    padding: 10px 0; }
+    padding: 10px 0;
+    margin-top: 30px; }
+    #loginwrapper input[type="submit"]:hover {
+      background-color: rgba(237, 80, 96, 0.8); }
+  #loginwrapper .register-checkbox-wrapper {
+    display: block;
+    position: relative;
+    height: auto;
+    margin: auto; }
+    #loginwrapper .register-checkbox-wrapper p.small {
+      color: rgba(255, 255, 255, 0.5); }
+  #loginwrapper .register-checkbox {
+    width: 110px;
+    height: 32px;
+    margin: 0 5px;
+    display: inline-block;
+    position: relative;
+    border: 1px solid;
+    border-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear; }
+    #loginwrapper .register-checkbox:first-of-type {
+      margin-left: 0; }
+    #loginwrapper .register-checkbox:last-of-type {
+      margin-right: 0; }
+    #loginwrapper .register-checkbox:hover {
+      border-color: rgba(255, 255, 255, 0.5); }
+    #loginwrapper .register-checkbox label,
+    #loginwrapper .register-checkbox input {
+      position: absolute;
+      width: 100%;
+      height: 14px;
+      display: block;
+      top: 0;
+      left: 0;
+      color: white;
+      cursor: pointer;
+      margin: 0;
+      background-color: transparent; }
+    #loginwrapper .register-checkbox label {
+      padding: 7px 0 10px 0;
+      color: rgba(255, 255, 255, 0.8);
+      pointer-events: none; }
+    #loginwrapper .register-checkbox input {
+      padding: 16px 0; }
+    #loginwrapper .register-checkbox input.longform {
+      height: 50px; }
+    #loginwrapper .register-checkbox.active {
+      background-color: #fa4e5e;
+      border-color: #fa4e5e; }
+      #loginwrapper .register-checkbox.active:hover {
+        border-color: #fa4e5e; }
+      #loginwrapper .register-checkbox.active label {
+        color: white; }
+  #loginwrapper .tab-content {
+    height: auto;
+    display: block; }
+    #loginwrapper .tab-content label {
+      color: white;
+      margin: 5px 20px;
+      text-align: left;
+      float: left; }
+    #loginwrapper .tab-content input {
+      width: 335px; }
+    #loginwrapper .tab-content input[type="submit"] {
+      width: 355px; }
+    #loginwrapper .tab-content h6 {
+      margin-top: 10px;
+      padding-top: 10px; }
+  #loginwrapper .tab-pane {
+    position: relative;
+    display: none; }
+  #loginwrapper .tab-show {
+    display: block; }
+  #loginwrapper input[type="radio"] {
+    -webkit-appearance: none; }
 
 .jp-play {
   background-image: url(../img/ui-icons/play.svg); }
@@ -1208,10 +1441,7 @@ body.chatopened #chatwrapper {
   background-image: url(../img/ui-icons/pause.svg); }
 
 .jp-mute {
-  background-image: url(../img/ui-icons/volume_3.svg); }
-
-.jp-mute:focus {
-  background-image: url(../img/ui-icons/volume_mute.svg); }
+  background-image: url(../img/ui-icons/volume.svg); }
 
 .jp-previous {
   background-image: url(../img/ui-icons/prev.svg); }
