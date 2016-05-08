@@ -119,18 +119,18 @@
                         <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
  -->
                         <div id="image-holder">
-                            <img style="width:30px; height:30px" ng-repeat="img in images_to_post" src={{img}}>
+                            <img ng-repeat="img in images_to_post" src={{img}}>
                         </div>
                         <div id="music-holder"></div>
                     </div>
                 </div>
             </div>
-            <div class="mainlist maincontent">
+            <div class="mainlist">
                 <!-- content lists -->
                 <!--                 <div class="news">
                     <img src="img/sampleheader.jpg" />
                 </div> -->
-                <div style="color: white; z-index:999">
+                <div id="list-menu" style="color: white; z-index:999">
                     <form>
                         <div>
                             <label>Songs</label>
@@ -152,7 +152,7 @@
                 </div>
                 <!-- Carousel Event page -->
                 <!-- Carousel Venue page -->
-                <ul id="listmenu">
+                <ul id="list-header">
                     <li>
                         <h6 id="col1">Posts</h6>
                         <h6 id="col2">Artist</h6>
@@ -160,7 +160,7 @@
                         <p></p>
                     </li>
                 </ul>
-                <ul id="artist_postlist maincontent">
+                <ul id="artist_postlist" class="maincontent">
                     <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
                         <div class="postgeneral">
                             <h6>{{ post.post_info.text }}</h6>
