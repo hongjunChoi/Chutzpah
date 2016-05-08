@@ -437,16 +437,25 @@ main {
 #news-carousel {
   margin-top: 60px; }
 
+.item img {
+  width: 100%; }
 .item div {
   width: auto;
   min-width: 280px;
   height: auto;
   background-color: #292929;
   position: absolute;
-  left: 20%;
+  left: 10%;
   bottom: 0;
   color: white;
-  padding: 12px 20px; }
+  padding: 11px 20px 20px 14px;
+  border: 2px solid #292929;
+  cursor: pointer;
+  -webkit-transition: all 100ms linear;
+  -moz-transition: all 100ms linear;
+  -o-transition: all 100ms linear;
+  -ms-transition: all 100ms linear;
+  transition: all 100ms linear; }
   .item div p {
     font-size: 1em;
     font-weight: 300;
@@ -464,8 +473,10 @@ main {
     margin-top: 8px;
     margin-left: 1px; }
   .item div h6 {
-    font-size: 1.4em;
+    font-size: 1.2em;
     padding-bottom: 0; }
+  .item div:hover {
+    border-color: white; }
 
 .mainlist {
   overflow: hidden;

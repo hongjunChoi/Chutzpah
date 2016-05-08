@@ -368,16 +368,20 @@ main{
 	margin-top: 60px;
 }
 .item{
+	img{ width: 100%;}
 	div{
 		width: auto;
 		min-width: 280px;
 		height: auto;
 		background-color: $c-gray;
 		position: absolute;
-		left: 20%;
+		left: 10%;
 		bottom: 0;
 		color: white;
-		padding:12px 20px;
+		padding:11px 20px 20px 14px;
+		border: 2px solid $c-gray;
+		cursor: pointer;
+		@include transition(all,100ms,linear);
 
 		p{
 			font-size:1em;
@@ -399,8 +403,11 @@ main{
 			margin-left: 1px;
 		}
 		h6{
-			font-size: 1.4em;
+			font-size: 1.2em;
 			padding-bottom: 0;
+		}
+		&:hover{
+			border-color:white;
 		}
 	}
 }
