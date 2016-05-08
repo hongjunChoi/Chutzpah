@@ -29,16 +29,13 @@ var storage = multer.diskStorage({
 })
 
 var upload_file = multer({
-
     dest: './public/uploads/',
     limits: {
         fileSize: maxSize
-    },
+    }
 }).single('file');
 
-var upload_img = multer({
-    storage
-}).single('file');
+var upload_img = multer(storage).single('file');
 
 
 

@@ -448,10 +448,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
             // $("#commentmain").parents("li.post-item").toggleClass('detailopened');
             $("#commentmain").empty();
-
-            console.log("loading comments of clicked post : id ", chat_field)
-            console.log(data);
-            console.log("==========");
             chat_list.empty();
 
             data.forEach(function(c) {
@@ -525,6 +521,8 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
                 'text': text
             }
         }).success(function(data) {
+            console.log(data);
+            console.log("=====")
             $(".comment_input").val("");
         });
     };
