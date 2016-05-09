@@ -708,7 +708,7 @@ svg.likeicon{
 	}
 	.img-button{ margin-right: 10px; }
 	input[type="submit"]{
-		background-color: gray;
+		background-color: #8e8e8e;
 		color: white;
 		@include buttonA;
 	}
@@ -755,6 +755,7 @@ body.uploadopened{
 	background-color: white;
 	@include transition(300ms, all, ease-in-out);
 	@include translateX(100%);
+	box-shadow: $shadow;
 
 	div{
 		margin: auto;
@@ -940,7 +941,8 @@ body.uploadopened{
 	// bottom: $controller;
 	background-color: transparent;
 	z-index: 9999;
-	border-radius: $borderB;
+	// border-radius: $borderB;
+	box-shadow: $shadow;
 	@include flexbox(column);
 	@include flexbox-justify(space-between);
 	@include transition(all, 300ms, ease-out);
@@ -950,42 +952,27 @@ body.uploadopened{
 		padding-left: 20px;
 		padding-right: 20px;
 		width: 460px;
-		position: relative;
-		clear: both;
 	}
 	.chatheader{
 		height: 40px;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		background-color:$c-pink;
-		box-shadow: $shadow;
+		z-index: 99;
 		h6{
 			color: white;
 			display: inline-block;
-			font-size: 1.1em;
+			font-size: 1.15em;
 			font-weight: 500;
 			margin-top: 8px;
 		}
-		span{
-			background-image: url(../img/ui-icons/chat.svg);
-			background-repeat: no-repeat;
-			background-size: cover;
-			background-position: center;
-			width: 10px;
-			height: 10px;
-			display: inline-block;
-		}
-		button:first-of-type{
-			@include buttonA;
-			color:white;
-		}
-		button:last-of-type{
+		button{
 			position: absolute;
 			width:28px;
 			height:24px;
 			padding: 1px;
 			text-align: center;
-			top:10px;
+			top:12px;
 			right: 40px;
 
 			span{
@@ -1024,32 +1011,37 @@ body.uploadopened{
 		background-color:white;
 		border-top: 1px solid $c-pink;
 		padding-top: 20px;
-		padding-bottom: 14px;
+		// padding-bottom: 14px;
 		margin-bottom:$controller;
 		div{
+			width: 100px;
 			float: right;
 			color: white;
-			background-color: $c-gray;
+			background-color: #8e8e8e;
 			cursor: pointer;
-			margin-bottom: -5px;
 			display: inline-block;
+			text-align: center;
 			@include buttonA;
+
+			&:first-of-type{margin-bottom: 10px;}
 		}
-		input[type="text"]{
+		textarea{
+			position: absolute;
 			color:black;
-			width: 380px;
+			width: 330px;
+			height: 60px;
 			font-size: 1.2em;
 		}
 	}
 	#chatreq{
 		width: 300px;
-		display: none;
 		position: absolute;
-		top: 100px;
+		top: 60px;
 		left: 0;
 		height: auto;
 		padding: 20px 100px;
-		@include translateY(100%);
+		@include transition(all,300ms,ease-out);
+		@include translateY(-100%);
 		background-color: $a-darkbg;
 
 		label{
@@ -1057,6 +1049,7 @@ body.uploadopened{
 			padding:10px 4px;
 			color:white;
 			margin:auto;
+			margin-left: 24px;
 			text-align: left;
 		}
 		input{
@@ -1071,14 +1064,22 @@ body.uploadopened{
 		input:focus{
 			border-color:$c-pink;
 		}
-		#chatreq-submit{
+		input[type="submit"]{
+			width: 252px;
 			border:none;
-			background-color: $c-pink;
 			@include buttonA;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			height: 32px;
+			color: white;
+		}
+		#chatreq-submit{
+			background-color: $c-pink;
+			margin-top: 28px;
 		}
 	}
 	#chatreq.active{
-		display: block;
+		// display: block;
 		@include translateY(0%);
 	}
 }

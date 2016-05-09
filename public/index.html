@@ -41,7 +41,6 @@
                 <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                 <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
             </div> -->
-<<<<<<< HEAD
             </div>
         </li>
         <li id="loginregister">
@@ -69,17 +68,6 @@
 
         <!-- Chatting -->
         <div id="chatwrapper">
-            <div class="chatheader">
-            	<h6><span></span>Chat</h6>
-                <button ng-click="send_request()">Request a GIG</button>
-                <button id="closechat" alt="close chat"><span></span><span></span></button>
-            </div>
-            <div class="chatmain"></div>
-            <div class="chatcontrol">
-                <input id="chat_input" rows="2" type="text" placeholder="Type a message"></input>
-                <div ng-click="send_chat()">Send Message</div>
-                <!-- <input type="submit" value="send"></input> -->
-            </div>
             <div id="chatreq">
             	<label>What</label>
             	<input id="chatreq-type" type="text" placeholder="type"></input>
@@ -87,9 +75,20 @@
             	<input id="chatreq-time" type="text" placeholder="time"></input>
             	<label>Where</label>
             	<input id="chatreq-loc" type="text" placeholder="location"></input>
-            	<input id="chatreq-submit" type="submit" value="Send" ng-click="send_request()"></input>
+            	<input id="chatreq-submit" type="submit" value="Send Request" ng-click="send_request()"></input>
             	<input id="chatreq-cancel" type="submit" value="Cancel"></input>
             	<!-- remove '.active' from '#chatreq' when -->
+            </div>
+            <div class="chatheader">
+            	<h6>Chat</h6>
+                <button id="closechat" alt="close chat"><span></span><span></span></button>
+            </div>
+            <div class="chatmain"></div>
+            <div class="chatcontrol">
+                <textarea id="chat_input" rows="2" type="text" placeholder="Type a message"></textarea>
+                <div ng-click="send_chat()">Send Message</div>
+                <div ng-click="open_request_form()">Request a GIG</div>
+                <!-- <input type="submit" value="send"></input> -->
             </div>
         </div>
 

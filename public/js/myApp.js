@@ -951,7 +951,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
     };
 
     $scope.open_request_form = function() {
-        $("#chatreq").addClass("active");
+        $("#chatreq").toggleClass("active");
     }
 
     $scope.send_request = function() {
