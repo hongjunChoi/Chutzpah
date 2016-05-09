@@ -1,6 +1,7 @@
 var express = require('express');
 var async = require("async");
 var router = express.Router();
+var fs = require('fs')
 
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
@@ -16,6 +17,44 @@ var multer = require('multer'),
     path = require('path'),
     maxSize = 10 * 1000 * 1000;
 
+
+//makeUser("sean", "pass", "hyun@ddd.com", "providence", "artist", "i am sean", "cvalon", "hiphop", "soundcloud/sean", "");
+// set the user's local credentials
+function makeUser(username, password, email, location, user_type, description, name, genre, soundcloud, website) {
+    var newUser = new User();
+
+    newUser.username = username;
+    newUser.password = password;
+    newUser.email = email;
+    newUser.user_location = location;
+    newUser.user_type = user_type;
+    newUser.user_description = description;
+    newUser.name = name;
+
+    if (user_type == "artist") {
+        newUser.genre = genre;
+        newUser.soundcloud = soundcloud;
+    }
+    if (user_type == "venue") {
+        newUser.name = name;
+        newUser.website = website;
+    }
+    if (user_type == "fan") {
+        newUser.genre = genre;
+    }
+
+    newUser.save(function(err) {
+        if (err) {
+            console.log('Error in Saving user: ' + err);
+            throw err;
+        }
+        console.log("YAY!!!!!!!!!!!!!")
+    });
+
+
+    fs.createReadStream('./public/img/default.png').pipe(fs.createWriteStream('./public/uploads/img/' + username));
+
+}
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
