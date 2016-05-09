@@ -309,6 +309,7 @@ app.post('/send_chat', loggedIn, function(req, res) {
                 chat_type: type
             });
         }
+
         res.json(p);
     });
 

@@ -571,9 +571,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         var url = "/api/events";
 
         $http.get(url, {}).success(function(data) {
-            for (var i = 0; i < data.length; i++) {
-                data[i]['time'] = convert_time(data[i]['time']);
-            }
+
             $rootScope.events = data;
         })
     }

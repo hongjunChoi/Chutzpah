@@ -434,10 +434,11 @@ router.route("/events")
     //create a new event
     .post(function(req, res) {
         var e = new Event();
-        console.log(" ==== in creaing evtnt ======");
+        console.log(" ==== in creaing EVENT CONFIRMATION ======");
+        console.log(JSON.stringify(req.body));
         e.artist = req.body.artist
         e.venue = req.body.venue
-        e.time = req.body.time
+        e.time = String((req.body.time))
         e.genre = req.body.genre
         e.location = req.body.location
         console.log(e.time);

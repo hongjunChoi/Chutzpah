@@ -65,7 +65,7 @@ var eventSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    time: Date,
+    time: String,
     location: String,
     genre: String,
     num_likes: Number
