@@ -438,6 +438,11 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     };
 
+    $scope.get_image_url = function(username) {
+        url = "/uploads/img/" + username
+        return url;
+    }
+
     $scope.load_post_comments = function(event, post_data) {
         $rootScope.now_playing['created_by'] = post_data["created_by"];
         var url = "/api/comment";
