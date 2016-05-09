@@ -174,29 +174,6 @@ app.service('fileUpload', ['$http', '$rootScope',
 ]);
 
 
-app.controller('searchController', function($scope, $rootScope, $http) {
-    $scope.search_results = {};
-
-    // $scope.view_post = function(post) {
-    //     if (post.is_file) {
-    //         //if file, change now_playing, jplayer
-    //         $rootScope.now_playing = post
-    //         $("#jquery_jplayer_1").jPlayer("setMedia", {
-    //             title: post.original_name,
-    //             mp3: post.url.substring(post.url.indexOf("/") + 1)
-    //         });
-    //     }
-    // }
-
-    // $scope.view_user = function(user) {
-
-    // }
-
-    // $scope.view_event = function(e) {
-
-    // }
-});
-
 
 
 app.factory('postService', function($resource) {
@@ -597,6 +574,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
 
 
+    function click_profile() {
+        alert("adsfasdfafds");
+        $("#userthumb").click();
+    }
 
 
 
@@ -657,12 +638,61 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     };
 
 
+    $scope.open_profile = function() {
+        var url = "/api/profile";
+        //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
+        var user_name = $rootScope.now_playing['created_by'];
+
+
+        $http.get(url, {
+            params: {
+                username: user_name
+            }
+        }).success(function(data) {
+
+            var user_info = data['info'];
+
+            set_user_profile(user_info[0], $rootScope.current_user);
+            var profile_posts = data["posts"];
+            //TODO: SET USER INFORMATION IN LEFT PROFILE VIEW HERE 
+            $scope.user_info = user_info;
+            $scope.user_posts = profile_posts;
+            $("#user_post_wrapper").empty();
+            profile_posts.forEach(function(entry) {
+
+                var time = convert_time(entry.created_at);
+                var is_file = entry['is_file'];
+                var item;
+                var id = "profile_post_" + entry["_id"];
+
+                if (is_file == "true" || is_file == true) {
+                    item = "<li class = 'profile_post_item' id ='" + id + "' style = 'display:block'><h6>" +
+                        entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p><div class = 'profile_post_comments'></div></li>"
+                } else {
+                    item = "<li class = 'profile_post_item' id = '" + id + "' style = 'display:block'><h6>" +
+                        entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></div><div class = 'profile_post_comments'></div></li>"
+                }
+
+                $("#user_post_wrapper").append(item);
+                $("#" + id).data("profile_post", entry);
+            });
+
+            $("body").addClass("profileopened");
+
+        });
+    }
+
+
     $scope.show_artist = function(artist) {
-
+        $rootScope.now_playing = { 'created_by': artist.username };
+        $scope.open_profile();
     }
+
     $scope.show_venue = function(venue) {
-
+        $rootScope.now_playing = { 'created_by': venue.username };
+        $scope.open_profile();
     }
+
     $scope.show_request = function(request) {
 
     }
@@ -683,7 +713,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             console.log(data);
             console.log("NOTIFICATION TIME UPDATED");
         });
-        alert(post.music_url)
 
 
 
