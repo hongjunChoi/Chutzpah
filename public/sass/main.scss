@@ -859,6 +859,23 @@ body.uploadopened{
 				background-color: $c-pink;
 				color: white;}
 		}
+		#openchat{
+			background-color: white;
+			color: $c-pink;
+			float: left;
+			margin-left: -4px;
+			@include buttonA;
+			span.current_user_profile{
+				border:none;
+				color:$c-pink;
+				margin-left: 0;
+				padding-left: 0;
+				padding-right: 0;
+			}
+			&:hover span{
+				color: white;
+			}
+		}
 	}
 	#related{
 		width: 100%;
@@ -902,13 +919,6 @@ body.uploadopened{
 	}
 }
 
-#openchat{
-	background-color: white;
-	color: $c-pink;
-	float: left;
-	margin-left: -4px;
-	@include buttonA;
-}
 
 //z-index
 #profilewrapper > div:last-of-type{ 
@@ -925,32 +935,83 @@ body.uploadopened{
 #chatwrapper{
 	position: absolute;
 	width: 500;
-	height: 420px;
-	bottom: $controller;
-	background-color: white;
+	height: 100vh;
+	top:0;
+	// bottom: $controller;
+	background-color: transparent;
 	z-index: 9999;
 	border-radius: $borderB;
+	@include flexbox(column);
+	@include flexbox-justify(space-between);
 	@include transition(all, 300ms, ease-out);
-	@include translateY(100%);
+	@include translateX(100%);
 
 	& > div{
-		padding-left: 10px;
-		padding-right: 10px;
-		width: 480px;
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 460px;
 		position: relative;
 		clear: both;
 	}
 	.chatheader{
-		height: 20px;
+		height: 40px;
+		padding-top: 10px;
+		padding-bottom: 10px;
 		background-color:$c-pink;
+		box-shadow: $shadow;
+		h6{
+			color: white;
+			display: inline-block;
+			font-size: 1.1em;
+			font-weight: 500;
+			margin-top: 8px;
+		}
+		span{
+			background-image: url(../img/ui-icons/chat.svg);
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center;
+			width: 10px;
+			height: 10px;
+			display: inline-block;
+		}
+		button:first-of-type{
+			@include buttonA;
+			color:white;
+		}
+		button:last-of-type{
+			position: absolute;
+			width:28px;
+			height:24px;
+			padding: 1px;
+			text-align: center;
+			top:10px;
+			right: 40px;
+
+			span{
+				background-color: white;
+				display: block;
+				position: absolute;
+				width: 28px;
+				height: 2px;
+				border-radius: 1px;
+				display: block;
+				position: absolute;
+				top: 15px;
+				@include transition(300ms, all, ease-in-out);
+				&:first-of-type{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);}
+				&:last-of-type{-webkit-transform:rotate(45deg);transform:rotate(45deg);}
+			}
+		}
 	}
 	.chatmain{
-		height: 340px;
+		flex-grow:2;
+		height: auto;
 		overflow-y:scroll;
 		background-color: white;
 		p{ 
 			clear: both;
-			background-color: $c-pink;
+			background-color: $a-darkbg;
 			color: white;
 			padding: 4px;
 			margin: 2px 8px;
@@ -959,35 +1020,41 @@ body.uploadopened{
 		p.sent{ float: right; }
 	}
 	.chatcontrol{
-		height: 40px;
+		height: 80px;
 		background-color:white;
 		border-top: 1px solid $c-pink;
-		padding-top: 10px;
-		& > div{ 
-			display: inline-block; 
+		padding-top: 20px;
+		padding-bottom: 14px;
+		margin-bottom:$controller;
+		div{
+			float: right;
 			color: white;
 			background-color: $c-gray;
 			cursor: pointer;
 			margin-bottom: -5px;
+			display: inline-block;
+			@include buttonA;
 		}
 		input[type="text"]{
 			color:black;
-			width: 100%;
+			width: 380px;
+			font-size: 1.2em;
 		}
 	}
 	#chatreq{
+		width: 300px;
 		display: none;
 		position: absolute;
-		top: 30px;
+		top: 100px;
 		left: 0;
 		height: auto;
-		padding: 60px 80px;
+		padding: 20px 100px;
 		@include translateY(100%);
 		background-color: $a-darkbg;
 
 		label{
 			width: 230px;
-			padding:10px 10px;
+			padding:10px 4px;
 			color:white;
 			margin:auto;
 			text-align: left;
@@ -1015,7 +1082,7 @@ body.uploadopened{
 		@include translateY(0%);
 	}
 }
-body.chatopened #chatwrapper{ @include translateY(0%); }
+body.chatopened #chatwrapper{ @include translateX(0%); }
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

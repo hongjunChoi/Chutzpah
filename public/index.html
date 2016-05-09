@@ -63,13 +63,14 @@
         <!-- Chatting -->
         <div id="chatwrapper">
             <div class="chatheader">
-                <button id="closechat" alt="close chat">close</button>
+            	<h6><span></span>Chat</h6>
+                <button ng-click="send_request()">Request a GIG</button>
+                <button id="closechat" alt="close chat"><span></span><span></span></button>
             </div>
             <div class="chatmain"></div>
             <div class="chatcontrol">
-                <input id="chat_input" type="text" placeholder="Type a message"></input>
-                <div ng-click="send_chat()"> SEND CHAT </div>
-                <div ng-click="send_request()"> REQUEST A GIG! </div>
+                <input id="chat_input" rows="2" type="text" placeholder="Type a message"></input>
+                <div ng-click="send_chat()">Send Message</div>
                 <!-- <input type="submit" value="send"></input> -->
             </div>
             <div id="chatreq">
@@ -80,6 +81,7 @@
             	<label>Where</label>
             	<input id="chatreq-loc" type="text" placeholder="location"></input>
             	<input id="chatreq-submit" type="submit" value="Send"></input>
+            	<input id="chatreq-cancel" type="submit" value="Cancel"></input>
             	<!-- remove '.active' from '#chatreq' when -->
             </div>
         </div>
@@ -108,7 +110,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- MAIN SCREEN -->
     <div id="mainscreen" ng-controller="mainController">
 
