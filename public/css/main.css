@@ -1094,6 +1094,56 @@ body.uploadopened #uploadwrapper {
     #chatwrapper .chatcontrol input[type="text"] {
       color: black;
       width: 100%; }
+  #chatwrapper #chatreq {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    height: auto;
+    padding: 60px 80px;
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    transform: translateY(100%);
+    background-color: #1e1e1e; }
+    #chatwrapper #chatreq label {
+      width: 230px;
+      padding: 10px 10px;
+      color: white;
+      margin: auto;
+      text-align: left; }
+    #chatwrapper #chatreq input {
+      display: block;
+      height: 20px;
+      width: 230px;
+      padding: 10px 10px;
+      border-radius: 4px;
+      margin: 16px auto;
+      border: 1px solid white; }
+    #chatwrapper #chatreq input:focus {
+      border-color: #fa4e5e; }
+    #chatwrapper #chatreq #chatreq-submit {
+      border: none;
+      background-color: #fa4e5e;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer; }
+      #chatwrapper #chatreq #chatreq-submit:hover {
+        background-color: #fa4e5e;
+        color: white; }
+  #chatwrapper #chatreq.active {
+    display: block;
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    transform: translateY(0%); }
 
 body.chatopened #chatwrapper {
   -webkit-transform: translateY(0%);

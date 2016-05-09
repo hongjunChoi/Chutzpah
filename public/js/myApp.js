@@ -948,6 +948,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
     };
 
     $scope.send_request = function() {
+        $("#chatreq").addClass("active");
         var url = "/send_chat";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var sent_to = $rootScope.now_playing.created_by;
@@ -969,6 +970,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             var type = data['request_music_type'];
             var time = convert_time(data['request_time']);
             var locatiion = data['request_location'];
+
             var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
                 sent_to + "    <div class = 'request_info'>  <p>requested song type :" + type + "</p>" +
                 " <p>requested gig time :" + time + "</p>" +

@@ -975,6 +975,45 @@ body.uploadopened{
 			width: 100%;
 		}
 	}
+	#chatreq{
+		display: none;
+		position: absolute;
+		top: 30px;
+		left: 0;
+		height: auto;
+		padding: 60px 80px;
+		@include translateY(100%);
+		background-color: $a-darkbg;
+
+		label{
+			width: 230px;
+			padding:10px 10px;
+			color:white;
+			margin:auto;
+			text-align: left;
+		}
+		input{
+			display: block;
+			height: 20px;
+			width: 230px;
+			padding:10px 10px;
+			border-radius: $buttonBorder;
+			margin:16px auto;
+			border:1px solid white;
+		}
+		input:focus{
+			border-color:$c-pink;
+		}
+		#chatreq-submit{
+			border:none;
+			background-color: $c-pink;
+			@include buttonA;
+		}
+	}
+	#chatreq.active{
+		display: block;
+		@include translateY(0%);
+	}
 }
 body.chatopened #chatwrapper{ @include translateY(0%); }
 
