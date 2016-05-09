@@ -369,34 +369,10 @@
                 <p> posted at : <span id="now_playing_song_date"></span></p>
             </div>
         </li>
-        <li>
-            <h4>trending</h4>
-            <div style="display: none" id="trending_wrapper"></div>
-        </li>
-        <li>
-            <h4>saved</h4>
-            <div style="display: none" id="saved_wrapper"></div>
-        </li>
         <li id="user_notification" ng-controller="profileController">
             <h4 ng-click="get_chat()">notification</h4>
             <span id="new_message_num"></span>
             <ul id="chat_list"></ul>
-        </li>
-        <!-- Upload -->
-        <li>
-            <h4>upload</h4>
-            <!--                 <div id="uploadwrapper" ng-controller="mainController">
-                <div class="clearfix">
-                    <div ng-show="authenticated">
-                        <form ng-Submit="post()" ng-show="authenticated">
-                            <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
-                            <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                        </form>
-                        <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                        <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
-                    </div>
-                </div>
-            </div> -->
         </li>
     </ul>
 </nav>
