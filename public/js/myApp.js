@@ -407,13 +407,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         });
     };
 
-    $scope.open_profile = function(user_data) {
 
-    };
-
-    $scope.show_event = function(event_data) {
-
-    };
 
     $scope.get_image_url = function(username) {
         url = "/uploads/img/" + username
@@ -660,6 +654,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             $scope.user_info = user_info;
             $scope.user_posts = profile_posts;
             $("#user_post_wrapper").empty();
+            set_user_images("/uploads/img/" + user_name)
             profile_posts.forEach(function(entry) {
 
                 var time = convert_time(entry.created_at);
@@ -696,10 +691,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     }
 
 
-    $scope.show_event = function(event) {
-
-    }
-
 
     $scope.start_music = function(event, post) {
         console.log("starting music");
@@ -730,6 +721,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.post_id = post._id;
         $scope.load_comments(post, chat_list);
         $rootScope.now_playing = post
+        set_user_images("/uploads/img/" + post.created_by)
         $("body").addClass("menuopened");
         $("#now_playing_info_wrapper").hide();
         $scope.get_now_playing();
