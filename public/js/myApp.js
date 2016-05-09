@@ -162,7 +162,6 @@ app.service('fileUpload', ['$http', '$rootScope',
                     'Content-Type': undefined
                 }
             }).then(function successCallback(response) {
-                alert("dddd")
                 set_user_images("/uploads/img/" + $rootScope.user.username)
                 $rootScope.user.image_url = response.data.img_url
             }, function errorCallback(response) {
@@ -265,7 +264,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
     $scope.post = function() {
         ////// do not post if all empty ////// 
-        alert("asdfasdf")
         $("body").removeClass("uploadopened");
         var text = $("#text_input_field").val();
         if (text == "") {
@@ -334,7 +332,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     }
 
     $scope.show_likes = function(event, like_info) {
-        alert(JSON.stringify(like_info));
+
         //like info contains information about who liked what
         //make sure to use toggle or show
     }
@@ -580,7 +578,6 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
 
     function click_profile() {
-        alert("adsfasdfafds");
         $("#userthumb").click();
     }
 
@@ -672,10 +669,10 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
 
                 if (is_file == "true" || is_file == true) {
                     item = "<li class = 'profile_post_item' id ='" + id + "' style = 'display:block'><h6>" +
-                        entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p><div class = 'profile_post_comments'></div></li>"
+                        entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p><div class = 'profile_post_comments'></div></li><br>"
                 } else {
                     item = "<li class = 'profile_post_item' id = '" + id + "' style = 'display:block'><h6>" +
-                        entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></div><div class = 'profile_post_comments'></div></li>"
+                        entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></div><div class = 'profile_post_comments'></div></li><br>"
                 }
 
                 $("#user_post_wrapper").append(item);
@@ -767,7 +764,8 @@ function set_columns(col1, col2, col3) {
 }
 
 function set_user_profile(info, user) {
-    alert(JSON.stringify(info))
+    // alert(JSON.stringify(info))
+
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
@@ -831,10 +829,10 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
 
                 if (is_file == "true" || is_file == true) {
                     item = "<li class = 'profile_post_item' id ='" + id + "' style = 'display:block'><h6>" +
-                        entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p><div class = 'profile_post_comments'></div></li>"
+                        entry.original_name + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p><div class = 'profile_post_comments'></div></li><br>"
                 } else {
                     item = "<li class = 'profile_post_item' id = '" + id + "' style = 'display:block'><h6>" +
-                        entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></div><div class = 'profile_post_comments'></div></li>"
+                        entry.text + " </h6> <p>" + time + "</p> <p>" + entry.created_by + "</p></div><div class = 'profile_post_comments'></div></li><br>"
                 }
 
                 $("#user_post_wrapper").append(item);
@@ -977,7 +975,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             var type = data['request_music_type'];
             var time = (data['request_time']);
             var location = data['request_location'];
-            alert(location);
+
             var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
                 sent_to + "    <div class = 'request_info'>  <p>requested song type : " + type + "</p>" +
                 " <p>requested gig time : " + time + "</p>" +

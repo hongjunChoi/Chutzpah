@@ -50,7 +50,6 @@ $(document).ready(function() {
 
     $(document).on('click', '.confirm_button', function() {
         var request_data = $(this).closest('.chat_msg').data("request_info");
-        alert(JSON.stringify(request_data));
 
         var url = "/api/events";
         var location = request_data.request_location;
@@ -66,14 +65,14 @@ $(document).ready(function() {
             location: location,
             genre: music_type
         }).done(function(data) {
-            alert(" confirm successful ");
+            alert("confirm successful!");
         });
     });
 
 
     $(document).on('click', '.profile_post_item', function() {
         var post_data = $(this).data("profile_post");
-        alert(JSON.stringify(post_data));
+        // alert(JSON.stringify(post_data));
         if ((post_data.music_url != null) && (typeof post_data.music_url != "undefined")) {
             $("#jquery_jplayer_1").jPlayer("setMedia", {
                 title: post_data.music_name,
@@ -175,8 +174,8 @@ $(document).ready(function() {
             }
         }
     };
-    $("#chatreq-cancel").click(function(){
-    	$("#chatreq").removeClass('active');
+    $("#chatreq-cancel").click(function() {
+        $("#chatreq").removeClass('active');
     });
 
     function hide_all_right_panel() {
