@@ -8,7 +8,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/carousel/owl.carousel.css">
     <link rel="stylesheet" href="css/carousel/owl.theme.css">
@@ -20,7 +26,6 @@
 </head>
 
 <body ng-app="myApp">
-
 <!-- HEADER -->
 <header>
     <img id="logo" src="img/logo2.svg" />
@@ -119,7 +124,8 @@
                     <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" /> -->
                     <div class="music-button" ng-click="add_music()">Music</div>
                     <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
-                    <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
+                        <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
+>>>>>>> d82c03fec9aca00f3a8db084e03e63c3d95c2984
 <input id="file_upload_form" type="file" class="btn submit-btn pull-left" class="uploadfilebtn" type="submit" value="Photo" />
 <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />adfadfa
 -->
@@ -223,7 +229,9 @@
                         <div class="postdetail">
                             <div id="postdetail-image-holder">
                                 <img style="width:100px; height:100px" ng-repeat="img in post.post_info.images" src={{img}}>
-                            </div>
+
+
+
                             <div id="music-holder"></div>
                         </div>
                         <!-- comment -->
@@ -303,6 +311,7 @@
                     <p>{{ event.time }}</p>
                 </li>
             </ul>
+            </div>
         </div>
     </div>
 
@@ -349,50 +358,81 @@
         </div>
     </div>
 </main>
+    <!-- RIGHT NAVIGATION MENU -->
+    <nav id="navwrapper">
+        <ul>
+            <li id="now_playing" ng-controller="mainController">
+                <h4 ng-click="get_now_playing()">Now Playing</h4>
+                <div id="now_playing_info_wrapper" style="display : none">
+                    <p> Song Title : <span id="now_playing_song_title"></span></p>
+                    <p> Artist: <span id="now_playing_song_artist"></span></p>
+                    <p> posted at : <span id="now_playing_song_date"></span></p>
+                </div>
+            </li>
+            <li>
+                <h4>trending</h4>
+                <div style="display: none" id="trending_wrapper"></div>
+            </li>
+            <li>
+                <h4>saved</h4>
+                <div style="display: none" id="saved_wrapper"></div>
+            </li>
+            <li id="user_notification" ng-controller="profileController">
+                <h4 ng-click="get_chat()">notification</h4>
+                <span id="new_message_num"></span>
+                <ul id="chat_list"></ul>
+            </li>
+            <!-- Upload -->
+            <li>
+                <h4>upload</h4>
+                <!--                 <div id="uploadwrapper" ng-controller="mainController">
+                    <div class="clearfix">
+                        <div ng-show="authenticated">
+                            <form ng-Submit="post()" ng-show="authenticated">
+                                <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
+                                <input class="btn submit-btn pull-right" type="submit" value="Add" />
+                            </form>
+                            <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
+                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
+                        </div>
+                    </div>
+                </div> -->
+            </li>
+        </ul>
+    </nav>
+    <!-- angular js files   -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
+    <!-- custom js files  -->
+    <script src="js/myApp.js"></script>
+    <script src="js/login.js"></script>
+    <!-- jquery - ui js  -->
+    <script src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/owl.carousel.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/main.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#jquery_jplayer_1").jPlayer({
+            ready: function() {
+                $(this).jPlayer("setMedia", {
+                    title: "Big Buck Bunny Trailer",
+                    mp3: "/uploads/sample.mp3"
+                });
+            },
+            cssSelectorAncestor: "#jp_container_1",
+            swfPath: "/js",
+            supplied: "mp3",
+            useStateClassSkin: true,
+            autoBlur: false,
+            smoothPlayBar: true,
+            keyEnabled: true,
+            remainingDuration: true,
+            toggleDuration: true
 
-<!-- RIGHT NAVIGATION MENU -->
-<nav id="navwrapper">
-    <ul>
-        <li id="now_playing" ng-controller="mainController">
-            <h4 ng-click="get_now_playing()">Now Playing</h4>
-            <div id="now_playing_info_wrapper" style="display : none">
-                <p> Song Title : <span id="now_playing_song_title"></span></p>
-                <p> Artist: <span id="now_playing_song_artist"></span></p>
-                <p> posted at : <span id="now_playing_song_date"></span></p>
-            </div>
-        </li>
-        <li>
-            <h4>trending</h4>
-            <div style="display: none" id="trending_wrapper"></div>
-        </li>
-        <li>
-            <h4>saved</h4>
-            <div style="display: none" id="saved_wrapper"></div>
-        </li>
-        <li id="user_notification" ng-controller="profileController">
-            <h4 ng-click="get_chat()">notification</h4>
-            <span id="new_message_num"></span>
-            <ul id="chat_list"></ul>
-        </li>
-    </ul>
-</nav>
-
-<!-- angular js files   -->
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.js"></script>
-<!-- custom js files  -->
-<script src="js/myApp.js"></script>
-<script src="js/login.js"></script>
-<!-- jquery - ui js  -->
-<script src="js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="js/owl.carousel.js"></script>
-<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
-<script src="js/main.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    // $("#jquery_jplayer_1").jPlayer({ // ready: function() { // $(this).jPlayer("setMedia", { // title: "Big Buck Bunny Trailer", // mp3: "/uploads/sample.mp3" // }); // }, // cssSelectorAncestor: "#jp_container_1", // swfPath: "/js", // supplied: "mp3", // useStateClassSkin: true, // autoBlur: false, // smoothPlayBar: true, // keyEnabled: true, // remainingDuration: true, // toggleDuration: true // });
+        });
 });
 </script>
 </body>

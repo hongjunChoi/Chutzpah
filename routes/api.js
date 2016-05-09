@@ -24,7 +24,13 @@ var storage = multer.diskStorage({
     },
     filename: function(req, file, cb) {
         //rename file as username 
-        cb(null, req.session.username)
+        var username;
+        if (req.session.user) {
+            username = req.session.user.username;
+        } else {
+            username = req.user.username
+        }
+        cb(null, username)
     }
 })
 
