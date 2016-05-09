@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var LocalStrategy = require('passport-local').Strategy;
 var bCrypt = require('bcrypt-nodejs');
+var fs = require('fs');
 
 
 
@@ -99,6 +100,7 @@ module.exports = function(passport, nev) {
                         newUser.genre = req.body.genre;
                     }
 
+                    fs.createReadStream('./public/img/default.png').pipe(fs.createWriteStream('./public/uploads/img/' + username));
 
                     var url = 'localhost:3000/verify?id=' + newUser._id;
                     nev.configure({

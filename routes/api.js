@@ -1,6 +1,5 @@
 var express = require('express');
 var async = require("async");
-
 var router = express.Router();
 
 var mongoose = require('mongoose');
@@ -94,9 +93,12 @@ router.route('/upload_file')
         })
     });
 
+
 router.route('/upload_img')
     .post(function(req, res) {
         console.log("-----img upload requested --------");
+
+
         upload_img(req, res, function(err) {
             if (err) {
                 console.log("Error: ", err);
