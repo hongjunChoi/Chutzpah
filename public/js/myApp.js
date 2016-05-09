@@ -767,7 +767,7 @@ function set_columns(col1, col2, col3) {
 }
 
 function set_user_profile(info, user) {
-
+    alert(JSON.stringify(info))
     var username = info["username"];
     var location = info.user_location;
     var description = info.user_description;
