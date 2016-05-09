@@ -685,6 +685,11 @@ svg.likeicon {
   height: auto;
   min-height: 20px; }
 
+#postdetail-image-holder {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
 .maincontent li.detailopened .postdetail-wrapper {
   display: block; }
 .maincontent li.detailopened .postgeneral {
@@ -1122,15 +1127,28 @@ body.uploadopened #uploadwrapper {
     height: auto;
     overflow-y: scroll;
     background-color: white; }
-    #chatwrapper .chatmain p {
+    #chatwrapper .chatmain > div {
       clear: both;
-      background-color: #1e1e1e;
-      color: white;
-      padding: 4px;
-      margin: 2px 8px; }
-    #chatwrapper .chatmain p.received {
+      padding: 8px;
+      margin: 5px 8px;
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 4px; }
+      #chatwrapper .chatmain > div .request_info {
+        background-color: white;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px; }
+        #chatwrapper .chatmain > div .request_info p {
+          font-size: 0.9em;
+          font-weight: 300;
+          text-transform: capitalize;
+          color: #fa4e5e;
+          padding-bottom: 1px; }
+        #chatwrapper .chatmain > div .request_info p:last-of-type {
+          padding-bottom: 0; }
+    #chatwrapper .chatmain .chat_msg {
       float: left; }
-    #chatwrapper .chatmain p.sent {
+    #chatwrapper .chatmain .mychat_msg {
       float: right; }
   #chatwrapper .chatcontrol {
     height: 80px;

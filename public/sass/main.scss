@@ -617,6 +617,11 @@ svg.likeicon{
 	height: auto;
 	min-height: 20px;
 }
+#postdetail-image-holder{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 
 .maincontent li.detailopened{
 
@@ -938,10 +943,8 @@ body.uploadopened{
 	width: 500;
 	height: 100vh;
 	top:0;
-	// bottom: $controller;
 	background-color: transparent;
 	z-index: 9999;
-	// border-radius: $borderB;
 	box-shadow: $shadow;
 	@include flexbox(column);
 	@include flexbox-justify(space-between);
@@ -996,22 +999,35 @@ body.uploadopened{
 		height: auto;
 		overflow-y:scroll;
 		background-color: white;
-		p{ 
+		& > div{
 			clear: both;
-			background-color: $a-darkbg;
-			color: white;
-			padding: 4px;
-			margin: 2px 8px;
+			padding: 8px;
+			margin: 5px 8px;
+			background-color: rgba(0,0,0,0.04);
+			border-radius: $buttonBorder;
+			.request_info{
+				background-color: white;
+				margin-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				p{ 
+					font-size: 0.9em;
+					font-weight: 300;
+					text-transform: capitalize;
+					color: $c-pink;
+					padding-bottom: 1px;
+				}
+				p:last-of-type{padding-bottom: 0;}
+			}
 		}
-		p.received{  float: left;  }
-		p.sent{ float: right; }
+		.chat_msg{  float: left;  }
+		.mychat_msg{ float: right; }
 	}
 	.chatcontrol{
 		height: 80px;
 		background-color:white;
 		border-top: 1px solid $c-pink;
 		padding-top: 20px;
-		// padding-bottom: 14px;
 		margin-bottom:$controller;
 		div{
 			width: 100px;
@@ -1061,9 +1077,7 @@ body.uploadopened{
 			margin:16px auto;
 			border:1px solid white;
 		}
-		input:focus{
-			border-color:$c-pink;
-		}
+		input:focus{ border-color:$c-pink; }
 		input[type="submit"]{
 			width: 252px;
 			border:none;
@@ -1078,10 +1092,7 @@ body.uploadopened{
 			margin-top: 28px;
 		}
 	}
-	#chatreq.active{
-		// display: block;
-		@include translateY(0%);
-	}
+	#chatreq.active{ @include translateY(0%);}
 }
 body.chatopened #chatwrapper{ @include translateX(0%); }
 
@@ -1175,9 +1186,7 @@ body.chatopened #chatwrapper{ @include translateX(0%); }
 		}
 	}
 #jp-playwrapper,
-#jp-volumewrapper{
-	position: absolute;
-}
+#jp-volumewrapper{ position: absolute; }
 #jp-playwrapper{
 	left: 50%;
 	@include translateX(-50%);

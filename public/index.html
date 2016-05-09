@@ -273,7 +273,7 @@
                      images: post.post_info.images -->
                         <div class="postdetail">
                             <div id="postdetail-image-holder">
-                                <img style="width:100px; height:100px" ng-repeat="img in file.post_info.images" src={{img}}>
+                                <img ng-repeat="img in file.post_info.images" src={{img}}>
                             </div>
                             <div id="music-holder"></div>
                         </div>
@@ -335,7 +335,7 @@
                                     </div>
                                 </div>
                                 <div id="thumbwrapper">
-                                    <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
+                                    <img id="userthumb" src="img/default.png" ng-click="get_profile_info()" />
                                 </div>
                                 <div class="jp-details">
                                     <div class="titlewrapper">
