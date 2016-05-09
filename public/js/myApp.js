@@ -783,7 +783,7 @@ function set_user_profile(info, user) {
         $('.img-button').show();
     } else {
         $('#openchat').show();
-        $('.img-button').hide();
+        // $('.img-button').hide();
     }
 }
 

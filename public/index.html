@@ -9,10 +9,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://use.typekit.net/yzo6awb.js"></script>
     <script>
-    try {
-        Typekit.load({
-            async: true
-        });
+    try { Typekit.load({ async: true });
     } catch (e) {}
     </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
@@ -36,11 +33,6 @@
                         <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
                         <input type="submit" ng-click="search()">
                     </form>
-                    <!-- <div id="searchresult">
-                <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
-                <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
-                <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
-            </div> -->
             </div>
         </li>
 <!--         <li id="loginregister">
@@ -64,9 +56,9 @@
 <main>
 <div id="cover">
 	<div>
-	<img src="img/coverimg.svg" />
-	<a href="#/login">Login</a>
-	<a href="#/signup">Sign Up</a>
+    	<img src="img/coverimg.svg" />
+    	<a href="#/login">Login</a>
+    	<a href="#/signup">Sign Up</a>
 	</div>
 </div>
     <!-- PROFILE -->
@@ -100,8 +92,7 @@
 
         <!-- Profile Description -->
         <div class="profileinnerwrapper">
-            <div id="profileheader" style="background-image:url(img/samplecover.jpg)">
-                <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
+            <div id="profileheader" style="background-image:url(img/samplecover.jpg)">e
                 <button id="profileclose"><span></span><span></span></button>
             </div>
             <div id="profile">
@@ -128,7 +119,6 @@
 
         <!-- Login Form -->
         <div id="loginwrapper" ng-view>
-        	
         </div>
 
         <!-- Upload Form -->
@@ -140,15 +130,8 @@
                     <textarea id="text_input_field" required class="form-control" placeholder="write anything here!"></textarea>
                     <div class="img-button" ng-click="add_image()">Image</div>
                     <input class="img-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" onchange="angular.element(this).scope().add_image_to_holder()" />
-                    <!-- <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" /> -->
                     <div class="music-button" ng-click="add_music()">Music</div>
                     <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
-                    <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
-<input id="file_upload_form" type="file" class="btn submit-btn pull-left" class="uploadfilebtn" type="submit" value="Photo" />
-<input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />adfadfa
--->
-                    <!-- </form> -->
-                    <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" /> -->
                     <div id="image-holder">
                         <img ng-repeat="img in images_to_post" src={{img}}>
                     </div>
@@ -256,6 +239,7 @@
                 <li class="music_post_list" ng-repeat="file in files" ng-click="start_music($event, file.post_info)">
                     <div class="postgeneral">
                         <h6>{{ file.post_info.music_name }}</h6>
+                        <img style="width:30px; height:30px" src="/uploads/img/{{file.post_info.created_by}}">
                         <h6>{{ file.post_info.created_by }}</h6>
                         <p>{{ file.post_info.created_at }}</p>
                         <div class="post_like">
@@ -294,6 +278,7 @@
                 <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
                     <div class="postgeneral">
                         <h6>{{ artist.name }}</h6>
+	                    <img style="width:30px; height:30px" src="/uploads/img/{{artist	.username}}">
                         <h6>{{ artist.genre }}</h6>
                         <p>{{ artist.location }}</p>
                     </div>
@@ -302,17 +287,22 @@
             <!-- List D - Request -->
             <ul id="requestlist" class="maincontent">
                 <li ng-repeat="request in requests" ng-click="show_request(request)">
-                    <h6>{{ request.name }}</h6>
-                    <h6>{{ request.user_location }}</h6>
-                    <p>{{ request.genre }}</p>
+                    <div class="postgeneral">
+		                <h6>{{ request.name }}</h6>
+		                <img style="width:30px; height:30px" src="/uploads/img/{{request.username}}">
+		                <h6>{{ request.user_location }}</h6>
+		                <p>{{ request.genre }}</p>
+                    </div>
                 </li>
             </ul>
             <!-- List E - Event -->
             <ul id="eventlist" class="maincontent">
                 <li ng-repeat="event in events" ng-click="show_event(event)">
-                    <h6>{{ event.venue }}</h6>
-                    <h6>{{ event.artist }}</h6>
-                    <p>{{ event.time }}</p>
+                    <div class="postgeneral">
+	                    <h6>{{ event.venue }}</h6>
+	                    <h6>{{ event.artist }}</h6>
+	                    <p>{{ event.time }}</p>
+                    </div>
                 </li>
             </ul>
             </div>
@@ -413,7 +403,6 @@ $(document).ready(function() {
         keyEnabled: true,
         remainingDuration: true,
         toggleDuration: true
-
     });
 });
 </script>
