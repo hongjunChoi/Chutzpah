@@ -115,6 +115,7 @@ $(document).ready(function() {
     });
 
     function menuopen() {
+	    closeAll();
         if (!menuopened) {
             $("body").addClass("menuopened");
         } else {

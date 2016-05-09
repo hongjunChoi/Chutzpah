@@ -26,8 +26,9 @@
 </head>
 
 <body ng-app="myApp">
+    <!-- HEADER -->
     <header>
-        <img id="logo" src="img/logo.svg" />
+        <img id="logo" src="img/logo2.svg" />
         <ul>
             <li id="searchwrapper" ng-show="authenticated">
                 <div id="searchbar" ng-controller="mainController">
@@ -37,10 +38,10 @@
                         <input type="submit" ng-click="search()">
                     </form>
                     <!-- <div id="searchresult">
-                        <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
-                        <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
-                        <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
-                    </div> -->
+                    <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
+                    <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
+                    <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
+                </div> -->
                 </div>
             </li>
             <li id="loginregister">
@@ -62,7 +63,7 @@
     </header>
     <!-- MAIN -->
     <main>
-        <!-- Left Profile -->
+        <!-- PROFILE -->
         <div id="profilewrapper" ng-controller="profileController">
             <!-- Chatting -->
             <div id="chatwrapper">
@@ -77,6 +78,7 @@
                     <!-- <input type="submit" value="send"></input> -->
                 </div>
             </div>
+            <!-- Profile Description -->
             <div class="profileinnerwrapper">
                 <div id="profileheader" style="background-image:url(img/samplecover.jpg)">
                     <!-- <img id="profilecover" src="img/samplecover.jpg" /> -->
@@ -100,9 +102,11 @@
                 </div>
             </div>
         </div>
-        <!-- Main screen -->
+        <!-- MAIN SCREEN -->
         <div id="mainscreen" ng-controller="mainController">
+            <!-- Login Form -->
             <div id="loginwrapper" ng-view></div>
+            <!-- Upload Form -->
             <div id="uploadwrapper" ng-controller="mainController" ng-show="authenticated">
                 <h4>Upload</h4>
                 <div class="clearfix">
@@ -115,19 +119,21 @@
                         <div class="music-button" ng-click="add_music()">Music</div>
                         <input class="music-upload" style="display: none" type="file" name="music" file-model="music" accept="audio/*" onchange="angular.element(this).scope().add_music_to_holder()" />
                         <!-- <input class="btn submit-btn pull-right" type="file" value="Music" />
+>>>>>>> d82c03fec9aca00f3a8db084e03e63c3d95c2984
 <input id="file_upload_form" type="file" class="btn submit-btn pull-left" class="uploadfilebtn" type="submit" value="Photo" />
 <input class="file-upload" style="display: none" type="file" name="imgFile" file-model="imgFile" accept="image/*" />adfadfa
- -->
-                        <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
+-->
                         <!-- </form> -->
                         <!-- <input id="file_upload_form" class="uploadfilebtn" type="file" name="myFile" file-model="myFile" /> -->
                         <div id="image-holder">
                             <img ng-repeat="img in images_to_post" src={{img}}>
                         </div>
                         <div id="music-holder"></div>
+                        <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
                     </div>
                 </div>
             </div>
+            <!-- CAROUSEL -->
             <h5 class="mainheading" ng-show="authenticated">Upcoming Trends</h5>
             <div id="news-carousel" class="owl-carousel" ng-show="authenticated">
                 <div class="item">
@@ -158,9 +164,10 @@
                     </div>
                 </div>
             </div>
-            <!-- content lists -->
+            <!-- LISTS -->
             <h5 class="mainheading" ng-show="authenticated">Browse</h5>
             <div class="mainlist" ng-show="authenticated">
+                <!-- List Options -->
                 <div id="list-menu" style="color: white; z-index:999">
                     <form>
                         <div>
@@ -181,6 +188,7 @@
                         </div>
                     </form>
                 </div>
+                <!-- List Header -->
                 <ul id="list-header">
                     <li>
                         <h6 id="col1">Posts</h6>
@@ -190,12 +198,12 @@
                         <div></div>
                     </li>
                 </ul>
+                <!-- List A - Post -->
                 <ul id="artist_postlist" class="maincontent">
                     <li class="post-item" ng-repeat="post in artist_posts" ng-click="load_post_comments($event, post.post_info)">
                         <div class="postgeneral">
                             <h6>{{ post.post_info.text }}</h6>
-                            <!--                           <img style="width:30px; height:30px" src="/uploads/img/{{post.post_info.created_by}}"> -->
-                            <img style="width:30px; height:30px" ng-src={{get_image_url(post.post_info.created_by)}}>
+                            <img style="width:30px; height:30px" src="/uploads/img/{{post.post_info.created_by}}">
                             <h6>{{ post.post_info.created_by }}</h6>
                             <p>{{ post.post_info.created_at }}</p>
                             <div class="post_like">
@@ -208,26 +216,26 @@
                         <div class="postdetail-wrapper">
                             <!-- data here -->
                             <!-- images: post.post_info.images 
-                                 images: post.post_info.images -->
+                             images: post.post_info.images -->
                             <div class="postdetail">
                                 <div id="postdetail-image-holder">
                                     <img style="width:100px; height:100px" ng-repeat="img in post.post_info.images" src={{img}}>
+                                    <div id="music-holder"></div>
                                 </div>
-                                <div id="music-holder"></div>
-                            </div>
-                            <!-- comment -->
-                            <div class="commentlist">
-                                <div class="commentField">
-                                    <ul class="commentmain" style="color: white"></ul>
-                                    <form ng-Submit="upload_comment($event, post.post_info)" ng-show="authenticated">
-                                        <textarea class="comment_input" required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
-                                        <input type="submit" value="Add comment" />
-                                    </form>
+                                <!-- comment -->
+                                <div class="commentlist">
+                                    <div class="commentField">
+                                        <ul class="commentmain" style="color: white"></ul>
+                                        <form ng-Submit="upload_comment($event, post.post_info)" ng-show="authenticated">
+                                            <textarea class="comment_input" required class="form-control" maxlength="200" rows="1" placeholder="Write a comment" ng-model="comment.text"></textarea>
+                                            <input type="submit" value="Add comment" />
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </li>
                 </ul>
+                <!-- List B - Music -->
                 <ul id="filelist" class="maincontent">
                     <li class="music_post_list" ng-repeat="file in files" ng-click="start_music($event, file.post_info)">
                         <div class="postgeneral">
@@ -245,7 +253,7 @@
                         <div class="postdetail-wrapper">
                             <!-- data here -->
                             <!-- images: post.post_info.images 
-                                 images: post.post_info.images -->
+                             images: post.post_info.images -->
                             <div class="postdetail">
                                 <div id="postdetail-image-holder">
                                     <img style="width:100px; height:100px" ng-repeat="img in file.post_info.images" src={{img}}>
@@ -265,6 +273,7 @@
                         </div>
                     </li>
                 </ul>
+                <!-- List C - Artist -->
                 <ul id="artistlist" class="maincontent">
                     <li ng-repeat="artist in artists" ng-click="show_artist(artist)">
                         <div class="postgeneral">
@@ -274,6 +283,7 @@
                         </div>
                     </li>
                 </ul>
+                <!-- List D - Request -->
                 <ul id="requestlist" class="maincontent">
                     <li ng-repeat="request in requests" ng-click="show_request(request)">
                         <h6>{{ request.name }}</h6>
@@ -281,6 +291,7 @@
                         <p>{{ request.genre }}</p>
                     </li>
                 </ul>
+                <!-- List E - Event -->
                 <ul id="eventlist" class="maincontent">
                     <li ng-repeat="event in events" ng-click="show_event(event)">
                         <h6>{{ event.venue }}</h6>
@@ -288,9 +299,10 @@
                         <p>{{ event.time }}</p>
                     </li>
                 </ul>
+                </div>
             </div>
         </div>
-        <!-- Bottom Controller -->
+        <!-- Bottom CONTROLLER -->
         <div id="controller" ng-controller="profileController" ng-show="authenticated">
             <div id="playerwrapper">
                 <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
@@ -329,17 +341,7 @@
                                             <div class="jp-volume-bar-value"><span></span></div>
                                         </div>
                                     </div>
-                                    <!--                                     <div class="jp-toggles">
-                                            <button class="jp-repeat" role="button" tabindex="0">repeat</button>
-                                            <button class="jp-full-screen" role="button" tabindex="0">full screen</button>
-                                        </div> -->
                                 </div>
-                                <!--                                 <div class="jp-details">
-                                    <div class="progresswrapper">
-                                        <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
-                                        <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -358,34 +360,10 @@
                     <p> posted at : <span id="now_playing_song_date"></span></p>
                 </div>
             </li>
-            <li>
-                <h4>trending</h4>
-                <div style="display: none" id="trending_wrapper"></div>
-            </li>
-            <li>
-                <h4>saved</h4>
-                <div style="display: none" id="saved_wrapper"></div>
-            </li>
             <li id="user_notification" ng-controller="profileController">
                 <h4 ng-click="get_chat()">notification</h4>
                 <span id="new_message_num"></span>
                 <ul id="chat_list"></ul>
-            </li>
-            <!-- Upload -->
-            <li>
-                <h4>upload</h4>
-                <!--                 <div id="uploadwrapper" ng-controller="mainController">
-                    <div class="clearfix">
-                        <div ng-show="authenticated">
-                            <form ng-Submit="post()" ng-show="authenticated">
-                                <textarea required class="form-control" maxlength="200" placeholder="copy link to your video" ng-model="newPost.text"></textarea>
-                                <input class="btn submit-btn pull-right" type="submit" value="Add" />
-                            </form>
-                            <input class="uploadfilebtn" type="file" name="myFile" file-model="myFile" />
-                            <input class="uploadbtn" type="submit" value="Upload" ng-click="upload()" />
-                        </div>
-                    </div>
-                </div> -->
             </li>
         </ul>
     </nav>
@@ -422,7 +400,6 @@
             toggleDuration: true
 
         });
-
     });
     </script>
 </body>
