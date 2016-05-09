@@ -951,7 +951,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
     };
 
     $scope.open_request_form = function() {
-        $("#chatreq").addClass("active");
+        $("#chatreq").toggleClass("active");
     }
 
     $scope.send_request = function() {
@@ -979,12 +979,13 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             var location = data['request_location'];
             alert(location);
             var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
-                sent_to + "    <div class = 'request_info'>  <p>requested song type :" + type + "</p>" +
-                " <p>requested gig time :" + time + "</p>" +
-                " <p>requested location :" + location + "</p></div>";
+                sent_to + "    <div class = 'request_info'>  <p>requested song type : " + type + "</p>" +
+                " <p>requested gig time : " + time + "</p>" +
+                " <p>requested location : " + location + "</p></div>";
 
             $(".chatmain").append(dom);
             $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
+
         });
     }
 
@@ -994,7 +995,6 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
         var sent_to = $rootScope.now_playing.created_by;
         var text = $("#chat_input").val();
         var sent_from = $rootScope.current_user;
-
 
         $http.post(url, {
             chat_type: "msg",
@@ -1006,7 +1006,7 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
             var time = data['sent_at'];
             time = convert_time(time);
             $("#chat_input").val("");
-            var dom = " <div class = 'mychat_msg chat_msg'> " + text + "      at  " + time + "</div> ";
+            var dom = " <div class = 'mychat_msg chat_msg'> " + text + "<span>at " + time + "</span></div> ";
             $(".chatmain").append(dom);
             $('.chatmain').scrollTop($('.chatmain')[0].scrollHeight);
         });

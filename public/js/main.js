@@ -174,7 +174,10 @@ $(document).ready(function() {
                 $(".chatmain").append(dom);
             }
         }
-    }
+    };
+    $("#chatreq-cancel").click(function(){
+    	$("#chatreq").removeClass('active');
+    });
 
     function hide_all_right_panel() {
         $("#now_playing_info_wrapper").hide();
