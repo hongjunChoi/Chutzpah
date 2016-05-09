@@ -26,8 +26,8 @@
 
 <body ng-app="myApp">
     <!-- HEADER -->
-    <header>
-        <img id="logo" src="img/logo2.svg" />
+    <header  ng-show="authenticated">
+        <img id="logo" src="img/logo2.svg"/>
         <ul>
             <li id="searchwrapper" ng-show="authenticated">
                 <div id="searchbar" ng-controller="mainController">
@@ -43,11 +43,11 @@
             </div> -->
             </div>
         </li>
-        <li id="loginregister">
+<!--         <li id="loginregister">
             <p ng-hide="authenticated">
                 <a href="#/login">Login</a>or<a href="#/signup">Register</a>
             </p>
-        </li>
+        </li> -->
         <li id="btn_upload" alt="upload" ng-show="authenticated">
         	<span></span><p>Upload</p>
         </li>
@@ -62,7 +62,13 @@
 
 <!-- MAIN -->
 <main>
-
+<div id="cover">
+	<div>
+	<img src="img/coverimg.svg" />
+	<a href="#/login">Login</a>
+	<a href="#/signup">Sign Up</a>
+	</div>
+</div>
     <!-- PROFILE -->
     <div id="profilewrapper" ng-controller="profileController">
 
@@ -121,7 +127,9 @@
     <div id="mainscreen" ng-controller="mainController">
 
         <!-- Login Form -->
-        <div id="loginwrapper" ng-view></div>
+        <div id="loginwrapper" ng-view>
+        	
+        </div>
 
         <!-- Upload Form -->
         <div id="uploadwrapper" ng-controller="mainController" ng-show="authenticated">

@@ -931,7 +931,7 @@ body.uploadopened #uploadwrapper {
       width: 100px;
       height: 100px;
       margin: auto;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       clear: both; }
     #profilewrapper #profile .img-button {
       position: absolute;
@@ -961,7 +961,7 @@ body.uploadopened #uploadwrapper {
       margin-bottom: 10px; }
     #profilewrapper #profile p {
       margin-top: 20px;
-      font-size: 1.1em;
+      font-size: 1.05em;
       line-height: 1.5em;
       text-align: left; }
     #profilewrapper #profile span {
@@ -1498,8 +1498,13 @@ body.chatopened #chatwrapper {
   height: auto;
   position: relative;
   margin: auto;
-  padding: 120px 0 100px 0;
-  background-color: rgba(30, 30, 30, 0.75); }
+  padding: 60px 0 100px 0;
+  background-color: rgba(30, 30, 30, 0.75);
+  background-image: url(../img/cover.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center; }
   #loginwrapper h4,
   #loginwrapper h6 {
     color: white; }
@@ -1519,10 +1524,12 @@ body.chatopened #chatwrapper {
       #loginwrapper p.small a:hover {
         color: #fa4e5e; }
   #loginwrapper form {
+    padding: 20px 60px 40px 60px;
     max-width: 375px;
     text-align: center;
     margin: auto;
-    position: relative; }
+    position: relative;
+    background-color: rgba(30, 30, 30, 0.75); }
   #loginwrapper input {
     position: relative;
     display: block;
@@ -1619,6 +1626,55 @@ body.chatopened #chatwrapper {
     display: block; }
   #loginwrapper input[type="radio"] {
     -webkit-appearance: none; }
+
+#cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-image: url(../img/cover.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center; }
+  #cover div {
+    padding: 20px 60px 40px 60px;
+    max-width: 375px;
+    text-align: center;
+    margin: auto;
+    margin-top: 60px;
+    position: relative;
+    background-color: rgba(30, 30, 30, 0.75); }
+  #cover img {
+    position: relative;
+    margin: auto;
+    margin-bottom: 50px;
+    width: 300px;
+    height: 300px; }
+  #cover a {
+    margin: auto;
+    width: 200px;
+    padding: 36px 30px;
+    -webkit-transition: all 100ms linear;
+    -moz-transition: all 100ms linear;
+    -o-transition: all 100ms linear;
+    -ms-transition: all 100ms linear;
+    transition: all 100ms linear;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer;
+    background-color: #fa4e5e;
+    color: white;
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 10px; }
+    #cover a:hover {
+      background-color: #fa4e5e;
+      color: white; }
+    #cover a:hover {
+      opacity: .9; }
 
 .jp-play {
   background-image: url(../img/ui-icons/play.svg); }
