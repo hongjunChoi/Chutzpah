@@ -4,7 +4,6 @@
 $c-pink: #fa4e5e;
 $c-pink2: rgba(237,80,96,0.8);
 $c-gray1: #29292c;
-// $c-gray1: rgba(30,30,33,1.0);
 $c-gray2: #29292c;
 $borderA: 2px;
 $borderB: 5px;
@@ -82,7 +81,6 @@ header{
 	height: 20px;
 	z-index: 100;
 	background-color: $a-darkbg;
-	// box-shadow: 0px 10px 10px 0 rgba(0,0,0,.15);
 
 	ul{
 		width:70%;
@@ -341,20 +339,16 @@ nav{
 	}
 }
 
-
-
 body.menuopened{
 	header{
 		ul li{ color:black; }
 		#btn_menu{
 			span{
 				background-color: $c-pink;	
-
 				&:nth-child(1){ @include rotate(405deg); }
 				&:nth-child(2){ opacity: 0; }
 				&:nth-child(3){ @include rotate(315deg); }
 			}
-
 		}
 	}
 	nav{ @include translateX(0);
@@ -380,6 +374,7 @@ main{
 	margin:0;
 	background-color: $c-gray2;
 }
+
 // #listmenu,
 .mainlist,
 .commentlist,
@@ -387,6 +382,7 @@ main{
 	width: 80%;
 	margin: auto;
 }
+
 //heading
 .mainheading{
 	color: white;
@@ -395,9 +391,9 @@ main{
 	font-weight: 500;
 	&:first-of-type{margin-top:60px;}
 }
+
 //carousel
 .item{
-	// cursor: pointer;
 	img{ 
 		width: 100%;
 		max-height: 487px;
@@ -437,14 +433,11 @@ main{
 			font-size: 1.2em;
 			padding-bottom: 0;
 		}
-		&:hover{
-		}
 	}
 	&:hover{
 		div{
 			background-color: $c-pink;
 			h3:after{ background-color: $c-white;}
-
 		}
 	}
 }
@@ -452,7 +445,6 @@ main{
 .mainlist{
 	overflow: hidden;
 	margin:0 auto 140px auto;
-	// padding-top: 40px;
 	font-size: 1em;
 	ul{
 		padding-bottom:10px;
@@ -493,8 +485,6 @@ main{
 			@include transition(all,100ms,linear);
 			&:hover{
 				color: $c-pink;
-				// border:1px solid $c-pink;
-				// border-bottom: 2px solid $c-pink;
 				border-bottom-color: $c-pink;
 			}
 
@@ -630,15 +620,10 @@ svg.likeicon{
 
 .maincontent li.detailopened{
 
-	.postdetail-wrapper{
-		display: block;
-	}
+	.postdetail-wrapper{ display: block; }
 	.postgeneral{
 		background-color: $c-pink;
 		&:hover{ background-color: $c-pink;}
-	}
-	.postdetail-wrapper{
-		display: block;
 	}
 	svg.likeicon path{ fill:white;}
 }
@@ -692,14 +677,11 @@ svg.likeicon{
 	padding: 20px 10% 20px 10%;
 	z-index: 50;
 	background-color: $a-darkbg;
-	// background-color: $c-gray2;
 	@include translateY(-100%);
 	@include transition(all,300ms,ease-in-out);
 	text-align: center;
 	border-top:1px solid $a-white0;
-	h4,h6{
-		color: white;
-	}
+	h4,h6{ color: white; }
 	form{
 		position: relative;
 		border-bottom: 1px solid $c-pink;
@@ -724,9 +706,7 @@ svg.likeicon{
 		width: 90px;
 		display: inline-block;
 	}
-	.img-button{
-		margin-right: 10px;
-	}
+	.img-button{ margin-right: 10px; }
 	input[type="submit"]{
 		background-color: gray;
 		color: white;
@@ -736,9 +716,7 @@ svg.likeicon{
 		margin-top: 10px;
 		width: 210px;
 	}
-	input.uploadbtn{ 
-		background-color: $c-pink;
-	}
+	input.uploadbtn{  background-color: $c-pink; }
 	textarea{
 		overflow: auto;
 		height: 100%;
@@ -758,15 +736,12 @@ svg.likeicon{
 	img{ width: 100%;}
 }
 #music-holder{
-	button{
-		color: white;
-	}
+	button{ color: white; }
 }
 body.uploadopened{
 	#uploadwrapper{
 		@include translateY(0);
 		box-shadow: $shadow;
-		// margin-top: 1px;
 	}
 }
 ///////////////////////////////////////////////////////////////////////////
@@ -914,10 +889,8 @@ body.uploadopened{
 				cursor: pointer;
 				height: 60px;
 				padding: 10px 10px;
-				// overflow: hidden;
-				h6{
-					padding-bottom: 0;
-				}
+
+				h6{ padding-bottom: 0; }
 				p{
 					padding-bottom: 0;
 					font-size: .8em;
@@ -1071,9 +1044,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	.jp-gui div{ display: inline-block; }
 	.jp-interface{
 		width: 100%;
-		& > div{ 
-			vertical-align: middle; 
-		}
+		& > div{  vertical-align: middle; }
 	}
 	.jp-details{
 		&:first-of-type{ margin-left: 160px;}
@@ -1096,36 +1067,27 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			}
 		}
 	}
-	// .jp-controls-wrapper{
-	// 	min-width: 630px;
-	// 	position: relative;
-	// 	margin: auto;
-	// 	margin-left: 30px;
-	// 	& > div{
-	// 		vertical-align: middle;
-	// 		background-color: transparent;
-	// 		&:nth-child(0){ width: 10%; }
-	// 	}
-	// }
 #jp-playwrapper,
 #jp-volumewrapper{
 	position: absolute;
 }
 #jp-playwrapper{
-	// width: 100px;
 	left: 50%;
 	@include translateX(-50%);
 	button{
 		display: inline-block;
 		vertical-align: middle;
+		@include transition(all,200ms,ease-out);
 	}
 	.jp-play{
 		margin:0 10px;
+		&:hover{ @include scale(1.05); }
 	}
 	.jp-previous,
 	.jp-next{
 		width: 30px;
 		height: 30px;
+		&:hover{ @include scale(1.15); }
 	}
 }
 #jp-volumewrapper{
@@ -1183,7 +1145,10 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			@include transition(all,200ms,linear);
 			&:hover{ 
 				opacity: 1;
-				.jp-volume-bar-value span{ opacity: 1; }
+				.jp-volume-bar-value span{ 
+					opacity: 1; 
+					@include scale(1);
+				}
 			}
 			& > button,
 			& > div{
@@ -1209,6 +1174,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			border-radius: 2px;
 			cursor: pointer;
 			span{
+				cursor: pointer;
 				position:absolute;
 				right: 0;
 				top: -2px;
@@ -1216,7 +1182,8 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 				height: 8px;
 				border-radius: 4px;
 				background-color: white;
-				opacity: 0;
+				opacity: 0.5;
+				@include scale(0.7);
 			}
 		}
 
@@ -1321,9 +1288,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			pointer-events:none;
 		}
 		input{ padding: 16px 0; }
-		input.longform{
-			height: 50px;
-		}
+		input.longform{ height: 50px; }
 		&.active{
 			background-color: $c-pink;
 			border-color: $c-pink;
@@ -1341,9 +1306,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 			text-align: left;
 			float: left;
 		}
-		input{
-			width: 335px;
-		}
+		input{ width: 335px; }
 		input[type="submit"]{
 			width: 355px;
 		}
@@ -1355,17 +1318,9 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 	.tab-pane{
 		position: relative;
 		display: none;
-
-		& > div{
-
-		}
 	}
-	.tab-show{
-		display: block;
-	}
-	input[type="radio"]{
-		-webkit-appearance: none;
-	}
+	.tab-show{ display: block; }
+	input[type="radio"]{ -webkit-appearance: none; }
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -1375,34 +1330,5 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 .jp-state-playing .jp-play{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-stop{ background-image: url(../img/ui-icons/pause.svg);}
 .jp-mute{  background-image: url(../img/ui-icons/volume.svg); }
-// .jp-mute:focus{ background-image: url(../img/ui-icons/volume_mute.svg);}
 .jp-previous{background-image: url(../img/ui-icons/prev.svg);}
 .jp-next{background-image: url(../img/ui-icons/next.svg);}
-		//old
-// #searchbar{
-// 	margin-left:-20px;
-// 	border-width: 1px;
-// 	border-style: solid;
-// 	border-color:$c-pink;
-// 	border-radius: 25px;
-// 	width: 200px;
-// 	padding:11px 20px;
-// 	opacity: 1;
-// 	overflow: hidden;
-// 	@include transition(200ms, all, linear);
-
-// 	input{
-// 		height:28px;
-// 		&:last-of-type{
-// 			cursor: pointer;
-// 			background-color: transparent;
-// 			color:transparent;
-// 			background-image:url(../img/ui-icons/search-01.svg);
-// 			background-size: cover;
-// 			background-repeat: no-repeat;
-// 			width:28px;
-// 			height:28px;
-// 			float: right;
-// 		}
-// 	}
-// }

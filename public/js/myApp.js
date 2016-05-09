@@ -266,6 +266,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
     $scope.post = function() {
         ////// do not post if all empty ////// 
         alert("asdfasdf")
+        $("body").removeClass("uploadopened");
         var text = $("#text_input_field").val();
         if (text == "") {
             $("#text_input_field").attr("placeholder", "Please Write Something To Post!");
@@ -293,6 +294,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             $rootScope.music_to_post = "";
             $scope.refresh_view();
         });
+        
     };
 
     $scope.refresh_view = function() {

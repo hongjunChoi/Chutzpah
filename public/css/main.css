@@ -691,8 +691,6 @@ svg.likeicon {
   background-color: #fa4e5e; }
   .maincontent li.detailopened .postgeneral:hover {
     background-color: #fa4e5e; }
-.maincontent li.detailopened .postdetail-wrapper {
-  display: block; }
 .maincontent li.detailopened svg.likeicon path {
   fill: white; }
 
@@ -1209,13 +1207,31 @@ body.chatopened #chatwrapper {
   transform: translateX(-50%); }
   #jp-playwrapper button {
     display: inline-block;
-    vertical-align: middle; }
+    vertical-align: middle;
+    -webkit-transition: all 200ms ease-out;
+    -moz-transition: all 200ms ease-out;
+    -o-transition: all 200ms ease-out;
+    -ms-transition: all 200ms ease-out;
+    transition: all 200ms ease-out; }
   #jp-playwrapper .jp-play {
     margin: 0 10px; }
+    #jp-playwrapper .jp-play:hover {
+      -webkit-transform: scale(1.05);
+      -moz-transform: scale(1.05);
+      -o-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+      transform: scale(1.05); }
   #jp-playwrapper .jp-previous,
   #jp-playwrapper .jp-next {
     width: 30px;
     height: 30px; }
+    #jp-playwrapper .jp-previous:hover,
+    #jp-playwrapper .jp-next:hover {
+      -webkit-transform: scale(1.15);
+      -moz-transform: scale(1.15);
+      -o-transform: scale(1.15);
+      -ms-transform: scale(1.15);
+      transform: scale(1.15); }
 
 #jp-volumewrapper {
   right: 80px;
@@ -1282,7 +1298,12 @@ body.chatopened #chatwrapper {
   .jp-volume-controls:hover {
     opacity: 1; }
     .jp-volume-controls:hover .jp-volume-bar-value span {
-      opacity: 1; }
+      opacity: 1;
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -o-transform: scale(1);
+      -ms-transform: scale(1);
+      transform: scale(1); }
   .jp-volume-controls > button, .jp-volume-controls > div {
     vertical-align: middle;
     display: inline-block; }
@@ -1305,6 +1326,7 @@ body.chatopened #chatwrapper {
   border-radius: 2px;
   cursor: pointer; }
   .jp-volume-bar-value span {
+    cursor: pointer;
     position: absolute;
     right: 0;
     top: -2px;
@@ -1312,7 +1334,12 @@ body.chatopened #chatwrapper {
     height: 8px;
     border-radius: 4px;
     background-color: white;
-    opacity: 0; }
+    opacity: 0.5;
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7); }
 
 #loginwrapper {
   width: 100%;
