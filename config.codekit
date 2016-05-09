@@ -24,6 +24,17 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
+	"\/loader.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/loader.js",
+		"outputAbbreviatedPath": "\/min\/loader-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/models\/models.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -176,6 +187,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/public\/img\/cover.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 556081,
+		"inputAbbreviatedPath": "\/public\/img\/cover.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/cover.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/public\/img\/default.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -271,6 +293,17 @@
 		"initialSize": 556081,
 		"inputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
 		"outputAbbreviatedPath": "\/public\/img\/sampleheader2.jpg",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/public\/img\/sampleheader3.jpg": {
+		"fileType": 16384,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 573158,
+		"inputAbbreviatedPath": "\/public\/img\/sampleheader3.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/sampleheader3.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
