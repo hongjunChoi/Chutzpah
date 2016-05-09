@@ -693,12 +693,12 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         $scope.open_profile();
     }
 
-    $scope.show_request = function(request) {
 
-    }
     $scope.show_event = function(event) {
 
     }
+
+
     $scope.start_music = function(event, post) {
         console.log("starting music");
         $("body").removeClass("menuopened");
