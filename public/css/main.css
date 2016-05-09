@@ -685,6 +685,11 @@ svg.likeicon {
   height: auto;
   min-height: 20px; }
 
+#postdetail-image-holder {
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
 .maincontent li.detailopened .postdetail-wrapper {
   display: block; }
 .maincontent li.detailopened .postgeneral {
@@ -797,7 +802,7 @@ svg.likeicon {
   #uploadwrapper .img-button {
     margin-right: 10px; }
   #uploadwrapper input[type="submit"] {
-    background-color: gray;
+    background-color: #8e8e8e;
     color: white;
     -webkit-transition: all 100ms linear;
     -moz-transition: all 100ms linear;
@@ -858,7 +863,8 @@ body.uploadopened #uploadwrapper {
   -moz-transform: translateX(100%);
   -o-transform: translateX(100%);
   -ms-transform: translateX(100%);
-  transform: translateX(100%); }
+  transform: translateX(100%);
+  box-shadow: 0px 20px 20px 0 rgba(0, 0, 0, 0.15); }
   #profilewrapper div {
     margin: auto;
     clear: both; }
@@ -872,7 +878,7 @@ body.uploadopened #uploadwrapper {
     flex-direction: column; }
   #profilewrapper #profileheader {
     width: 100%;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
     background-size: cover;
     background-repeat: no-repeat; }
@@ -975,15 +981,39 @@ body.uploadopened #uploadwrapper {
         border-color: #fa4e5e;
         background-color: #fa4e5e;
         color: white; }
+    #profilewrapper #profile #openchat {
+      background-color: white;
+      color: #fa4e5e;
+      float: left;
+      margin-left: -4px;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer; }
+      #profilewrapper #profile #openchat:hover {
+        background-color: #fa4e5e;
+        color: white; }
+      #profilewrapper #profile #openchat span.current_user_profile {
+        border: none;
+        color: #fa4e5e;
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0; }
+      #profilewrapper #profile #openchat:hover span {
+        color: white; }
   #profilewrapper #related {
     width: 100%;
     margin: 0;
     overflow: hidden;
     margin-bottom: 64px; }
     #profilewrapper #related > h6 {
-      color: #b1b1b1;
+      color: #1e1e1e;
       padding-bottom: 8px;
-      margin-left: 30px; }
+      text-align: center; }
     #profilewrapper #related h6 {
       font-weight: 300;
       font-size: 1em; }
@@ -1013,23 +1043,6 @@ body.uploadopened #uploadwrapper {
         #profilewrapper #related ul li:hover {
           opacity: 1; }
 
-#openchat {
-  background-color: white;
-  color: #fa4e5e;
-  float: left;
-  margin-left: -4px;
-  -webkit-transition: all 100ms linear;
-  -moz-transition: all 100ms linear;
-  -o-transition: all 100ms linear;
-  -ms-transition: all 100ms linear;
-  transition: all 100ms linear;
-  border-radius: 4px;
-  padding: 4px 6px;
-  cursor: pointer; }
-  #openchat:hover {
-    background-color: #fa4e5e;
-    color: white; }
-
 #profilewrapper > div:last-of-type {
   z-index: 1;
   width: 100%;
@@ -1042,76 +1055,158 @@ body.uploadopened #uploadwrapper {
 #chatwrapper {
   position: absolute;
   width: 500;
-  height: 420px;
-  bottom: 64px;
-  background-color: white;
+  height: 100vh;
+  top: 0;
+  background-color: transparent;
   z-index: 9999;
-  border-radius: 5px;
+  box-shadow: 0px 20px 20px 0 rgba(0, 0, 0, 0.15);
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
   -webkit-transition: all 300ms ease-out;
   -moz-transition: all 300ms ease-out;
   -o-transition: all 300ms ease-out;
   -ms-transition: all 300ms ease-out;
   transition: all 300ms ease-out;
-  -webkit-transform: translateY(100%);
-  -moz-transform: translateY(100%);
-  -o-transform: translateY(100%);
-  -ms-transform: translateY(100%);
-  transform: translateY(100%); }
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%); }
   #chatwrapper > div {
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 480px;
-    position: relative;
-    clear: both; }
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 460px; }
   #chatwrapper .chatheader {
-    height: 20px;
-    background-color: #fa4e5e; }
+    height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #fa4e5e;
+    z-index: 99; }
+    #chatwrapper .chatheader h6 {
+      color: white;
+      display: inline-block;
+      font-size: 1.15em;
+      font-weight: 500;
+      margin-top: 8px; }
+    #chatwrapper .chatheader button {
+      position: absolute;
+      width: 28px;
+      height: 24px;
+      padding: 1px;
+      text-align: center;
+      top: 12px;
+      right: 40px; }
+      #chatwrapper .chatheader button span {
+        background-color: white;
+        display: block;
+        position: absolute;
+        width: 28px;
+        height: 2px;
+        border-radius: 1px;
+        display: block;
+        position: absolute;
+        top: 15px;
+        -webkit-transition: 300ms all ease-in-out;
+        -moz-transition: 300ms all ease-in-out;
+        -o-transition: 300ms all ease-in-out;
+        -ms-transition: 300ms all ease-in-out;
+        transition: 300ms all ease-in-out; }
+        #chatwrapper .chatheader button span:first-of-type {
+          -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg); }
+        #chatwrapper .chatheader button span:last-of-type {
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg); }
   #chatwrapper .chatmain {
-    height: 340px;
+    flex-grow: 2;
+    height: auto;
     overflow-y: scroll;
     background-color: white; }
-    #chatwrapper .chatmain p {
+    #chatwrapper .chatmain > div {
       clear: both;
-      background-color: #fa4e5e;
-      color: white;
-      padding: 4px;
-      margin: 2px 8px; }
-    #chatwrapper .chatmain p.received {
+      padding: 8px;
+      margin: 5px 8px;
+      background-color: rgba(0, 0, 0, 0.07);
+      border-radius: 4px; }
+      #chatwrapper .chatmain > div .request_info {
+        background-color: white;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px; }
+        #chatwrapper .chatmain > div .request_info p {
+          font-size: 0.9em;
+          font-weight: 300;
+          text-transform: capitalize;
+          color: #fa4e5e;
+          padding-bottom: 1px; }
+        #chatwrapper .chatmain > div .request_info p:last-of-type {
+          padding-bottom: 0; }
+    #chatwrapper .chatmain .chat_msg {
       float: left; }
-    #chatwrapper .chatmain p.sent {
+    #chatwrapper .chatmain .mychat_msg {
       float: right; }
   #chatwrapper .chatcontrol {
-    height: 40px;
+    height: 80px;
     background-color: white;
     border-top: 1px solid #fa4e5e;
-    padding-top: 10px; }
-    #chatwrapper .chatcontrol > div {
-      display: inline-block;
+    padding-top: 20px;
+    margin-bottom: 64px; }
+    #chatwrapper .chatcontrol div {
+      width: 100px;
+      float: right;
       color: white;
-      background-color: #292929;
+      background-color: #8e8e8e;
       cursor: pointer;
-      margin-bottom: -5px; }
-    #chatwrapper .chatcontrol input[type="text"] {
+      display: inline-block;
+      text-align: center;
+      -webkit-transition: all 100ms linear;
+      -moz-transition: all 100ms linear;
+      -o-transition: all 100ms linear;
+      -ms-transition: all 100ms linear;
+      transition: all 100ms linear;
+      border-radius: 4px;
+      padding: 4px 6px;
+      cursor: pointer; }
+      #chatwrapper .chatcontrol div:hover {
+        background-color: #fa4e5e;
+        color: white; }
+      #chatwrapper .chatcontrol div:first-of-type {
+        margin-bottom: 10px; }
+    #chatwrapper .chatcontrol textarea {
+      position: absolute;
       color: black;
-      width: 100%; }
+      width: 330px;
+      height: 60px;
+      font-size: 1.2em; }
   #chatwrapper #chatreq {
-    display: none;
+    width: 300px;
     position: absolute;
-    top: 30px;
+    top: 60px;
     left: 0;
     height: auto;
-    padding: 60px 80px;
-    -webkit-transform: translateY(100%);
-    -moz-transform: translateY(100%);
-    -o-transform: translateY(100%);
-    -ms-transform: translateY(100%);
-    transform: translateY(100%);
+    padding: 20px 100px;
+    -webkit-transition: all 300ms ease-out;
+    -moz-transition: all 300ms ease-out;
+    -o-transition: all 300ms ease-out;
+    -ms-transition: all 300ms ease-out;
+    transition: all 300ms ease-out;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -o-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
     background-color: #1e1e1e; }
     #chatwrapper #chatreq label {
       width: 230px;
-      padding: 10px 10px;
+      padding: 10px 4px;
       color: white;
       margin: auto;
+      margin-left: 24px;
       text-align: left; }
     #chatwrapper #chatreq input {
       display: block;
@@ -1123,9 +1218,9 @@ body.uploadopened #uploadwrapper {
       border: 1px solid white; }
     #chatwrapper #chatreq input:focus {
       border-color: #fa4e5e; }
-    #chatwrapper #chatreq #chatreq-submit {
+    #chatwrapper #chatreq input[type="submit"] {
+      width: 252px;
       border: none;
-      background-color: #fa4e5e;
       -webkit-transition: all 100ms linear;
       -moz-transition: all 100ms linear;
       -o-transition: all 100ms linear;
@@ -1133,12 +1228,18 @@ body.uploadopened #uploadwrapper {
       transition: all 100ms linear;
       border-radius: 4px;
       padding: 4px 6px;
-      cursor: pointer; }
-      #chatwrapper #chatreq #chatreq-submit:hover {
+      cursor: pointer;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      height: 32px;
+      color: white; }
+      #chatwrapper #chatreq input[type="submit"]:hover {
         background-color: #fa4e5e;
         color: white; }
+    #chatwrapper #chatreq #chatreq-submit {
+      background-color: #fa4e5e;
+      margin-top: 28px; }
   #chatwrapper #chatreq.active {
-    display: block;
     -webkit-transform: translateY(0%);
     -moz-transform: translateY(0%);
     -o-transform: translateY(0%);
@@ -1146,11 +1247,11 @@ body.uploadopened #uploadwrapper {
     transform: translateY(0%); }
 
 body.chatopened #chatwrapper {
-  -webkit-transform: translateY(0%);
-  -moz-transform: translateY(0%);
-  -o-transform: translateY(0%);
-  -ms-transform: translateY(0%);
-  transform: translateY(0%); }
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -o-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%); }
 
 #controller {
   z-index: 999;

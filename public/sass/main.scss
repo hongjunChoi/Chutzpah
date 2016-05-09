@@ -617,6 +617,11 @@ svg.likeicon{
 	height: auto;
 	min-height: 20px;
 }
+#postdetail-image-holder{
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
 
 .maincontent li.detailopened{
 
@@ -708,7 +713,7 @@ svg.likeicon{
 	}
 	.img-button{ margin-right: 10px; }
 	input[type="submit"]{
-		background-color: gray;
+		background-color: #8e8e8e;
 		color: white;
 		@include buttonA;
 	}
@@ -755,6 +760,7 @@ body.uploadopened{
 	background-color: white;
 	@include transition(300ms, all, ease-in-out);
 	@include translateX(100%);
+	box-shadow: $shadow;
 
 	div{
 		margin: auto;
@@ -767,7 +773,7 @@ body.uploadopened{
 	}
 	#profileheader{
 		width: 100%;
-		height: 200px;
+		height: 180px;
 		overflow: hidden;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -859,6 +865,23 @@ body.uploadopened{
 				background-color: $c-pink;
 				color: white;}
 		}
+		#openchat{
+			background-color: white;
+			color: $c-pink;
+			float: left;
+			margin-left: -4px;
+			@include buttonA;
+			span.current_user_profile{
+				border:none;
+				color:$c-pink;
+				margin-left: 0;
+				padding-left: 0;
+				padding-right: 0;
+			}
+			&:hover span{
+				color: white;
+			}
+		}
 	}
 	#related{
 		width: 100%;
@@ -866,9 +889,10 @@ body.uploadopened{
 		overflow: hidden;
 		margin-bottom: $controller;
 		& > h6{
-			color: #b1b1b1;
+			color: $a-darkbg;
 			padding-bottom: 8px;
-			margin-left: 30px;
+			// margin-left: 30px;
+			text-align: center;
 		}
 		h6{
 			font-weight: 300;
@@ -902,13 +926,6 @@ body.uploadopened{
 	}
 }
 
-#openchat{
-	background-color: white;
-	color: $c-pink;
-	float: left;
-	margin-left: -4px;
-	@include buttonA;
-}
 
 //z-index
 #profilewrapper > div:last-of-type{ 
@@ -925,71 +942,131 @@ body.uploadopened{
 #chatwrapper{
 	position: absolute;
 	width: 500;
-	height: 420px;
-	bottom: $controller;
-	background-color: white;
+	height: 100vh;
+	top:0;
+	background-color: transparent;
 	z-index: 9999;
-	border-radius: $borderB;
+	box-shadow: $shadow;
+	@include flexbox(column);
+	@include flexbox-justify(space-between);
 	@include transition(all, 300ms, ease-out);
-	@include translateY(100%);
+	@include translateX(100%);
 
 	& > div{
-		padding-left: 10px;
-		padding-right: 10px;
-		width: 480px;
-		position: relative;
-		clear: both;
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 460px;
 	}
 	.chatheader{
-		height: 20px;
+		height: 40px;
+		padding-top: 10px;
+		padding-bottom: 10px;
 		background-color:$c-pink;
+		z-index: 99;
+		h6{
+			color: white;
+			display: inline-block;
+			font-size: 1.15em;
+			font-weight: 500;
+			margin-top: 8px;
+		}
+		button{
+			position: absolute;
+			width:28px;
+			height:24px;
+			padding: 1px;
+			text-align: center;
+			top:12px;
+			right: 40px;
+
+			span{
+				background-color: white;
+				display: block;
+				position: absolute;
+				width: 28px;
+				height: 2px;
+				border-radius: 1px;
+				display: block;
+				position: absolute;
+				top: 15px;
+				@include transition(300ms, all, ease-in-out);
+				&:first-of-type{-webkit-transform:rotate(-45deg);transform:rotate(-45deg);}
+				&:last-of-type{-webkit-transform:rotate(45deg);transform:rotate(45deg);}
+			}
+		}
 	}
 	.chatmain{
-		height: 340px;
+		flex-grow:2;
+		height: auto;
 		overflow-y:scroll;
 		background-color: white;
-		p{ 
+		& > div{
 			clear: both;
-			background-color: $c-pink;
-			color: white;
-			padding: 4px;
-			margin: 2px 8px;
+			padding: 8px;
+			margin: 5px 8px;
+			background-color: rgba(0,0,0,0.07);
+			border-radius: $buttonBorder;
+			.request_info{
+				background-color: white;
+				margin-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				p{ 
+					font-size: 0.9em;
+					font-weight: 300;
+					text-transform: capitalize;
+					color: $c-pink;
+					padding-bottom: 1px;
+				}
+				p:last-of-type{padding-bottom: 0;}
+			}
 		}
-		p.received{  float: left;  }
-		p.sent{ float: right; }
+		.chat_msg{  float: left;  }
+		.mychat_msg{ float: right; }
 	}
 	.chatcontrol{
-		height: 40px;
+		height: 80px;
 		background-color:white;
 		border-top: 1px solid $c-pink;
-		padding-top: 10px;
-		& > div{ 
-			display: inline-block; 
+		padding-top: 20px;
+		margin-bottom:$controller;
+		div{
+			width: 100px;
+			float: right;
 			color: white;
-			background-color: $c-gray;
+			background-color: #8e8e8e;
 			cursor: pointer;
-			margin-bottom: -5px;
+			display: inline-block;
+			text-align: center;
+			@include buttonA;
+
+			&:first-of-type{margin-bottom: 10px;}
 		}
-		input[type="text"]{
+		textarea{
+			position: absolute;
 			color:black;
-			width: 100%;
+			width: 330px;
+			height: 60px;
+			font-size: 1.2em;
 		}
 	}
 	#chatreq{
-		display: none;
+		width: 300px;
 		position: absolute;
-		top: 30px;
+		top: 60px;
 		left: 0;
 		height: auto;
-		padding: 60px 80px;
-		@include translateY(100%);
+		padding: 20px 100px;
+		@include transition(all,300ms,ease-out);
+		@include translateY(-100%);
 		background-color: $a-darkbg;
 
 		label{
 			width: 230px;
-			padding:10px 10px;
+			padding:10px 4px;
 			color:white;
 			margin:auto;
+			margin-left: 24px;
 			text-align: left;
 		}
 		input{
@@ -1001,21 +1078,24 @@ body.uploadopened{
 			margin:16px auto;
 			border:1px solid white;
 		}
-		input:focus{
-			border-color:$c-pink;
+		input:focus{ border-color:$c-pink; }
+		input[type="submit"]{
+			width: 252px;
+			border:none;
+			@include buttonA;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			height: 32px;
+			color: white;
 		}
 		#chatreq-submit{
-			border:none;
 			background-color: $c-pink;
-			@include buttonA;
+			margin-top: 28px;
 		}
 	}
-	#chatreq.active{
-		display: block;
-		@include translateY(0%);
-	}
+	#chatreq.active{ @include translateY(0%);}
 }
-body.chatopened #chatwrapper{ @include translateY(0%); }
+body.chatopened #chatwrapper{ @include translateX(0%); }
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -1107,9 +1187,7 @@ body.chatopened #chatwrapper{ @include translateY(0%); }
 		}
 	}
 #jp-playwrapper,
-#jp-volumewrapper{
-	position: absolute;
-}
+#jp-volumewrapper{ position: absolute; }
 #jp-playwrapper{
 	left: 50%;
 	@include translateX(-50%);

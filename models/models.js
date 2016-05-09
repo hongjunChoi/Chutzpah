@@ -65,7 +65,7 @@ var eventSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    time: Date,
+    time: String,
     location: String,
     genre: String,
     num_likes: Number
@@ -107,10 +107,7 @@ var chatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    request_time: {
-        type: Date,
-        default: Date.now
-    },
+    request_time: String,
     request_location: String,
     request_music_type: String
 

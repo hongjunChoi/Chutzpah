@@ -8,7 +8,13 @@
     <meta name="viewport" content="width=device-width">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <script src="https://use.typekit.net/yzo6awb.js"></script>
-    <script>try { Typekit.load({ async: true  });}catch(e){}</script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/carousel/owl.carousel.css">
     <link rel="stylesheet" href="css/carousel/owl.theme.css">
@@ -19,18 +25,18 @@
 </head>
 
 <body ng-app="myApp">
-<!-- HEADER -->
-<header>
-    <img id="logo" src="img/logo2.svg" />
-    <ul>
-        <li id="searchwrapper" ng-show="authenticated">
-            <div id="searchbar" ng-controller="mainController">
-                <form>
-                    <span></span>
-                    <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
-                    <input type="submit" ng-click="search()">
-                </form>
-                <!-- <div id="searchresult">
+    <!-- HEADER -->
+    <header>
+        <img id="logo" src="img/logo2.svg" />
+        <ul>
+            <li id="searchwrapper" ng-show="authenticated">
+                <div id="searchbar" ng-controller="mainController">
+                    <form>
+                        <span></span>
+                        <input type="text" placeholder="Search Anything" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Anything'" ng-model='search_string'>
+                        <input type="submit" ng-click="search()">
+                    </form>
+                    <!-- <div id="searchresult">
                 <div ng-repeat="post in post_result" ng-click="view_post(post)">{{post}} </div>
                 <div ng-repeat="user in user_result" ng-click="view_user(user)">{{user}} </div>
                 <div ng-repeat="event in event_result" ng-click="view_event(event)">{{event}} </div>
@@ -62,16 +68,6 @@
 
         <!-- Chatting -->
         <div id="chatwrapper">
-            <div class="chatheader">
-                <button id="closechat" alt="close chat">close</button>
-            </div>
-            <div class="chatmain"></div>
-            <div class="chatcontrol">
-                <input id="chat_input" type="text" placeholder="Type a message"></input>
-                <div ng-click="send_chat()"> SEND CHAT </div>
-                <div ng-click="send_request()"> REQUEST A GIG! </div>
-                <!-- <input type="submit" value="send"></input> -->
-            </div>
             <div id="chatreq">
             	<label>What</label>
             	<input id="chatreq-type" type="text" placeholder="type"></input>
@@ -79,8 +75,20 @@
             	<input id="chatreq-time" type="text" placeholder="time"></input>
             	<label>Where</label>
             	<input id="chatreq-loc" type="text" placeholder="location"></input>
-            	<input id="chatreq-submit" type="submit" value="Send"></input>
+            	<input id="chatreq-submit" type="submit" value="Send Request" ng-click="send_request()"></input>
+            	<input id="chatreq-cancel" type="submit" value="Cancel"></input>
             	<!-- remove '.active' from '#chatreq' when -->
+            </div>
+            <div class="chatheader">
+            	<h6>Chat</h6>
+                <button id="closechat" alt="close chat"><span></span><span></span></button>
+            </div>
+            <div class="chatmain"></div>
+            <div class="chatcontrol">
+                <textarea id="chat_input" rows="2" type="text" placeholder="Type a message"></textarea>
+                <div ng-click="send_chat()">Send Message</div>
+                <div ng-click="open_request_form()">Request a GIG</div>
+                <!-- <input type="submit" value="send"></input> -->
             </div>
         </div>
 
@@ -108,7 +116,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- MAIN SCREEN -->
     <div id="mainscreen" ng-controller="mainController">
 
@@ -138,10 +146,10 @@
                     </div>
                     <div id="music-holder"></div>
                     <input class="uploadbtn" type="submit" value="Upload" ng-click="post()" />
+
                 </div>
             </div>
         </div>
-
         <!-- CAROUSEL -->
         <h5 class="mainheading" ng-show="authenticated">Upcoming Trends</h5>
         <div id="news-carousel" class="owl-carousel" ng-show="authenticated">
@@ -173,7 +181,6 @@
                 </div>
             </div>
         </div>
-
         <!-- LISTS -->
         <h5 class="mainheading" ng-show="authenticated">Browse</h5>
         <div class="mainlist" ng-show="authenticated">
@@ -226,7 +233,7 @@
                     <div class="postdetail-wrapper">
                         <!-- data here -->
                         <!-- images: post.post_info.images 
-                         images: post.post_info.images -->
+                     images: post.post_info.images -->
                         <div class="postdetail">
                             <div id="postdetail-image-holder">
                                 <img style="width:100px; height:100px" ng-repeat="img in post.post_info.images" src={{img}}>
@@ -263,10 +270,10 @@
                     <div class="postdetail-wrapper">
                         <!-- data here -->
                         <!-- images: post.post_info.images 
-                         images: post.post_info.images -->
+                     images: post.post_info.images -->
                         <div class="postdetail">
                             <div id="postdetail-image-holder">
-                                <img style="width:100px; height:100px" ng-repeat="img in file.post_info.images" src={{img}}>
+                                <img ng-repeat="img in file.post_info.images" src={{img}}>
                             </div>
                             <div id="music-holder"></div>
                         </div>
@@ -309,46 +316,46 @@
                     <p>{{ event.time }}</p>
                 </li>
             </ul>
+            </div>
         </div>
-    </div>
-
-    <!-- Bottom CONTROLLER -->
-    <div id="controller" ng-controller="profileController" ng-show="authenticated">
-        <div id="playerwrapper">
-            <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
-                <div class="jp-type-single">
-                    <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-                    <div class="jp-gui">
-                        <div class="jp-video-play">
-                            <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
-                        </div>
-                        <div class="jp-interface">
-                            <div class="jp-progress">
-                                <div class="jp-seek-bar">
-                                    <div class="jp-play-bar"></div>
+        <!-- Bottom CONTROLLER -->
+        <div id="controller" ng-controller="profileController" ng-show="authenticated">
+            <div id="playerwrapper">
+                <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
+                    <div class="jp-type-single">
+                        <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+                        <div class="jp-gui">
+                            <div class="jp-video-play">
+                                <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+                            </div>
+                            <div class="jp-interface">
+                                <div class="jp-progress">
+                                    <div class="jp-seek-bar">
+                                        <div class="jp-play-bar"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="thumbwrapper">
-                                <img id="userthumb" src="img/sample.jpg" ng-click="get_profile_info()" />
-                            </div>
-                            <div class="jp-details">
-                                <div class="titlewrapper">
-                                    <div class="artistname">{{now_playing.created_by}}</div>
-                                    <div class="jp-title" aria-label="title">&nbsp;</div>
+                                <div id="thumbwrapper">
+                                    <img id="userthumb" src="img/default.png" ng-click="get_profile_info()" />
                                 </div>
-                            </div>
-                            <div id="jp-playwrapper" class="jp-controls-holder">
-                                <div class="jp-controls">
-                                    <button class="jp-previous"></button>
-                                    <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
-                                    <button class="jp-next"></button>
+                                <div class="jp-details">
+                                    <div class="titlewrapper">
+                                        <div class="artistname">{{now_playing.created_by}}</div>
+                                        <div class="jp-title" aria-label="title">&nbsp;</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div id="jp-volumewrapper" class="jp-controls-holder">
-                                <div class="jp-volume-controls">
-                                    <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
-                                    <div class="jp-volume-bar">
-                                        <div class="jp-volume-bar-value"><span></span></div>
+                                <div id="jp-playwrapper" class="jp-controls-holder">
+                                    <div class="jp-controls">
+                                        <button class="jp-previous"></button>
+                                        <button class="jp-play ctrlbtn" role="button" tabindex="0"></button>
+                                        <button class="jp-next"></button>
+                                    </div>
+                                </div>
+                                <div id="jp-volumewrapper" class="jp-controls-holder">
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute ctrlbtn" role="button" tabindex="0"></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value"><span></span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -357,10 +364,7 @@
                 </div>
             </div>
         </div>
-    </div>
 </main>
-
-
 <!-- RIGHT NAVIGATION MENU -->
 <nav id="navwrapper">
     <ul>
@@ -379,8 +383,6 @@
         </li>
     </ul>
 </nav>
-
-
 <!-- angular js files   -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
