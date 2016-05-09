@@ -294,7 +294,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
             $rootScope.music_to_post = "";
             $scope.refresh_view();
         });
-        
+
     };
 
     $scope.refresh_view = function() {
@@ -952,30 +952,34 @@ app.controller('profileController', function(fileUpload, $scope, $rootScope, $ht
         });
     };
 
-    $scope.send_request = function() {
+    $scope.open_request_form = function() {
         $("#chatreq").addClass("active");
+    }
+
+    $scope.send_request = function() {
+
         var url = "/send_chat";
         //NEED TO PROGRAMMICALLY OBTAIN USER ID USING DATA ATTRIBUTE
         var sent_to = $rootScope.now_playing.created_by;
         var text = $("#chat_input").val();
         var sent_from = $rootScope.current_user;
-
+        // alert($("#chatreq-type").val() + "   " + $("#chatreq-loc").val() + "    " + $("#chatreq-time").val());
         $http.post(url, {
             chat_type: "request",
             sent_from: sent_from,
             text: text,
             sent_to: sent_to,
-            request_music_type: "sample genre",
-            request_location: "providence mall",
-            request_time: Date.now()
+            request_music_type: $("#chatreq-type").val(),
+            request_location: $("#chatreq-loc").val(),
+            request_time: $("#chatreq-time").val()
 
         }).success(function(data) {
             $("#chat_input").val("");
-
+            $("#chatreq").removeClass("active");
             var type = data['request_music_type'];
-            var time = convert_time(data['request_time']);
-            var locatiion = data['request_location'];
-
+            var time = (data['request_time']);
+            var location = data['request_location'];
+            alert(location);
             var dom = " <div class = 'chat_msg gig_request'> successfully send gig request to  " +
                 sent_to + "    <div class = 'request_info'>  <p>requested song type :" + type + "</p>" +
                 " <p>requested gig time :" + time + "</p>" +

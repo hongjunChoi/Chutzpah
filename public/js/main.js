@@ -115,7 +115,7 @@ $(document).ready(function() {
     });
 
     function menuopen() {
-	    closeAll();
+        closeAll();
         if (!menuopened) {
             $("body").addClass("menuopened");
         } else {
@@ -155,7 +155,7 @@ $(document).ready(function() {
             var time = convert_time(data.sent_at);
             var music_type = data.request_music_type;
             var request_location = data.request_location;
-            var request_time = convert_time(data.request_time);
+            var request_time = data.request_time;
             var id = data['_id'];
 
             if (data.chat_type == "request") {
@@ -204,18 +204,18 @@ $(document).ready(function() {
 
     // Carousel
     $("#news-carousel").owlCarousel({
-    	items: 1,
-    	lazyLoad : true,
-    	// navigation: true,
-    	autoPlay: 4000,
-    	stopOnHover: true,
-    	singleItem:true,
-    	slideSpeed:500
+        items: 1,
+        lazyLoad: true,
+        // navigation: true,
+        autoPlay: 4000,
+        stopOnHover: true,
+        singleItem: true,
+        slideSpeed: 500
     });
 
     // Scroll control
-    $("#logo").click(function(){
-		$.scrollTo($("body"),200);
+    $("#logo").click(function() {
+        $.scrollTo($("body"), 200);
     });
 
     // Key Input (Space to play/pause)

@@ -107,10 +107,7 @@ var chatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    request_time: {
-        type: Date,
-        default: Date.now
-    },
+    request_time: String,
     request_location: String,
     request_music_type: String
 
