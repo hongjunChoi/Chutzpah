@@ -423,6 +423,7 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         root_dom.toggleClass('detailopened');
         var chat_field = root_dom.find('.commentField');
         var chat_list = root_dom.find('.commentmain');
+        set_user_images("/uploads/img/" + post_data['created_by']);
         $http.get(url, {
             params: {
                 post_id: post_id
@@ -501,6 +502,11 @@ app.controller('mainController', function(fileUpload, $scope, $rootScope, $sce, 
         console.log("loading comment to post : id : ", post_id);
         var url = "/api/comment";
         var dom = $(event.target).closest(".commentField");
+
+        $('body').removeClass("menuopened");
+        dom.closest(".post-item").addClass("detailopened");
+
+
         var text = dom.find(".comment_input").val();
 
         $http.post(url, {
@@ -773,7 +779,7 @@ function set_user_profile(info, user) {
         $('.img-button').show();
     } else {
         $('#openchat').show();
-        $('.img-button').hide();
+        // $('.img-button').hide();
     }
 }
 

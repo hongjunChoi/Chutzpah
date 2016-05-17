@@ -1267,10 +1267,10 @@ body.uploadopened #uploadwrapper {
     position: absolute;
     right: 0;
     top: 70px;
-    margin-top: 100px;
+    margin-top: 76px;
     margin-right: 36px;
     font-size: 1em;
-    color: white;
+    color: #fa4e5e;
     cursor: pointer;
     -webkit-transition: all 100ms linear;
     -moz-transition: all 100ms linear;

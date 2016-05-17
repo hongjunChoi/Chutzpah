@@ -49,8 +49,9 @@ $(document).ready(function() {
 
 
     $(document).on('click', '.confirm_button', function() {
-        var request_data = $(this).closest('.chat_msg').data("request_info");
 
+        var request_data = $(this).closest('.chat_msg').data("request_info");
+        alert(JSON.stringify(request_data))
         var url = "/api/events";
         var location = request_data.request_location;
         var time = request_data.request_time;
@@ -67,6 +68,15 @@ $(document).ready(function() {
         }).done(function(data) {
             alert("confirm successful!");
         });
+    });
+
+
+
+
+    $(document).on('click', '.comment_input', function(event) {
+        event.stopPropagation();
+        $('body').removeClass("menuopened");
+        $(this).closest(".post-item").addClass("detailopened");
     });
 
 

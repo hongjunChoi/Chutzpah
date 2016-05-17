@@ -335,6 +335,46 @@ nav{
 				h4{ color: $c-pink; }
 			}
 			&.active > div{ display: block; }
+
+			ul{ 
+				margin-top: 15px;
+				li{
+					margin-left: 0;
+					font-weight: 500;
+					width: 230px;
+					padding-left: 10px;
+					padding-right: 10px;
+					background-color: $c-pink;
+					color:white;
+					span{
+						margin-left: 5px;
+						font-weight: 500;
+						color:white;
+						float: right;
+					}
+				}
+			}
+			#new_message_num{
+				display: none;
+				color:white;
+				font-size: 1em;
+				font-weight: 700;
+				margin-left: 30px;
+				position: absolute;
+				top: 18px;
+				right: 128px;
+				width: 17px;
+				height: 17px;
+				border-radius: 50%;
+				background-color: $c-pink;
+				padding: 2px;
+				text-align: center;
+			}
+			&.active{
+				#new_message_num{
+					display: block;
+				}
+			}
 		}
 	}
 }
@@ -534,6 +574,11 @@ main{
 	}
 }
 // list
+#filelist{
+	margin-top: 30px;
+	border-top: 1px solid $a-white2;
+	padding-top: 2px;
+}
 .maincontent li{
 	cursor: pointer;
 	@include transition(all, 100ms, linear);
@@ -828,10 +873,10 @@ body.uploadopened{
 			position: absolute;
 			right: 0;
 			top: 70px;
-			margin-top: 100px;
+			margin-top: 76px;
 			margin-right: 36px;
 			font-size: 1em;
-			color: white;
+			color: $c-pink;
 			cursor: pointer;
 			@include buttonA;
 			background-color: transparent;

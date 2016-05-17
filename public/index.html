@@ -93,7 +93,7 @@
             </div>
             <!-- Profile Description -->
             <div class="profileinnerwrapper">
-                <div id="profileheader" style="background-image:url(img/samplecover.jpg)">e
+                <div id="profileheader" style="background-image:url(img/cover1.jpeg)">
                     <button id="profileclose"><span></span><span></span></button>
                 </div>
                 <div id="profile">
@@ -141,6 +141,15 @@
             <!-- CAROUSEL -->
             <h5 class="mainheading" ng-show="authenticated">Upcoming Trends</h5>
             <div id="news-carousel" class="owl-carousel" ng-show="authenticated">
+                <div class="item">
+                    <img class="lazyOwl" data-src="img/cover3.jpeg" alt="" />
+                    <div>
+                        <p>Jazz Night</p>
+                        <h3>Jazzyfact</h3>
+                        <h6>New Port, RI</h6>
+                        <h6>June 03, 2016</h6>
+                    </div>
+                </div>
                 <div class="item">
                     <img class="lazyOwl" data-src="img/sampleheader.jpg" alt="" />
                     <div>
@@ -215,7 +224,7 @@
                      images: post.post_info.images -->
                             <div class="postdetail">
                                 <div id="postdetail-image-holder">
-                                    <img style="width:100px; height:100px" ng-repeat="img in post.post_info.images" src={{img}}>
+                                    <img style="width:400px;" ng-repeat="img in post.post_info.images" src={{img}}>
                                     <div id="music-holder"></div>
                                 </div>
                                 <!-- comment -->
