@@ -118,7 +118,7 @@ app.use('/api', api); //other apis
 
 
 // port needs to change in production environment
-var port = 3000;
+var port = normalizePort(process.env.PORT || '3000');
 var server = http.createServer(app);
 server.listen(port);
 
@@ -433,6 +433,25 @@ app.use(function(err, req, res, next) {
     });
 });
 
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}
 
 
 // module.exports = app;
