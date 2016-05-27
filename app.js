@@ -1,3 +1,7 @@
+//connect to database && set up express 
+var db = require('./db');
+var mongoose = require('mongoose');
+
 //necessary imports
 var express = require('express');
 var path = require('path');
@@ -16,9 +20,7 @@ var api = require('./routes/api');
 var authenticate = require('./routes/authenticate')(passport);
 var app = express();
 
-//connect to database && set up express 
-var db = require('./db');
-var mongoose = require('mongoose');
+
 var Chat = mongoose.model('Chat');
 var User = mongoose.model('User');
 var Notification = mongoose.model('Notification');
@@ -38,10 +40,9 @@ app.use(logger('dev'));
 //session store variable for user sessions
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store = new MongoDBStore({
-    mongooseConnection: mongoose.connection
-})
-
-
+    uri: 'mongodb://scottljy:scottchoi92@ds017553.mlab.com:17553/heroku_w6zmj82b',
+    collection: 'mySessions'
+});
 
 nev.configure({
     persistentUserModel: User,
